@@ -17,13 +17,23 @@ export function SkillMatrix({
     <Tabs defaultValue={categories[0]?.id}>
       <TabsList className="h-auto flex-wrap">
         {categories.map((category) => (
-          <TabsTrigger key={category.id} value={category.id}>
+          <TabsTrigger
+            key={category.id}
+            value={category.id}
+            id={`skill-tab-${category.id}`}
+            aria-controls={`skill-panel-${category.id}`}
+          >
             {category.title}
           </TabsTrigger>
         ))}
       </TabsList>
       {categories.map((category) => (
-        <TabsContent key={category.id} value={category.id}>
+        <TabsContent
+          key={category.id}
+          value={category.id}
+          id={`skill-panel-${category.id}`}
+          aria-labelledby={`skill-tab-${category.id}`}
+        >
           <div className="grid gap-3 sm:grid-cols-2">
             {category.skills.map((skill) => (
               <Card key={skill.name} className={cn(skill.highlight && "ring-2 ring-accent")}>
