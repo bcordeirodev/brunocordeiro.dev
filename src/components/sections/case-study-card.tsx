@@ -34,7 +34,7 @@ export async function CaseStudyCard({
   return (
     // fundo mais profundo que o bg-card padrão para os chips (bg-secondary)
     // terem contraste dentro da caixa
-    <Card className="bg-[#0a0e14]">
+    <Card className="rounded-lg bg-[#0a0e14]">
       <CardContent className="flex flex-col gap-3">
         <p className="font-mono text-xs text-muted">{t("eyebrow")}</p>
         {/* nome do produto, não slogan — a tagline factual logo abaixo explica */}
@@ -53,7 +53,7 @@ export async function CaseStudyCard({
           <dl className="flex flex-col gap-2.5">
             {stackGroups.map((group) => (
               <div key={group.label} className="flex flex-col gap-1.5">
-                <dt className="font-mono text-[11px] font-semibold tracking-[0.15em] text-muted uppercase">
+                <dt className="font-mono text-[11px] font-bold tracking-[0.15em] text-muted uppercase">
                   {group.label}
                 </dt>
                 <dd>
