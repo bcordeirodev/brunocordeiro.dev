@@ -12,33 +12,39 @@ export async function Certifications({
   locale: Locale;
 }) {
   const t = await getTranslations({ locale, namespace: "common" });
+  const tSections = await getTranslations({ locale, namespace: "sections" });
 
   return (
-    <div className="grid gap-4 sm:grid-cols-3">
-      {items.map((certification) => (
-        <Card key={certification.name}>
-          <CardContent className="flex flex-col gap-1">
-            <h3 className="font-medium">{certification.name}</h3>
-            <p className="text-sm text-muted">{certification.issuer}</p>
-            <p className="text-xs text-muted">{formatYearMonth(certification.issued, locale)}</p>
-            {certification.expires ? (
-              <p className="text-xs text-muted">
-                {t("validUntil")} {formatYearMonth(certification.expires, locale)}
-              </p>
-            ) : null}
-            {certification.credentialUrl ? (
-              <a
-                href={certification.credentialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 text-sm text-accent underline-offset-4 hover:underline"
-              >
-                {t("viewCredential")}
-              </a>
-            ) : null}
-          </CardContent>
-        </Card>
-      ))}
+    <div className="flex flex-col gap-6">
+      <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
+        {tSections("certifications")}
+      </h2>
+      <div className="grid gap-4 sm:grid-cols-3">
+        {items.map((certification) => (
+          <Card key={certification.name}>
+            <CardContent className="flex flex-col gap-1">
+              <h3 className="font-medium">{certification.name}</h3>
+              <p className="text-sm text-muted">{certification.issuer}</p>
+              <p className="text-xs text-muted">{formatYearMonth(certification.issued, locale)}</p>
+              {certification.expires ? (
+                <p className="text-xs text-muted">
+                  {t("validUntil")} {formatYearMonth(certification.expires, locale)}
+                </p>
+              ) : null}
+              {certification.credentialUrl ? (
+                <a
+                  href={certification.credentialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 text-sm text-accent underline-offset-4 hover:underline"
+                >
+                  {t("viewCredential")}
+                </a>
+              ) : null}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }

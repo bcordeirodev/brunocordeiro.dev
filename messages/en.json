@@ -32,6 +32,10 @@
     "academic": "academic",
     "declared": "declared"
   },
+  "sections": {
+    "certifications": "certifications",
+    "githubProjects": "personal projects on github"
+  },
   "footer": {
     "builtWith": "built with next 16 — public repo"
   }
