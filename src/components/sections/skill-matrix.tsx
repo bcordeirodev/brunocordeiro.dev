@@ -60,6 +60,9 @@ export function SkillMatrix({
                   <EvidenceBadge level={skill.evidence} label={labels[skill.evidence]} />
                 </div>
                 <p className="text-sm text-muted">{skill.proof}</p>
+                {skill.tags && skill.tags.length > 0 ? (
+                  <p className="font-mono text-[11px] text-muted/70">{skill.tags.join(" · ")}</p>
+                ) : null}
               </li>
             ))}
           </ul>

@@ -14,6 +14,8 @@ export const skillSchema = z.object({
   evidence: evidenceLevelSchema,
   proof: z.string().min(1),
   highlight: z.boolean().optional().default(false),
+  // onde a skill foi exercitada (serviços/projetos), ex.: ["Link Charts", "G4F"]
+  tags: z.array(z.string().min(1)).min(1).optional(),
 });
 
 export const skillCategoryIdSchema = z.enum([
