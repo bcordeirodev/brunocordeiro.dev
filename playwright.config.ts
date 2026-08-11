@@ -1,24 +1,27 @@
 import { defineConfig, devices } from "@playwright/test";
 
+// Port 3000 is unavailable on local dev machines (occupied by an unrelated,
+// long-running Docker container for another project, Link Charts). Port 3001
+// mirrors the workaround already documented for local dev in Task 4's report.
+// CI has no such container, so it uses the framework default, 3000.
+const PORT = process.env.CI ? 3000 : 3001;
+
 export default defineConfig({
   testDir: "./e2e",
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
-  // Port 3000 is unavailable on this machine (occupied by an unrelated, long-running
-  // Docker container for another project). Port 3001 mirrors the workaround already
-  // documented for local dev in Task 4's report.
   // contextOptions.reducedMotion: "reduce" makes Reveal's whileInView fade-in
   // render fully opaque immediately (it renders a plain div under
   // prefers-reduced-motion), so axe scans see final, settled styles instead
   // of a mid-transition or below-the-fold opacity:0 frame.
   use: {
-    baseURL: "http://localhost:3001",
+    baseURL: `http://localhost:${PORT}`,
     trace: "on-first-retry",
     contextOptions: { reducedMotion: "reduce" },
   },
   webServer: {
-    command: "pnpm build && pnpm exec next start -p 3001",
-    url: "http://localhost:3001/pt",
+    command: `pnpm build && pnpm exec next start -p ${PORT}`,
+    url: `http://localhost:${PORT}/pt`,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },
