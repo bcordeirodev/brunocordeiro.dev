@@ -10,6 +10,7 @@ export async function Contact({ profile }: { profile: Profile }) {
     <div className="flex flex-col items-start gap-6 py-24">
       <h2 className="text-3xl font-bold">{t("nav.contact")}</h2>
       <p className="font-mono text-lg text-accent">{profile.email}</p>
+      <p className="text-sm text-muted">{profile.languages}</p>
       <div className="flex flex-wrap gap-3">
         <CopyEmailButton
           email={profile.email}

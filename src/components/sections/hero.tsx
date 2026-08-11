@@ -20,6 +20,7 @@ const STACK_CHIPS = [
 
 export function Hero({ profile }: { profile: Profile }) {
   const t = useTranslations("common");
+  const years = profile.metrics.find((metric) => metric.id === "years");
 
   return (
     <section className="mx-auto max-w-4xl px-6 py-24">
@@ -28,7 +29,16 @@ export function Hero({ profile }: { profile: Profile }) {
           hydrates, which tanks LCP. It's above the fold on every load, so a
           scroll-triggered fade-in adds no visible value here anyway. */}
       <div>
-        <h1 className="text-5xl font-bold tracking-tight">{profile.headline}</h1>
+        {/* Scannable identity line for recruiters/ATS/sourcing agents: name,
+            role, seniority signal, and location in plain indexable text,
+            right above the marketing headline. The h1 below stays the
+            headline on purpose (e2e asserts it matches /full-stack/i). */}
+        <p className="text-sm font-medium text-muted sm:text-base">
+          {profile.name} · {profile.role}
+          {years ? ` · ${years.value}${years.suffix ?? ""} ${years.label}` : ""} ·{" "}
+          {profile.location}
+        </p>
+        <h1 className="mt-2 text-5xl font-bold tracking-tight">{profile.headline}</h1>
         <p className="mt-4 max-w-2xl text-lg text-muted">{profile.subheadline}</p>
       </div>
 

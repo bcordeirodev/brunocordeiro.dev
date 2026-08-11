@@ -24,11 +24,12 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   const { profile } = getContent(locale);
-  const title = `${profile.name} — ${profile.headline}`;
+  const title = `${profile.name} — ${profile.role}`;
+  const description = `${profile.role} · ${profile.subheadline}`;
 
   return {
     metadataBase: new URL(SITE_URL),
-    ...buildPageMetadata({ locale, title, description: profile.subheadline }),
+    ...buildPageMetadata({ locale, title, description }),
     title: { default: title, template: "%s · Bruno Cordeiro" },
   };
 }

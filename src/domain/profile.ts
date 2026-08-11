@@ -12,6 +12,8 @@ export const profileSchema = z.object({
   name: z.string().min(1),
   headline: z.string().min(1),
   subheadline: z.string().min(1),
+  role: z.string().min(1), // ex.: "Desenvolvedor Full-Stack Sênior" — cargo/senioridade indexável
+  languages: z.string().min(1), // ex.: "Português (nativo) · Inglês avançado (C1)"
   location: z.string().min(1), // "Brasília-DF, Brasil" — NUNCA endereço completo
   email: z.string().email(),
   github: z.string().url(),

@@ -4,6 +4,8 @@ export const profile: Profile = {
   name: "Bruno Cordeiro",
   headline: "End-to-end full-stack engineering",
   subheadline: "From commit to zero-downtime deploy — 10+ years building systems that stay up.",
+  role: "Senior Full-Stack Developer",
+  languages: "Portuguese (native) · English — advanced (C1)",
   location: "Brasília-DF, Brazil",
   email: "bcordeiro.dev@gmail.com",
   github: "https://github.com/bcordeirodev",
@@ -11,8 +13,8 @@ export const profile: Profile = {
   metricsAsOf: "Aug/2026",
   metrics: [
     { id: "years", value: 10, suffix: "+", label: "years of career" },
-    { id: "tests", value: 902, suffix: "", label: "tests in Link Charts' CI" },
-    { id: "downtime", value: 0, suffix: "s", label: "deploy downtime" },
+    { id: "tests", value: 902, suffix: "", label: "automated tests blocking every merge" },
+    { id: "downtime", value: 0, suffix: "s", label: "of production downtime" },
     { id: "releases", value: 50, suffix: "", label: "production releases" },
   ],
 };

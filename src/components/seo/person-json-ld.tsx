@@ -12,7 +12,7 @@ export function PersonJsonLd({ profile }: { profile: Profile }) {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Bruno Cordeiro da Silva",
-    jobTitle: profile.headline,
+    jobTitle: profile.role,
     email: `mailto:${profile.email}`,
     url: SITE_URL,
     sameAs: [profile.github, profile.linkedin, "https://www.scrum.org/user/1506558"],
