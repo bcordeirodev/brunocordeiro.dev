@@ -60,11 +60,15 @@ export function Hero({ profile }: { profile: Profile }) {
 
       <Reveal delay={0.3}>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button render={<a href={profile.github} target="_blank" rel="noopener noreferrer" />}>
+          <Button
+            nativeButton={false}
+            render={<a href={profile.github} target="_blank" rel="noopener noreferrer" />}
+          >
             GitHub
           </Button>
           <Button
             variant="outline"
+            nativeButton={false}
             render={<a href={profile.linkedin} target="_blank" rel="noopener noreferrer" />}
           >
             LinkedIn
