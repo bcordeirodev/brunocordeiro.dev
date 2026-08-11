@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import type { Locale } from "@/content";
 import { Link } from "@/i18n/navigation";
+import { TransitionLink } from "@/components/motion/transition-link";
 import { cn } from "@/lib/utils";
 
 const LOCALES: Locale[] = ["pt", "en"];
@@ -19,16 +20,20 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-        <Link href="/" className="font-mono text-sm font-semibold tracking-tight">
+        <TransitionLink href="/" className="font-mono text-sm font-semibold tracking-tight">
           bruno.dev
-        </Link>
+        </TransitionLink>
 
         <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted">
           {anchors.map((anchor) =>
             anchor.isRoute ? (
-              <Link key={anchor.href} href={anchor.href} className="hover:text-foreground">
+              <TransitionLink
+                key={anchor.href}
+                href={anchor.href}
+                className="hover:text-foreground"
+              >
                 {anchor.label}
-              </Link>
+              </TransitionLink>
             ) : (
               <a key={anchor.href} href={anchor.href} className="hover:text-foreground">
                 {anchor.label}

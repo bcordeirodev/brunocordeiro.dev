@@ -4,7 +4,7 @@ import { getContent, type Locale } from "@/content";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
+import { TransitionLink } from "@/components/motion/transition-link";
 import { cn } from "@/lib/utils";
 
 export async function CaseStudyCard({
@@ -38,9 +38,9 @@ export async function CaseStudyCard({
             </span>
           ))}
         </div>
-        <Link href="/link-charts" className={cn(buttonVariants(), "self-start")}>
+        <TransitionLink href="/link-charts" className={cn(buttonVariants(), "self-start")}>
           {t("cta")}
-        </Link>
+        </TransitionLink>
       </CardContent>
     </Card>
   );

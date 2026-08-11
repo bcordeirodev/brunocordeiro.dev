@@ -4,6 +4,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/react";
+import { ViewTransitionsProvider } from "@/components/motion/view-transitions";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -24,7 +25,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="font-sans antialiased">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <ViewTransitionsProvider>
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </ViewTransitionsProvider>
         <Analytics />
       </body>
     </html>

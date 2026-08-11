@@ -8,7 +8,7 @@ import { CaseChapter } from "@/components/sections/case-chapter";
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
+import { TransitionLink } from "@/components/motion/transition-link";
 
 export default async function LinkChartsPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
@@ -57,9 +57,9 @@ export default async function LinkChartsPage({ params }: { params: Promise<{ loc
 
         <section className="flex flex-col items-start gap-4 py-24">
           <Reveal>
-            <Link href="/#contato" className={buttonVariants({ variant: "outline" })}>
+            <TransitionLink href="/#contato" className={buttonVariants({ variant: "outline" })}>
               {t("backToContact")}
-            </Link>
+            </TransitionLink>
           </Reveal>
         </section>
       </main>
