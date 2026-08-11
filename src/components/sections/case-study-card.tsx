@@ -61,7 +61,11 @@ export async function CaseStudyCard({
                   <ul className="flex flex-wrap gap-1.5">
                     {group.items.map((item) => (
                       <li key={item}>
-                        <Badge variant="secondary">{item}</Badge>
+                        {/* sobre o fundo #0a0e14 o bg-surface do secondary some;
+                            borda + preenchimento mais claros fazem o chip existir */}
+                        <Badge variant="secondary" className="border-border bg-border/50">
+                          {item}
+                        </Badge>
                       </li>
                     ))}
                   </ul>
