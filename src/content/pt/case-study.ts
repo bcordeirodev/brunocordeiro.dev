@@ -14,7 +14,7 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "Link Charts (linkcharts.com.br) é um encurtador de URL com analytics avançado, em produção, que criei e mantenho 100% sozinho. Cada clique é enriquecido com dados geográficos, de dispositivo, temporais e de qualidade de tráfego, exibidos em 5 dashboards: geral, geográfico (mapa coroplético/heatmap), temporal, audiência e insights.",
         "Em produção: encurtamento autenticado e público, redirect de alta performance com preview Open Graph para bots (WhatsApp/Telegram), anti-fraude com quality score por clique, subdomínios personalizados + página link-in-bio, API pública com API keys, QR codes, tags, relatórios, export CSV, UTM builder, senha em link, expiração/agendamento/click limit, health check de links, e-mails de retenção e monetização via AdSense + Google Ads.",
-        "~1.929 commits em 3 repositórios (backend, frontend, docs), todos meus, de mar/2025 a ago/2026 — mantenho essa atividade contínua em paralelo a um emprego em tempo integral. 50 tags de release com versionamento semver independente por repositório.",
+        "~1.929 commits em 3 repositórios (725 no backend, 1.029 no frontend, o restante em docs), todos meus, de mar/2025 a ago/2026 — mantenho essa atividade contínua em paralelo a um emprego em tempo integral. 50 tags de release com semver independente por repositório (backend em v2.16.0, frontend em v1.19.0).",
       ],
     },
     {
@@ -22,25 +22,44 @@ export const caseStudy: CaseStudy = {
       id: "architecture",
       title: "Arquitetura",
       paragraphs: [
-        "Backend: Laravel 12 / PHP 8.2, PostgreSQL 15, Redis 7. Camadas Controller → Service → Repository com injeção de dependência por interface, DTOs e ADRs. A rota crítica /r/{slug} serve HTML com Open Graph para bots e um redirect 302 para humanos; o tracking é 100% assíncrono via job idempotente (dedup_key UNIQUE); cache de link de 10 min; enriquecimento do clique em 3 fases (headers → inteligência server-side com viral rank/feriados → quality score anti-fraude).",
+        "Backend: Laravel 12 / PHP 8.2, PostgreSQL 15, Redis 7. Camadas Controller → Service → Repository com injeção de dependência por interface, DTOs e ADRs. A rota crítica /r/{slug} serve HTML com Open Graph para bots e um redirect 302 para humanos; o tracking é 100% assíncrono via job idempotente — sem lock distribuído: uma coluna dedup_key com índice UNIQUE + insertOrIgnore garante que retry nunca duplica clique. Cache de link de 10 min; enriquecimento em 3 fases (headers → inteligência server-side com viral rank/feriados → quality score anti-fraude).",
         "Frontend: Next.js 15 (App Router) / React 19 / TypeScript estrito, MUI 6 com design system próprio, TanStack Query 5, ISR com cache tags e revalidação sob demanda, i18n en/pt-BR, Auth0, CSP/HSTS em middleware, SEO completo (JSON-LD, sitemap, llms.txt), 30 componentes de gráfico ApexCharts e mapas Leaflet.",
-        "Integração: proxy por rewrites (zero CORS), JWT em cookie httpOnly (nunca localStorage), X-Request-Id propagado do frontend ao worker de fila para correlação de logs ponta a ponta.",
+        "Integração: proxy por rewrites (zero CORS), JWT em cookie httpOnly (nunca localStorage), X-Request-Id propagado do navegador ao worker de fila para correlação de logs ponta a ponta. Uma camada própria de dialetos SQL (SqlDateExpr) centraliza os fragmentos dependentes de driver para a suíte rodar idêntica em SQLite e PostgreSQL.",
+      ],
+    },
+    {
+      kind: "terminal",
+      id: "workflow",
+      title: "Do commit ao merge — o gate de qualidade",
+      intro:
+        "Nenhum merge publica nada. Antes de integrar, cada push passa por este funil: hook local + CI com a suíte rodando duas vezes, em dois bancos.",
+      lines: [
+        "$ git checkout -b feat/quality-score",
+        '$ git commit -m "feat(analytics): quality score por clique"',
+        "$ git push  # hook pre-push: 902 testes no container, antes de sair da máquina",
+        "▸ ci/validate: pint + phpunit (sqlite :memory:) ........ ok",
+        "▸ ci/tests-postgres: a mesma suíte em postgres 15 real . ok",
+        "▸ ci/quality (front): tsc + eslint 0 warnings + prettier ok",
+        "▸ check-build-args: NEXT_PUBLIC_* × Dockerfile ......... ok",
+        "✔ merge em main — integrar ≠ publicar; deploy só nasce de tag",
       ],
     },
     {
       kind: "terminal",
       id: "pipeline",
       title: "Deploy blue/green — 0s de downtime",
-      intro: "Cada release por tag executa este fluxo; downtime medido caiu de ~5min para 0s.",
+      intro:
+        "Publicar é um ato explícito: push de tag. A imagem builda no runner do GitHub (2m03s — nunca no servidor) e a troca de cor acontece sem derrubar uma request; downtime medido caiu de ~5min para 0s.",
       lines: [
-        "$ git tag v1.50.0 && git push --tags",
-        "▸ ci: 902 tests (sqlite + postgres 15) ......... ok",
-        "▸ build: docker multi-stage → ghcr.io .......... ok",
-        "▸ deploy: warm-up green ........................ ok",
-        "▸ health-check: 200 em loop (12/12) ............ ok",
-        "▸ nginx: cutover graceful → green .............. ok",
-        "▸ drain blue (30s) → stop ...................... ok",
-        "✔ release v1.50.0 em produção — downtime: 0s",
+        "$ git tag v2.16.0 && git push --tags",
+        "▸ build: docker multi-stage → ghcr (cache gha) ......... ok",
+        "▸ rsync: só artefatos de deploy — código não vai ao servidor",
+        "▸ warm-up green: migrate retrocompatível + caches ...... ok",
+        "▸ health local: /health em loop (até 30×, 2s) .......... ok",
+        "▸ nginx: cutover graceful do upstream → green .......... ok",
+        "▸ drain blue: 30s de keep-alive → stop ................. ok",
+        "▸ health público: 200 medido do lado de fora (5×) ...... ok",
+        "✔ v2.16.0 em produção — downtime: 0s · rollback = mesma esteira, tag antiga",
       ],
     },
     {
@@ -48,9 +67,9 @@ export const caseStudy: CaseStudy = {
       id: "observability",
       title: "Observabilidade",
       paragraphs: [
-        "OpenTelemetry (SDK 1.14, auto-instrumentação de Laravel/PDO/Guzzle, tail sampling: 100% dos erros + 100% das requisições lentas + 10% do restante) exporta traces, métricas e logs via Grafana Alloy para o Grafana Cloud.",
-        "Faro RUM no frontend captura performance real de usuário; profiling contínuo com Pyroscope/Excimer identifica hot paths no backend. 4 dashboards e 9 alert rules versionados como código — não configurados manualmente na UI.",
-        "Um uptime probe externo roda a cada 5 minutos e abre automaticamente uma issue de incidente quando o serviço cai — a operação começa antes de eu perceber o problema.",
+        "OpenTelemetry com tail sampling (100% dos erros + 100% das requisições lentas + 10% do restante) exporta traces, métricas e logs via Grafana Alloy — configurado como código — para o Grafana Cloud. Cada trace carrega service_version com o SHA do deploy: uma regressão aponta direto para a release que a introduziu.",
+        "8 canais de log por domínio (redirect, tracking, jobs, auth, http, audit...) com redação automática de PII e request_id propagado do navegador ao worker de fila. Faro RUM no frontend espelha o mesmo SHA de build; profiling contínuo com Pyroscope/Excimer identifica hot paths no PHP. 4 dashboards e 9 alert rules versionados como JSON no repositório — nada configurado à mão na UI.",
+        "Um uptime probe externo roda a cada 5 minutos fora da minha infra e abre sozinho uma issue de incidente deduplicada quando o serviço cai — a rede de segurança para o outage total que os alertas internos, por definição, não veriam.",
       ],
     },
     {
@@ -58,12 +77,21 @@ export const caseStudy: CaseStudy = {
       id: "quality",
       title: "Qualidade",
       items: [
-        { label: "Testes PHPUnit", value: "~902 (unit, feature, snapshot, characterization)" },
-        { label: "Matriz de banco no CI", value: "SQLite em memória e PostgreSQL 15 real" },
+        { label: "Testes PHPUnit", value: "902 métodos em 133 arquivos (36 unit, 97 feature)" },
+        {
+          label: "Matriz de banco no CI",
+          value: "a suíte roda 2× por push: SQLite e PostgreSQL 15 real",
+        },
+        {
+          label: "Migrations",
+          value: "56, zero destrutivas — MigrationSafetyTest reprova dropColumn no up()",
+        },
         { label: "Análise estática", value: "PHPStan/Larastan nível 5 com baseline" },
-        { label: "E2E", value: "Playwright multi-viewport (320/375/desktop, 6 projects)" },
-        { label: "Lint frontend", value: "ESLint 9 flat config, --max-warnings=0 no gate" },
-        { label: "Testes de segurança", value: "IP spoofing, rate limit, retry de fila" },
+        { label: "E2E", value: "Playwright, 6 projects (320/375/desktop × público/autenticado)" },
+        {
+          label: "Abuso e resiliência",
+          value: "16 rate limiters nomeados + testes de IP spoofing e retry de fila",
+        },
       ],
     },
     {
@@ -71,9 +99,10 @@ export const caseStudy: CaseStudy = {
       id: "postmortems",
       title: "Postmortems",
       paragraphs: [
-        "918 respostas HTTP 502 durante deploys me motivaram a reescrever o processo de release como blue/green zero-downtime — warm-up da cor nova, health check em loop, cutover gracioso no nginx, drenagem de 30s da cor antiga e abort automático em caso de falha.",
-        "Um bug de --build-arg zerou silenciosamente as conversões de Google Ads em produção; escrevi um guard automatizado no CI (check-build-args.sh) que bloqueia releases com build args ausentes.",
-        "O IP de cliente era forjável nos logs e nos rate limiters; corrigi usando o cabeçalho real-ip do Cloudflare, com um teste automatizado (ClientIpSpoofingTest) que garante que a falha não volte a passar despercebida.",
+        "13/07/2026: 918 respostas HTTP 502 durante um deploy do modelo antigo (merge publicava, build no próprio servidor) — incluindo um visitante real vindo do Facebook. Foi o gatilho para reescrever o release como blue/green por tag: warm-up da cor nova, health check em loop, cutover gracioso no nginx, drenagem da cor antiga e abort automático em falha.",
+        "Um build-arg ausente no Dockerfile compilou as conversões do Google Ads como string vazia — campanhas rodaram semanas gastando dinheiro real sem registrar uma conversão, invisível em dev porque o build local lê o .env normalmente. A resposta virou gate: check-build-args.sh compara todo NEXT_PUBLIC_* referenciado no código com os ARG do Dockerfile e bloqueia o CI se faltar algum.",
+        "O IP de cliente era forjável nos logs e nos rate limiters; corrigi com o real-ip do Cloudflare e um teste automatizado (ClientIpSpoofingTest) que garante que a falha não volta despercebida.",
+        "A melhor evidência de que o blue/green funciona veio de um deploy que falhou: o v1.0.0 do frontend quebrou no meio da esteira (bug de rsync) enquanto um medidor externo batia no site a cada 2s — 156 de 156 amostras responderam 200. Um release quebrado não derruba nada; ele simplesmente não acontece.",
       ],
     },
     {
@@ -82,8 +111,9 @@ export const caseStudy: CaseStudy = {
       title: "Como foi construído: IA com guardrails",
       paragraphs: [
         "Construí o Link Charts com um fluxo de trabalho IA-first guiado por spec: brainstorm → design doc → plano → execução, orquestrando múltiplos agentes e subagentes em execução por fases com relatório de cada etapa.",
-        "Contexto como artefato: mantenho, versionado no repositório, um CLAUDE.md de 22KB que documenta a arquitetura para os agentes; ADRs e postmortems alimentam esse contexto ao longo do tempo; o frontend expõe llms.txt para conteúdo legível por LLMs.",
-        "Minha tese: solo dev + IA + gates rigorosos produz output de nível empresa. A velocidade de ~1.929 commits solo em 17 meses, que sustento em paralelo a um emprego em tempo integral, não veio às custas da qualidade: os mesmos ~902 testes, PHPStan e checks de zero-warnings continuaram bloqueando merges o tempo todo. IA amplifica; os guardrails garantem.",
+        "Contexto como artefato: um arquivo de contexto de arquitetura (22KB) versionado no repositório orienta os agentes; ADRs e postmortems realimentam esse contexto ao longo do tempo; o frontend publica llms.txt para conteúdo legível por LLMs.",
+        "Automação com freio humano: um comando próprio (/ship) automatiza commit → PR → CI → merge → deploy → health check, com no máximo 2 tentativas de autocorreção por etapa — se não resolver, para com um aviso explícito e devolve o controle para mim. A regra de migration segura também deixou de ser wiki e virou teste que reprova o CI.",
+        "Minha tese: solo dev + IA + gates rigorosos produz output de nível empresa. Os ~1.929 commits solo em 17 meses, em paralelo a um emprego em tempo integral, não vieram às custas da qualidade: os mesmos 902 testes, PHPStan e zero-warnings bloquearam merges o tempo todo. IA amplifica; os guardrails decidem.",
       ],
     },
     {

@@ -215,11 +215,17 @@ export const skillCategories: SkillCategory[] = [
         proof: "Gerenciamento de estado em projetos corporativos (G4F, Basis)",
         highlight: false,
       },
-      { name: "React Query e SWR", evidence: "professional", proof: "G4F", highlight: false },
+      {
+        name: "React Query e SWR",
+        evidence: "professional",
+        proof: "Data fetching e sincronização de estado assíncrono no sistema consular do G4F",
+        highlight: false,
+      },
       {
         name: "Styled Components · SASS/SCSS",
         evidence: "professional",
-        proof: "G4F, Basis",
+        proof:
+          "CSS-in-JS (Styled Components) e SASS em interfaces de sistemas corporativos (G4F, Basis)",
         highlight: false,
       },
       {
@@ -228,26 +234,48 @@ export const skillCategories: SkillCategory[] = [
         proof: "Mock de API em testes corporativos (G4F, VegaIT)",
         highlight: false,
       },
-      { name: "i18n (corporativo)", evidence: "professional", proof: "G4F", highlight: false },
+      {
+        name: "i18n (corporativo)",
+        evidence: "professional",
+        proof: "Internacionalização de telas multi-idioma no sistema consular do G4F",
+        highlight: false,
+      },
       {
         name: "Webpack · jQuery",
         evidence: "professional",
-        proof: "Legado corporativo",
+        proof: "Bundling de módulos e manipulação de DOM em sistemas legados corporativos",
         highlight: false,
       },
       {
         name: "Tailwind CSS",
         evidence: "project",
-        proof: "lawyer-hero-envato, rent-landingpage",
+        proof: "CSS utility-first com tokens e tema próprio — landing pages responsivas publicadas",
         highlight: false,
       },
-      { name: "Framer Motion", evidence: "project", proof: "lawyer-hero-envato", highlight: false },
-      { name: "CVA", evidence: "project", proof: "lawyer-hero-envato", highlight: false },
-      { name: "Atomic Design", evidence: "project", proof: "rent-landingpage", highlight: false },
+      {
+        name: "Framer Motion",
+        evidence: "project",
+        proof: "Animações declarativas de entrada e scroll numa landing page autoral publicada",
+        highlight: false,
+      },
+      {
+        name: "CVA",
+        evidence: "project",
+        proof: "Variantes de componentes tipadas (class-variance-authority) em projeto autoral",
+        highlight: false,
+      },
+      {
+        name: "Atomic Design",
+        evidence: "project",
+        proof:
+          "Componentes organizados em átomos, moléculas e organismos numa landing page autoral",
+        highlight: false,
+      },
       {
         name: "Vue.js · Bootstrap · LESS (legado)",
         evidence: "professional",
-        proof: "Partido Republicano da Ordem Social, Transoft",
+        proof:
+          "Componentes reativos Vue.js com Bootstrap/LESS em telas de gestão sobre Laravel — SPAs legadas por ~3 anos",
         highlight: false,
       },
     ],
@@ -334,22 +362,31 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Express · AdonisJS (Lucid)",
         evidence: "professional",
-        proof: "G4F",
+        proof: "APIs REST com Express e AdonisJS (Lucid ORM) em serviços corporativos no G4F",
         highlight: false,
       },
-      { name: "Prisma ORM", evidence: "professional", proof: "G4F", highlight: false },
-      { name: "Deno (OAK, DenoDB)", evidence: "professional", proof: "G4F", highlight: false },
+      {
+        name: "Prisma ORM",
+        evidence: "professional",
+        proof: "Modelagem e migrations type-safe com Prisma em microsserviço NestJS no G4F",
+        highlight: false,
+      },
+      {
+        name: "Deno (OAK, DenoDB)",
+        evidence: "professional",
+        proof: "Runtime Deno com OAK para rotas e DenoDB como ORM em serviço corporativo no G4F",
+        highlight: false,
+      },
       {
         name: "Laravel 8.1",
         evidence: "professional",
-        proof: "Basis Tecnologia",
+        proof: "Framework PHP MVC com Eloquent em sistema interno corporativo na Basis Tecnologia",
         highlight: false,
       },
       {
         name: "PHP 5.6–7.4 (Eloquent, Propel, Swagger, PSRs)",
         evidence: "professional",
-        proof:
-          "PHP profissional desde 2016 — Basis, Partido Republicano da Ordem Social, Transoft, Plug Digital",
+        proof: "Eloquent e Propel como ORMs, documentação Swagger e padrões PSR desde 2016",
         highlight: false,
       },
       {
@@ -431,16 +468,23 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Jenkins · Bamboo · GitLab CI · SonarQube · Rancher · Harbor · Apache · Ubuntu",
         evidence: "professional",
-        proof: "G4F e Basis",
+        proof:
+          "CI/CD e infraestrutura corporativa: pipelines, qualidade de código e deploy em containers (G4F, Basis)",
         highlight: false,
       },
       {
         name: "Bitbucket (incl. Pipelines)",
         evidence: "declared",
-        proof: "Bitbucket / Bitbucket Pipelines",
+        proof:
+          "Hospedagem Git e pipelines CI/CD da Atlassian — competência declarada, sem projeto verificado",
         highlight: false,
       },
-      { name: "Azure DevOps", evidence: "professional", proof: "VegaIT", highlight: false },
+      {
+        name: "Azure DevOps",
+        evidence: "professional",
+        proof: "Boards e pipelines de CI/CD da Microsoft em projeto frontend na VegaIT",
+        highlight: false,
+      },
     ],
   },
   {
@@ -529,7 +573,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Jest · Testing Library · MSW",
         evidence: "professional",
-        proof: "G4F, Basis; também no projeto autoral hotel",
+        proof: "Testes unitários e mock de API em projetos corporativos e no projeto autoral hotel",
         highlight: false,
       },
       {
@@ -572,13 +616,13 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Oracle",
         evidence: "professional",
-        proof: "Basis Tecnologia, Transoft",
+        proof: "PL/SQL e modelagem em bancos corporativos de sistemas internos de grande porte",
         highlight: false,
       },
       {
         name: "MySQL",
         evidence: "professional",
-        proof: "Partido Republicano da Ordem Social",
+        proof: "Modelagem relacional e queries em sistemas de gestão partidária e jurídica",
         highlight: false,
       },
     ],
@@ -641,13 +685,15 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "SCRUM, Lean Kanban, Jira",
         evidence: "professional",
-        proof: "G4F, Basis",
+        proof:
+          "Cerimônias Scrum, quadros Kanban e backlog no Jira em times corporativos (G4F, Basis)",
         highlight: false,
       },
       {
         name: "Levantamento de requisitos e documentação",
         evidence: "professional",
-        proof: "Partido Republicano da Ordem Social",
+        proof:
+          "Entrevistas com stakeholders e especificação funcional para sistemas de gestão partidária",
         highlight: false,
       },
       {
