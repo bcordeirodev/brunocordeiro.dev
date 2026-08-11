@@ -50,9 +50,12 @@ export function SkillMatrix({
           // agents that only ever see the first HTML response.
           keepMounted
         >
-          <ul className="divide-y divide-border/60">
+          <ul className="grid gap-x-10 sm:grid-cols-2">
             {category.skills.map((skill) => (
-              <li key={skill.name} className="flex flex-col gap-1 py-3">
+              <li
+                key={skill.name}
+                className="flex flex-col gap-0.5 border-b border-border/60 py-2.5"
+              >
                 <div className="flex items-center justify-between gap-2">
                   <span className={cn("font-mono text-sm", skill.highlight && "text-accent")}>
                     {skill.name}
@@ -60,7 +63,9 @@ export function SkillMatrix({
                   <EvidenceBadge level={skill.evidence} label={labels[skill.evidence]} />
                 </div>
                 <p className="text-sm text-muted">{skill.proof}</p>
-                {skill.tags && skill.tags.length > 0 ? (
+                {/* origem só onde ela varia: em "production" o proof já diz
+                    Link Charts/este site — tag seria redundante */}
+                {skill.tags && skill.tags.length > 0 && skill.evidence !== "production" ? (
                   <p className="font-mono text-[11px] text-muted">{skill.tags.join(" · ")}</p>
                 ) : null}
               </li>

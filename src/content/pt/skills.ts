@@ -35,24 +35,12 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "HTML semântico",
+        name: "HTML semântico · CSS moderno",
         evidence: "production",
-        proof: "Markup semântico em produção no Link Charts e nos sites de clientes",
+        proof:
+          "Markup semântico e CSS moderno (SASS/SCSS, LESS, Tailwind, CSS-in-JS) em produção no Link Charts e em sites de clientes",
         highlight: false,
         tags: ["Link Charts"],
-      },
-      {
-        name: "CSS moderno",
-        evidence: "production",
-        proof: "SASS/SCSS, LESS, Tailwind, CSS-in-JS (Emotion, Styled Components) em produção",
-        highlight: false,
-        tags: ["Link Charts"],
-      },
-      {
-        name: "Swift",
-        evidence: "academic",
-        proof: "Pós-graduação em Desenvolvimento de Dispositivos Móveis (IESB)",
-        highlight: false,
       },
     ],
   },
@@ -79,25 +67,10 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "API REST versionada + OpenAPI (Scramble)",
         evidence: "production",
-        proof: "Rotas /api/v1 documentadas automaticamente no Link Charts",
-        highlight: false,
-        tags: ["Link Charts"],
-      },
-      {
-        name: "REST/RESTful",
-        evidence: "production",
         proof:
-          "APIs versionadas (/api/v1), semântica HTTP correta, OpenAPI/Swagger (Scramble no Link Charts; Swagger na Basis)",
+          "Rotas /api/v1 com Scramble no Link Charts e Swagger na Basis; semântica HTTP correta e versionamento consistente",
         highlight: false,
         tags: ["Link Charts", "Basis"],
-      },
-      {
-        name: "DTOs e contratos de dados",
-        evidence: "production",
-        proof:
-          "DTOs no back (Laravel e NestJS), API Resources, validação em camadas (Zod no front, FormRequests no back)",
-        highlight: false,
-        tags: ["Link Charts", "G4F"],
       },
       {
         name: "ORMs — 6 em 3 runtimes",
@@ -108,18 +81,18 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts", "G4F", "Basis", "Ordem Social"],
       },
       {
-        name: "POO, SOLID, PSRs, MVC, arquitetura em camadas",
+        name: "Fundamentos de projeto (POO, SOLID, DTOs, PSRs, MVC)",
         evidence: "production",
         proof:
-          "Controller → Service → Repository, injeção de dependência por interface, Design Patterns nomeados: Singleton, Strategy, Registry, Observer, Orchestrator, Repository",
+          "Controller → Service → Repository, DI por interface, DTOs (Laravel/NestJS), Strategy, Registry, Observer, Orchestrator",
         highlight: false,
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "G4F"],
       },
       {
         name: "Caching e padrões assíncronos",
         evidence: "production",
         proof:
-          "Redis, ISR/cache tags, HTTP; idempotência (dedup_key + insertOrIgnore); filas, middlewares, webhooks assinados (hash_equals); fluxos de auth (JWT httpOnly, ACL, OAuth/Auth0, Sanctum); i18n como arquitetura",
+          "Redis, ISR/cache tags, idempotência (dedup_key), filas, webhooks assinados (hash_equals), auth (JWT, OAuth/Auth0), i18n",
         highlight: false,
         tags: ["Link Charts", "Basis"],
       },
@@ -127,7 +100,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Segurança de aplicações — OWASP Top 10 na prática",
         evidence: "production",
         proof:
-          "JWT em cookie httpOnly (XSS), comparação hash_equals (timing attack), 16 rate limiters (brute force/DoS), proteção contra IP spoofing (Cloudflare real-ip + teste automatizado), validação em camadas, secrets fora do código, PII redaction em logs, anti-fraude com quality score, Google Safe Browsing, LGPD aplicada",
+          "JWT httpOnly, hash_equals, 16 rate limiters, anti-spoofing (Cloudflare), PII redaction, anti-fraude, LGPD aplicada",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -164,9 +137,9 @@ export const skillCategories: SkillCategory[] = [
         name: "Next.js 15",
         evidence: "production",
         proof:
-          "App Router, Server Components, ISR + cache tags, middleware, route handlers, Turbopack — produção no Link Charts",
+          "App Router, Server Components, ISR + cache tags, Turbopack no Link Charts; 13/14 e React 17/18 em produção no G4F",
         highlight: true,
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "G4F"],
       },
       {
         name: "React 19",
@@ -221,9 +194,9 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "i18n (i18next)",
         evidence: "production",
-        proof: "13 namespaces em produção no Link Charts",
+        proof: "13 namespaces em produção no Link Charts; i18n corporativo multi-idioma na G4F",
         highlight: false,
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "G4F"],
       },
       {
         name: "SEO técnico",
@@ -247,13 +220,6 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Next.js 13/14 e React 17/18 (corporativo)",
-        evidence: "professional",
-        proof: "Sistemas corporativos SPA/SSG/SSR na G4F",
-        highlight: false,
-        tags: ["G4F"],
-      },
-      {
         name: "Redux · Context API",
         evidence: "professional",
         proof: "Gerenciamento de estado em projetos corporativos (G4F, Basis)",
@@ -274,27 +240,6 @@ export const skillCategories: SkillCategory[] = [
           "CSS-in-JS (Styled Components) e SASS em interfaces de sistemas corporativos (G4F, Basis)",
         highlight: false,
         tags: ["G4F", "Basis"],
-      },
-      {
-        name: "MSW",
-        evidence: "professional",
-        proof: "Mock de API em testes corporativos (G4F, VegaIT)",
-        highlight: false,
-        tags: ["G4F", "VegaIT"],
-      },
-      {
-        name: "i18n (corporativo)",
-        evidence: "professional",
-        proof: "Internacionalização de telas multi-idioma no sistema consular do G4F",
-        highlight: false,
-        tags: ["G4F"],
-      },
-      {
-        name: "Webpack · jQuery",
-        evidence: "professional",
-        proof: "Bundling de módulos e manipulação de DOM em sistemas legados corporativos",
-        highlight: false,
-        tags: ["Ordem Social", "Transoft", "Plug Digital"],
       },
       {
         name: "Design System gov.br + acessibilidade",
@@ -322,21 +267,6 @@ export const skillCategories: SkillCategory[] = [
         name: "Framer Motion",
         evidence: "project",
         proof: "Animações declarativas de entrada e scroll numa landing page autoral publicada",
-        highlight: false,
-        tags: ["projetos pessoais"],
-      },
-      {
-        name: "CVA",
-        evidence: "project",
-        proof: "Variantes de componentes tipadas (class-variance-authority) em projeto autoral",
-        highlight: false,
-        tags: ["projetos pessoais"],
-      },
-      {
-        name: "Atomic Design",
-        evidence: "project",
-        proof:
-          "Componentes organizados em átomos, moléculas e organismos numa landing page autoral",
         highlight: false,
         tags: ["projetos pessoais"],
       },
@@ -417,16 +347,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "JSNSD — OpenJS Node.js Services Developer",
-        evidence: "certified",
-        proof: "The Linux Foundation, fev/2025",
-        highlight: false,
-      },
-      {
         name: "NestJS + TypeORM + Passport/JWT",
         evidence: "professional",
         proof:
-          "Produção de grande porte no setor público (G4F): microsserviços, SSO gov.br (Login Único/OIDC), Prisma 6; TypeORM e Passport/JWT no backend do projeto autoral hotel",
+          "Setor público (G4F): microsserviços, SSO gov.br (OIDC), Prisma 6; TypeORM e Passport/JWT no backend do projeto hotel",
         highlight: true,
         tags: ["G4F", "projetos pessoais"],
       },
@@ -460,16 +384,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F"],
       },
       {
-        name: "Laravel 8.1",
+        name: "PHP 5.6–8.1 legado (Eloquent, Propel, Swagger, PSRs)",
         evidence: "professional",
-        proof: "Framework PHP MVC com Eloquent em sistema interno corporativo na Basis Tecnologia",
-        highlight: false,
-        tags: ["Basis"],
-      },
-      {
-        name: "PHP 5.6–7.4 (Eloquent, Propel, Swagger, PSRs)",
-        evidence: "professional",
-        proof: "Eloquent e Propel como ORMs, documentação Swagger e padrões PSR desde 2016",
+        proof:
+          "Eloquent e Propel como ORMs, Swagger e PSRs desde 2016; Laravel 8.1 MVC em sistema interno da Basis",
         highlight: false,
         tags: ["Basis", "Ordem Social", "Plug Digital"],
       },
@@ -579,13 +497,6 @@ export const skillCategories: SkillCategory[] = [
         proof: "Boards e pipelines de CI/CD da Microsoft em projeto frontend na VegaIT",
         highlight: false,
         tags: ["VegaIT"],
-      },
-      {
-        name: "Bitbucket (incl. Pipelines)",
-        evidence: "declared",
-        proof:
-          "Hospedagem Git e pipelines CI/CD da Atlassian — competência declarada, sem projeto verificado",
-        highlight: false,
       },
     ],
   },
@@ -701,7 +612,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Fluxo de trabalho IA-first com guardrails de engenharia",
         evidence: "production",
         proof:
-          "Desenvolvimento guiado por spec (brainstorm → design doc → plano → execução), orquestração de múltiplos agentes e subagentes, execução por fases com relatórios — comprovado pela velocidade do Link Charts (~1.929 commits solo em 17 meses, com emprego em tempo integral) sem abrir mão dos gates (902 testes, PHPStan, E2E, zero-warnings)",
+          "Dev guiado por spec, orquestração de agentes — ~1.929 commits solo/17 meses, mantendo 902 testes, PHPStan, E2E",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -736,16 +647,9 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts", "projetos pessoais"],
       },
       {
-        name: "ADRs (MADR)",
+        name: "ADRs (MADR) + diagramas Mermaid",
         evidence: "production",
-        proof: "Decisões de arquitetura documentadas em docs/adr/",
-        highlight: false,
-        tags: ["Link Charts"],
-      },
-      {
-        name: "Mermaid",
-        evidence: "production",
-        proof: "Diagramas versionados na documentação",
+        proof: "Decisões de arquitetura documentadas em docs/adr/, com diagramas versionados",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -764,18 +668,6 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "PSM I — Professional Scrum Master",
-        evidence: "certified",
-        proof: "Scrum.org, jan/2024",
-        highlight: false,
-      },
-      {
-        name: "freeCodeCamp — JavaScript Algorithms and Data Structures",
-        evidence: "certified",
-        proof: "out/2024",
-        highlight: false,
-      },
-      {
         name: "SCRUM, Lean Kanban, Jira",
         evidence: "professional",
         proof:
@@ -790,14 +682,6 @@ export const skillCategories: SkillCategory[] = [
           "Entrevistas com stakeholders e especificação funcional para sistemas de gestão partidária",
         highlight: false,
         tags: ["Ordem Social"],
-      },
-      {
-        name: "Cultura de padrões/mentoria",
-        evidence: "academic",
-        proof:
-          "Guia autoral de 22 regras (coverage 80%, commitlint, rebase-only) — README do repo hotel",
-        highlight: false,
-        tags: ["projetos pessoais"],
       },
     ],
   },
