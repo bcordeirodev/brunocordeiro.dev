@@ -1,14 +1,16 @@
 import { getTranslations } from "next-intl/server";
-import type { Certification } from "@/domain";
+import type { Certification, Education } from "@/domain";
 import type { Locale } from "@/content";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatYearMonth } from "@/lib/dates";
 
 export async function Certifications({
   items,
+  education = [],
   locale,
 }: {
   items: Certification[];
+  education?: Education[];
   locale: Locale;
 }) {
   const t = await getTranslations({ locale, namespace: "common" });
@@ -19,6 +21,19 @@ export async function Certifications({
       <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
         {tSections("certifications")}
       </h2>
+      {education.length > 0 ? (
+        <ul className="flex flex-col gap-2">
+          {education.map((entry) => (
+            <li key={entry.degree} className="text-sm">
+              <span className="font-medium">{entry.degree}</span>
+              <span className="text-muted">
+                {" "}
+                — {entry.institution} · {entry.period}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
       <div className="grid gap-4 sm:grid-cols-3">
         {items.map((certification) => (
           <Card key={certification.name}>

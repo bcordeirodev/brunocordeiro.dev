@@ -18,7 +18,8 @@ export const profileSchema = z.object({
   email: z.string().email(),
   github: z.string().url(),
   linkedin: z.string().url(),
-  metricsAsOf: z.string().min(1), // ex.: "ago/2026"
+  metricsAsOf: z.string().min(1),
+  asOfYm: z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/), // mês de referência, ex.: "2026-08"
   metrics: z.array(metricSchema).min(3).max(4),
 });
 

@@ -61,11 +61,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
         </Reveal>
         <Reveal>
           <section id="trajetoria" className="scroll-mt-24">
-            <Timeline experiences={content.experiences} locale={locale} />
+            <Timeline
+              experiences={content.experiences}
+              locale={locale}
+              nowYm={content.profile.asOfYm}
+            />
           </section>
         </Reveal>
         <Reveal>
-          <Certifications items={content.certifications} locale={locale} />
+          <Certifications
+            items={content.certifications}
+            education={content.education}
+            locale={locale}
+          />
         </Reveal>
         <Reveal>
           <section id="ia" className="scroll-mt-24">

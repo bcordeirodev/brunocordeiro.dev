@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import type { Experience } from "@/domain";
 import type { Locale } from "@/content";
 import { Badge } from "@/components/ui/badge";
-import { formatPeriod } from "@/lib/dates";
+import { formatDuration, formatPeriod } from "@/lib/dates";
 
 function periodsOverlap(a: Experience, b: Experience): boolean {
   const aEnd = a.end ?? "9999-12";
@@ -20,9 +20,11 @@ function overlappingCompanies(experience: Experience, experiences: Experience[])
 export async function Timeline({
   experiences,
   locale,
+  nowYm,
 }: {
   experiences: Experience[];
   locale: Locale;
+  nowYm: string;
 }) {
   const t = await getTranslations({ locale, namespace: "common" });
 
@@ -47,6 +49,7 @@ export async function Timeline({
             <p className="mt-0.5 text-sm text-muted">{experience.role}</p>
             <p className="mt-1.5 text-xs text-muted">
               {formatPeriod(experience.start, experience.end, locale, t("current"))}
+              {` · ${formatDuration(experience.start, experience.end, locale, nowYm)}`}
               {experience.location ? ` · ${experience.location}` : ""}
             </p>
             {parallelCompanies.length > 0 && (

@@ -12,6 +12,7 @@ export const profile: Profile = {
   github: "https://github.com/bcordeirodev",
   linkedin: "https://www.linkedin.com/in/bruno-c-a85561142/",
   metricsAsOf: "Aug/2026",
+  asOfYm: "2026-08",
   metrics: [
     { id: "years", value: 10, suffix: "+", label: "years of career" },
     { id: "tests", value: 902, suffix: "", label: "automated tests blocking every merge" },
