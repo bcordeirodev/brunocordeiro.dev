@@ -1,0 +1,69 @@
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getContent, type Locale } from "@/content";
+import { getGithubShowcase } from "@/services/github";
+import { formatYearMonth } from "@/lib/dates";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { CaseChapter } from "@/components/sections/case-chapter";
+import { Reveal } from "@/components/motion/reveal";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
+
+export default async function LinkChartsPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const { caseStudy } = getContent(locale);
+  const showcase = await getGithubShowcase();
+
+  const t = await getTranslations({ locale, namespace: "caseStudyPage" });
+  const tCommon = await getTranslations({ locale, namespace: "common" });
+
+  return (
+    <>
+      <SiteHeader />
+      <main className="mx-auto max-w-4xl px-6">
+        <section className="py-24">
+          <Reveal>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{caseStudy.title}</h1>
+            <p className="mt-4 max-w-2xl text-lg text-muted">{caseStudy.tagline}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href={caseStudy.productUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonVariants()}
+              >
+                {t("visitProduct")}
+              </a>
+              {showcase.latestRelease ? (
+                <span className="flex items-center gap-2 text-sm text-muted">
+                  <Badge>{showcase.latestRelease.tag}</Badge>
+                  {t("latestRelease")} ·{" "}
+                  {tCommon("updatedOn", {
+                    date: formatYearMonth(showcase.latestRelease.publishedAt.slice(0, 7), locale),
+                  })}
+                </span>
+              ) : null}
+            </div>
+          </Reveal>
+        </section>
+
+        {caseStudy.chapters.map((chapter) => (
+          <Reveal key={chapter.id}>
+            <CaseChapter chapter={chapter} />
+          </Reveal>
+        ))}
+
+        <section className="flex flex-col items-start gap-4 py-24">
+          <Reveal>
+            <Link href="/#contato" className={buttonVariants({ variant: "outline" })}>
+              {t("backToContact")}
+            </Link>
+          </Reveal>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}

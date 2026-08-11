@@ -19,6 +19,11 @@
   "caseStudyCard": {
     "cta": "read the full case study"
   },
+  "caseStudyPage": {
+    "visitProduct": "visit linkcharts.com.br",
+    "latestRelease": "release in production",
+    "backToContact": "back to contact"
+  },
   "evidence": {
     "production": "in production",
     "professional": "professional",
