@@ -47,7 +47,6 @@ export const experiences: Experience[] = [
         description:
           "Worldwide multi-language public consular service, with document generation and identity verification",
       },
-      { name: "E-folhas", description: "Payroll management for consulate staff" },
     ],
   },
   {

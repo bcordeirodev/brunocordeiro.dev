@@ -47,7 +47,6 @@ export const experiences: Experience[] = [
         description:
           "Atendimento consular ao público em todo o mundo, com suporte multi-idioma, geração documental e verificação de identidade",
       },
-      { name: "E-folhas", description: "Gestão de pagamento de funcionários dos consulados" },
     ],
   },
   {
