@@ -127,7 +127,7 @@ export const skillCategories: SkillCategory[] = [
         name: "React 19",
         evidence: "production",
         proof: "Base de todo o frontend do Link Charts, com Server Components",
-        highlight: false,
+        highlight: true,
       },
       {
         name: "TypeScript estrito (noUncheckedIndexedAccess)",
@@ -454,7 +454,7 @@ export const skillCategories: SkillCategory[] = [
         evidence: "production",
         proof:
           "v9 flat config, --max-warnings=0 no gate; uso profissional desde ~2019 nas empresas",
-        highlight: true,
+        highlight: false,
       },
       {
         name: "Prettier",
