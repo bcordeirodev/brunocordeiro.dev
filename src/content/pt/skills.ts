@@ -25,12 +25,6 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
-        name: "SQL multi-dialeto",
-        evidence: "production",
-        proof: "PostgreSQL, MySQL, Oracle, SQLite — camada própria de dialetos no Link Charts",
-        highlight: false,
-      },
-      {
         name: "Bash",
         evidence: "production",
         proof: "Scripts de deploy blue/green (176 linhas) e operação",
@@ -65,6 +59,19 @@ export const skillCategories: SkillCategory[] = [
         evidence: "production",
         proof:
           "Aplicados em sistemas corporativos (G4F: rotas SPA, SSG e SSR) e no Link Charts (ISR 300s + revalidateTag)",
+        highlight: false,
+      },
+      {
+        name: "Arquitetura em camadas (Controller → Service → Repository)",
+        evidence: "production",
+        proof:
+          "DI por interface, DTOs, Strategy/Registry, Orchestrator, Observer, ADRs — 145 arquivos PHP, ~28k linhas no Link Charts",
+        highlight: false,
+      },
+      {
+        name: "API REST versionada + OpenAPI (Scramble)",
+        evidence: "production",
+        proof: "Rotas /api/v1 documentadas automaticamente no Link Charts",
         highlight: false,
       },
       {
@@ -121,6 +128,12 @@ export const skillCategories: SkillCategory[] = [
         evidence: "professional",
         proof:
           "Serviço de autenticação separado do core em sistema consular de grande porte no setor público (G4F)",
+        highlight: false,
+      },
+      {
+        name: "Segurança web aplicada",
+        evidence: "professional",
+        proof: "CSP por request, HSTS, DOMPurify e hCaptcha em sistema público de grande porte",
         highlight: false,
       },
     ],
@@ -247,6 +260,19 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
+        name: "Design System gov.br + acessibilidade",
+        evidence: "professional",
+        proof: "GOVBR-DS e jsx-a11y em produto público federal multi-idioma",
+        highlight: false,
+      },
+      {
+        name: "Vue.js · Bootstrap · LESS (legado)",
+        evidence: "professional",
+        proof:
+          "Componentes reativos Vue.js com Bootstrap/LESS em telas de gestão sobre Laravel — SPAs legadas por ~3 anos",
+        highlight: false,
+      },
+      {
         name: "Tailwind CSS",
         evidence: "project",
         proof: "CSS utility-first com tokens e tema próprio — landing pages responsivas publicadas",
@@ -271,13 +297,6 @@ export const skillCategories: SkillCategory[] = [
           "Componentes organizados em átomos, moléculas e organismos numa landing page autoral",
         highlight: false,
       },
-      {
-        name: "Vue.js · Bootstrap · LESS (legado)",
-        evidence: "professional",
-        proof:
-          "Componentes reativos Vue.js com Bootstrap/LESS em telas de gestão sobre Laravel — SPAs legadas por ~3 anos",
-        highlight: false,
-      },
     ],
   },
   {
@@ -289,19 +308,6 @@ export const skillCategories: SkillCategory[] = [
         evidence: "production",
         proof: "Em produção no Link Charts desde 2025",
         highlight: true,
-      },
-      {
-        name: "Arquitetura em camadas (Controller → Service → Repository)",
-        evidence: "production",
-        proof:
-          "DI por interface, DTOs, Strategy/Registry, Orchestrator, Observer, ADRs — 145 arquivos PHP, ~28k linhas no Link Charts",
-        highlight: false,
-      },
-      {
-        name: "API REST versionada + OpenAPI (Scramble)",
-        evidence: "production",
-        proof: "Rotas /api/v1 documentadas automaticamente no Link Charts",
-        highlight: false,
       },
       {
         name: "Autenticação multi-mecanismo",
@@ -319,6 +325,12 @@ export const skillCategories: SkillCategory[] = [
         name: "Filas e jobs idempotentes",
         evidence: "production",
         proof: "13 jobs, retry/backoff, dedup_key UNIQUE + insertOrIgnore",
+        highlight: false,
+      },
+      {
+        name: "Eloquent",
+        evidence: "production",
+        proof: "Observers, factories, seeders no Link Charts",
         highlight: false,
       },
       {
@@ -346,11 +358,23 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
+        name: "Auth0 full-stack",
+        evidence: "production",
+        proof: "Fluxo completo front+back no Link Charts",
+        highlight: false,
+      },
+      {
+        name: "JSNSD — OpenJS Node.js Services Developer",
+        evidence: "certified",
+        proof: "The Linux Foundation, fev/2025",
+        highlight: false,
+      },
+      {
         name: "NestJS + TypeORM + Passport/JWT",
         evidence: "professional",
         proof:
           "Produção de grande porte no setor público (G4F): microsserviços, SSO gov.br (Login Único/OIDC), Prisma 6; TypeORM e Passport/JWT no backend do projeto autoral hotel",
-        highlight: false,
+        highlight: true,
       },
       {
         name: "WebSockets (socket.io)",
@@ -387,12 +411,6 @@ export const skillCategories: SkillCategory[] = [
         name: "PHP 5.6–7.4 (Eloquent, Propel, Swagger, PSRs)",
         evidence: "professional",
         proof: "Eloquent e Propel como ORMs, documentação Swagger e padrões PSR desde 2016",
-        highlight: false,
-      },
-      {
-        name: "JSNSD — OpenJS Node.js Services Developer",
-        evidence: "certified",
-        proof: "The Linux Foundation, fev/2025",
         highlight: false,
       },
     ],
@@ -461,15 +479,31 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Kubernetes",
         evidence: "professional",
-        proof:
-          "Manifests k8s/ no frontend de sistema consular de grande porte no setor público (G4F)",
+        proof: "Orquestração de contêineres em sistema consular de grande porte no setor público",
         highlight: true,
       },
       {
-        name: "Jenkins · Bamboo · GitLab CI · SonarQube · Rancher · Harbor · Apache · Ubuntu",
+        name: "Jenkins · Bamboo · GitLab CI",
         evidence: "professional",
-        proof:
-          "CI/CD e infraestrutura corporativa: pipelines, qualidade de código e deploy em containers (G4F, Basis)",
+        proof: "Esteiras corporativas de build e deploy (Basis, G4F)",
+        highlight: false,
+      },
+      {
+        name: "Rancher · Harbor",
+        evidence: "professional",
+        proof: "Orquestração de contêineres e registry privado em ambiente corporativo",
+        highlight: false,
+      },
+      {
+        name: "Apache · Nginx · Ubuntu",
+        evidence: "professional",
+        proof: "Operação de servidores web Linux, de VPS próprio a infra corporativa",
+        highlight: false,
+      },
+      {
+        name: "Azure DevOps",
+        evidence: "professional",
+        proof: "Boards e pipelines de CI/CD da Microsoft em projeto frontend na VegaIT",
         highlight: false,
       },
       {
@@ -477,12 +511,6 @@ export const skillCategories: SkillCategory[] = [
         evidence: "declared",
         proof:
           "Hospedagem Git e pipelines CI/CD da Atlassian — competência declarada, sem projeto verificado",
-        highlight: false,
-      },
-      {
-        name: "Azure DevOps",
-        evidence: "professional",
-        proof: "Boards e pipelines de CI/CD da Microsoft em projeto frontend na VegaIT",
         highlight: false,
       },
     ],
@@ -522,65 +550,22 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
-        name: "ESLint",
+        name: "Lint e formatação como gate",
         evidence: "production",
         proof:
-          "v9 flat config, --max-warnings=0 no gate; uso profissional desde ~2019 nas empresas",
+          "ESLint --max-warnings=0, Prettier e Laravel Pint bloqueando CI no Link Charts e neste site",
         highlight: false,
       },
       {
-        name: "Prettier",
-        evidence: "production",
-        proof: "Formatação automatizada no gate de CI",
-        highlight: false,
-      },
-      {
-        name: "Laravel Pint",
-        evidence: "production",
-        proof: "Formatação PHP no Link Charts",
-        highlight: false,
-      },
-      {
-        name: "Husky/commitlint/commitizen",
-        evidence: "production",
-        proof: "Git hooks versionados no repositório",
-        highlight: false,
-      },
-      {
-        name: "Git hooks versionados",
-        evidence: "production",
-        proof: "Pre-push roda a suíte no Docker",
-        highlight: false,
-      },
-      {
-        name: "Conventional Commits",
-        evidence: "production",
-        proof: "Histórico git dos repositórios Link Charts",
-        highlight: false,
-      },
-      {
-        name: "ADRs (MADR)",
-        evidence: "production",
-        proof: "Decisões de arquitetura documentadas em docs/adr/",
-        highlight: false,
-      },
-      {
-        name: "Mermaid",
-        evidence: "production",
-        proof: "Diagramas versionados na documentação",
+        name: "SonarQube",
+        evidence: "professional",
+        proof: "Gate de qualidade estática nas esteiras corporativas (Basis, G4F)",
         highlight: false,
       },
       {
         name: "Jest · Testing Library · MSW",
         evidence: "professional",
         proof: "Testes unitários e mock de API em projetos corporativos e no projeto autoral hotel",
-        highlight: false,
-      },
-      {
-        name: "Cultura de padrões/mentoria",
-        evidence: "academic",
-        proof:
-          "Guia autoral de 22 regras (coverage 80%, commitlint, rebase-only) — README do repo hotel",
         highlight: false,
       },
     ],
@@ -599,12 +584,6 @@ export const skillCategories: SkillCategory[] = [
         name: "Redis 7",
         evidence: "production",
         proof: "Cache, filas, sliding-window para viral rank",
-        highlight: false,
-      },
-      {
-        name: "Eloquent",
-        evidence: "production",
-        proof: "Observers, factories, seeders no Link Charts",
         highlight: false,
       },
       {
@@ -659,9 +638,22 @@ export const skillCategories: SkillCategory[] = [
     title: "Ferramentas & Metodologias",
     skills: [
       {
-        name: "Auth0 full-stack",
+        name: "Automação de workflow git",
         evidence: "production",
-        proof: "Fluxo completo front+back no Link Charts",
+        proof:
+          "Husky, commitlint/commitizen, hooks versionados no repo e Conventional Commits em todos os projetos",
+        highlight: false,
+      },
+      {
+        name: "ADRs (MADR)",
+        evidence: "production",
+        proof: "Decisões de arquitetura documentadas em docs/adr/",
+        highlight: false,
+      },
+      {
+        name: "Mermaid",
+        evidence: "production",
+        proof: "Diagramas versionados na documentação",
         highlight: false,
       },
       {
@@ -683,6 +675,12 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
+        name: "freeCodeCamp — JavaScript Algorithms and Data Structures",
+        evidence: "certified",
+        proof: "out/2024",
+        highlight: false,
+      },
+      {
         name: "SCRUM, Lean Kanban, Jira",
         evidence: "professional",
         proof:
@@ -697,15 +695,10 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
-        name: "freeCodeCamp — JavaScript Algorithms and Data Structures",
-        evidence: "certified",
-        proof: "out/2024",
-        highlight: false,
-      },
-      {
-        name: "Swift/UIKit/MVVM",
+        name: "Cultura de padrões/mentoria",
         evidence: "academic",
-        proof: "Pós-graduação em Desenvolvimento de Dispositivos Móveis (IESB)",
+        proof:
+          "Guia autoral de 22 regras (coverage 80%, commitlint, rebase-only) — README do repo hotel",
         highlight: false,
       },
     ],
