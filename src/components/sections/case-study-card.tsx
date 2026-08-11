@@ -1,7 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import type { GithubRelease } from "@/domain";
 import { getContent, type Locale } from "@/content";
+import { linkchartsActivity } from "@/content/linkcharts-activity";
+import { formatYearMonth } from "@/lib/dates";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { ActivitySparkline } from "@/components/sections/activity-sparkline";
 import { TransitionLink } from "@/components/motion/transition-link";
 
 export async function CaseStudyCard({
@@ -23,28 +27,41 @@ export async function CaseStudyCard({
   );
   const stackGroups = stackChapter?.kind === "tags" ? stackChapter.groups : [];
 
+  const activityCategories = linkchartsActivity.months.map((month) =>
+    formatYearMonth(month, locale),
+  );
+
   return (
-    <Card>
+    // fundo mais profundo que o bg-card padrão para os chips (bg-secondary)
+    // terem contraste dentro da caixa
+    <Card className="bg-[#0a0e14]">
       <CardContent className="flex flex-col gap-3">
         <p className="font-mono text-xs text-muted">{t("eyebrow")}</p>
-        <h2 className="text-xl font-semibold">{caseStudy.title}</h2>
+        {/* nome do produto, não slogan — a tagline factual logo abaixo explica */}
+        <h2 className="text-2xl font-bold tracking-tight">Link Charts</h2>
         <p className="text-muted">{caseStudy.tagline}</p>
         <p className="font-mono text-sm text-muted">{facts.join(" · ")}</p>
+        <div className="flex flex-col gap-1">
+          <p className="font-mono text-[11px] text-muted">{t("activity")}</p>
+          <ActivitySparkline
+            categories={activityCategories}
+            values={linkchartsActivity.values}
+            label={t("activity")}
+          />
+        </div>
         {stackGroups.length > 0 ? (
           <dl className="flex flex-col gap-2.5">
             {stackGroups.map((group) => (
               <div key={group.label} className="flex flex-col gap-1.5">
-                <dt className="font-mono text-[11px] tracking-[0.15em] text-muted uppercase">
+                <dt className="font-mono text-[11px] font-semibold tracking-[0.15em] text-muted uppercase">
                   {group.label}
                 </dt>
                 <dd>
+                  {/* mesmos chips da trajetória (Badge secondary) para consistência */}
                   <ul className="flex flex-wrap gap-1.5">
                     {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="rounded-md border border-border/60 px-1.5 py-0.5 font-mono text-[11px] text-foreground/90"
-                      >
-                        {item}
+                      <li key={item}>
+                        <Badge variant="secondary">{item}</Badge>
                       </li>
                     ))}
                   </ul>
