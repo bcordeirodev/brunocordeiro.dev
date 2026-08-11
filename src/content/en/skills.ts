@@ -51,7 +51,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Swift",
         evidence: "academic",
-        proof: "Graduate degree in Mobile Devices (IESB) — shown only as education, not production",
+        proof: "Graduate degree in Mobile Device Development (IESB)",
         highlight: false,
       },
     ],
@@ -108,6 +108,20 @@ export const skillCategories: SkillCategory[] = [
         proof:
           "JWT in an httpOnly cookie (XSS), hash_equals comparison (timing attack), 16 rate limiters (brute force/DoS), IP spoofing protection (Cloudflare real-ip + automated test), layered input validation, secrets kept out of code, PII redaction in logs, anti-fraud quality score, Google Safe Browsing, LGPD compliance",
         highlight: true,
+      },
+      {
+        name: "SSO / OIDC (gov.br Login Único)",
+        evidence: "professional",
+        proof:
+          "Integration with gov.br's Login Único (federal SSO/OIDC) in a large-scale public-sector consular system (G4F)",
+        highlight: false,
+      },
+      {
+        name: "Microservices architecture",
+        evidence: "professional",
+        proof:
+          "Auth service separated from the core in a large-scale public-sector consular system (G4F)",
+        highlight: false,
       },
     ],
   },
@@ -304,9 +318,17 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
-        name: "NestJS + TypeORM + Passport/JWT",
-        evidence: "project",
-        proof: "Authored project medFlow; also used in a corporate context at G4F",
+        name: "NestJS 11 + Passport/JWT",
+        evidence: "professional",
+        proof:
+          "Large-scale public-sector production (G4F): microservices, gov.br SSO (Login Único/OIDC), Prisma 6",
+        highlight: false,
+      },
+      {
+        name: "WebSockets (socket.io)",
+        evidence: "professional",
+        proof:
+          "@nestjs/websockets + socket.io in a large-scale public-sector consular system (G4F)",
         highlight: false,
       },
       {
@@ -400,6 +422,13 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
+        name: "Kubernetes",
+        evidence: "professional",
+        proof:
+          "k8s/ manifests for the frontend of a large-scale public-sector consular system (G4F)",
+        highlight: true,
+      },
+      {
         name: "Jenkins · Bamboo · GitLab CI · SonarQube · Rancher · Harbor · Apache · Ubuntu",
         evidence: "professional",
         proof: "G4F and Basis",
@@ -408,7 +437,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Bitbucket (incl. Pipelines)",
         evidence: "declared",
-        proof: "Declared, no code evidence collected",
+        proof: "Bitbucket / Bitbucket Pipelines",
         highlight: false,
       },
       { name: "Azure DevOps", evidence: "professional", proof: "VegaIT", highlight: false },
@@ -630,7 +659,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Swift/UIKit/MVVM",
         evidence: "academic",
-        proof: "Post-graduate degree at IESB — shown only as education, not as a project",
+        proof: "Graduate degree in Mobile Device Development (IESB)",
         highlight: false,
       },
     ],
