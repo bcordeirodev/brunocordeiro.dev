@@ -17,7 +17,11 @@ export function CopyEmailButton({
     <Button
       variant="outline"
       onClick={async () => {
-        await navigator.clipboard.writeText(email);
+        try {
+          await navigator.clipboard.writeText(email);
+        } catch {
+          return;
+        }
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       }}
