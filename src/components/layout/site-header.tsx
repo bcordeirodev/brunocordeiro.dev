@@ -12,7 +12,7 @@ export async function SiteHeader() {
   const anchors = [
     { href: "#stack", label: t("stack") },
     { href: "/link-charts", label: t("caseStudy"), isRoute: true as const },
-    { href: "#trajetoria", label: t("about") },
+    { href: "#trajetoria", label: t("trajectory") },
     { href: "#contato", label: t("contact") },
   ];
 
