@@ -10,7 +10,9 @@
     "copied": "copiado!",
     "viewSource": "veja o código desta página",
     "asOf": "dados de {date}",
-    "current": "atual"
+    "current": "atual",
+    "validUntil": "válido até",
+    "viewCredential": "ver credencial"
   },
   "footer": {
     "builtWith": "feito com next 16 — repo público"

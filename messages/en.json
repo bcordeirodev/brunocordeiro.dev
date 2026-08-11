@@ -10,7 +10,9 @@
     "copied": "copied!",
     "viewSource": "view this page's source",
     "asOf": "data as of {date}",
-    "current": "current"
+    "current": "current",
+    "validUntil": "valid until",
+    "viewCredential": "view credential"
   },
   "footer": {
     "builtWith": "built with next 16 — public repo"
