@@ -60,7 +60,19 @@ export function Reveal({ children, delay = 0 }: { children: React.ReactNode; del
       initial={false}
       animate={isVisible ? "visible" : "hidden"}
       variants={variants}
-      transition={{ duration: 0.5, delay }}
+      // The hidden branch only ever runs once, synchronously before the
+      // browser's first paint (the useLayoutEffect above), to pre-arm an
+      // off-screen section for its later reveal — it must be instant
+      // (duration: 0). Without this, motion still runs a real, several
+      // -hundred-ms opacity/transform transition immediately after mount for
+      // every below-the-fold section (even though it's invisible, off
+      // -screen), which burns main-thread/compositor time right in the
+      // critical rendering window and measurably delays LCP — this was
+      // caught by a CI Lighthouse regression (home LCP 2.9s -> 3.4s) after
+      // an earlier version of this fix used one fixed transition for both
+      // directions. Only the scroll-triggered reveal (isVisible flipping to
+      // true) should use the slower, visible fade/slide-in.
+      transition={isVisible ? { duration: 0.5, delay } : { duration: 0 }}
     >
       {children}
     </motion.div>
