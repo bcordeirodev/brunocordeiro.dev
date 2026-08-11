@@ -2,8 +2,9 @@ import type { Profile } from "@/domain";
 
 export const profile: Profile = {
   name: "Bruno Cordeiro",
-  headline: "End-to-end full-stack engineering",
-  subheadline: "From commit to zero-downtime deploy — 10+ years building systems that stay up.",
+  headline: "I deliver end-to-end full-stack engineering",
+  subheadline:
+    "From commit to zero-downtime deploy — I've spent 10+ years building systems that stay up.",
   role: "Senior Full-Stack Developer",
   languages: "Portuguese (native) · English — advanced (C1)",
   location: "Brasília-DF, Brazil",

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("home pt renderiza seções e troca de tab", async ({ page }) => {
   await page.goto("/pt");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(/full-stack/i);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/bruno/i);
   await page.getByRole("tab", { name: /backend/i }).click();
   // Scoped to the active tabpanel: with all 9 skill categories now kept
   // mounted in the DOM for SEO (see skill-matrix.tsx), "Laravel 12" also

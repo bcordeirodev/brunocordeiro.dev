@@ -3,7 +3,8 @@ import type { CaseStudy } from "@/domain";
 export const caseStudy: CaseStudy = {
   slug: "link-charts",
   title: "Link Charts — engenharia de ponta a ponta em produção",
-  tagline: "Um encurtador de URL com analytics avançado, 100% autoral, em produção desde 2025",
+  tagline:
+    "Um encurtador de URL com analytics avançado que criei e mantenho sozinho, em produção desde 2025",
   productUrl: "https://linkcharts.com.br",
   chapters: [
     {
@@ -13,7 +14,7 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "Link Charts (linkcharts.com.br) é um encurtador de URL com analytics avançado, em produção, que criei e mantenho 100% sozinho. Cada clique é enriquecido com dados geográficos, de dispositivo, temporais e de qualidade de tráfego, exibidos em 5 dashboards: geral, geográfico (mapa coroplético/heatmap), temporal, audiência e insights.",
         "Em produção: encurtamento autenticado e público, redirect de alta performance com preview Open Graph para bots (WhatsApp/Telegram), anti-fraude com quality score por clique, subdomínios personalizados + página link-in-bio, API pública com API keys, QR codes, tags, relatórios, export CSV, UTM builder, senha em link, expiração/agendamento/click limit, health check de links, e-mails de retenção e monetização via AdSense + Google Ads.",
-        "~1.929 commits em 3 repositórios (backend, frontend, docs), 100% autorais, de mar/2025 a ago/2026 — atividade contínua, mantida em paralelo a um emprego em tempo integral. 50 tags de release com versionamento semver independente por repositório.",
+        "~1.929 commits em 3 repositórios (backend, frontend, docs), todos meus, de mar/2025 a ago/2026 — mantenho essa atividade contínua em paralelo a um emprego em tempo integral. 50 tags de release com versionamento semver independente por repositório.",
       ],
     },
     {
@@ -70,9 +71,9 @@ export const caseStudy: CaseStudy = {
       id: "postmortems",
       title: "Postmortems",
       paragraphs: [
-        "918 respostas HTTP 502 durante deploys motivaram a reescrita do processo de release como blue/green zero-downtime — warm-up da cor nova, health check em loop, cutover gracioso no nginx, drenagem de 30s da cor antiga e abort automático em caso de falha.",
-        "Um bug de --build-arg zerou silenciosamente as conversões de Google Ads em produção; o postmortem gerou um guard automatizado no CI (check-build-args.sh) que bloqueia releases com build args ausentes.",
-        "O IP de cliente era forjável nos logs e nos rate limiters; a correção usa o cabeçalho real-ip do Cloudflare, com teste automatizado (ClientIpSpoofingTest) que garante que a falha não volte a passar despercebida.",
+        "918 respostas HTTP 502 durante deploys me motivaram a reescrever o processo de release como blue/green zero-downtime — warm-up da cor nova, health check em loop, cutover gracioso no nginx, drenagem de 30s da cor antiga e abort automático em caso de falha.",
+        "Um bug de --build-arg zerou silenciosamente as conversões de Google Ads em produção; escrevi um guard automatizado no CI (check-build-args.sh) que bloqueia releases com build args ausentes.",
+        "O IP de cliente era forjável nos logs e nos rate limiters; corrigi usando o cabeçalho real-ip do Cloudflare, com um teste automatizado (ClientIpSpoofingTest) que garante que a falha não volte a passar despercebida.",
       ],
     },
     {
@@ -80,9 +81,9 @@ export const caseStudy: CaseStudy = {
       id: "ai-guardrails",
       title: "Como foi construído: IA com guardrails",
       paragraphs: [
-        "O Link Charts foi construído com um fluxo de trabalho IA-first guiado por spec: brainstorm → design doc → plano → execução, com orquestração de múltiplos agentes e subagentes e execução por fases com relatórios de cada etapa.",
-        "Contexto como artefato: um CLAUDE.md de 22KB versionado no repositório documenta a arquitetura para os agentes; ADRs e postmortems alimentam esse contexto ao longo do tempo; o frontend expõe llms.txt para conteúdo legível por LLMs.",
-        "A tese: solo dev + IA + gates rigorosos produz output de nível empresa. A velocidade de ~1.929 commits solo em 17 meses — mantida em paralelo a um emprego em tempo integral — não veio às custas da qualidade: os mesmos ~902 testes, PHPStan e checks de zero-warnings continuaram bloqueando merges o tempo todo. IA amplifica; os guardrails garantem.",
+        "Construí o Link Charts com um fluxo de trabalho IA-first guiado por spec: brainstorm → design doc → plano → execução, orquestrando múltiplos agentes e subagentes em execução por fases com relatório de cada etapa.",
+        "Contexto como artefato: mantenho, versionado no repositório, um CLAUDE.md de 22KB que documenta a arquitetura para os agentes; ADRs e postmortems alimentam esse contexto ao longo do tempo; o frontend expõe llms.txt para conteúdo legível por LLMs.",
+        "Minha tese: solo dev + IA + gates rigorosos produz output de nível empresa. A velocidade de ~1.929 commits solo em 17 meses, que sustento em paralelo a um emprego em tempo integral, não veio às custas da qualidade: os mesmos ~902 testes, PHPStan e checks de zero-warnings continuaram bloqueando merges o tempo todo. IA amplifica; os guardrails garantem.",
       ],
     },
     {

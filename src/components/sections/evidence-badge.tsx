@@ -1,20 +1,23 @@
 import type { EvidenceLevel } from "@/domain";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-const EVIDENCE_CLASSES: Record<EvidenceLevel, string> = {
-  production: "border-transparent bg-accent/15 text-accent",
-  certified: "border-transparent bg-[#5ccfe6]/15 text-[#5ccfe6]",
-  professional: "border-border bg-surface text-foreground",
-  project: "border-transparent bg-[#a78bfa]/15 text-[#a78bfa]",
-  academic: "border-transparent bg-muted/15 text-muted",
-  declared: "border-transparent bg-muted/15 text-muted",
+const EVIDENCE_DOT_CLASSES: Record<EvidenceLevel, string> = {
+  production: "bg-accent",
+  certified: "bg-[#5ccfe6]",
+  project: "bg-[#a78bfa]",
+  professional: "bg-muted",
+  academic: "bg-muted",
+  declared: "bg-muted",
 };
 
 export function EvidenceBadge({ level, label }: { level: EvidenceLevel; label: string }) {
   return (
-    <Badge variant="outline" className={cn(EVIDENCE_CLASSES[level])}>
-      {label}
-    </Badge>
+    <span className="inline-flex items-center gap-1.5">
+      <span
+        aria-hidden="true"
+        className={cn("size-1.5 shrink-0 rounded-full", EVIDENCE_DOT_CLASSES[level])}
+      />
+      <span className="font-mono text-[11px] text-muted">{label}</span>
+    </span>
   );
 }

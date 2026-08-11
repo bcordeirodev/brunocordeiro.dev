@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import type { Profile } from "@/domain";
-import { Button } from "@/components/ui/button";
 import { CopyEmailButton } from "@/components/sections/copy-email-button";
 
 export async function Contact({ profile }: { profile: Profile }) {
@@ -11,26 +10,28 @@ export async function Contact({ profile }: { profile: Profile }) {
       <h2 className="text-3xl font-bold">{t("nav.contact")}</h2>
       <p className="font-mono text-lg text-accent">{profile.email}</p>
       <p className="text-sm text-muted">{profile.languages}</p>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap items-center gap-4">
         <CopyEmailButton
           email={profile.email}
           copyLabel={t("common.copyEmail")}
           copiedLabel={t("common.copied")}
         />
-        <Button
-          variant="outline"
-          nativeButton={false}
-          render={<a href={profile.github} target="_blank" rel="noopener noreferrer" />}
+        <a
+          href={profile.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-sm text-accent underline-offset-4 hover:underline"
         >
           GitHub
-        </Button>
-        <Button
-          variant="outline"
-          nativeButton={false}
-          render={<a href={profile.linkedin} target="_blank" rel="noopener noreferrer" />}
+        </a>
+        <a
+          href={profile.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-sm text-accent underline-offset-4 hover:underline"
         >
           LinkedIn
-        </Button>
+        </a>
       </div>
     </div>
   );

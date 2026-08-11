@@ -17,6 +17,7 @@
     "stars": "{count, plural, =0 {0 estrelas} one {# estrela} other {# estrelas}}"
   },
   "caseStudyCard": {
+    "eyebrow": "estudo de caso",
     "cta": "ver o case completo"
   },
   "caseStudyPage": {

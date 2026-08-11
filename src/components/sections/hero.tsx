@@ -1,13 +1,9 @@
 import { useTranslations } from "next-intl";
 import type { Profile } from "@/domain";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { NumberTicker } from "@/components/motion/number-ticker";
 import { Reveal } from "@/components/motion/reveal";
 import { CopyEmailButton } from "@/components/sections/copy-email-button";
 
-const STACK_CHIPS = [
+const STACK_LINE = [
   "TypeScript",
   "Next.js",
   "React",
@@ -16,11 +12,17 @@ const STACK_CHIPS = [
   "PostgreSQL",
   "Redis",
   "Docker",
-] as const;
+].join(" · ");
 
 export function Hero({ profile }: { profile: Profile }) {
   const t = useTranslations("common");
-  const years = profile.metrics.find((metric) => metric.id === "years");
+
+  // One discreet mono line of facts built straight from profile.metrics
+  // (label as authored, no invented copy) instead of an animated card grid —
+  // this reads as a notebook fact line, not a sales dashboard.
+  const factsLine = profile.metrics
+    .map((metric) => `${metric.prefix ?? ""}${metric.value}${metric.suffix ?? ""} ${metric.label}`)
+    .join(" · ");
 
   return (
     <section className="mx-auto max-w-4xl px-6 pt-24">
@@ -29,64 +31,39 @@ export function Hero({ profile }: { profile: Profile }) {
           hydrates, which tanks LCP. It's above the fold on every load, so a
           scroll-triggered fade-in adds no visible value here anyway. */}
       <div>
-        {/* Scannable identity line for recruiters/ATS/sourcing agents: name,
-            role, seniority signal, and location in plain indexable text,
-            right above the marketing headline. The h1 below stays the
-            headline on purpose (e2e asserts it matches /full-stack/i). */}
-        <p className="text-sm font-medium text-muted sm:text-base">
-          {profile.name} · {profile.role}
-          {years ? ` · ${years.value}${years.suffix ?? ""} ${years.label}` : ""} ·{" "}
-          {profile.location}
-        </p>
-        <h1 className="mt-2 text-5xl font-bold tracking-tight">{profile.headline}</h1>
+        <h1 className="text-5xl font-bold tracking-tight">{profile.name}</h1>
+        <p className="mt-2 text-xl text-muted">{profile.headline}</p>
         <p className="mt-4 max-w-2xl text-lg text-muted">{profile.subheadline}</p>
       </div>
 
       <Reveal delay={0.1}>
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {profile.metrics.map((metric) => (
-            <Card key={metric.id}>
-              <CardContent className="flex flex-col gap-1">
-                <span className="text-3xl font-bold text-accent">
-                  <NumberTicker
-                    value={metric.value}
-                    prefix={metric.prefix}
-                    suffix={metric.suffix}
-                  />
-                </span>
-                <span className="text-sm text-muted">{metric.label}</span>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        <p className="mt-3 text-xs text-muted">{t("asOf", { date: profile.metricsAsOf })}</p>
+        <p className="mt-10 font-mono text-sm text-muted">
+          {factsLine} — {t("asOf", { date: profile.metricsAsOf })}
+        </p>
       </Reveal>
 
       <Reveal delay={0.2}>
-        <div className="mt-8 flex flex-wrap gap-2">
-          {STACK_CHIPS.map((chip) => (
-            <Badge key={chip} variant="outline">
-              {chip}
-            </Badge>
-          ))}
-        </div>
+        <p className="mt-6 font-mono text-sm text-muted">{STACK_LINE}</p>
       </Reveal>
 
       <Reveal delay={0.3}>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button
-            nativeButton={false}
-            render={<a href={profile.github} target="_blank" rel="noopener noreferrer" />}
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-sm text-accent underline-offset-4 hover:underline"
           >
             GitHub
-          </Button>
-          <Button
-            variant="outline"
-            nativeButton={false}
-            render={<a href={profile.linkedin} target="_blank" rel="noopener noreferrer" />}
+          </a>
+          <a
+            href={profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-sm text-accent underline-offset-4 hover:underline"
           >
             LinkedIn
-          </Button>
+          </a>
           <CopyEmailButton
             email={profile.email}
             copyLabel={t("copyEmail")}

@@ -2,7 +2,6 @@
 
 import type { EvidenceLevel, SkillCategory } from "@/domain";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
 import { EvidenceBadge } from "@/components/sections/evidence-badge";
 import { cn } from "@/lib/utils";
 
@@ -51,19 +50,19 @@ export function SkillMatrix({
           // agents that only ever see the first HTML response.
           keepMounted
         >
-          <div className="grid gap-3 sm:grid-cols-2">
+          <ul className="divide-y divide-border/60">
             {category.skills.map((skill) => (
-              <Card key={skill.name} className={cn(skill.highlight && "ring-2 ring-accent")}>
-                <CardContent className="flex flex-col gap-2">
-                  <div className="flex items-start justify-between gap-2">
-                    <span className="font-medium">{skill.name}</span>
-                    <EvidenceBadge level={skill.evidence} label={labels[skill.evidence]} />
-                  </div>
-                  <p className="text-sm text-muted">{skill.proof}</p>
-                </CardContent>
-              </Card>
+              <li key={skill.name} className="flex flex-col gap-1 py-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className={cn("font-mono text-sm", skill.highlight && "text-accent")}>
+                    {skill.name}
+                  </span>
+                  <EvidenceBadge level={skill.evidence} label={labels[skill.evidence]} />
+                </div>
+                <p className="text-sm text-muted">{skill.proof}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </TabsContent>
       ))}
     </Tabs>

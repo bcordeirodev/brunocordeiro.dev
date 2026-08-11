@@ -17,6 +17,7 @@
     "stars": "{count, plural, one {# star} other {# stars}}"
   },
   "caseStudyCard": {
+    "eyebrow": "case study",
     "cta": "read the full case study"
   },
   "caseStudyPage": {

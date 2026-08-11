@@ -3,7 +3,8 @@ import type { CaseStudy } from "@/domain";
 export const caseStudy: CaseStudy = {
   slug: "link-charts",
   title: "Link Charts — end-to-end engineering in production",
-  tagline: "A URL shortener with advanced analytics, 100% authored solo, in production since 2025",
+  tagline:
+    "A URL shortener with advanced analytics that I built and maintain solo, in production since 2025",
   productUrl: "https://linkcharts.com.br",
   chapters: [
     {
@@ -13,7 +14,7 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "Link Charts (linkcharts.com.br) is a URL shortener with advanced analytics, in production, that I built and maintain 100% solo. Every click is enriched with geographic, device, temporal, and traffic-quality data, shown across 5 dashboards: overview, geographic (choropleth/heatmap map), temporal, audience, and insights.",
         "In production: authenticated and public shortening, high-performance redirects with Open Graph previews for bots (WhatsApp/Telegram), anti-fraud with a per-click quality score, custom subdomains + link-in-bio pages, a public API with API keys, QR codes, tags, reports, CSV export, a UTM builder, link passwords, expiration/scheduling/click limits, link health checks, retention emails, and monetization via AdSense + Google Ads.",
-        "~1,929 commits across 3 repositories (backend, frontend, docs), 100% authored solo, from Mar/2025 to Aug/2026 — continuous activity, kept up alongside a full-time job. 50 release tags with independent semver versioning per repository.",
+        "~1,929 commits across 3 repositories (backend, frontend, docs), all mine, from Mar/2025 to Aug/2026 — I keep that pace up alongside a full-time job. 50 release tags with independent semver versioning per repository.",
       ],
     },
     {
@@ -70,9 +71,9 @@ export const caseStudy: CaseStudy = {
       id: "postmortems",
       title: "Postmortems",
       paragraphs: [
-        "918 HTTP 502 responses during deploys drove a rewrite of the release process into a zero-downtime blue/green flow — warm-up of the new color, health checks in a loop, graceful nginx cutover, a 30s drain of the old color, and automatic abort on failure.",
-        "A --build-arg bug silently zeroed out Google Ads conversion tracking in production; the postmortem produced an automated CI guard (check-build-args.sh) that blocks releases with missing build args.",
-        "Client IP was spoofable in logs and rate limiters; the fix uses Cloudflare's real-ip header, backed by an automated test (ClientIpSpoofingTest) that guarantees the gap never slips by unnoticed again.",
+        "918 HTTP 502 responses during deploys pushed me to rewrite the release process into a zero-downtime blue/green flow — warm-up of the new color, health checks in a loop, graceful nginx cutover, a 30s drain of the old color, and automatic abort on failure.",
+        "A --build-arg bug silently zeroed out Google Ads conversion tracking in production; I wrote an automated CI guard (check-build-args.sh) that blocks releases with missing build args.",
+        "Client IP was spoofable in logs and rate limiters; I fixed it using Cloudflare's real-ip header, backed by an automated test (ClientIpSpoofingTest) that guarantees the gap never slips by unnoticed again.",
       ],
     },
     {
@@ -80,9 +81,9 @@ export const caseStudy: CaseStudy = {
       id: "ai-guardrails",
       title: "How it was built: AI with guardrails",
       paragraphs: [
-        "Link Charts was built with an AI-first, spec-driven workflow: brainstorm → design doc → plan → execution, with orchestration of multiple agents and subagents and phased execution with a report at each step.",
-        "Context as an artifact: a 22KB CLAUDE.md versioned in the repository documents the architecture for agents; ADRs and postmortems feed that context over time; the frontend exposes llms.txt for LLM-readable content.",
-        "The thesis: solo dev + AI + strict gates produces enterprise-grade output. The pace of ~1,929 solo commits in 17 months — kept up alongside a full-time job — didn't come at the cost of quality: the same ~902 tests, PHPStan, and zero-warnings checks kept blocking merges the whole time. AI amplifies; the guardrails guarantee.",
+        "I built Link Charts with an AI-first, spec-driven workflow: brainstorm → design doc → plan → execution, orchestrating multiple agents and subagents through phased execution with a report at each step.",
+        "Context as an artifact: I keep a 22KB CLAUDE.md versioned in the repository that documents the architecture for agents; ADRs and postmortems feed that context over time; the frontend exposes llms.txt for LLM-readable content.",
+        "My thesis: solo dev + AI + strict gates produces enterprise-grade output. The pace of ~1,929 solo commits in 17 months, which I keep up alongside a full-time job, didn't come at the cost of quality: the same ~902 tests, PHPStan, and zero-warnings checks kept blocking merges the whole time. AI amplifies; the guardrails guarantee.",
       ],
     },
     {
