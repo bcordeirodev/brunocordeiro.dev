@@ -11,7 +11,7 @@ export const caseStudy: CaseStudy = {
       id: "product",
       title: "O produto",
       paragraphs: [
-        "Link Charts (linkcharts.com.br) é um encurtador de URL com analytics avançado, em produção, criado e mantido 100% pelo Bruno. Cada clique é enriquecido com dados geográficos, de dispositivo, temporais e de qualidade de tráfego, exibidos em 5 dashboards: geral, geográfico (mapa coroplético/heatmap), temporal, audiência e insights.",
+        "Link Charts (linkcharts.com.br) é um encurtador de URL com analytics avançado, em produção, que criei e mantenho 100% sozinho. Cada clique é enriquecido com dados geográficos, de dispositivo, temporais e de qualidade de tráfego, exibidos em 5 dashboards: geral, geográfico (mapa coroplético/heatmap), temporal, audiência e insights.",
         "Em produção: encurtamento autenticado e público, redirect de alta performance com preview Open Graph para bots (WhatsApp/Telegram), anti-fraude com quality score por clique, subdomínios personalizados + página link-in-bio, API pública com API keys, QR codes, tags, relatórios, export CSV, UTM builder, senha em link, expiração/agendamento/click limit, health check de links, e-mails de retenção e monetização via AdSense + Google Ads.",
         "~1.929 commits em 3 repositórios (backend, frontend, docs), 100% autorais, de mar/2025 a ago/2026 — atividade contínua, mantida em paralelo a um emprego em tempo integral. 50 tags de release com versionamento semver independente por repositório.",
       ],
@@ -49,7 +49,7 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "OpenTelemetry (SDK 1.14, auto-instrumentação de Laravel/PDO/Guzzle, tail sampling: 100% dos erros + 100% das requisições lentas + 10% do restante) exporta traces, métricas e logs via Grafana Alloy para o Grafana Cloud.",
         "Faro RUM no frontend captura performance real de usuário; profiling contínuo com Pyroscope/Excimer identifica hot paths no backend. 4 dashboards e 9 alert rules versionados como código — não configurados manualmente na UI.",
-        "Um uptime probe externo roda a cada 5 minutos e abre automaticamente uma issue de incidente quando o serviço cai — a operação começa antes de o Bruno perceber o problema.",
+        "Um uptime probe externo roda a cada 5 minutos e abre automaticamente uma issue de incidente quando o serviço cai — a operação começa antes de eu perceber o problema.",
       ],
     },
     {

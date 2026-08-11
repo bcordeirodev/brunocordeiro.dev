@@ -19,4 +19,8 @@ describe("conteúdo", () => {
     const raw = JSON.stringify(getContent("pt")) + JSON.stringify(getContent("en"));
     expect(raw).not.toMatch(/98363-1107|Quadra 11|Esplanada/i);
   });
+  it("não contém vazamentos de nome real de projeto/infra nem notas de auditoria interna", () => {
+    const raw = JSON.stringify(getContent("pt")) + JSON.stringify(getContent("en"));
+    expect(raw).not.toMatch(/itamaraty|e-?consular|harbor\.|\.local|sem evid[êe]ncia/i);
+  });
 });

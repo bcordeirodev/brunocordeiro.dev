@@ -11,7 +11,7 @@ export const caseStudy: CaseStudy = {
       id: "product",
       title: "The product",
       paragraphs: [
-        "Link Charts (linkcharts.com.br) is a URL shortener with advanced analytics, in production, built and maintained 100% solo by Bruno. Every click is enriched with geographic, device, temporal, and traffic-quality data, shown across 5 dashboards: overview, geographic (choropleth/heatmap map), temporal, audience, and insights.",
+        "Link Charts (linkcharts.com.br) is a URL shortener with advanced analytics, in production, that I built and maintain 100% solo. Every click is enriched with geographic, device, temporal, and traffic-quality data, shown across 5 dashboards: overview, geographic (choropleth/heatmap map), temporal, audience, and insights.",
         "In production: authenticated and public shortening, high-performance redirects with Open Graph previews for bots (WhatsApp/Telegram), anti-fraud with a per-click quality score, custom subdomains + link-in-bio pages, a public API with API keys, QR codes, tags, reports, CSV export, a UTM builder, link passwords, expiration/scheduling/click limits, link health checks, retention emails, and monetization via AdSense + Google Ads.",
         "~1,929 commits across 3 repositories (backend, frontend, docs), 100% authored solo, from Mar/2025 to Aug/2026 — continuous activity, kept up alongside a full-time job. 50 release tags with independent semver versioning per repository.",
       ],
@@ -49,7 +49,7 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "OpenTelemetry (SDK 1.14, auto-instrumentation for Laravel/PDO/Guzzle, tail sampling: 100% of errors + 100% of slow requests + 10% of the rest) exports traces, metrics, and logs through Grafana Alloy to Grafana Cloud.",
         "Faro RUM on the frontend captures real user performance; continuous profiling with Pyroscope/Excimer identifies backend hot paths. 4 dashboards and 9 alert rules versioned as code — not configured by hand in the UI.",
-        "An external uptime probe runs every 5 minutes and automatically opens an incident issue when the service goes down — operations start before Bruno notices the problem.",
+        "An external uptime probe runs every 5 minutes and automatically opens an incident issue when the service goes down — operations start before I notice the problem.",
       ],
     },
     {
