@@ -1,5 +1,5 @@
 import type { CaseChapter as CaseChapterType } from "@/domain";
-import { PipelineDiagram } from "@/components/terminal/pipeline-diagram";
+import { PipelineDiagramLazy } from "@/components/terminal/pipeline-diagram-lazy";
 
 export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
   switch (chapter.kind) {
@@ -20,7 +20,7 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
           <h2 className="text-2xl font-bold">{chapter.title}</h2>
           <p className="mt-4 text-muted">{chapter.intro}</p>
           <div className="mt-6">
-            <PipelineDiagram lines={chapter.lines} title={chapter.title} />
+            <PipelineDiagramLazy lines={chapter.lines} title={chapter.title} />
           </div>
         </section>
       );
