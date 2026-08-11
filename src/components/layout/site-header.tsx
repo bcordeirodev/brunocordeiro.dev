@@ -2,9 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import type { Locale } from "@/content";
 import { Link } from "@/i18n/navigation";
 import { TransitionLink } from "@/components/motion/transition-link";
-import { cn } from "@/lib/utils";
-
-const LOCALES: Locale[] = ["pt", "en"];
+import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 
 export async function SiteHeader() {
   const locale = (await getLocale()) as Locale;
@@ -42,28 +40,7 @@ export async function SiteHeader() {
           )}
         </nav>
 
-        <div className="flex items-center gap-2 text-xs">
-          {LOCALES.map((loc, index) => (
-            <span key={loc} className="flex items-center gap-2">
-              {index > 0 ? (
-                <span aria-hidden="true" className="text-muted">
-                  /
-                </span>
-              ) : null}
-              <Link
-                href="/"
-                locale={loc}
-                aria-current={locale === loc ? "true" : undefined}
-                className={cn(
-                  "uppercase",
-                  locale === loc ? "text-foreground" : "text-muted hover:text-foreground",
-                )}
-              >
-                {loc}
-              </Link>
-            </span>
-          ))}
-        </div>
+        <LocaleSwitcher locale={locale} />
       </div>
     </header>
   );
