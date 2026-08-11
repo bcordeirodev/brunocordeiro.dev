@@ -19,6 +19,14 @@
   "caseStudyCard": {
     "cta": "ver o case completo"
   },
+  "evidence": {
+    "production": "em produção",
+    "professional": "profissional",
+    "project": "projeto",
+    "certified": "certificado",
+    "academic": "acadêmico",
+    "declared": "declarado"
+  },
   "footer": {
     "builtWith": "feito com next 16 — repo público"
   }

@@ -19,6 +19,14 @@
   "caseStudyCard": {
     "cta": "read the full case study"
   },
+  "evidence": {
+    "production": "in production",
+    "professional": "professional",
+    "project": "project",
+    "certified": "certified",
+    "academic": "academic",
+    "declared": "declared"
+  },
   "footer": {
     "builtWith": "built with next 16 — public repo"
   }
