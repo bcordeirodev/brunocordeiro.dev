@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getContent, type Locale } from "@/content";
 import { getGithubShowcase } from "@/services/github";
 import { formatYearMonth } from "@/lib/dates";
+import { buildPageMetadata } from "@/lib/site";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { CaseChapter } from "@/components/sections/case-chapter";
@@ -9,6 +11,21 @@ import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { TransitionLink } from "@/components/motion/transition-link";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const { caseStudy } = getContent(locale);
+  return buildPageMetadata({
+    locale,
+    path: "/link-charts",
+    title: caseStudy.title,
+    description: caseStudy.tagline,
+  });
+}
 
 export default async function LinkChartsPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
