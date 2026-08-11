@@ -12,7 +12,12 @@
     "asOf": "data as of {date}",
     "current": "current",
     "validUntil": "valid until",
-    "viewCredential": "view credential"
+    "viewCredential": "view credential",
+    "updatedOn": "updated on {date}",
+    "stars": "{count} stars"
+  },
+  "caseStudyCard": {
+    "cta": "read the full case study"
   },
   "footer": {
     "builtWith": "built with next 16 — public repo"

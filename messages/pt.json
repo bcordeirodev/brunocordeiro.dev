@@ -12,7 +12,12 @@
     "asOf": "dados de {date}",
     "current": "atual",
     "validUntil": "válido até",
-    "viewCredential": "ver credencial"
+    "viewCredential": "ver credencial",
+    "updatedOn": "atualizado em {date}",
+    "stars": "{count} estrelas"
+  },
+  "caseStudyCard": {
+    "cta": "ver o case completo"
   },
   "footer": {
     "builtWith": "feito com next 16 — repo público"
