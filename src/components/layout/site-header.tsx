@@ -11,10 +11,10 @@ export async function SiteHeader() {
   const t = await getTranslations("nav");
 
   const anchors = [
-    { href: "#stack", label: t("stack") },
+    { href: "/#stack", label: t("stack") },
     { href: "/link-charts", label: t("caseStudy"), isRoute: true as const },
-    { href: "#trajetoria", label: t("trajectory") },
-    { href: "#contato", label: t("contact") },
+    { href: "/#trajetoria", label: t("trajectory") },
+    { href: "/#contato", label: t("contact") },
   ];
 
   return (
@@ -35,9 +35,9 @@ export async function SiteHeader() {
                 {anchor.label}
               </TransitionLink>
             ) : (
-              <a key={anchor.href} href={anchor.href} className="hover:text-foreground">
+              <Link key={anchor.href} href={anchor.href} className="hover:text-foreground">
                 {anchor.label}
-              </a>
+              </Link>
             ),
           )}
         </nav>
