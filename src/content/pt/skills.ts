@@ -14,9 +14,9 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "JavaScript (ES6+)",
+        name: "JavaScript",
         evidence: "production",
-        proof: "Desde 2016 — promises, async/await, closures",
+        proof: "ES6+ desde 2016 — promises, async/await, closures",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -35,7 +35,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "HTML semântico · CSS moderno",
+        name: "HTML · CSS",
         evidence: "production",
         proof:
           "Markup semântico e CSS moderno (SASS/SCSS, LESS, Tailwind, CSS-in-JS) em produção no Link Charts e em sites de clientes",
@@ -49,23 +49,23 @@ export const skillCategories: SkillCategory[] = [
     title: "Arquitetura & Padrões",
     skills: [
       {
-        name: "Modos de renderização (CSR, SSR, SSG, ISR, PPR)",
+        name: "Modos de renderização",
         evidence: "production",
         proof:
-          "Aplicados em sistemas corporativos (G4F: rotas SPA, SSG e SSR) e no Link Charts (ISR 300s + revalidateTag)",
+          "CSR, SSR, SSG, ISR, PPR — aplicados em sistemas corporativos (G4F: rotas SPA, SSG e SSR) e no Link Charts (ISR 300s + revalidateTag)",
         highlight: false,
         tags: ["Link Charts", "G4F"],
       },
       {
-        name: "Arquitetura em camadas (Controller → Service → Repository)",
+        name: "Arquitetura em camadas",
         evidence: "production",
         proof:
-          "DI por interface, DTOs, Strategy/Registry, Orchestrator, Observer, ADRs — 145 arquivos PHP, ~28k linhas no Link Charts",
+          "Controller → Service → Repository — DI por interface, DTOs, Strategy/Registry, Orchestrator, Observer, ADRs; 145 arquivos PHP, ~28k linhas no Link Charts",
         highlight: false,
         tags: ["Link Charts"],
       },
       {
-        name: "API REST versionada + OpenAPI (Scramble)",
+        name: "REST + OpenAPI",
         evidence: "production",
         proof:
           "Rotas /api/v1 com Scramble no Link Charts e Swagger na Basis; semântica HTTP correta e versionamento consistente",
@@ -81,10 +81,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts", "G4F", "Basis", "Ordem Social"],
       },
       {
-        name: "Fundamentos de projeto (POO, SOLID, DTOs, PSRs, MVC)",
+        name: "Fundamentos de projeto",
         evidence: "production",
         proof:
-          "Controller → Service → Repository, DI por interface, DTOs (Laravel/NestJS), Strategy, Registry, Observer, Orchestrator",
+          "POO, SOLID, PSRs, MVC — DI por interface, DTOs (Laravel/NestJS), Strategy, Registry, Observer, Orchestrator",
         highlight: false,
         tags: ["Link Charts", "G4F"],
       },
@@ -97,7 +97,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts", "Basis"],
       },
       {
-        name: "Segurança de aplicações — OWASP Top 10 na prática",
+        name: "OWASP Top 10",
         evidence: "production",
         proof:
           "JWT httpOnly, hash_equals, 16 rate limiters, anti-spoofing (Cloudflare), PII redaction, anti-fraude, LGPD aplicada",
@@ -105,7 +105,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "SSO / OIDC (Login Único gov.br)",
+        name: "SSO / OIDC",
         evidence: "professional",
         proof:
           "Integração com o Login Único gov.br (SSO/OIDC federal) em sistema consular de grande porte no setor público (G4F)",
@@ -113,7 +113,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F"],
       },
       {
-        name: "Arquitetura de microsserviços",
+        name: "Microsserviços",
         evidence: "professional",
         proof:
           "Serviço de autenticação separado do core em sistema consular de grande porte no setor público (G4F)",
@@ -149,14 +149,14 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "TypeScript estrito (noUncheckedIndexedAccess)",
+        name: "TypeScript estrito",
         evidence: "production",
         proof: "Modo strict com noUncheckedIndexedAccess ativo em produção no Link Charts",
         highlight: false,
         tags: ["Link Charts"],
       },
       {
-        name: "Arquitetura feature-based em escala",
+        name: "Arquitetura feature-based",
         evidence: "production",
         proof: "10 features em produção no Link Charts",
         highlight: false,
@@ -170,9 +170,9 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "TanStack Query v5 (React Query)",
+        name: "TanStack Query v5",
         evidence: "production",
-        proof: "36 call sites, query keys centralizadas no Link Charts",
+        proof: "Antes React Query — 36 call sites, query keys centralizadas no Link Charts",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -184,7 +184,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Data viz (ApexCharts, Leaflet, material-react-table)",
+        name: "Data viz",
         evidence: "production",
         proof:
           "30 componentes de gráfico ApexCharts, mapas coroplético/heatmap com Leaflet, tabelas com material-react-table",
@@ -192,9 +192,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "i18n (i18next)",
+        name: "i18n",
         evidence: "production",
-        proof: "13 namespaces em produção no Link Charts; i18n corporativo multi-idioma na G4F",
+        proof:
+          "Biblioteca i18next — 13 namespaces em produção no Link Charts; i18n corporativo multi-idioma na G4F",
         highlight: false,
         tags: ["Link Charts", "G4F"],
       },
@@ -242,14 +243,14 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F", "Basis"],
       },
       {
-        name: "Design System gov.br + acessibilidade",
+        name: "Design System gov.br",
         evidence: "professional",
         proof: "GOVBR-DS e jsx-a11y em produto público federal multi-idioma",
         highlight: false,
         tags: ["G4F"],
       },
       {
-        name: "Vue.js · Bootstrap · LESS (legado)",
+        name: "Vue.js · Bootstrap · LESS",
         evidence: "professional",
         proof:
           "Componentes reativos Vue.js com Bootstrap/LESS em telas de gestão sobre Laravel — SPAs legadas por ~3 anos",
@@ -277,9 +278,9 @@ export const skillCategories: SkillCategory[] = [
     title: "Backend",
     skills: [
       {
-        name: "PHP 8.2 + Laravel 12",
+        name: "Laravel 12",
         evidence: "production",
-        proof: "Em produção no Link Charts desde 2025",
+        proof: "PHP 8.2, em produção no Link Charts desde 2025",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -291,7 +292,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Rate limiting dimensionado por ameaça",
+        name: "Rate limiting",
         evidence: "production",
         proof: "16 rate limiters nomeados",
         highlight: false,
@@ -326,9 +327,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Integrações (Google Safe Browsing, Brevo, Auth0, GeoIP MaxMind, Yasumi)",
+        name: "Integrações de terceiros",
         evidence: "production",
-        proof: "Serviços de terceiros integrados no backend do Link Charts",
+        proof:
+          "Google Safe Browsing, Brevo, Auth0, GeoIP MaxMind, Yasumi — serviços de terceiros integrados no backend do Link Charts",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -347,7 +349,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "NestJS + TypeORM + Passport/JWT",
+        name: "NestJS",
         evidence: "professional",
         proof:
           "Setor público (G4F): microsserviços, SSO gov.br (OIDC), Prisma 6; TypeORM e Passport/JWT no backend do projeto hotel",
@@ -355,7 +357,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F", "projetos pessoais"],
       },
       {
-        name: "WebSockets (socket.io)",
+        name: "WebSockets",
         evidence: "professional",
         proof:
           "@nestjs/websockets + socket.io em sistema consular de grande porte no setor público (G4F)",
@@ -363,7 +365,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F"],
       },
       {
-        name: "Express · AdonisJS (Lucid)",
+        name: "Express · AdonisJS",
         evidence: "professional",
         proof: "APIs REST com Express e AdonisJS (Lucid ORM) em serviços corporativos no G4F",
         highlight: false,
@@ -377,14 +379,14 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F"],
       },
       {
-        name: "Deno (OAK, DenoDB)",
+        name: "Deno",
         evidence: "professional",
         proof: "Runtime Deno com OAK para rotas e DenoDB como ORM em serviço corporativo no G4F",
         highlight: false,
         tags: ["G4F"],
       },
       {
-        name: "PHP 5.6–8.1 legado (Eloquent, Propel, Swagger, PSRs)",
+        name: "PHP 5.6–8.1",
         evidence: "professional",
         proof:
           "Eloquent e Propel como ORMs, Swagger e PSRs desde 2016; Laravel 8.1 MVC em sistema interno da Basis",
@@ -412,7 +414,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Deploy blue/green zero-downtime",
+        name: "Deploy blue/green",
         evidence: "production",
         proof:
           "Downtime medido: ~5min → 0s; scripts bash próprios (176 linhas): warm-up, health check, cutover nginx graceful, drenagem, abort",
@@ -420,7 +422,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Docker avançado",
+        name: "Docker",
         evidence: "production",
         proof: "Multi-stage, Alpine + extensões compiladas, 3 stacks compose por ciclo de vida",
         highlight: true,
@@ -434,9 +436,9 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "VPS Linux (DigitalOcean)",
+        name: "VPS Linux",
         evidence: "production",
-        proof: "nginx reverse proxy/LB, Let's Encrypt, Cloudflare real-ip, ufw",
+        proof: "DigitalOcean — nginx reverse proxy/LB, Let's Encrypt, Cloudflare real-ip, ufw",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -456,7 +458,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Engenharia guiada por postmortem",
+        name: "Postmortems",
         evidence: "production",
         proof:
           "918 respostas 502 → blue/green; bug de --build-arg → guard no CI; IP forjável → Cloudflare real-ip",
@@ -505,9 +507,9 @@ export const skillCategories: SkillCategory[] = [
     title: "Qualidade & Testes",
     skills: [
       {
-        name: "PHPUnit 11 em escala",
+        name: "PHPUnit",
         evidence: "production",
-        proof: "~902 testes: unit, feature, snapshot, characterization",
+        proof: "PHPUnit 11 — ~902 testes: unit, feature, snapshot, characterization",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -519,16 +521,16 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "PHPStan/Larastan nível 5",
+        name: "PHPStan nível 5",
         evidence: "production",
-        proof: "Com baseline versionado",
+        proof: "Larastan sobre Laravel, com baseline versionado",
         highlight: false,
         tags: ["Link Charts"],
       },
       {
-        name: "Playwright E2E multi-viewport",
+        name: "Playwright",
         evidence: "production",
-        proof: "320/375/desktop, 6 projects, storage state autenticado",
+        proof: "E2E multi-viewport: 320/375/desktop, 6 projects, storage state autenticado",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -540,7 +542,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Lint e formatação como gate",
+        name: "Lint como gate",
         evidence: "production",
         proof:
           "ESLint --max-warnings=0, Prettier e Laravel Pint bloqueando CI no Link Charts e neste site",
@@ -609,7 +611,7 @@ export const skillCategories: SkillCategory[] = [
     title: "Engenharia com IA",
     skills: [
       {
-        name: "Fluxo de trabalho IA-first com guardrails de engenharia",
+        name: "IA-first com guardrails",
         evidence: "production",
         proof:
           "Dev guiado por spec, orquestração de agentes — ~1.929 commits solo/17 meses, mantendo 902 testes, PHPStan, E2E",
@@ -639,7 +641,7 @@ export const skillCategories: SkillCategory[] = [
     title: "Ferramentas & Metodologias",
     skills: [
       {
-        name: "Automação de workflow git",
+        name: "Workflow git",
         evidence: "production",
         proof:
           "Husky, commitlint/commitizen, hooks versionados no repo e Conventional Commits em todos os projetos",
@@ -647,9 +649,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts", "projetos pessoais"],
       },
       {
-        name: "ADRs (MADR) + diagramas Mermaid",
+        name: "ADRs + Mermaid",
         evidence: "production",
-        proof: "Decisões de arquitetura documentadas em docs/adr/, com diagramas versionados",
+        proof:
+          "Formato MADR; decisões de arquitetura documentadas em docs/adr/, com diagramas versionados",
         highlight: false,
         tags: ["Link Charts"],
       },

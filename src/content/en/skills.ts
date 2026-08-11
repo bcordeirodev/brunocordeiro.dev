@@ -14,9 +14,9 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "JavaScript (ES6+)",
+        name: "JavaScript",
         evidence: "production",
-        proof: "Since 2016 — promises, async/await, closures",
+        proof: "ES6+ since 2016 — promises, async/await, closures",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -35,7 +35,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Semantic HTML · modern CSS",
+        name: "HTML · CSS",
         evidence: "production",
         proof:
           "Semantic markup and modern CSS (SASS/SCSS, LESS, Tailwind, CSS-in-JS) in production at Link Charts and on client sites",
@@ -49,23 +49,23 @@ export const skillCategories: SkillCategory[] = [
     title: "Architecture & Patterns",
     skills: [
       {
-        name: "Rendering modes (CSR, SSR, SSG, ISR, PPR)",
+        name: "Rendering modes",
         evidence: "production",
         proof:
-          "Applied in corporate systems (G4F: SPA, SSG and SSR routes) and in Link Charts (ISR 300s + revalidateTag)",
+          "CSR, SSR, SSG, ISR, PPR — applied in corporate systems (G4F: SPA, SSG and SSR routes) and in Link Charts (ISR 300s + revalidateTag)",
         highlight: false,
         tags: ["Link Charts", "G4F"],
       },
       {
-        name: "Layered architecture (Controller → Service → Repository)",
+        name: "Layered architecture",
         evidence: "production",
         proof:
-          "DI by interface, DTOs, Strategy/Registry, Orchestrator, Observer, ADRs — 145 PHP files, ~28k lines at Link Charts",
+          "Controller → Service → Repository — DI by interface, DTOs, Strategy/Registry, Orchestrator, Observer, ADRs; 145 PHP files, ~28k lines at Link Charts",
         highlight: false,
         tags: ["Link Charts"],
       },
       {
-        name: "Versioned REST API + OpenAPI (Scramble)",
+        name: "REST + OpenAPI",
         evidence: "production",
         proof:
           "/api/v1 routes with Scramble at Link Charts and Swagger at Basis; correct HTTP semantics and consistent versioning",
@@ -81,10 +81,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts", "G4F", "Basis", "Ordem Social"],
       },
       {
-        name: "Design fundamentals (OOP, SOLID, DTOs, PSRs, MVC)",
+        name: "Design fundamentals",
         evidence: "production",
         proof:
-          "Controller → Service → Repository, DI by interface, DTOs (Laravel/NestJS), Strategy, Registry, Observer, Orchestrator",
+          "OOP, SOLID, PSRs, MVC — DI by interface, DTOs (Laravel/NestJS), Strategy, Registry, Observer, Orchestrator",
         highlight: false,
         tags: ["Link Charts", "G4F"],
       },
@@ -97,7 +97,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts", "Basis"],
       },
       {
-        name: "Application security — OWASP Top 10 in practice",
+        name: "OWASP Top 10",
         evidence: "production",
         proof:
           "JWT httpOnly, hash_equals, 16 rate limiters, anti-spoofing (Cloudflare), PII redaction, anti-fraud scoring, LGPD",
@@ -105,7 +105,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "SSO / OIDC (gov.br Login Único)",
+        name: "SSO / OIDC",
         evidence: "professional",
         proof:
           "Integration with gov.br's Login Único (federal SSO/OIDC) in a large-scale public-sector consular system (G4F)",
@@ -113,7 +113,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F"],
       },
       {
-        name: "Microservices architecture",
+        name: "Microservices",
         evidence: "professional",
         proof:
           "Auth service separated from the core in a large-scale public-sector consular system (G4F)",
@@ -150,14 +150,14 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Strict TypeScript (noUncheckedIndexedAccess)",
+        name: "Strict TypeScript",
         evidence: "production",
         proof: "strict mode with noUncheckedIndexedAccess enabled in production at Link Charts",
         highlight: false,
         tags: ["Link Charts"],
       },
       {
-        name: "Feature-based architecture at scale",
+        name: "Feature-based architecture",
         evidence: "production",
         proof: "10 features in production at Link Charts",
         highlight: false,
@@ -171,9 +171,9 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "TanStack Query v5 (React Query)",
+        name: "TanStack Query v5",
         evidence: "production",
-        proof: "36 call sites, centralized query keys at Link Charts",
+        proof: "Formerly React Query — 36 call sites, centralized query keys at Link Charts",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -185,7 +185,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Data viz (ApexCharts, Leaflet, material-react-table)",
+        name: "Data viz",
         evidence: "production",
         proof:
           "30 ApexCharts chart components, choropleth/heatmap maps with Leaflet, tables with material-react-table",
@@ -193,9 +193,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "i18n (i18next)",
+        name: "i18n",
         evidence: "production",
-        proof: "13 namespaces in production at Link Charts; corporate multi-language i18n at G4F",
+        proof:
+          "i18next library — 13 namespaces in production at Link Charts; corporate multi-language i18n at G4F",
         highlight: false,
         tags: ["Link Charts", "G4F"],
       },
@@ -242,14 +243,14 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F", "Basis"],
       },
       {
-        name: "gov.br Design System + accessibility",
+        name: "gov.br Design System",
         evidence: "professional",
         proof: "GOVBR-DS and jsx-a11y on a multi-language federal public product",
         highlight: false,
         tags: ["G4F"],
       },
       {
-        name: "Vue.js · Bootstrap · LESS (legacy)",
+        name: "Vue.js · Bootstrap · LESS",
         evidence: "professional",
         proof:
           "Reactive Vue.js components with Bootstrap/LESS in Laravel admin screens — maintained legacy SPAs for ~3 years",
@@ -277,9 +278,9 @@ export const skillCategories: SkillCategory[] = [
     title: "Backend",
     skills: [
       {
-        name: "PHP 8.2 + Laravel 12",
+        name: "Laravel 12",
         evidence: "production",
-        proof: "In production at Link Charts since 2025",
+        proof: "PHP 8.2, in production at Link Charts since 2025",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -291,7 +292,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Threat-sized rate limiting",
+        name: "Rate limiting",
         evidence: "production",
         proof: "16 named rate limiters",
         highlight: false,
@@ -326,9 +327,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Integrations (Google Safe Browsing, Brevo, Auth0, GeoIP MaxMind, Yasumi)",
+        name: "Third-party integrations",
         evidence: "production",
-        proof: "Third-party services integrated into the Link Charts backend",
+        proof:
+          "Google Safe Browsing, Brevo, Auth0, GeoIP MaxMind, Yasumi — third-party services integrated into the Link Charts backend",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -347,7 +349,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "NestJS + TypeORM + Passport/JWT",
+        name: "NestJS",
         evidence: "professional",
         proof:
           "Public sector (G4F): microservices, gov.br SSO (OIDC), Prisma 6; TypeORM and Passport/JWT in the hotel project backend",
@@ -355,7 +357,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F", "side projects"],
       },
       {
-        name: "WebSockets (socket.io)",
+        name: "WebSockets",
         evidence: "professional",
         proof:
           "@nestjs/websockets + socket.io in a large-scale public-sector consular system (G4F)",
@@ -363,7 +365,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F"],
       },
       {
-        name: "Express · AdonisJS (Lucid)",
+        name: "Express · AdonisJS",
         evidence: "professional",
         proof: "REST APIs with Express and AdonisJS (Lucid ORM) for corporate services at G4F",
         highlight: false,
@@ -377,14 +379,14 @@ export const skillCategories: SkillCategory[] = [
         tags: ["G4F"],
       },
       {
-        name: "Deno (OAK, DenoDB)",
+        name: "Deno",
         evidence: "professional",
         proof: "Deno runtime with OAK for routing and DenoDB as ORM in a corporate service at G4F",
         highlight: false,
         tags: ["G4F"],
       },
       {
-        name: "Legacy PHP 5.6–8.1 (Eloquent, Propel, Swagger, PSRs)",
+        name: "PHP 5.6–8.1",
         evidence: "professional",
         proof:
           "Eloquent and Propel ORMs, Swagger docs and PSR standards since 2016; Laravel 8.1 MVC for an internal Basis system",
@@ -412,7 +414,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Zero-downtime blue/green deploy",
+        name: "Blue/green deploy",
         evidence: "production",
         proof:
           "Measured downtime: ~5min → 0s; custom bash scripts (176 lines): warm-up, health check, graceful nginx cutover, drain, abort",
@@ -420,7 +422,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Advanced Docker",
+        name: "Docker",
         evidence: "production",
         proof: "Multi-stage, Alpine with compiled extensions, 3 compose stacks by lifecycle",
         highlight: true,
@@ -434,9 +436,9 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Linux VPS (DigitalOcean)",
+        name: "Linux VPS",
         evidence: "production",
-        proof: "nginx reverse proxy/LB, Let's Encrypt, Cloudflare real-ip, ufw",
+        proof: "DigitalOcean — nginx reverse proxy/LB, Let's Encrypt, Cloudflare real-ip, ufw",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -456,7 +458,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Postmortem-driven engineering",
+        name: "Postmortems",
         evidence: "production",
         proof:
           "918 502 responses → blue/green; --build-arg bug → CI guard; spoofable IP → Cloudflare real-ip",
@@ -505,9 +507,9 @@ export const skillCategories: SkillCategory[] = [
     title: "Quality & Testing",
     skills: [
       {
-        name: "PHPUnit 11 at scale",
+        name: "PHPUnit",
         evidence: "production",
-        proof: "~902 tests: unit, feature, snapshot, characterization",
+        proof: "PHPUnit 11 — ~902 tests: unit, feature, snapshot, characterization",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -519,16 +521,16 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "PHPStan/Larastan level 5",
+        name: "PHPStan level 5",
         evidence: "production",
-        proof: "With a versioned baseline",
+        proof: "Larastan on Laravel, with a versioned baseline",
         highlight: false,
         tags: ["Link Charts"],
       },
       {
-        name: "Playwright multi-viewport E2E",
+        name: "Playwright",
         evidence: "production",
-        proof: "320/375/desktop, 6 projects, authenticated storage state",
+        proof: "Multi-viewport E2E: 320/375/desktop, 6 projects, authenticated storage state",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -540,7 +542,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "Lint and formatting as a gate",
+        name: "Lint as a gate",
         evidence: "production",
         proof:
           "ESLint --max-warnings=0, Prettier and Laravel Pint blocking CI on Link Charts and on this site",
@@ -609,7 +611,7 @@ export const skillCategories: SkillCategory[] = [
     title: "AI-Assisted Engineering",
     skills: [
       {
-        name: "AI-first workflow with engineering guardrails",
+        name: "AI-first with guardrails",
         evidence: "production",
         proof:
           "Spec-driven dev, multi-agent orchestration — ~1,929 solo commits/17 months, keeping 902 tests, PHPStan, E2E gates",
@@ -639,7 +641,7 @@ export const skillCategories: SkillCategory[] = [
     title: "Tools & Methodologies",
     skills: [
       {
-        name: "Git workflow automation",
+        name: "Git workflow",
         evidence: "production",
         proof:
           "Husky, commitlint/commitizen, repo-versioned hooks and Conventional Commits across all projects",
@@ -647,9 +649,10 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts", "side projects"],
       },
       {
-        name: "ADRs (MADR) + Mermaid diagrams",
+        name: "ADRs + Mermaid",
         evidence: "production",
-        proof: "Architecture decisions documented in docs/adr/, with versioned diagrams",
+        proof:
+          "MADR format; architecture decisions documented in docs/adr/, with versioned diagrams",
         highlight: false,
         tags: ["Link Charts"],
       },
