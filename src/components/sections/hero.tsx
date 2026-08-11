@@ -23,10 +23,14 @@ export function Hero({ profile }: { profile: Profile }) {
 
   return (
     <section className="mx-auto max-w-4xl px-6 py-24">
-      <Reveal>
+      {/* Not wrapped in Reveal: this heading is the LCP element, and gating
+          it behind opacity:0 -> whileInView delays paint until motion
+          hydrates, which tanks LCP. It's above the fold on every load, so a
+          scroll-triggered fade-in adds no visible value here anyway. */}
+      <div>
         <h1 className="text-5xl font-bold tracking-tight">{profile.headline}</h1>
         <p className="mt-4 max-w-2xl text-lg text-muted">{profile.subheadline}</p>
-      </Reveal>
+      </div>
 
       <Reveal delay={0.1}>
         <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
