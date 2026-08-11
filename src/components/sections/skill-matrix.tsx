@@ -43,6 +43,13 @@ export function SkillMatrix({
           value={category.id}
           id={`skill-panel-${category.id}`}
           aria-labelledby={`skill-tab-${category.id}`}
+          // Keeps all 9 category panels rendered in the initial HTML instead
+          // of only the active one. Inactive panels are still marked
+          // `hidden`/`inert` by the underlying Tabs.Panel (invisible to users
+          // and ignored by axe), but the markup — and every skill name/proof
+          // inside it — is present for crawlers, ATS parsers, and sourcing
+          // agents that only ever see the first HTML response.
+          keepMounted
         >
           <div className="grid gap-3 sm:grid-cols-2">
             {category.skills.map((skill) => (
