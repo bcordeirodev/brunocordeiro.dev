@@ -31,11 +31,24 @@ export async function CaseStudyCard({
         <p className="text-muted">{caseStudy.tagline}</p>
         <p className="font-mono text-sm text-muted">{facts.join(" · ")}</p>
         {stackGroups.length > 0 ? (
-          <dl className="grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
+          <dl className="flex flex-col gap-2.5">
             {stackGroups.map((group) => (
-              <div key={group.label} className="font-mono text-xs leading-relaxed">
-                <dt className="inline text-muted">{group.label}: </dt>
-                <dd className="inline text-muted/80">{group.items.join(" · ")}</dd>
+              <div key={group.label} className="flex flex-col gap-1.5">
+                <dt className="font-mono text-[11px] tracking-[0.15em] text-muted uppercase">
+                  {group.label}
+                </dt>
+                <dd>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {group.items.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-md border border-border/60 px-1.5 py-0.5 font-mono text-[11px] text-foreground/90"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
               </div>
             ))}
           </dl>
