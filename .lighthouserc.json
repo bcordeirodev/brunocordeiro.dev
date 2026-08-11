@@ -2,12 +2,13 @@
   "ci": {
     "collect": {
       "url": ["http://localhost:3000/pt", "http://localhost:3000/pt/link-charts"],
-      "numberOfRuns": 2
+      "numberOfRuns": 5
     },
     "assert": {
       "assertMatrix": [
         {
           "matchingUrlPattern": "/pt$",
+          "aggregationMethod": "median",
           "assertions": {
             "categories:performance": ["error", { "minScore": 0.95 }],
             "categories:accessibility": ["error", { "minScore": 0.95 }],
@@ -27,6 +28,7 @@
         },
         {
           "matchingUrlPattern": "/pt/link-charts$",
+          "aggregationMethod": "median",
           "assertions": {
             "categories:performance": ["error", { "minScore": 0.9 }],
             "categories:accessibility": ["error", { "minScore": 0.95 }],
@@ -49,6 +51,7 @@
     "upload": { "target": "temporary-public-storage" }
   },
   "_comments": {
+    "aggregationMethod": "numberOfRuns raised from 2 to 5 and assert.aggregationMethod set explicitly to \"median\" as an anti-flake measure for the shared GitHub Actions runner, NOT a threshold weakening (minScore values are untouched). This was verified against the @lhci/utils 0.15.1 source, not assumed: the LHCI default aggregationMethod is \"optimistic\", which for a minScore assertion already takes Math.max(...values) across runs (best-case run wins) -- so a single low outlier (e.g. the 0.64 LCP run seen in run 31521650034) was already being discarded before this change; the assertion still failed because the *best* run (0.93) was below the 0.95 gate, not because of the outlier alone. \"median-run\" (whole-LHR representative-run selection via FCP/TTI proximity) was considered but does NOT work for categories:* assertions: LHCI's getCategoryAssertionResults always reads raw per-run category scores regardless of aggregationMethod, and getValueForAggregationMethod only special-cases the literal string \"median\" -- \"median-run\" falls through to the same Math.max behavior as the default. Only aggregationMethod: \"median\" actually computes the statistical median of the 5 raw performance-category scores for the /pt and /pt/link-charts assertions.",
     "canonical": "The only failing SEO audit on both pages is `canonical` (score 0, 'Points to another hreflang location'). It's a false positive of auditing http://localhost:*: the page's rel=canonical correctly points at https://brunocordeiro.dev (production), so Lighthouse flags a mismatch against the localhost origin it's actually crawling. Production canonical/SEO is unaffected (SEO audit is 100 against the real domain). Rather than lower the aggregate `categories:seo` gate to hide this, `canonical` is disabled per URL and every other SEO audit that IS valid on localhost is asserted individually at error/minScore 1, so a real regression (missing title, bad robots.txt, non-crawlable links, missing alt text, etc.) still fails the build. `structured-data` is intentionally not asserted: it's a `manual` (unscored) Lighthouse audit and asserting minScore on it always fails LHCI with 'audit did not produce a value'.",
     "performance-link-charts": "/pt/link-charts is a content-dense case-study page (long-form prose, a syntax-highlighted-ready terminal transcript, and a whileInView pipeline animation), unlike the mostly-above-the-fold home page. It was optimized (see PipelineDiagramLazy), and the hero (title/tagline/CTA) no longer sits behind Reveal's whileInView fade — that section now paints visible on first load instead of waiting on a scroll-triggered IntersectionObserver, which was hiding the LCP element behind an animation. After that fix, 3 local runs at :3002 on this dev machine landed stably at 0.94/0.94/0.94 (median 0.94), up from the ~0.91-0.94 range and the 0.88 previously measured on the GitHub Actions runner used for the Lighthouse job. 0.94 local is still short of a *stable* 0.95, and this machine's local numbers have historically run a few points above what the shared 2-core GitHub Actions runner produces, so `minScore: 0.95` is not restored yet. 0.9 is the new evidence-based floor: the highest value that stays safely below the measured local median while remaining meaningfully higher than the previous 0.85 floor, so it still fails the build on a real regression. This is a tracked, intentional deviation from the project's default 0.95 performance gate — whether to push further (e.g. re-attempt 0.95 after further optimization, or accept 0.9 permanently) is a call for Bruno, not this fix. Production on Vercel's edge network measures meaningfully faster than this CI job's localhost `next start` run, so this threshold is specific to this gate, not a claim about production performance. a11y, best-practices and the per-audit SEO gates above remain strict (0.95 / 1.0) for this page."
   }
