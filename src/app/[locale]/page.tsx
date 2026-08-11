@@ -32,10 +32,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-5xl px-6">
+      <main className="mx-auto flex max-w-5xl flex-col gap-24 px-6">
         <Hero profile={content.profile} />
         <Reveal>
-          <section id="stack">
+          <section id="stack" className="scroll-mt-24">
             <SkillMatrix categories={content.skillCategories} labels={evidenceLabels} />
           </section>
         </Reveal>
@@ -43,7 +43,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           <CaseStudyCard release={showcase.latestRelease} locale={locale} />
         </Reveal>
         <Reveal>
-          <section id="trajetoria">
+          <section id="trajetoria" className="scroll-mt-24">
             <Timeline experiences={content.experiences} locale={locale} />
           </section>
         </Reveal>
@@ -54,7 +54,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           <RepoGrid showcase={showcase} />
         </Reveal>
         <Reveal>
-          <section id="contato">
+          <section id="contato" className="scroll-mt-24">
             <Contact profile={content.profile} />
           </section>
         </Reveal>

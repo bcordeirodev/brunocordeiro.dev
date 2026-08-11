@@ -23,7 +23,7 @@ export function Hero({ profile }: { profile: Profile }) {
   const years = profile.metrics.find((metric) => metric.id === "years");
 
   return (
-    <section className="mx-auto max-w-4xl px-6 py-24">
+    <section className="mx-auto max-w-4xl px-6 pt-24">
       {/* Not wrapped in Reveal: this heading is the LCP element, and gating
           it behind opacity:0 -> whileInView delays paint until motion
           hydrates, which tanks LCP. It's above the fold on every load, so a

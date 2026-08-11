@@ -7,7 +7,7 @@ export async function Contact({ profile }: { profile: Profile }) {
   const t = await getTranslations();
 
   return (
-    <div className="flex flex-col items-start gap-6 py-24">
+    <div className="flex flex-col items-start gap-6 pb-24">
       <h2 className="text-3xl font-bold">{t("nav.contact")}</h2>
       <p className="font-mono text-lg text-accent">{profile.email}</p>
       <p className="text-sm text-muted">{profile.languages}</p>
