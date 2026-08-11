@@ -1,8 +1,9 @@
 import { getRequestConfig } from "next-intl/server";
+import { hasLocale } from "next-intl";
+import { routing } from "./routing";
 
-// Placeholder request config so the next-intl plugin (wired in next.config.ts)
-// can resolve during build. Full locale routing, messages and navigation
-// helpers are implemented in the i18n task.
-export default getRequestConfig(async () => {
-  return { locale: "pt", messages: {} };
+export default getRequestConfig(async ({ requestLocale }) => {
+  const requested = await requestLocale;
+  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+  return { locale, messages: (await import(`../../messages/${locale}.json`)).default };
 });

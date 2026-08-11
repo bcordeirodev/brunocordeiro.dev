@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "about": "sobre",
+    "stack": "stack",
+    "caseStudy": "link charts",
+    "contact": "contato"
+  },
+  "common": {
+    "copyEmail": "copiar e-mail",
+    "copied": "copiado!",
+    "viewSource": "veja o código desta página",
+    "asOf": "dados de {date}",
+    "current": "atual"
+  },
+  "footer": {
+    "builtWith": "feito com next 16 — repo público"
+  }
+}
