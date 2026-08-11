@@ -18,6 +18,12 @@ import { useSetFinishViewTransition } from "./view-transitions";
  *
  * Not used for locale-switching links: those go through next-intl's cookie
  * sync in `BaseLink`, which this component intentionally doesn't replicate.
+ *
+ * Also not used for the header's same-page anchors (`/#stack` etc. while on
+ * the home): those are scrolls, not navigations — wrapping them in a view
+ * transition would flash the whole page for what is visually a scroll. Every
+ * link that actually crosses a route (case-study CTA, back-to-contact) goes
+ * through this component.
  */
 export function TransitionLink({
   href,

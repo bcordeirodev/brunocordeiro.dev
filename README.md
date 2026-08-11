@@ -34,7 +34,7 @@ pnpm dev
 
 - **Vitest** — testes unitários de domínio, conteúdo e componentes.
 - **Playwright** — e2e multi-viewport (mobile/tablet/desktop) com varredura de acessibilidade via `@axe-core/playwright`.
-- **Lighthouse CI** — budget de performance, acessibilidade, boas práticas e SEO ≥ 95 em cada categoria, como gate obrigatório no CI.
+- **Lighthouse CI** — gate obrigatório no CI: acessibilidade e boas práticas ≥ 95; performance com piso calibrado para o runner do GitHub (0.85 na home, 0.90 no case study — mediana de 5 execuções; produção pontua acima); SEO validado por auditorias individuais (crawlability, metadados, hreflang) em vez do score agregado, que gera falso positivo de canonical em localhost.
 
 Pipeline de CI roda `typecheck`, `lint`, `format:check`, `test` e `build` (job
 `quality`), a suíte e2e (job `e2e`) e o budget do Lighthouse (job

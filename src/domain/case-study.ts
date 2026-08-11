@@ -6,6 +6,7 @@ export const caseChapterSchema = z.discriminatedUnion("kind", [
     id: z.string(),
     title: z.string(),
     paragraphs: z.array(z.string().min(1)).min(1),
+    diagram: z.array(z.string().min(1)).min(1).optional(),
   }),
   z.object({
     kind: z.literal("terminal"),

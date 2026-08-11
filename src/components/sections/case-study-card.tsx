@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import type { GithubRelease } from "@/domain";
 import { getContent, type Locale } from "@/content";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "@/i18n/navigation";
+import { TransitionLink } from "@/components/motion/transition-link";
 
 export async function CaseStudyCard({
   release,
@@ -53,12 +53,12 @@ export async function CaseStudyCard({
             ))}
           </dl>
         ) : null}
-        <Link
+        <TransitionLink
           href="/link-charts"
           className="self-start text-sm text-accent underline-offset-4 hover:underline"
         >
           {t("cta")} <span aria-hidden="true">→</span>
-        </Link>
+        </TransitionLink>
       </CardContent>
     </Card>
   );

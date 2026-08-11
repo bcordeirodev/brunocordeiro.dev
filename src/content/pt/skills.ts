@@ -346,10 +346,10 @@ export const skillCategories: SkillCategory[] = [
         highlight: false,
       },
       {
-        name: "NestJS 11 + Passport/JWT",
+        name: "NestJS + TypeORM + Passport/JWT",
         evidence: "professional",
         proof:
-          "Produção de grande porte no setor público (G4F): microsserviços, SSO gov.br (Login Único/OIDC), Prisma 6",
+          "Produção de grande porte no setor público (G4F): microsserviços, SSO gov.br (Login Único/OIDC), Prisma 6; TypeORM e Passport/JWT no backend do projeto autoral hotel",
         highlight: false,
       },
       {

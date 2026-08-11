@@ -4,6 +4,19 @@ import type { Locale } from "@/content";
 import { Badge } from "@/components/ui/badge";
 import { formatPeriod } from "@/lib/dates";
 
+function periodsOverlap(a: Experience, b: Experience): boolean {
+  const aEnd = a.end ?? "9999-12";
+  const bEnd = b.end ?? "9999-12";
+  return a.start < bEnd && b.start < aEnd;
+}
+
+function overlappingCompanies(experience: Experience, experiences: Experience[]): string[] {
+  if (experience.employmentType === "full-time") return [];
+  return experiences
+    .filter((other) => other !== experience && periodsOverlap(experience, other))
+    .map((other) => other.company);
+}
+
 export async function Timeline({
   experiences,
   locale,
@@ -15,43 +28,54 @@ export async function Timeline({
 
   return (
     <ol className="flex flex-col gap-14">
-      {experiences.map((experience) => (
-        <li
-          key={`${experience.company}-${experience.start}`}
-          className="relative border-l border-border pl-8"
-        >
-          <span
-            aria-hidden="true"
-            className="absolute top-1.5 -left-[5px] size-2.5 rounded-full bg-accent"
-          />
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 className="text-lg font-medium">{experience.company}</h3>
-            <Badge variant="outline">{experience.employmentType}</Badge>
-          </div>
-          <p className="mt-0.5 text-sm text-muted">{experience.role}</p>
-          <p className="mt-1.5 text-xs text-muted">
-            {formatPeriod(experience.start, experience.end, locale, t("current"))}
-            {experience.location ? ` · ${experience.location}` : ""}
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {experience.stacks.map((stack) => (
-              <Badge key={stack} variant="secondary">
-                {stack}
-              </Badge>
-            ))}
-          </div>
-          {experience.projects.length > 0 && (
-            <ul className="mt-4 flex flex-col gap-1.5 border-t border-border/60 pt-3">
-              {experience.projects.map((project) => (
-                <li key={project.name} className="text-sm">
-                  <span className="font-medium">{project.name}</span>
-                  <span className="text-muted"> — {project.description}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
-      ))}
+      {experiences.map((experience) => {
+        const parallelCompanies = overlappingCompanies(experience, experiences);
+
+        return (
+          <li
+            key={`${experience.company}-${experience.start}`}
+            className="relative border-l border-border pl-8"
+          >
+            <span
+              aria-hidden="true"
+              className="absolute top-1.5 -left-[5px] size-2.5 rounded-full bg-accent"
+            />
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h3 className="text-lg font-medium">{experience.company}</h3>
+              <Badge variant="outline">{experience.employmentType}</Badge>
+            </div>
+            <p className="mt-0.5 text-sm text-muted">{experience.role}</p>
+            <p className="mt-1.5 text-xs text-muted">
+              {formatPeriod(experience.start, experience.end, locale, t("current"))}
+              {experience.location ? ` · ${experience.location}` : ""}
+            </p>
+            {parallelCompanies.length > 0 && (
+              <p className="mt-1 font-mono text-xs text-muted">
+                {t("inParallelWith", { companies: parallelCompanies.join(", ") })}
+              </p>
+            )}
+            {experience.stacks.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {experience.stacks.map((stack) => (
+                  <Badge key={stack} variant="secondary">
+                    {stack}
+                  </Badge>
+                ))}
+              </div>
+            )}
+            {experience.projects.length > 0 && (
+              <ul className="mt-4 flex flex-col gap-1.5 border-t border-border/60 pt-3">
+                {experience.projects.map((project) => (
+                  <li key={project.name} className="text-sm">
+                    <span className="font-medium">{project.name}</span>
+                    <span className="text-muted"> — {project.description}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        );
+      })}
     </ol>
   );
 }

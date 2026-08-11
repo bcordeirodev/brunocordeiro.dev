@@ -27,7 +27,9 @@ export function DashboardPanel({ chapter }: { chapter: DashboardChapter }) {
             </div>
           ))}
         </dl>
-        <div className="overflow-x-auto">
+        {/* tabIndex/role: a região com scroll horizontal precisa ser alcançável
+            por teclado (axe scrollable-region-focusable, viewports estreitos) */}
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={chapter.title}>
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-xs text-muted">

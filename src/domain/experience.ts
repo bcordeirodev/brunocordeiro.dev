@@ -9,7 +9,7 @@ export const experienceSchema = z.object({
   start: yearMonth,
   end: yearMonth.nullable(),
   location: z.string().optional(),
-  stacks: z.array(z.string().min(1)).min(1),
+  stacks: z.array(z.string().min(1)),
   projects: z.array(z.object({ name: z.string().min(1), description: z.string().min(1) })),
 });
 

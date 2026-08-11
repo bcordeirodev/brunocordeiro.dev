@@ -26,6 +26,13 @@ export const caseStudy: CaseStudy = {
         "Frontend: Next.js 15 (App Router) / React 19 / strict TypeScript, MUI 6 with an in-house design system, TanStack Query 5, ISR with cache tags and on-demand revalidation, en/pt-BR i18n, Auth0, CSP/HSTS in middleware, full SEO (JSON-LD, sitemap, llms.txt), 30 ApexCharts chart components and Leaflet maps.",
         "Integration: proxy via rewrites (zero CORS), JWT in an httpOnly cookie (never localStorage), X-Request-Id propagated from the browser all the way to the queue worker for end-to-end log correlation. An in-house SQL dialect layer (SqlDateExpr) centralizes driver-dependent fragments so the test suite runs identically on SQLite and PostgreSQL.",
       ],
+      diagram: [
+        "Next.js 15 · React 19 · TypeScript",
+        "⇅  proxy via rewrites · JWT httpOnly · X-Request-Id",
+        "Laravel 12 · PHP 8.2",
+        "⇅  async jobs · cache · Redis queue",
+        "PostgreSQL 15 · Redis 7",
+      ],
     },
     {
       kind: "terminal",
@@ -150,7 +157,7 @@ export const caseStudy: CaseStudy = {
       title: "How it was built: AI with guardrails",
       paragraphs: [
         "I built Link Charts with a spec-driven, AI-first workflow: brainstorm → design doc → plan → execution, orchestrating multiple agents and subagents in phased runs with a report at every step.",
-        "Context as an artifact: a versioned architecture context file (22KB) in the repository guides the agents; ADRs and postmortems feed that context back over time; the frontend publishes llms.txt for LLM-readable content.",
+        "Context as an artifact: a 22KB CLAUDE.md architecture context file in the repository guides the agents; ADRs and postmortems feed that context back over time; the frontend publishes llms.txt for LLM-readable content.",
         "Automation with a human brake: an in-house command (/ship) automates commit → PR → CI → merge → deploy → health check, with at most 2 self-correction attempts per step — if that doesn't resolve it, it stops with an explicit warning and hands control back to me. The safe-migration rule also stopped being a wiki page and became a test that fails CI.",
         "My thesis: solo dev + AI + strict gates produces company-grade output. The ~1,929 solo commits over 17 months, alongside a full-time job, didn't come at quality's expense: the same 902 tests, PHPStan and zero-warning checks blocked merges the whole time. AI amplifies; the guardrails decide.",
       ],

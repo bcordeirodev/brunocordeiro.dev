@@ -25,7 +25,7 @@ export async function generateMetadata({
   if (!hasLocale(routing.locales, locale)) notFound();
   const { profile } = getContent(locale);
   const title = `${profile.name} — ${profile.role}`;
-  const description = `${profile.role} · ${profile.subheadline}`;
+  const description = `${profile.role} · ${profile.location} · ${profile.subheadline}`;
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -44,11 +44,11 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
-  const { profile } = getContent(locale);
+  const { profile, certifications } = getContent(locale);
   return (
     <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="font-sans antialiased">
-        <PersonJsonLd profile={profile} />
+        <PersonJsonLd profile={profile} certifications={certifications} />
         <ViewTransitionsProvider>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </ViewTransitionsProvider>

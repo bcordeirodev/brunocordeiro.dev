@@ -15,4 +15,12 @@ export const certifications: Certification[] = [
     expires: "2027-02",
     credentialUrl: null,
   },
+  {
+    name: "JavaScript Algorithms and Data Structures",
+    issuer: "freeCodeCamp",
+    issued: "2024-10",
+    expires: null,
+    credentialUrl:
+      "https://freecodecamp.org/certification/bruno_cordeiro-jaads/javascript-algorithms-and-data-structures",
+  },
 ];

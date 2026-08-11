@@ -26,6 +26,13 @@ export const caseStudy: CaseStudy = {
         "Frontend: Next.js 15 (App Router) / React 19 / TypeScript estrito, MUI 6 com design system próprio, TanStack Query 5, ISR com cache tags e revalidação sob demanda, i18n en/pt-BR, Auth0, CSP/HSTS em middleware, SEO completo (JSON-LD, sitemap, llms.txt), 30 componentes de gráfico ApexCharts e mapas Leaflet.",
         "Integração: proxy por rewrites (zero CORS), JWT em cookie httpOnly (nunca localStorage), X-Request-Id propagado do navegador ao worker de fila para correlação de logs ponta a ponta. Uma camada própria de dialetos SQL (SqlDateExpr) centraliza os fragmentos dependentes de driver para a suíte rodar idêntica em SQLite e PostgreSQL.",
       ],
+      diagram: [
+        "Next.js 15 · React 19 · TypeScript",
+        "⇅  proxy por rewrites · JWT httpOnly · X-Request-Id",
+        "Laravel 12 · PHP 8.2",
+        "⇅  jobs assíncronos · cache · fila Redis",
+        "PostgreSQL 15 · Redis 7",
+      ],
     },
     {
       kind: "terminal",
@@ -150,7 +157,7 @@ export const caseStudy: CaseStudy = {
       title: "Como foi construído: IA com guardrails",
       paragraphs: [
         "Construí o Link Charts com um fluxo de trabalho IA-first guiado por spec: brainstorm → design doc → plano → execução, orquestrando múltiplos agentes e subagentes em execução por fases com relatório de cada etapa.",
-        "Contexto como artefato: um arquivo de contexto de arquitetura (22KB) versionado no repositório orienta os agentes; ADRs e postmortems realimentam esse contexto ao longo do tempo; o frontend publica llms.txt para conteúdo legível por LLMs.",
+        "Contexto como artefato: um CLAUDE.md de 22KB (contexto de arquitetura) versionado no repositório orienta os agentes; ADRs e postmortems realimentam esse contexto ao longo do tempo; o frontend publica llms.txt para conteúdo legível por LLMs.",
         "Automação com freio humano: um comando próprio (/ship) automatiza commit → PR → CI → merge → deploy → health check, com no máximo 2 tentativas de autocorreção por etapa — se não resolver, para com um aviso explícito e devolve o controle para mim. A regra de migration segura também deixou de ser wiki e virou teste que reprova o CI.",
         "Minha tese: solo dev + IA + gates rigorosos produz output de nível empresa. Os ~1.929 commits solo em 17 meses, em paralelo a um emprego em tempo integral, não vieram às custas da qualidade: os mesmos 902 testes, PHPStan e zero-warnings bloquearam merges o tempo todo. IA amplifica; os guardrails decidem.",
       ],

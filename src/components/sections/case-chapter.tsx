@@ -13,6 +13,20 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
               <p key={i}>{paragraph}</p>
             ))}
           </div>
+          {chapter.diagram && (
+            <div className="mt-6 rounded-lg border border-border bg-[#0a0e14] p-4 font-mono text-sm">
+              {chapter.diagram.map((line, i) => (
+                <div
+                  key={i}
+                  className={
+                    /^[⇅↕↔→←⇄]/.test(line.trim()) ? "text-center text-muted" : "text-center"
+                  }
+                >
+                  {line}
+                </div>
+              ))}
+            </div>
+          )}
         </section>
       );
     case "terminal":

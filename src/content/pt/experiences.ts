@@ -75,7 +75,7 @@ export const experiences: Experience[] = [
     start: "2021-09",
     end: "2022-06",
     location: "Brasília-DF",
-    stacks: ["PHP", "JavaScript"],
+    stacks: [],
     projects: [],
   },
   {

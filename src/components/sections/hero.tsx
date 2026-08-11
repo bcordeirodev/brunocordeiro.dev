@@ -32,7 +32,9 @@ export function Hero({ profile }: { profile: Profile }) {
           scroll-triggered fade-in adds no visible value here anyway. */}
       <div>
         <h1 className="text-5xl font-bold tracking-tight">{profile.name}</h1>
-        <p className="mt-2 text-xl text-muted">{profile.headline}</p>
+        <p className="mt-2 font-mono text-sm text-muted">
+          {profile.headline} · {profile.location}
+        </p>
         <p className="mt-4 max-w-2xl text-lg text-muted">{profile.subheadline}</p>
       </div>
 

@@ -1,5 +1,25 @@
-import type { Profile } from "@/domain";
+import type { Certification, Profile } from "@/domain";
 import { SITE_URL } from "@/lib/site";
+
+/**
+ * Parses `profile.location` (e.g. "Brasília-DF, Brasil" / "Brasília-DF,
+ * Brazil") into a schema.org `PostalAddress` shape. `addressCountry` is
+ * always the ISO 3166-1 alpha-2 code, not derived from the localized
+ * country name in the source string.
+ */
+function parseAddress(location: string): {
+  addressLocality: string;
+  addressRegion: string;
+  addressCountry: string;
+} {
+  const [cityRegion] = location.split(",");
+  const [locality, region] = (cityRegion ?? "").trim().split("-");
+  return {
+    addressLocality: locality?.trim() || "Brasília",
+    addressRegion: region?.trim() || "DF",
+    addressCountry: "BR",
+  };
+}
 
 /**
  * Emits schema.org `Person` JSON-LD for Bruno so search engines can attach a
@@ -7,7 +27,21 @@ import { SITE_URL } from "@/lib/site";
  * site. `address` intentionally stops at city/state/country — never a
  * street address.
  */
-export function PersonJsonLd({ profile }: { profile: Profile }) {
+export function PersonJsonLd({
+  profile,
+  certifications = [],
+}: {
+  profile: Profile;
+  certifications?: Certification[];
+}) {
+  const hasCredential = certifications.map((certification) => ({
+    "@type": "EducationalOccupationalCredential",
+    name: certification.name,
+    credentialCategory: "certification",
+    recognizedBy: { "@type": "Organization", name: certification.issuer },
+    ...(certification.credentialUrl ? { url: certification.credentialUrl } : {}),
+  }));
+
   const data = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -19,10 +53,9 @@ export function PersonJsonLd({ profile }: { profile: Profile }) {
     alumniOf: "Universidade Paulista",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Brasília",
-      addressRegion: "DF",
-      addressCountry: "BR",
+      ...parseAddress(profile.location),
     },
+    ...(hasCredential.length > 0 ? { hasCredential } : {}),
   };
   return (
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
