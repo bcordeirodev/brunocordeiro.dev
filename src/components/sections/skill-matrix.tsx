@@ -15,13 +15,23 @@ export function SkillMatrix({
 }) {
   return (
     <Tabs defaultValue={categories[0]?.id}>
-      <TabsList className="h-auto flex-wrap">
+      {/* 9 categories don't fit one row. `h-auto!` is required (not just
+          `h-auto`) because the base TabsList variant sets a fixed
+          `group-data-horizontal/tabs:h-8`: that utility and this one carry
+          equal CSS specificity, so without `!important` the cascade can pick
+          either depending on generation order — the fixed height wins,
+          clipping the box to one row while wrapped tabs visually overflow
+          on top of the content below. Below `sm`, tabs scroll horizontally
+          instead of wrapping (native `-webkit-overflow-scrolling`, hidden
+          scrollbar); at `sm` and up they wrap cleanly onto extra rows. */}
+      <TabsList className="h-auto! w-full flex-nowrap justify-start gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] sm:w-fit sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
         {categories.map((category) => (
           <TabsTrigger
             key={category.id}
             value={category.id}
             id={`skill-tab-${category.id}`}
             aria-controls={`skill-panel-${category.id}`}
+            className="shrink-0"
           >
             {category.title}
           </TabsTrigger>
