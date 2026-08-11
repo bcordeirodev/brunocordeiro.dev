@@ -156,19 +156,63 @@ export const caseStudy: CaseStudy = {
       ],
     },
     {
-      kind: "stats",
+      kind: "tags",
       id: "stack",
       title: "Stack completa",
-      items: [
+      groups: [
         {
           label: "Frontend",
-          value: "Next.js 15, React 19, TypeScript estrito, MUI 6, TanStack Query 5",
+          items: [
+            "Next.js 15 (App Router)",
+            "React 19",
+            "TypeScript estrito",
+            "MUI 6",
+            "TanStack Query 5",
+            "ApexCharts",
+            "Leaflet",
+            "Auth0",
+          ],
         },
-        { label: "Backend", value: "Laravel 12, PHP 8.2, PostgreSQL 15, Redis 7" },
-        { label: "Infra", value: "Docker multi-stage, GHCR, nginx, DigitalOcean, Cloudflare" },
-        { label: "Observabilidade", value: "OpenTelemetry, Grafana Cloud, Faro RUM, Pyroscope" },
-        { label: "CI/CD", value: "GitHub Actions, deploy blue/green por tag" },
-        { label: "Qualidade", value: "PHPUnit, PHPStan, ESLint, Playwright" },
+        {
+          label: "Backend",
+          items: [
+            "Laravel 12",
+            "PHP 8.2",
+            "PostgreSQL 15",
+            "Redis 7",
+            "filas assíncronas",
+            "API pública com API keys",
+          ],
+        },
+        {
+          label: "Infra",
+          items: ["Docker multi-stage", "GHCR", "nginx", "DigitalOcean", "Cloudflare"],
+        },
+        {
+          label: "Observabilidade",
+          items: [
+            "OpenTelemetry",
+            "Grafana Cloud",
+            "Grafana Alloy",
+            "Faro RUM",
+            "Pyroscope",
+            "alertas como código",
+          ],
+        },
+        {
+          label: "CI/CD",
+          items: ["GitHub Actions", "deploy blue/green por tag", "rollback pela mesma esteira"],
+        },
+        {
+          label: "Qualidade",
+          items: [
+            "PHPUnit (902 testes)",
+            "PHPStan nível 5",
+            "Laravel Pint",
+            "ESLint 0 warnings",
+            "Playwright (6 projects)",
+          ],
+        },
       ],
     },
   ],

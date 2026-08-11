@@ -25,6 +25,31 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
           </div>
         </section>
       );
+    case "tags":
+      return (
+        <section id={chapter.id} className="py-10">
+          <h2 className="text-2xl font-bold">{chapter.title}</h2>
+          <div className="mt-6 flex flex-col gap-5">
+            {chapter.groups.map((group) => (
+              <div key={group.label} className="flex flex-col gap-2">
+                <h3 className="font-mono text-xs tracking-[0.15em] text-muted uppercase">
+                  {group.label}
+                </h3>
+                <ul className="flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-md border border-border/60 px-2 py-0.5 font-mono text-xs text-foreground/90"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
     case "dashboard":
       return (
         <section id={chapter.id} className="py-10">

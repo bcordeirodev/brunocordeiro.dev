@@ -21,6 +21,19 @@ export const caseChapterSchema = z.discriminatedUnion("kind", [
     items: z.array(z.object({ label: z.string(), value: z.string() })).min(1),
   }),
   z.object({
+    kind: z.literal("tags"),
+    id: z.string(),
+    title: z.string(),
+    groups: z
+      .array(
+        z.object({
+          label: z.string().min(1),
+          items: z.array(z.string().min(1)).min(1),
+        }),
+      )
+      .min(1),
+  }),
+  z.object({
     kind: z.literal("dashboard"),
     id: z.string(),
     title: z.string(),
