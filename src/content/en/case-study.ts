@@ -73,6 +73,45 @@ export const caseStudy: CaseStudy = {
       ],
     },
     {
+      kind: "dashboard",
+      id: "operations",
+      title: "Operations in numbers",
+      intro:
+        "The picture Grafana and GitHub Actions actually measure: aggregates from the real run history and monitoring-as-code — no showroom numbers.",
+      asOf: "data as of Aug 2026 · source: run history + versioned config",
+      okLabel: "all green",
+      stats: [
+        {
+          label: "uptime probe (every 5 min)",
+          value: "99.0%",
+          sub: "820 runs, 8 failures — opens an incident issue on its own",
+        },
+        {
+          label: "deploy samples",
+          value: "1,035/1,035",
+          sub: "HTTP 200 measured from the outside during blue/green releases",
+        },
+        {
+          label: "alert rules as code",
+          value: "9",
+          sub: "versioned as JSON in the repository, zero UI config",
+        },
+        {
+          label: "Grafana dashboards",
+          value: "4",
+          sub: "overview · app (RED) · infra · observability",
+        },
+      ],
+      columns: { workflow: "workflow", runs: "runs", failures: "failures", success: "success" },
+      rows: [
+        { label: "ci (backend)", runs: 124, failures: 6 },
+        { label: "ci (frontend)", runs: 63, failures: 1 },
+        { label: "release (backend)", runs: 24, failures: 0 },
+        { label: "release (frontend)", runs: 28, failures: 1 },
+        { label: "uptime", runs: 820, failures: 8 },
+      ],
+    },
+    {
       kind: "stats",
       id: "quality",
       title: "Quality",

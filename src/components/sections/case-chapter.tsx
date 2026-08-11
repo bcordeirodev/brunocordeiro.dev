@@ -1,5 +1,6 @@
 import type { CaseChapter as CaseChapterType } from "@/domain";
 import { PipelineDiagramLazy } from "@/components/terminal/pipeline-diagram-lazy";
+import { DashboardPanel } from "@/components/sections/dashboard-panel";
 
 export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
   switch (chapter.kind) {
@@ -21,6 +22,16 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
           <p className="mt-4 text-muted">{chapter.intro}</p>
           <div className="mt-6">
             <PipelineDiagramLazy lines={chapter.lines} title={chapter.title} />
+          </div>
+        </section>
+      );
+    case "dashboard":
+      return (
+        <section id={chapter.id} className="py-10">
+          <h2 className="text-2xl font-bold">{chapter.title}</h2>
+          <p className="mt-4 text-muted">{chapter.intro}</p>
+          <div className="mt-6">
+            <DashboardPanel chapter={chapter} />
           </div>
         </section>
       );

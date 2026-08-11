@@ -18,6 +18,13 @@ export async function CaseStudyCard({
     (metric) => `${metric.prefix ?? ""}${metric.value}${metric.suffix ?? ""} ${metric.label}`,
   );
   const facts = release ? [...metricFacts, release.tag] : metricFacts;
+  const stackChapter = caseStudy.chapters.find(
+    (chapter) => chapter.id === "stack" && chapter.kind === "stats",
+  );
+  const stacks =
+    stackChapter?.kind === "stats"
+      ? stackChapter.items.flatMap((item) => item.value.split(", "))
+      : [];
 
   return (
     <Card>
@@ -26,6 +33,9 @@ export async function CaseStudyCard({
         <h2 className="text-xl font-semibold">{caseStudy.title}</h2>
         <p className="text-muted">{caseStudy.tagline}</p>
         <p className="font-mono text-sm text-muted">{facts.join(" · ")}</p>
+        {stacks.length > 0 ? (
+          <p className="font-mono text-xs leading-relaxed text-muted/80">{stacks.join(" · ")}</p>
+        ) : null}
         <Link
           href="/link-charts"
           className="self-start text-sm text-accent underline-offset-4 hover:underline"
