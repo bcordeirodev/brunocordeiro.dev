@@ -3,8 +3,10 @@ import { defineConfig, devices } from "@playwright/test";
 // Port 3000 is unavailable on local dev machines (occupied by an unrelated,
 // long-running Docker container for another project, Link Charts). Port 3001
 // mirrors the workaround already documented for local dev in Task 4's report.
-// CI has no such container, so it uses the framework default, 3000.
-const PORT = process.env.CI ? 3000 : 3001;
+// CI has no such container, so it uses the framework default, 3000. `PORT`
+// stays available as an explicit override for machines where 3001 is also
+// taken by something else local (e.g. another dev tool).
+const PORT = process.env.PORT ? Number(process.env.PORT) : process.env.CI ? 3000 : 3001;
 
 export default defineConfig({
   testDir: "./e2e",
