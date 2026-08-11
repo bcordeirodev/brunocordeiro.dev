@@ -11,6 +11,7 @@
     "viewSource": "view this page's source",
     "asOf": "data as of {date}",
     "current": "current",
+    "inParallelWith": "alongside {companies}",
     "validUntil": "valid until",
     "viewCredential": "view credential",
     "updatedOn": "updated on {date}",
@@ -36,6 +37,18 @@
   "sections": {
     "certifications": "certifications",
     "githubProjects": "personal projects on github"
+  },
+  "aiStats": {
+    "title": "AI in numbers",
+    "sessions": "sessions",
+    "activeDays": "active days",
+    "streak": "longest daily streak",
+    "outputTokens": "tokens generated last month",
+    "edits": "edits",
+    "testRuns": "test runs",
+    "searches": "searches",
+    "commands": "commands",
+    "disclaimer": "aggregate numbers from my workflow with AI agents, since {since} — no vendor, no specific project"
   },
   "footer": {
     "builtWith": "built with next 16 — public repo"

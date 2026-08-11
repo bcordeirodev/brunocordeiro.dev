@@ -9,7 +9,7 @@ export const siteContentSchema = z.object({
   profile: profileSchema,
   skillCategories: z.array(skillCategorySchema).min(6),
   experiences: z.array(experienceSchema).min(5),
-  certifications: z.array(certificationSchema).min(2),
+  certifications: z.array(certificationSchema).min(3),
   caseStudy: caseStudySchema,
 });
 
@@ -21,3 +21,4 @@ export * from "./skill";
 export * from "./certification";
 export * from "./case-study";
 export * from "./github";
+export * from "./ai-stats";

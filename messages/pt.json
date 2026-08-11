@@ -11,6 +11,7 @@
     "viewSource": "veja o código desta página",
     "asOf": "dados de {date}",
     "current": "atual",
+    "inParallelWith": "em paralelo com {companies}",
     "validUntil": "válido até",
     "viewCredential": "ver credencial",
     "updatedOn": "atualizado em {date}",
@@ -36,6 +37,18 @@
   "sections": {
     "certifications": "certificações",
     "githubProjects": "projetos pessoais no github"
+  },
+  "aiStats": {
+    "title": "IA em números",
+    "sessions": "sessões",
+    "activeDays": "dias ativos",
+    "streak": "maior sequência de dias",
+    "outputTokens": "tokens gerados no último mês",
+    "edits": "edições",
+    "testRuns": "execuções de teste",
+    "searches": "buscas",
+    "commands": "comandos",
+    "disclaimer": "números agregados do meu workflow com agentes de IA, desde {since} — sem vendor, sem projeto específico"
   },
   "footer": {
     "builtWith": "feito com next 16 — repo público"
