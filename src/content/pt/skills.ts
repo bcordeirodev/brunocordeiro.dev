@@ -144,7 +144,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "REST + OpenAPI",
         proof:
-          "Rotas /api/v1 com Scramble e Swagger; semântica HTTP correta e versionamento consistente",
+          "Rotas /api/v1 documentadas com Scramble; Swagger em sistema corporativo — semântica HTTP correta e versionamento consistente",
         tags: ["Link Charts", "Basis"],
       },
       {
