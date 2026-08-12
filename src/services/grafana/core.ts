@@ -59,9 +59,9 @@ export async function fetchGrafanaStats(
   // uptime30dPct fica de fora do loop: não existe no Prometheus (GitHub
   // Actions é a fonte), então live.uptime30dPct permanece false sempre.
   const live = { ...snapshot.live, uptime30dPct: false };
-  settled.forEach((result, i) => {
-    const key = keys[i];
-    if (result.status === "fulfilled") {
+  keys.forEach((key, i) => {
+    const result = settled[i];
+    if (result?.status === "fulfilled") {
       values[key] = result.value;
       live[key] = true;
     } else {

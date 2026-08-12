@@ -41,7 +41,7 @@ describe("fetchGrafanaStats", () => {
       [QUERIES.reqPerMin]: 34.5,
     };
     const fetchFn = vi.fn().mockImplementation((url: string) =>
-      Promise.resolve(promOk(byQuery[queryOf(url)])),
+      Promise.resolve(promOk(byQuery[queryOf(url)] ?? 0)),
     );
     const result = await fetchGrafanaStats(fetchFn as unknown as typeof fetch, auth, snapshot);
     expect(fetchFn).toHaveBeenCalledTimes(3);
@@ -61,8 +61,8 @@ describe("fetchGrafanaStats", () => {
   it("autentica com Basic user:token", async () => {
     const fetchFn = vi.fn().mockResolvedValue(promOk(1));
     await fetchGrafanaStats(fetchFn as unknown as typeof fetch, auth, snapshot);
-    const init = fetchFn.mock.calls[0][1] as RequestInit;
-    const authHeader = (init.headers as Record<string, string>).Authorization;
+    const init = fetchFn.mock.calls.at(0)?.[1] as RequestInit | undefined;
+    const authHeader = (init?.headers as Record<string, string> | undefined)?.Authorization;
     expect(authHeader).toBe(`Basic ${Buffer.from("123:tok").toString("base64")}`);
   });
 
