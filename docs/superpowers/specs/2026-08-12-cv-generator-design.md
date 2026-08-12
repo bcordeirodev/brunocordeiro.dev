@@ -24,7 +24,7 @@ Granularidade: **seções + itens**.
 | Perfil resumido   | sim                | —                                                                             |
 | Métricas          | sim                | —                                                                             |
 | Experiências      | sim                | por experiência (company)                                                     |
-| Skills            | sim                | por skill (seleção plana; sem toggle por categoria — desvio da implementação) |
+| Skills            | sim                | por categoria (acordeão) e por skill                                          |
 | Certificações     | sim                | por certificação                                                              |
 | Educação          | sim                | por item                                                                      |
 | Case study (link) | sim                | —                                                                             |
@@ -63,7 +63,7 @@ buildCvData(content, selection)  ← função pura, src/lib/cv/
 
 ### Layout da página
 
-Desktop: duas colunas — painel de seleção à esquerda, preview à direita, botão "Baixar PDF" fixo/visível. Mobile: painel acima do preview. Entrada discreta no footer do site ("Baixar CV" → `/cv`); a rota entra no sitemap.
+Ver "Iteração — UX para recrutador" no fim deste documento: o layout de duas colunas foi substituído por barra de ações + modal.
 
 ## Template do PDF
 
@@ -87,3 +87,14 @@ Desktop: duas colunas — painel de seleção à esquerda, preview à direita, b
 ## Fora de escopo
 
 - Persistência da seleção (URL/storage), múltiplos templates/temas, reordenação de seções, edição de texto, geração server-side.
+
+## Iteração — UX para recrutador (2026-08-12)
+
+Motivação: com ~90 skills numa lista plana, o painel lateral empurrava o botão "Baixar PDF" muito abaixo da dobra — na prática ele sumia. A tela precisa ser óbvia para um recrutador que chega sem contexto.
+
+- **Barra de ações no topo da página**, sticky logo abaixo do header do site (53px): "Personalizar" (abre a modal) e "Baixar PDF" lado a lado, sempre visíveis. O preview passa a ocupar a página inteira, em `max-w-4xl`.
+- **Painel de seleção vai para uma modal** — `<dialog>` nativo, mesmo padrão de `RepoCatalogDialog` (backdrop com blur, fecha por X / ESC / clique fora, corpo com scroll interno). Sem "aplicar/cancelar": cada clique reflete no preview imediatamente.
+- **Skills em acordeão por categoria** — usa as 5 categorias que o conteúdo já define (Frontend, Backend & Dados, DevOps & Infra, Qualidade & Testes, IA & Metodologias), sem taxonomia nova. Cada grupo tem checkbox tri-state (marcado / indeterminado / vazio) que alterna a categoria inteira, título, contador `n/m` e chevron; colapsado por padrão. O "marcar/desmarcar todas" da seção Skills continua como atalho global. Experiências, certificações e educação seguem como listas simples — são curtas.
+- **Entrada em destaque no hero** — botão sólido "Baixar CV" (`common.downloadCv`) ao lado de GitHub · LinkedIn · Copiar e-mail, apontando para `/cv`. O link do footer permanece.
+- **Sem mudança de dados** — `CvSelection`, `buildCvData`, `CvPreview` e `CvDocument` ficam intactos; o estado de expansão do acordeão é UI local, fora da seleção.
+- **Rótulos novos** — `cv.customize`, `common.downloadCv`; reaproveita `common.close` para o botão de fechar da modal.
