@@ -52,7 +52,10 @@ const FONTS_DIR = join(process.cwd(), "src/assets/fonts");
 // `.buffer` alone may span unrelated bytes) into a plain `ArrayBuffer`
 // before returning.
 function toArrayBuffer(buffer: Buffer): ArrayBuffer {
-  return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
+  return buffer.buffer.slice(
+    buffer.byteOffset,
+    buffer.byteOffset + buffer.byteLength,
+  ) as ArrayBuffer;
 }
 
 async function loadOgFonts() {
@@ -63,7 +66,11 @@ async function loadOgFonts() {
     readFile(join(FONTS_DIR, "Geist-Regular.ttf")),
     readFile(join(FONTS_DIR, "GeistMono-Bold.ttf")),
   ]);
-  return [toArrayBuffer(geistBold), toArrayBuffer(geistRegular), toArrayBuffer(geistMonoBold)] as const;
+  return [
+    toArrayBuffer(geistBold),
+    toArrayBuffer(geistRegular),
+    toArrayBuffer(geistMonoBold),
+  ] as const;
 }
 
 export default async function Image({ params }: { params: Promise<{ locale: Locale }> }) {

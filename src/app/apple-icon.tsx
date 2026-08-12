@@ -8,9 +8,7 @@ export const contentType = "image/png";
 // Full-bleed (sem cantos arredondados nem transparência): o iOS aplica a
 // própria máscara; cantos transparentes virariam quadrados pretos.
 export default async function AppleIcon() {
-  const geistMonoBold = await readFile(
-    join(process.cwd(), "src/assets/fonts/GeistMono-Bold.ttf"),
-  );
+  const geistMonoBold = await readFile(join(process.cwd(), "src/assets/fonts/GeistMono-Bold.ttf"));
   return new ImageResponse(
     <div
       style={{
