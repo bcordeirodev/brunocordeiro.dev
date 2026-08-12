@@ -20,6 +20,7 @@
   "caseStudyCard": {
     "eyebrow": "Case study",
     "activity": "commits per month (Mar 2025 – Aug 2026)",
+    "activityTotal": "commits total",
     "cta": "Read the full case study"
   },
   "caseStudyPage": {

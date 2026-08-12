@@ -20,6 +20,7 @@
   "caseStudyCard": {
     "eyebrow": "Estudo de caso",
     "activity": "commits por mês (mar/2025 – ago/2026)",
+    "activityTotal": "commits no total",
     "cta": "Ver o case completo"
   },
   "caseStudyPage": {
