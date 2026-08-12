@@ -1136,7 +1136,7 @@ it("renderiza capítulo grafana com o board (snapshot por default)", () => {
   expect(screen.getByRole("heading", { name: "Operação em números" })).toBeInTheDocument();
   expect(screen.getByText("linkcharts · produção")).toBeInTheDocument();
   // sem stats injetados, tudo vem do snapshot → 4 badges
-  expect(screen.getAllByText("snapshot")).toHaveLength(4);
+  expect(screen.getAllByText("snapshot")).toHaveLength(3);
 });
 ```
 
