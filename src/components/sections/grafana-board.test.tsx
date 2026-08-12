@@ -50,9 +50,7 @@ it("renderiza chrome do board, painéis e valores formatados", () => {
 });
 
 it("colore o p95 por threshold (vermelho acima de 800 ms)", () => {
-  render(
-    <GrafanaBoard chapter={chapter} stats={{ ...stats, p95RedirectMs: 950 }} locale="pt" />,
-  );
+  render(<GrafanaBoard chapter={chapter} stats={{ ...stats, p95RedirectMs: 950 }} locale="pt" />);
   expect(screen.getByText("950 ms")).toHaveStyle({ color: "#f2495c" });
 });
 

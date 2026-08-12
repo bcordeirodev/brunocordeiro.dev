@@ -26,11 +26,13 @@
 ### Task 1: Domínio `GrafanaStats`
 
 **Files:**
+
 - Create: `src/domain/grafana.ts`
 - Modify: `src/domain/index.ts` (adicionar `export * from "./grafana";`)
 - Test: `src/domain/domain.test.ts` (adicionar bloco)
 
 **Interfaces:**
+
 - Consumes: nada.
 - Produces: `grafanaStatsSchema` (zod) e `type GrafanaStats = z.infer<typeof grafanaStatsSchema>`, exportados de `@/domain`. Campos: `fetchedAt: string`, `uptime30dPct: number (0–100)`, `p95RedirectMs: number (>=0)`, `errorRate5xxPct: number (0–100)`, `reqPerMin: number (>=0)`, `live: { uptime30dPct: boolean; p95RedirectMs: boolean; errorRate5xxPct: boolean; reqPerMin: boolean }`.
 
@@ -117,9 +119,11 @@ git commit -m "feat(domain): add grafana stats schema"
 ### Task 2: Snapshot versionado
 
 **Files:**
+
 - Create: `src/content/grafana-snapshot.ts`
 
 **Interfaces:**
+
 - Consumes: `GrafanaStats` de `@/domain` (Task 1).
 - Produces: `grafanaSnapshot: GrafanaStats` exportado de `@/content/grafana-snapshot`, com todos os `live` em `false`.
 
@@ -170,10 +174,12 @@ git commit -m "feat(content): add grafana metrics snapshot fallback"
 ### Task 3: Serviço core — fetch Prometheus com fallback por painel
 
 **Files:**
+
 - Create: `src/services/grafana/core.ts`
 - Test: `src/services/grafana/core.test.ts`
 
 **Interfaces:**
+
 - Consumes: `grafanaStatsSchema`, `GrafanaStats` de `@/domain` (Task 1).
 - Produces:
   - `type GrafanaPromAuth = { url: string; user: string; token: string }`
@@ -227,9 +233,9 @@ describe("fetchGrafanaStats", () => {
       [QUERIES.errorRate5xxPct]: 0.2,
       [QUERIES.reqPerMin]: 34.5,
     };
-    const fetchFn = vi.fn().mockImplementation((url: string) =>
-      Promise.resolve(promOk(byQuery[queryOf(url)])),
-    );
+    const fetchFn = vi
+      .fn()
+      .mockImplementation((url: string) => Promise.resolve(promOk(byQuery[queryOf(url)])));
     const result = await fetchGrafanaStats(fetchFn as unknown as typeof fetch, auth, snapshot);
     expect(fetchFn).toHaveBeenCalledTimes(3);
     expect(result.uptime30dPct).toBe(snapshot.uptime30dPct);
@@ -392,10 +398,12 @@ git commit -m "feat(grafana): fetch prometheus stats with per-panel fallback"
 ### Task 4: Wrapper cacheado + tag `grafana` no revalidate
 
 **Files:**
+
 - Create: `src/services/grafana/index.ts`
 - Modify: `src/app/api/revalidate/route.ts`
 
 **Interfaces:**
+
 - Consumes: `fetchGrafanaStats`, `GrafanaPromAuth` (Task 3); `grafanaSnapshot` (Task 2).
 - Produces: `getGrafanaStats(): Promise<GrafanaStats>` exportado de `@/services/grafana`. Rota `/api/revalidate` aceita `?tag=github|grafana` (sem `tag` ou valor inválido → revalida as duas).
 
@@ -467,11 +475,13 @@ git commit -m "feat(grafana): add cached stats service and revalidate tag"
 ### Task 5: Kind `grafana` no domínio + migração do conteúdo pt/en
 
 **Files:**
+
 - Modify: `src/domain/case-study.ts` (trocar o objeto do kind `dashboard` pelo kind `grafana` no union)
 - Modify: `src/content/pt/case-study.ts` (capítulo `operations`)
 - Modify: `src/content/en/case-study.ts` (capítulo `operations`)
 
 **Interfaces:**
+
 - Consumes: nada novo.
 - Produces: no union `caseChapterSchema`, o membro `dashboard` é **substituído** por:
 
@@ -625,11 +635,13 @@ git commit -m "feat(content): migrate operations chapter to grafana board kind"
 ### Task 6: Componentes `GrafanaBars` e `GrafanaBoard`
 
 **Files:**
+
 - Create: `src/components/sections/grafana-bars.tsx`
 - Create: `src/components/sections/grafana-board.tsx`
 - Test: `src/components/sections/grafana-board.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `Extract<CaseChapter, { kind: "grafana" }>` (Task 5), `GrafanaStats` (Task 1), `linkchartsActivity` de `@/content/linkcharts-activity`, `type Locale` de `@/content`.
 - Produces: `GrafanaBoard({ chapter, stats, locale }: { chapter: GrafanaChapter; stats: GrafanaStats; locale: Locale })` — server component; `GrafanaBars({ categories, values, label }: { categories: string[]; values: number[]; label: string })` — client component.
 
@@ -690,9 +702,7 @@ it("renderiza chrome do board, painéis e valores formatados", () => {
 });
 
 it("colore o p95 por threshold (vermelho acima de 800 ms)", () => {
-  render(
-    <GrafanaBoard chapter={chapter} stats={{ ...stats, p95RedirectMs: 950 }} locale="pt" />,
-  );
+  render(<GrafanaBoard chapter={chapter} stats={{ ...stats, p95RedirectMs: 950 }} locale="pt" />);
   expect(screen.getByText("950 ms")).toHaveStyle({ color: "#f2495c" });
 });
 
@@ -877,7 +887,17 @@ function StatValue({ text, color }: { text: string; color: string }) {
   );
 }
 
-function UptimeGauge({ pct, label, color, text }: { pct: number; label: string; color: string; text: string }) {
+function UptimeGauge({
+  pct,
+  label,
+  color,
+  text,
+}: {
+  pct: number;
+  label: string;
+  color: string;
+  text: string;
+}) {
   const r = 54;
   const arc = Math.PI * r;
   const filled = (Math.min(Math.max(pct, 0), 100) / 100) * arc;
@@ -942,7 +962,10 @@ export function GrafanaBoard({
         <span className="font-mono text-xs font-medium" style={{ color: G.text }}>
           {board.title}
         </span>
-        <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]" style={{ color: G.dim }}>
+        <span
+          className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]"
+          style={{ color: G.dim }}
+        >
           <span
             className="rounded border px-1.5 py-0.5 font-mono"
             style={{ borderColor: G.border }}
@@ -997,7 +1020,10 @@ export function GrafanaBoard({
         </Panel>
       </div>
 
-      <div className="border-t px-4 py-2 text-[11px]" style={{ borderColor: G.border, color: G.dim }}>
+      <div
+        className="border-t px-4 py-2 text-[11px]"
+        style={{ borderColor: G.border, color: G.dim }}
+      >
         {board.footer}
       </div>
     </div>
@@ -1024,12 +1050,14 @@ git commit -m "feat(link-charts): add grafana-style board components"
 ### Task 7: Integração na página + remoção do kind `dashboard`
 
 **Files:**
+
 - Modify: `src/components/sections/case-chapter.tsx` (case `grafana`, remover case `dashboard`, novas props)
 - Modify: `src/app/[locale]/link-charts/page.tsx` (buscar stats, passar props)
 - Delete: `src/components/sections/dashboard-panel.tsx`
 - Modify: `src/components/sections/case-chapter.test.tsx` (cobrir o case `grafana`)
 
 **Interfaces:**
+
 - Consumes: `GrafanaBoard` (Task 6), `getGrafanaStats` (Task 4), `grafanaSnapshot` (Task 2).
 - Produces: `CaseChapter({ chapter, grafanaStats?, locale? })` — `grafanaStats` e `locale` opcionais (default: snapshot e `"pt"`), para os testes existentes continuarem chamando só com `chapter`.
 
@@ -1062,7 +1090,11 @@ export function CaseChapter({
           <h2 className="text-2xl font-bold">{chapter.title}</h2>
           <p className="mt-4 text-muted">{chapter.intro}</p>
           <div className="mt-6">
-            <GrafanaBoard chapter={chapter} stats={grafanaStats ?? grafanaSnapshot} locale={locale} />
+            <GrafanaBoard
+              chapter={chapter}
+              stats={grafanaStats ?? grafanaSnapshot}
+              locale={locale}
+            />
           </div>
         </section>
       );
@@ -1095,11 +1127,13 @@ const [showcase, grafanaStats] = await Promise.all([getGithubShowcase(), getGraf
 E o map de capítulos:
 
 ```tsx
-{caseStudy.chapters.map((chapter) => (
-  <Reveal key={chapter.id}>
-    <CaseChapter chapter={chapter} grafanaStats={grafanaStats} locale={locale} />
-  </Reveal>
-))}
+{
+  caseStudy.chapters.map((chapter) => (
+    <Reveal key={chapter.id}>
+      <CaseChapter chapter={chapter} grafanaStats={grafanaStats} locale={locale} />
+    </Reveal>
+  ));
+}
 ```
 
 - [ ] **Step 4: Cobrir o case `grafana` no teste do `CaseChapter`**

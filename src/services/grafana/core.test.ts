@@ -40,9 +40,9 @@ describe("fetchGrafanaStats", () => {
       [QUERIES.errorRate5xxPct]: 0.2,
       [QUERIES.reqPerMin]: 34.5,
     };
-    const fetchFn = vi.fn().mockImplementation((url: string) =>
-      Promise.resolve(promOk(byQuery[queryOf(url)] ?? 0)),
-    );
+    const fetchFn = vi
+      .fn()
+      .mockImplementation((url: string) => Promise.resolve(promOk(byQuery[queryOf(url)] ?? 0)));
     const result = await fetchGrafanaStats(fetchFn as unknown as typeof fetch, auth, snapshot);
     expect(fetchFn).toHaveBeenCalledTimes(3);
     expect(result.uptime30dPct).toBe(snapshot.uptime30dPct);

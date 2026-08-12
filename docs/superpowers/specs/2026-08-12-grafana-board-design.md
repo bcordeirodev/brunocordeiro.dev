@@ -28,12 +28,13 @@ real do produto.
 
 ```ts
 grafanaStatsSchema = z.object({
-  fetchedAt: z.string(),            // ISO; no fallback, data do snapshot
-  uptime30dPct: z.number(),         // 0–100
+  fetchedAt: z.string(), // ISO; no fallback, data do snapshot
+  uptime30dPct: z.number(), // 0–100
   p95RedirectMs: z.number(),
-  errorRate5xxPct: z.number(),      // 0–100
+  errorRate5xxPct: z.number(), // 0–100
   reqPerMin: z.number(),
-  live: z.object({                  // origem de cada valor (live vs snapshot)
+  live: z.object({
+    // origem de cada valor (live vs snapshot)
     uptime30dPct: z.boolean(),
     p95RedirectMs: z.boolean(),
     errorRate5xxPct: z.boolean(),
@@ -62,6 +63,7 @@ Exportado por `src/domain/index.ts` como os demais.
   valor não numérico) resolve para o valor do snapshot e marca `live: false`
   naquele campo. Sem credenciais nas envs, tudo vem do snapshot sem nenhuma
   chamada de rede.
+
 - `index.ts`: `getGrafanaStats()` com `"use cache"`, `cacheLife("hours")`,
   `cacheTag("grafana")`. Lê `GRAFANA_PROM_URL`, `GRAFANA_PROM_USER`,
   `GRAFANA_PROM_TOKEN` das envs.

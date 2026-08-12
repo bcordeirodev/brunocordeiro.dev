@@ -85,7 +85,17 @@ function StatValue({ text, color }: { text: string; color: string }) {
   );
 }
 
-function UptimeGauge({ pct, label, color, text }: { pct: number; label: string; color: string; text: string }) {
+function UptimeGauge({
+  pct,
+  label,
+  color,
+  text,
+}: {
+  pct: number;
+  label: string;
+  color: string;
+  text: string;
+}) {
   const r = 54;
   const arc = Math.PI * r;
   const filled = (Math.min(Math.max(pct, 0), 100) / 100) * arc;
@@ -150,7 +160,10 @@ export function GrafanaBoard({
         <span className="font-mono text-xs font-medium" style={{ color: G.text }}>
           {board.title}
         </span>
-        <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]" style={{ color: G.dim }}>
+        <span
+          className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]"
+          style={{ color: G.dim }}
+        >
           <span
             className="rounded border px-1.5 py-0.5 font-mono"
             style={{ borderColor: G.border }}
@@ -205,7 +218,10 @@ export function GrafanaBoard({
         </Panel>
       </div>
 
-      <div className="border-t px-4 py-2 text-[11px]" style={{ borderColor: G.border, color: G.dim }}>
+      <div
+        className="border-t px-4 py-2 text-[11px]"
+        style={{ borderColor: G.border, color: G.dim }}
+      >
         {board.footer}
       </div>
     </div>
