@@ -64,4 +64,13 @@ describe("conteúdo", () => {
     // palavra só, sem boundary antes de "harbor").
     expect(raw).not.toMatch(/itamaraty|e-?consular|e-?folhas|\bharbor\.|\.local|sem evid[êe]ncia/i);
   });
+  it("perfil traz campos de SEO dentro do orçamento de caracteres", () => {
+    for (const locale of locales) {
+      const { profile } = getContent(locale);
+      expect(profile.metaDescription.length).toBeGreaterThanOrEqual(80);
+      expect(profile.metaDescription.length).toBeLessThanOrEqual(170);
+      expect(profile.stackHighlights.length).toBeGreaterThanOrEqual(3);
+      expect(profile.stackHighlights.length).toBeLessThanOrEqual(6);
+    }
+  });
 });

@@ -12,6 +12,8 @@ export const profileSchema = z.object({
   name: z.string().min(1),
   headline: z.string().min(1),
   subheadline: z.string().min(1),
+  metaDescription: z.string().min(80).max(170), // description SERP/OG — alvo ~150 chars, com keywords da stack
+  stackHighlights: z.array(z.string().min(1)).min(3).max(6), // chips da OG image
   role: z.string().min(1), // ex.: "Desenvolvedor Full-Stack Sênior" — cargo/senioridade indexável
   languages: z.string().min(1), // ex.: "Português (nativo) · Inglês avançado (C1)"
   location: z.string().min(1), // "Brasília-DF, Brasil" — NUNCA endereço completo
