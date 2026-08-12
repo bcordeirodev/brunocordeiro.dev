@@ -3,7 +3,18 @@ import { describe, expect, it } from "vitest";
 import { PersonJsonLd } from "./person-json-ld";
 import { getContent } from "@/content";
 
-type Node = Record<string, any>;
+// Forma mínima dos nós do @graph acessados nos asserts — evita `any`
+// (bloqueado pelo lint) sem duplicar o schema.org inteiro.
+interface Node {
+  "@type"?: string;
+  "@id"?: string;
+  name?: string;
+  url?: string;
+  inLanguage?: string;
+  sameAs?: string[];
+  mainEntity?: { "@id": string };
+  isPartOf?: { "@id": string };
+}
 
 function graphFor(locale: "pt" | "en"): Node[] {
   const { container } = render(
@@ -21,8 +32,8 @@ describe("PersonJsonLd", () => {
     const profilePage = graph.find((n) => n["@type"] === "ProfilePage")!;
     const person = graph.find((n) => n["@type"] === "Person")!;
     const website = graph.find((n) => n["@type"] === "WebSite")!;
-    expect(profilePage.mainEntity["@id"]).toBe(person["@id"]);
-    expect(profilePage.isPartOf["@id"]).toBe(website["@id"]);
+    expect(profilePage.mainEntity?.["@id"]).toBe(person["@id"]);
+    expect(profilePage.isPartOf?.["@id"]).toBe(website["@id"]);
     expect(website.name).toBe("Bruno Cordeiro");
   });
   it("localiza inLanguage e a URL da página", () => {
