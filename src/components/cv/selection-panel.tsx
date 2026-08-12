@@ -1,6 +1,8 @@
 "use client";
 
-import type { SiteContent } from "@/domain";
+import { useState, type ReactNode } from "react";
+import { ChevronDown } from "lucide-react";
+import type { SiteContent, SkillCategory } from "@/domain";
 import type { CvLabels } from "@/lib/cv/labels";
 import {
   certificationKey,
@@ -43,6 +45,79 @@ function Checkbox({
   );
 }
 
+/**
+ * Uma categoria de skills como grupo colapsável. São ~90 skills no total:
+ * numa lista plana o painel vira uma parede de checkboxes, então cada
+ * categoria abre sob demanda e o cabeçalho resume o estado (n/m + tri-state).
+ */
+function SkillCategoryGroup({
+  category,
+  selection,
+  disabled,
+  onToggleCategory,
+  onToggleSkill,
+}: {
+  category: SkillCategory;
+  selection: Record<string, boolean>;
+  disabled: boolean;
+  onToggleCategory: (next: boolean) => void;
+  onToggleSkill: (key: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const keys = category.skills.map((skill) => skillKey(category.id, skill.name));
+  const selected = keys.filter((key) => selection[key]).length;
+  const allChecked = selected === keys.length;
+
+  return (
+    <div className="rounded-lg border border-border/50">
+      <div className={`flex items-center gap-2 px-3 py-2 ${disabled ? "opacity-50" : ""}`}>
+        <input
+          type="checkbox"
+          checked={allChecked}
+          disabled={disabled}
+          onChange={() => onToggleCategory(!allChecked)}
+          // `indeterminate` não existe como atributo HTML — só como propriedade
+          // do nó, daí o ref em vez de uma prop declarativa.
+          ref={(node) => {
+            if (node) node.indeterminate = selected > 0 && !allChecked;
+          }}
+          className="accent-accent"
+          aria-label={category.title}
+        />
+        <button
+          type="button"
+          disabled={disabled}
+          aria-expanded={open}
+          onClick={() => setOpen((value) => !value)}
+          className="flex flex-1 items-center justify-between gap-2 text-left text-sm font-medium"
+        >
+          {category.title}
+          <span className="flex items-center gap-2 font-mono text-xs text-muted">
+            {selected}/{keys.length}
+            <ChevronDown
+              className={`size-4 transition-transform ${open ? "rotate-180" : ""}`}
+              aria-hidden="true"
+            />
+          </span>
+        </button>
+      </div>
+      {open ? (
+        <div className="flex flex-col gap-1 border-t border-border/50 px-3 py-2 pl-9">
+          {category.skills.map((skill, index) => (
+            <Checkbox
+              key={keys[index]}
+              label={skill.name}
+              checked={selection[keys[index]!] ?? false}
+              disabled={disabled}
+              onToggle={() => onToggleSkill(keys[index]!)}
+            />
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export function SelectionPanel({
   content,
   selection,
@@ -72,14 +147,25 @@ export function SelectionPanel({
       [group]: Object.fromEntries(Object.keys(selection[group]).map((k) => [k, value])),
     });
 
-  const sectionGroup = ({
+  const setCategory = (category: SkillCategory, value: boolean) =>
+    onChange({
+      ...selection,
+      skills: {
+        ...selection.skills,
+        ...Object.fromEntries(
+          category.skills.map((skill) => [skillKey(category.id, skill.name), value]),
+        ),
+      },
+    });
+
+  const section = ({
     id,
     group,
-    items,
+    body,
   }: {
     id: CvSectionId;
     group: ItemGroup;
-    items: { key: string; label: string }[];
+    body: (enabled: boolean) => ReactNode;
   }) => {
     const enabled = selection.sections[id];
     const allChecked = Object.values(selection[group]).every(Boolean);
@@ -101,20 +187,28 @@ export function SelectionPanel({
             {allChecked ? labels.clearAll : labels.selectAll}
           </button>
         </div>
-        <div className="flex flex-col gap-1 pl-6">
-          {items.map((item) => (
-            <Checkbox
-              key={item.key}
-              label={item.label}
-              checked={selection[group][item.key] ?? false}
-              disabled={!enabled}
-              onToggle={() => toggleItem(group, item.key)}
-            />
-          ))}
-        </div>
+        {body(enabled)}
       </fieldset>
     );
   };
+
+  const itemList = (
+    group: ItemGroup,
+    items: { key: string; label: string }[],
+    enabled: boolean,
+  ) => (
+    <div className="flex flex-col gap-1 pl-6">
+      {items.map((item) => (
+        <Checkbox
+          key={item.key}
+          label={item.label}
+          checked={selection[group][item.key] ?? false}
+          disabled={!enabled}
+          onToggle={() => toggleItem(group, item.key)}
+        />
+      ))}
+    </div>
+  );
 
   return (
     <div className="flex flex-col gap-6">
@@ -127,33 +221,56 @@ export function SelectionPanel({
           onToggle={() => toggleSection(id)}
         />
       ))}
-      {sectionGroup({
+      {section({
         id: "experiences",
         group: "experiences",
-        items: content.experiences.map((e) => ({
-          key: experienceKey(e),
-          label: `${e.role} — ${e.company}`,
-        })),
+        body: (enabled) =>
+          itemList(
+            "experiences",
+            content.experiences.map((e) => ({
+              key: experienceKey(e),
+              label: `${e.role} — ${e.company}`,
+            })),
+            enabled,
+          ),
       })}
-      {sectionGroup({
+      {section({
         id: "skills",
         group: "skills",
-        items: content.skillCategories.flatMap((cat) =>
-          cat.skills.map((s) => ({
-            key: skillKey(cat.id, s.name),
-            label: `${cat.title}: ${s.name}`,
-          })),
+        body: (enabled) => (
+          <div className="flex flex-col gap-2">
+            {content.skillCategories.map((category) => (
+              <SkillCategoryGroup
+                key={category.id}
+                category={category}
+                selection={selection.skills}
+                disabled={!enabled}
+                onToggleCategory={(next) => setCategory(category, next)}
+                onToggleSkill={(key) => toggleItem("skills", key)}
+              />
+            ))}
+          </div>
         ),
       })}
-      {sectionGroup({
+      {section({
         id: "certifications",
         group: "certifications",
-        items: content.certifications.map((c) => ({ key: certificationKey(c), label: c.name })),
+        body: (enabled) =>
+          itemList(
+            "certifications",
+            content.certifications.map((c) => ({ key: certificationKey(c), label: c.name })),
+            enabled,
+          ),
       })}
-      {sectionGroup({
+      {section({
         id: "education",
         group: "education",
-        items: content.education.map((e) => ({ key: educationKey(e), label: e.degree })),
+        body: (enabled) =>
+          itemList(
+            "education",
+            content.education.map((e) => ({ key: educationKey(e), label: e.degree })),
+            enabled,
+          ),
       })}
       <Checkbox
         bold

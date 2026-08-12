@@ -1,8 +1,10 @@
 import { useTranslations } from "next-intl";
 import type { Profile } from "@/domain";
 import { Reveal } from "@/components/motion/reveal";
+import { TransitionLink } from "@/components/motion/transition-link";
 import { CopyEmailButton } from "@/components/sections/copy-email-button";
 import { SocialLinks } from "@/components/sections/social-links";
+import { buttonVariants } from "@/components/ui/button";
 
 const STACK_LINE = [
   "TypeScript",
@@ -57,6 +59,9 @@ export function Hero({ profile }: { profile: Profile }) {
 
       <Reveal delay={0.3}>
         <div className="mt-8 flex flex-wrap items-center gap-4">
+          <TransitionLink href="/cv" className={buttonVariants()}>
+            {t("downloadCv")}
+          </TransitionLink>
           <SocialLinks github={profile.github} linkedin={profile.linkedin} />
           <CopyEmailButton
             email={profile.email}

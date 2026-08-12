@@ -40,6 +40,8 @@ export default async function CvPage({ params }: { params: Promise<{ locale: Loc
       caseStudy: t("sections.caseStudy"),
     },
     panelTitle: t("panelTitle"),
+    customize: t("customize"),
+    close: tCommon("close"),
     selectAll: t("selectAll"),
     clearAll: t("clearAll"),
     download: t("download"),
@@ -53,8 +55,8 @@ export default async function CvPage({ params }: { params: Promise<{ locale: Loc
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-5xl px-6 py-16">
-        <h1 className="mb-10 text-3xl font-bold tracking-tight sm:text-4xl">{t("pageTitle")}</h1>
+      <main className="mx-auto max-w-4xl px-6 py-16">
+        <h1 className="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">{t("pageTitle")}</h1>
         <CvBuilder content={content} locale={locale} labels={labels} />
       </main>
       <SiteFooter />

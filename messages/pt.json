@@ -8,6 +8,7 @@
   "common": {
     "copyEmail": "Copiar e-mail",
     "copied": "Copiado!",
+    "downloadCv": "Baixar CV",
     "viewSource": "veja o código desta página",
     "asOf": "dados de {date}",
     "current": "atual",
@@ -56,6 +57,7 @@
     "pageTitle": "Currículo",
     "pageDescription": "Monte e baixe o currículo de Bruno Cordeiro em PDF — escolha as seções, experiências e skills que interessam.",
     "panelTitle": "Monte o CV",
+    "customize": "Personalizar",
     "selectAll": "marcar todas",
     "clearAll": "desmarcar todas",
     "download": "Baixar PDF",

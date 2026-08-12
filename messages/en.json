@@ -8,6 +8,7 @@
   "common": {
     "copyEmail": "Copy email",
     "copied": "Copied!",
+    "downloadCv": "Download CV",
     "viewSource": "view this page's source",
     "asOf": "data as of {date}",
     "current": "current",
@@ -56,6 +57,7 @@
     "pageTitle": "Résumé",
     "pageDescription": "Build and download Bruno Cordeiro's résumé as a PDF — pick the sections, roles and skills that matter to you.",
     "panelTitle": "Build the CV",
+    "customize": "Customize",
     "selectAll": "select all",
     "clearAll": "clear all",
     "download": "Download PDF",

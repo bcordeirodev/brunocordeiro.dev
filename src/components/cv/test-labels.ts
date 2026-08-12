@@ -11,6 +11,8 @@ export const testLabels: CvLabels = {
     caseStudy: "Case study",
   },
   panelTitle: "Monte o CV",
+  customize: "Personalizar",
+  close: "fechar",
   selectAll: "marcar todas",
   clearAll: "desmarcar todas",
   download: "Baixar PDF",

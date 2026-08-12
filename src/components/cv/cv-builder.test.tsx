@@ -15,11 +15,23 @@ vi.mock("./cv-document", () => ({ CvDocument: () => null }));
 const content = getContent("pt");
 
 describe("CvBuilder", () => {
-  it("desmarcar seção no painel remove a seção do preview", async () => {
+  it("desmarcar seção na modal remove a seção do preview", async () => {
     render(<CvBuilder content={content} locale="pt" labels={testLabels} />);
+    const dialog = document.querySelector("dialog") as HTMLDialogElement;
+    expect(dialog.open).toBe(false);
+    await userEvent.click(screen.getByRole("button", { name: "Personalizar" }));
+    expect(dialog.open).toBe(true);
     expect(screen.getByRole("heading", { name: "Certificações" })).toBeInTheDocument();
     await userEvent.click(screen.getByRole("checkbox", { name: "Certificações" }));
     expect(screen.queryByRole("heading", { name: "Certificações" })).not.toBeInTheDocument();
+  });
+
+  it("fecha a modal pelo botão de fechar", async () => {
+    render(<CvBuilder content={content} locale="pt" labels={testLabels} />);
+    const dialog = document.querySelector("dialog") as HTMLDialogElement;
+    await userEvent.click(screen.getByRole("button", { name: "Personalizar" }));
+    await userEvent.click(screen.getByRole("button", { name: "fechar" }));
+    expect(dialog.open).toBe(false);
   });
 
   it("baixa o PDF via object URL", async () => {
