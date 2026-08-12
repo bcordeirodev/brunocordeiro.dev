@@ -80,8 +80,15 @@ export function SkillMatrix({
           and up the 5 tabs fit a single row; `h-auto!` + flex-wrap stay as a
           safety net if a locale's titles ever overflow — `h-auto!` (not just
           `h-auto`) because the base TabsList variant sets a fixed
-          `group-data-horizontal/tabs:h-8` with equal CSS specificity. */}
+          `group-data-horizontal/tabs:h-8` with equal CSS specificity.
+
+          tabIndex={0}: a lista é a região ROLÁVEL no mobile e, antes da
+          hidratação, o Base UI deixa toda tab com tabindex="-1" — sem um
+          alvo de teclado na própria lista, a regra axe
+          scrollable-region-focusable falha de forma intermitente no e2e
+          (remediação padrão: o elemento rolável ser focável). */}
       <TabsList
+        tabIndex={0}
         className={cn(
           "h-auto! w-full flex-nowrap justify-start gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] sm:w-fit sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden",
           "[mask-image:linear-gradient(to_right,black,black_calc(100%-2.5rem),transparent)] sm:[mask-image:none]",

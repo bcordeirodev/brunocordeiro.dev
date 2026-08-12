@@ -1,5 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { renderToString } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { SkillMatrix } from "./skill-matrix";
 
@@ -110,5 +111,22 @@ describe("SkillMatrix", () => {
     const { container } = renderMatrix();
     const laravelRow = within(container).getByText("Laravel 12").closest("li");
     expect(laravelRow?.querySelector("a")).toBeNull();
+  });
+
+  it("tablist é focável já no HTML do SSR (região rolável antes da hidratação)", () => {
+    // Antes da hidratação o Base UI deixa TODAS as tabs com tabindex="-1"
+    // (o roving tabindex só ativa no cliente). Como a lista rola na
+    // horizontal no mobile (overflow-x-auto), o markup estático precisa de
+    // um alvo de teclado na própria lista — senão a regra axe
+    // scrollable-region-focusable falha de forma intermitente no e2e
+    // (mobile-320) conforme o scan acerte a janela pré-hidratação.
+    const html = renderToString(
+      <SkillMatrix categories={categories} officialSiteLabel="site oficial" />,
+    );
+    const host = document.createElement("div");
+    host.innerHTML = html;
+    const tablist = host.querySelector('[role="tablist"]');
+    expect(tablist).not.toBeNull();
+    expect(tablist?.getAttribute("tabindex")).toBe("0");
   });
 });
