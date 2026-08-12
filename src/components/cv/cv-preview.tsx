@@ -4,6 +4,23 @@ import type { CvLabels } from "@/lib/cv/labels";
 import { certificationKey, educationKey } from "@/lib/cv/selection";
 import { formatPeriod, formatYearMonth } from "@/lib/dates";
 
+// Espelha os chips do PDF — a lista de tecnologias fica escaneável em vez de
+// virar uma linha corrida de texto.
+function Chips({ items }: { items: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-1">
+      {items.map((item) => (
+        <span
+          key={item}
+          className="rounded-sm border border-border/60 bg-surface px-1.5 py-0.5 text-[10px] text-muted"
+        >
+          {item}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="flex flex-col gap-2">
@@ -64,7 +81,7 @@ export function CvPreview({
                   · {formatPeriod(exp.start, exp.end, locale, labels.current)}
                 </span>
               </p>
-              <p className="text-xs text-muted">{exp.stacks.join(" · ")}</p>
+              <Chips items={exp.stacks} />
               {/* Só os nomes, como no PDF: a descrição de cada projeto vive no site. */}
               {exp.projects.length > 0 ? (
                 <p className="text-xs font-medium">{exp.projects.map((p) => p.name).join(" · ")}</p>
@@ -78,10 +95,10 @@ export function CvPreview({
         <Section title={labels.sections.skills}>
           {/* Só os nomes, como no PDF: a prova de cada skill vive no site. */}
           {data.skillCategories.map((cat) => (
-            <p key={cat.id} className="text-xs text-muted">
-              <span className="font-medium text-foreground">{cat.title}</span> —{" "}
-              {cat.skills.map((s) => s.name).join(" · ")}
-            </p>
+            <div key={cat.id} className="flex flex-col gap-1">
+              <p className="text-xs font-medium">{cat.title}</p>
+              <Chips items={cat.skills.map((s) => s.name)} />
+            </div>
           ))}
         </Section>
       ) : null}

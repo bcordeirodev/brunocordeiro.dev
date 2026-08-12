@@ -1,3 +1,4 @@
+import { Children } from "react";
 import { Document, Font, Link, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import type { Locale } from "@/content";
 import type { CvData } from "@/lib/cv/build-cv-data";
@@ -44,7 +45,28 @@ const styles = StyleSheet.create({
   entryTitle: { fontFamily: "Helvetica-Bold", fontSize: 9.5, lineHeight: 1.25 },
   entryMeta: { fontSize: 8, color: "#666", lineHeight: 1.4, marginTop: 1 },
   body: { fontSize: 8.5, color: "#333", lineHeight: 1.4, marginTop: 2 },
-  skillGroup: { fontSize: 8.5, color: "#333", lineHeight: 1.4, marginBottom: 3 },
+  skillGroup: { marginBottom: 6 },
+  skillTitle: { fontFamily: "Helvetica-Bold", fontSize: 8.5, color: "#1a1a1a", lineHeight: 1.3 },
+  // Chips em vez de uma linha corrida de nomes: a lista fica escaneável e
+  // ecoa os badges de stack do site. Sem `gap` — margens funcionam em
+  // qualquer versão do yoga que o react-pdf empacote.
+  // `width: 100%` é obrigatório: sem largura definida o yoga mede a linha de
+  // chips como se nunca quebrasse, superestima a altura do bloco e empurra a
+  // seção inteira para a página seguinte.
+  chips: { width: "100%", flexDirection: "row", flexWrap: "wrap", marginTop: 3 },
+  chip: {
+    fontSize: 7.5,
+    lineHeight: 1.3,
+    color: "#3f3f46",
+    backgroundColor: "#f4f4f5",
+    borderWidth: 0.5,
+    borderColor: "#e4e4e7",
+    borderRadius: 3,
+    paddingVertical: 1.5,
+    paddingHorizontal: 4,
+    marginRight: 3,
+    marginBottom: 3,
+  },
   credential: { fontSize: 7.5, lineHeight: 1.4 },
   projects: {
     fontFamily: "Helvetica-Bold",
@@ -57,11 +79,18 @@ const styles = StyleSheet.create({
 });
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  // minPresenceAhead evita que o título de uma seção fique órfão no pé da página.
+  // Título e primeiro item viajam juntos: sozinho, o título encalha no pé da
+  // página com o conteúdo na seguinte. `minPresenceAhead` não resolve — na
+  // View da seção (mais alta que a página) ele empurra a seção inteira, e no
+  // título isolado não tem efeito.
+  const [first, ...rest] = Children.toArray(children);
   return (
-    <View style={styles.section} minPresenceAhead={48}>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      {children}
+    <View style={styles.section}>
+      <View wrap={false}>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        {first}
+      </View>
+      {rest}
     </View>
   );
 }
@@ -123,9 +152,14 @@ export function CvDocument({
                 </Text>
                 <Text style={styles.entryMeta}>
                   {formatPeriod(exp.start, exp.end, locale, labels.current)}
-                  {"  ·  "}
-                  {exp.stacks.join(" · ")}
                 </Text>
+                <View style={styles.chips}>
+                  {exp.stacks.map((stack) => (
+                    <Text key={stack} style={styles.chip}>
+                      {stack}
+                    </Text>
+                  ))}
+                </View>
                 {/* Só os nomes dos projetos, como nas skills: a descrição de
                     cada um vive no site e aqui só engordaria o documento. */}
                 {exp.projects.length > 0 ? (
@@ -143,10 +177,16 @@ export function CvDocument({
             {/* Só os nomes: a prova de cada skill vive no site, e num CV ela
                 custaria três páginas de texto que o recrutador não lê. */}
             {data.skillCategories.map((category) => (
-              <Text key={category.id} style={styles.skillGroup}>
-                <Text style={styles.strong}>{category.title}</Text>
-                {` — ${category.skills.map((skill) => skill.name).join(" · ")}`}
-              </Text>
+              <View key={category.id} style={styles.skillGroup}>
+                <Text style={styles.skillTitle}>{category.title}</Text>
+                <View style={styles.chips}>
+                  {category.skills.map((skill) => (
+                    <Text key={skill.name} style={styles.chip}>
+                      {skill.name}
+                    </Text>
+                  ))}
+                </View>
+              </View>
             ))}
           </Section>
         ) : null}
