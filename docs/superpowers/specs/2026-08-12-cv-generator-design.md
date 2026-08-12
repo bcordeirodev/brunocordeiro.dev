@@ -101,7 +101,9 @@ Motivação: com ~90 skills numa lista plana, o painel lateral empurrava o botã
 
 ### Densidade do CV: só nomes
 
-Skills e projetos entram no CV **apenas pelo nome** — a prova de cada skill e a descrição de cada projeto vivem no site, e no documento custavam páginas de texto que ninguém lê. As stacks de cada experiência continuam completas (valem para busca por palavra-chave em ATS). Vale para os dois renderizadores: o preview mostra exatamente o que o PDF terá.
+No **PDF**, skills e projetos entram **apenas pelo nome**: a prova de cada skill e a descrição de cada sistema custavam páginas de texto que ninguém lê num documento. As stacks de cada experiência continuam completas (valem para busca por palavra-chave em ATS).
+
+O **preview** mantém a descrição de cada sistema — é a única divergência deliberada entre os dois renderizadores: a tela tem espaço de sobra e a descrição ajuda quem está montando o CV a decidir o que incluir; o documento precisa caber em duas páginas. Fora isso o preview continua espelhando o PDF (skills só por nome, chips, mesma hierarquia de negritos).
 
 ### Correções do template do PDF
 

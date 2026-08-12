@@ -73,18 +73,33 @@ export function CvPreview({
 
       {data.experiences ? (
         <Section title={labels.sections.experiences}>
+          {/* Régua entre as experiências: com os chips ocupando a largura
+              toda, um bloco emendava no outro e a trajetória virava um muro. */}
           {data.experiences.map((exp) => (
-            <div key={`${exp.company}:${exp.start}`} className="flex flex-col gap-1">
-              <p className="font-medium">
-                {exp.role} — {exp.company}{" "}
-                <span className="font-normal text-muted">
-                  · {formatPeriod(exp.start, exp.end, locale, labels.current)}
-                </span>
-              </p>
+            <div
+              key={`${exp.company}:${exp.start}`}
+              className="flex flex-col gap-2 border-t border-border/40 py-4 first:border-t-0 first:pt-0 last:pb-0"
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                <p className="font-medium">
+                  {exp.role} — {exp.company}
+                </p>
+                <p className="font-mono text-xs text-muted">
+                  {formatPeriod(exp.start, exp.end, locale, labels.current)}
+                </p>
+              </div>
               <Chips items={exp.stacks} />
-              {/* Só os nomes, como no PDF: a descrição de cada projeto vive no site. */}
+              {/* Aqui a descrição de cada sistema entra; no PDF, não — a tela
+                  tem espaço de sobra e o documento precisa caber em 2 páginas. */}
               {exp.projects.length > 0 ? (
-                <p className="text-xs font-medium">{exp.projects.map((p) => p.name).join(" · ")}</p>
+                <div className="flex flex-col gap-1">
+                  {exp.projects.map((p) => (
+                    <p key={p.name} className="text-xs text-muted">
+                      <span className="font-medium text-foreground">{p.name}</span> —{" "}
+                      {p.description}
+                    </p>
+                  ))}
+                </div>
               ) : null}
             </div>
           ))}
