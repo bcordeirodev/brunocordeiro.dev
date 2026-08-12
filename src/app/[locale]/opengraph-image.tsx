@@ -24,7 +24,7 @@ function resolveLocale(locale: Locale | undefined): Locale {
   return locale && locales.includes(locale) ? locale : locales[0];
 }
 
-export function generateImageMetadata({ params }: { params: { locale: Locale } }) {
+export function generateImageMetadata({ params }: { params: { locale?: Locale } }) {
   const { profile } = getContent(resolveLocale(params.locale));
   return [{ id: "card", alt: `${profile.name} — ${profile.role}`, size, contentType }];
 }
