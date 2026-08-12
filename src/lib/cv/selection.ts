@@ -1,4 +1,4 @@
-import type { Experience, SiteContent } from "@/domain";
+import type { Certification, Education, Experience, SiteContent } from "@/domain";
 
 export type CvSectionId =
   | "summary"
@@ -17,14 +17,23 @@ export type CvSelection = {
   education: Record<string, boolean>;
 };
 
-// company sozinho é único hoje, mas o par com start blinda contra duas
-// passagens pela mesma empresa sem quebrar seleções existentes.
+// Nomes sozinhos são únicos hoje, mas o par com um segundo campo blinda
+// contra homônimos futuros (duas passagens pela mesma empresa, a mesma
+// certificação de emissores/anos diferentes etc.).
 export function experienceKey(e: Pick<Experience, "company" | "start">): string {
   return `${e.company}:${e.start}`;
 }
 
 export function skillKey(categoryId: string, skillName: string): string {
   return `${categoryId}:${skillName}`;
+}
+
+export function certificationKey(c: Pick<Certification, "name" | "issued">): string {
+  return `${c.name}:${c.issued}`;
+}
+
+export function educationKey(e: Pick<Education, "degree" | "institution">): string {
+  return `${e.degree}:${e.institution}`;
 }
 
 const allTrue = (keys: string[]): Record<string, boolean> =>
@@ -45,7 +54,7 @@ export function defaultSelection(content: SiteContent): CvSelection {
     skills: allTrue(
       content.skillCategories.flatMap((cat) => cat.skills.map((s) => skillKey(cat.id, s.name))),
     ),
-    certifications: allTrue(content.certifications.map((c) => c.name)),
-    education: allTrue(content.education.map((e) => e.degree)),
+    certifications: allTrue(content.certifications.map(certificationKey)),
+    education: allTrue(content.education.map(educationKey)),
   };
 }

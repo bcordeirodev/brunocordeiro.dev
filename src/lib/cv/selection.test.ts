@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { getContent } from "@/content";
-import { defaultSelection, experienceKey, skillKey } from "./selection";
+import {
+  certificationKey,
+  defaultSelection,
+  educationKey,
+  experienceKey,
+  skillKey,
+} from "./selection";
 
 const content = getContent("pt");
 
@@ -14,8 +20,8 @@ describe("defaultSelection", () => {
   it("cobre todos os itens do conteúdo, todos marcados", () => {
     const sel = defaultSelection(content);
     expect(Object.keys(sel.experiences)).toEqual(content.experiences.map(experienceKey));
-    expect(Object.keys(sel.certifications)).toEqual(content.certifications.map((c) => c.name));
-    expect(Object.keys(sel.education)).toEqual(content.education.map((e) => e.degree));
+    expect(Object.keys(sel.certifications)).toEqual(content.certifications.map(certificationKey));
+    expect(Object.keys(sel.education)).toEqual(content.education.map(educationKey));
     expect(Object.keys(sel.skills)).toEqual(
       content.skillCategories.flatMap((cat) => cat.skills.map((s) => skillKey(cat.id, s.name))),
     );
@@ -23,9 +29,15 @@ describe("defaultSelection", () => {
     expect(Object.values(items).every(Boolean)).toBe(true);
   });
 
-  it("gera chaves de experiência únicas mesmo com empresa repetida", () => {
+  it("gera chaves únicas mesmo com nomes repetidos", () => {
     expect(experienceKey({ company: "ACME", start: "2020-01" })).not.toBe(
       experienceKey({ company: "ACME", start: "2022-05" }),
+    );
+    expect(certificationKey({ name: "Scrum Master", issued: "2020-01" })).not.toBe(
+      certificationKey({ name: "Scrum Master", issued: "2023-06" }),
+    );
+    expect(educationKey({ degree: "Bacharelado", institution: "UnB" })).not.toBe(
+      educationKey({ degree: "Bacharelado", institution: "IESB" }),
     );
   });
 });
