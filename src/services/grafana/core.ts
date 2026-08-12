@@ -57,13 +57,8 @@ export async function fetchGrafanaStats(
     reqPerMin: snapshot.reqPerMin,
   };
   // uptime30dPct fica de fora do loop: não existe no Prometheus (GitHub
-  // Actions é a fonte), então live.uptime30dPct reflete parcialmente sucesso.
-  const live = { ...snapshot.live };
-  const failures: Record<GrafanaMetricKey, boolean> = {
-    p95RedirectMs: false,
-    errorRate5xxPct: false,
-    reqPerMin: false,
-  };
+  // Actions é a fonte), então live.uptime30dPct permanece false sempre.
+  const live = { ...snapshot.live, uptime30dPct: false };
   settled.forEach((result, i) => {
     const key = keys[i];
     if (result.status === "fulfilled") {
@@ -71,13 +66,9 @@ export async function fetchGrafanaStats(
       live[key] = true;
     } else {
       live[key] = false;
-      failures[key] = true;
     }
   });
   const anyLive = Object.values(live).some(Boolean);
-  const anyFailure = Object.values(failures).some(Boolean);
-  const allFailures = Object.values(failures).every(Boolean);
-  live.uptime30dPct = anyFailure && !allFailures;
   return grafanaStatsSchema.parse({
     fetchedAt: anyLive ? new Date().toISOString() : snapshot.fetchedAt,
     uptime30dPct: snapshot.uptime30dPct,
