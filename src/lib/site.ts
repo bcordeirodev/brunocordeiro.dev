@@ -6,7 +6,15 @@ export const SITE_URL = "https://brunocordeiro.dev";
 export const defaultLocale: Locale = "pt";
 
 const OG_LOCALE: Record<Locale, string> = { pt: "pt_BR", en: "en_US" };
-const LANGUAGE_TAG: Record<Locale, string> = { pt: "pt-BR", en: "en" };
+
+// hreflang: além da tag regional, emitimos o "pt" genérico (cobre pt-PT etc.).
+const LANGUAGE_TAGS: Record<Locale, string[]> = { pt: ["pt", "pt-BR"], en: ["en"] };
+const CANONICAL_TAG: Record<Locale, string> = { pt: "pt-BR", en: "en" };
+
+/** Tag BCP 47 canônica do locale, ex.: `languageTag("pt")` → `"pt-BR"`. */
+export function languageTag(locale: Locale): string {
+  return CANONICAL_TAG[locale];
+}
 
 /** Builds `/{locale}{path}`, e.g. `localizedPath("pt", "/link-charts")`. */
 export function localizedPath(locale: Locale, path = ""): string {
@@ -22,7 +30,9 @@ export function absoluteUrl(path = ""): string {
 export function languageAlternates(path = ""): Record<string, string> {
   return {
     ...Object.fromEntries(
-      locales.map((locale) => [LANGUAGE_TAG[locale], absoluteUrl(localizedPath(locale, path))]),
+      locales.flatMap((locale) =>
+        LANGUAGE_TAGS[locale].map((tag) => [tag, absoluteUrl(localizedPath(locale, path))]),
+      ),
     ),
     "x-default": absoluteUrl(localizedPath(defaultLocale, path)),
   };
