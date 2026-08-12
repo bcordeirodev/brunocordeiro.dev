@@ -42,9 +42,15 @@ export function CvPreview({
 
       {data.metrics ? (
         <p className="text-xs text-muted">
-          {data.metrics
-            .map((m) => `${m.prefix ?? ""}${m.value}${m.suffix ?? ""} ${m.label}`)
-            .join(" · ")}
+          {data.metrics.map((metric, index) => (
+            <span key={metric.id}>
+              {index > 0 ? " · " : ""}
+              <span className="font-medium text-foreground">
+                {`${metric.prefix ?? ""}${metric.value}${metric.suffix ?? ""}`}
+              </span>{" "}
+              {metric.label}
+            </span>
+          ))}
         </p>
       ) : null}
 
@@ -61,7 +67,7 @@ export function CvPreview({
               <p className="text-xs text-muted">{exp.stacks.join(" · ")}</p>
               {exp.projects.map((p) => (
                 <p key={p.name} className="text-xs text-muted">
-                  {p.name} — {p.description}
+                  <span className="font-medium text-foreground">{p.name}</span> — {p.description}
                 </p>
               ))}
             </div>
@@ -71,15 +77,12 @@ export function CvPreview({
 
       {data.skillCategories ? (
         <Section title={labels.sections.skills}>
+          {/* Só os nomes, como no PDF: a prova de cada skill vive no site. */}
           {data.skillCategories.map((cat) => (
-            <div key={cat.id}>
-              <p className="font-medium">{cat.title}</p>
-              {cat.skills.map((s) => (
-                <p key={s.name} className="text-xs text-muted">
-                  {s.name} — {s.proof}
-                </p>
-              ))}
-            </div>
+            <p key={cat.id} className="text-xs text-muted">
+              <span className="font-medium text-foreground">{cat.title}</span> —{" "}
+              {cat.skills.map((s) => s.name).join(" · ")}
+            </p>
           ))}
         </Section>
       ) : null}
