@@ -2,12 +2,16 @@ import { describe, expect, it } from "vitest";
 import { experienceSchema, siteContentSchema, skillSchema } from "@/domain";
 
 describe("domain schemas", () => {
-  it("aceita skill válida e rejeita evidence desconhecida", () => {
+  it("aceita skill com tags e rejeita skill sem tags", () => {
     expect(
-      skillSchema.safeParse({ name: "TypeScript", evidence: "production", proof: "Link Charts" })
-        .success,
+      skillSchema.safeParse({
+        name: "TypeScript",
+        proof: "strict mode em ~570 arquivos",
+        tags: ["Link Charts"],
+      }).success,
     ).toBe(true);
-    expect(skillSchema.safeParse({ name: "X", evidence: "guru", proof: "?" }).success).toBe(false);
+    expect(skillSchema.safeParse({ name: "X", proof: "?", tags: [] }).success).toBe(false);
+    expect(skillSchema.safeParse({ name: "X", proof: "?" }).success).toBe(false);
   });
   it("valida datas YYYY-MM e end null como atual", () => {
     expect(

@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getContent, type Locale } from "@/content";
 import { aiStats } from "@/content/ai-stats";
-import type { EvidenceLevel } from "@/domain";
 import { getGithubShowcase } from "@/services/github";
 import { formatYearMonth } from "@/lib/dates";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -21,16 +20,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   setRequestLocale(locale);
   const content = getContent(locale);
   const showcase = await getGithubShowcase();
-
-  const tEvidence = await getTranslations({ locale, namespace: "evidence" });
-  const evidenceLabels: Record<EvidenceLevel, string> = {
-    production: tEvidence("production"),
-    professional: tEvidence("professional"),
-    project: tEvidence("project"),
-    certified: tEvidence("certified"),
-    academic: tEvidence("academic"),
-    declared: tEvidence("declared"),
-  };
 
   const tNav = await getTranslations({ locale, namespace: "nav" });
 
@@ -58,7 +47,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
               {tNav("stack")}
             </h2>
-            <SkillMatrix categories={content.skillCategories} labels={evidenceLabels} />
+            <SkillMatrix categories={content.skillCategories} />
           </section>
         </Reveal>
         <Reveal>

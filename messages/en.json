@@ -28,14 +28,6 @@
     "latestRelease": "Release in production",
     "backToContact": "Back to contact"
   },
-  "evidence": {
-    "production": "in production",
-    "professional": "professional",
-    "project": "project",
-    "certified": "certified",
-    "academic": "academic",
-    "declared": "declared"
-  },
   "sections": {
     "certifications": "education & certifications",
     "githubProjects": "personal projects on github"

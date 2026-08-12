@@ -4,10 +4,10 @@ test("home pt renderiza seções e troca de tab", async ({ page }) => {
   await page.goto("/pt");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(/bruno/i);
   await page.getByRole("tab", { name: /backend/i }).click();
-  // Scoped to the active tabpanel: with all 9 skill categories now kept
-  // mounted in the DOM for SEO (see skill-matrix.tsx), "Laravel 12" also
-  // appears in the (hidden) Languages panel's PHP proof text, so an
-  // unscoped getByText().first() could match the wrong, hidden element.
+  // Scoped to the active tabpanel: all 5 skill categories are kept mounted
+  // in the DOM for SEO (see skill-matrix.tsx), and "Laravel 12" also appears
+  // in the Backend panel's PHP proof text, so an unscoped
+  // getByText().first() could match a hidden element elsewhere.
   // getByRole("tabpanel") only resolves the visible panel because inactive
   // panels carry the `hidden` attribute, which removes them (and their
   // text) from the accessibility tree Playwright queries.
