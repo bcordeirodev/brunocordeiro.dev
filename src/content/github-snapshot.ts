@@ -8,7 +8,8 @@ export const githubSnapshot: GithubShowcase = {
   repos: [
     {
       name: "lawyer-hero-envato",
-      description: "Landing page profissional para advogados",
+      description:
+        "Professional landing page template for lawyers, built with Next.js 15, TypeScript and Tailwind CSS.",
       url: "https://github.com/bcordeirodev/lawyer-hero-envato",
       stars: 1,
       language: "TypeScript",
@@ -16,7 +17,7 @@ export const githubSnapshot: GithubShowcase = {
     },
     {
       name: "lawyer-hero-geovanna",
-      description: "Lading page para advogados.",
+      description: "Landing page for a law firm, built with Next.js 15, TypeScript and Tailwind CSS.",
       url: "https://github.com/bcordeirodev/lawyer-hero-geovanna",
       stars: 0,
       language: "TypeScript",
@@ -24,7 +25,8 @@ export const githubSnapshot: GithubShowcase = {
     },
     {
       name: "rent-landingpage",
-      description: "Landing for rent chairs",
+      description:
+        "SEO-optimized landing page for a chair rental service, built with Next.js 14 and Tailwind CSS.",
       url: "https://github.com/bcordeirodev/rent-landingpage",
       stars: 0,
       language: "TypeScript",
@@ -32,13 +34,15 @@ export const githubSnapshot: GithubShowcase = {
     },
     {
       name: "acerbrag",
-      description: "Repositório usado no desenvolvimento da solução referente a empresa Acerbrag.",
+      description: "Loyalty and rewards program platform built with PHP (Optimuz framework).",
       url: "https://github.com/bcordeirodev/acerbrag",
       stars: 0,
       language: "PHP",
-      pushedAt: "2017-10-31T19:49:09Z",
+      pushedAt: "2026-08-12T16:12:18Z",
     },
   ],
+  // Sem catálogo no fallback: o botão "ver todos" só aparece com dados vivos.
+  allRepos: [],
   latestRelease: null,
   source: "snapshot",
 };

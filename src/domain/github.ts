@@ -17,6 +17,7 @@ export const githubReleaseSchema = z.object({
 
 export const githubShowcaseSchema = z.object({
   repos: z.array(githubRepoSchema),
+  allRepos: z.array(githubRepoSchema),
   latestRelease: githubReleaseSchema.nullable(),
   source: z.enum(["live", "snapshot"]),
 });
