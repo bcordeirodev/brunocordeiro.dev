@@ -7,6 +7,11 @@
 @theme {
   --color-background: #09090b;
   --color-surface: #111113;
+  /* Deeper than --color-surface — used behind the terminal/diagram-style
+     blocks (case study card, architecture diagram, pipeline animation)
+     where chips/text need contrast against a near-black ground. Was
+     hardcoded as #0a0e14 in four separate component files. */
+  --color-surface-deep: #0a0e14;
   --color-border: #27272a;
   --color-foreground: #fafafa;
   --color-muted: #a1a1aa;

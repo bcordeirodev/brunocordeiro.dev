@@ -1,3 +1,4 @@
+import { getLocale } from "next-intl/server";
 import type { AiStats as AiStatsData } from "@/domain";
 import { NumberTicker } from "@/components/motion/number-ticker";
 
@@ -14,7 +15,13 @@ type AiStatsLabels = {
   disclaimer: string;
 };
 
-export function AiStats({ stats, labels }: { stats: AiStatsData; labels: AiStatsLabels }) {
+export async function AiStats({ stats, labels }: { stats: AiStatsData; labels: AiStatsLabels }) {
+  // Own locale lookup (matches RepoGrid/Certifications) instead of a new
+  // prop, so the existing call site in page.tsx needs no change: an 8-digit
+  // monthly token count like 10854022 renders as "10.9M"/"10,9 mi" instead
+  // of overflowing the stat tile at narrow widths.
+  const locale = await getLocale();
+  const intlLocale = locale === "pt" ? "pt-BR" : "en-US";
   const lastMonth = stats.months[stats.months.length - 1];
 
   const metrics = [
@@ -44,7 +51,7 @@ export function AiStats({ stats, labels }: { stats: AiStatsData; labels: AiStats
           >
             <dt className="text-xs text-muted">{metric.label}</dt>
             <dd className="font-mono text-2xl tabular-nums">
-              <NumberTicker value={metric.value} />
+              <NumberTicker value={metric.value} locale={intlLocale} />
             </dd>
           </div>
         ))}

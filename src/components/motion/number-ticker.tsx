@@ -7,10 +7,17 @@ export function NumberTicker({
   value,
   prefix = "",
   suffix = "",
+  locale,
 }: {
   value: number;
   prefix?: string;
   suffix?: string;
+  // BCP-47 tag (e.g. "pt-BR"). When set, the number renders compact and
+  // locale-formatted ("10,9 mi"/"10.9M") instead of raw digits — an
+  // 8-digit count like a monthly token total otherwise overflows its stat
+  // tile at narrow widths and reads as an illegible digit string either
+  // way. Omitting it keeps the old plain-integer behavior.
+  locale?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
@@ -26,10 +33,16 @@ export function NumberTicker({
     return () => controls.stop();
   }, [inView, reduced, value]);
 
+  const formatted = locale
+    ? new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 }).format(
+        display,
+      )
+    : display;
+
   return (
     <span ref={ref} className="tabular-nums">
       {prefix}
-      {display}
+      {formatted}
       {suffix}
     </span>
   );

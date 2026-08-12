@@ -1,13 +1,13 @@
 {
   "nav": {
-    "trajectory": "trajectory",
-    "stack": "stack",
-    "caseStudy": "link charts",
-    "contact": "contact"
+    "trajectory": "Experience",
+    "stack": "Stack",
+    "caseStudy": "Link Charts",
+    "contact": "Contact"
   },
   "common": {
-    "copyEmail": "copy email",
-    "copied": "copied!",
+    "copyEmail": "Copy email",
+    "copied": "Copied!",
     "viewSource": "view this page's source",
     "asOf": "data as of {date}",
     "current": "current",
@@ -18,14 +18,14 @@
     "stars": "{count, plural, one {# star} other {# stars}}"
   },
   "caseStudyCard": {
-    "eyebrow": "case study",
+    "eyebrow": "Case study",
     "activity": "commits per month (Mar 2025 – Aug 2026)",
-    "cta": "read the full case study"
+    "cta": "Read the full case study"
   },
   "caseStudyPage": {
-    "visitProduct": "visit linkcharts.com.br",
-    "latestRelease": "release in production",
-    "backToContact": "back to contact"
+    "visitProduct": "Visit linkcharts.com.br",
+    "latestRelease": "Release in production",
+    "backToContact": "Back to contact"
   },
   "evidence": {
     "production": "in production",
@@ -44,12 +44,12 @@
     "sessions": "sessions",
     "activeDays": "active days",
     "streak": "longest daily streak",
-    "outputTokens": "tokens generated last month",
+    "outputTokens": "tokens generated this month",
     "edits": "edits",
     "testRuns": "test runs",
     "searches": "searches",
     "commands": "commands",
-    "disclaimer": "aggregate numbers from my workflow with AI agents, since {since} — no vendor, no specific project"
+    "disclaimer": "aggregate numbers from my entire workflow with AI agents since {since} — tool- and project-agnostic"
   },
   "footer": {
     "builtWith": "built with next 16 — public repo"

@@ -1,6 +1,7 @@
 import type { CaseChapter as CaseChapterType } from "@/domain";
 import { PipelineDiagramLazy } from "@/components/terminal/pipeline-diagram-lazy";
 import { DashboardPanel } from "@/components/sections/dashboard-panel";
+import { Badge } from "@/components/ui/badge";
 
 export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
   switch (chapter.kind) {
@@ -14,17 +15,31 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
             ))}
           </div>
           {chapter.diagram && (
-            <div className="mt-6 rounded-lg border border-border bg-[#0a0e14] p-4 font-mono text-sm">
-              {chapter.diagram.map((line, i) => (
-                <div
-                  key={i}
-                  className={
-                    /^[⇅↕↔→←⇄]/.test(line.trim()) ? "text-center text-muted" : "text-center"
-                  }
-                >
-                  {line}
-                </div>
-              ))}
+            // Region is scrollable, not wrapping: at 320-375px these
+            // centered mono lines (up to ~48 chars) would otherwise wrap
+            // and turn the diagram's vertical stack into scrambled text.
+            // tabIndex/role matches the same pattern in dashboard-panel.tsx
+            // (axe scrollable-region-focusable on narrow viewports).
+            <div
+              className="mt-6 overflow-x-auto rounded-lg border border-border bg-surface-deep p-4 font-mono text-sm"
+              tabIndex={0}
+              role="region"
+              aria-label={chapter.title}
+            >
+              <div className="mx-auto min-w-max">
+                {chapter.diagram.map((line, i) => (
+                  <div
+                    key={i}
+                    className={
+                      /^[⇅↕↔→←⇄]/.test(line.trim())
+                        ? "text-center text-muted whitespace-nowrap"
+                        : "text-center whitespace-nowrap"
+                    }
+                  >
+                    {line}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </section>
@@ -51,11 +66,8 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
                 </h3>
                 <ul className="flex flex-wrap gap-1.5">
                   {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-md border border-border/60 px-2 py-0.5 font-mono text-xs text-foreground/90"
-                    >
-                      {item}
+                    <li key={item}>
+                      <Badge variant="tech">{item}</Badge>
                     </li>
                   ))}
                 </ul>

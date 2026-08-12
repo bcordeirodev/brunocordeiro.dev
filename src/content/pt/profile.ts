@@ -16,7 +16,7 @@ export const profile: Profile = {
   metrics: [
     { id: "years", value: 10, suffix: "+", label: "anos de carreira" },
     { id: "tests", value: 902, suffix: "", label: "testes automatizados bloqueando cada merge" },
-    { id: "downtime", value: 0, suffix: "s", label: "de downtime em produção" },
-    { id: "releases", value: 50, suffix: "", label: "releases em produção" },
+    { id: "downtime", value: 0, suffix: "s", label: "de downtime nos deploys blue/green" },
+    { id: "releases", value: 50, suffix: "", label: "releases desde mar/2025" },
   ],
 };

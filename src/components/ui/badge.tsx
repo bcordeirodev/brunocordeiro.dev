@@ -15,6 +15,12 @@ const badgeVariants = cva(
           "bg-destructive/10 text-destructive focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:focus-visible:ring-destructive/40 [a]:hover:bg-destructive/20",
         outline:
           "border-border text-foreground [a]:hover:bg-surface [a]:hover:text-muted-foreground",
+        // Rectangular mono chip for technology names specifically (stack
+        // items, tools) — the site's three prior tech-chip treatments
+        // (rounded pill, pill+border, rectangular mono) collapse into one
+        // here. Keep `outline`/`secondary` for non-tech metadata (e.g.
+        // employment type).
+        tech: "rounded-md border-border/60 bg-transparent font-mono text-xs font-normal text-foreground/90 [a]:hover:bg-surface",
         ghost: "hover:bg-surface hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
       },

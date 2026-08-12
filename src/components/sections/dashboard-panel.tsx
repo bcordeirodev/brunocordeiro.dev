@@ -21,7 +21,10 @@ export function DashboardPanel({ chapter }: { chapter: DashboardChapter }) {
             >
               <dt className="text-xs text-muted">{stat.label}</dt>
               <dd className="flex flex-col gap-1">
-                <span className="font-mono text-2xl tabular-nums">{stat.value}</span>
+                {/* text-lg on mobile: values like "1.035/1.035" (11 chars)
+                    overflow the ~88px-wide tile at 320px in a 2-col grid at
+                    text-2xl */}
+                <span className="font-mono text-lg tabular-nums sm:text-2xl">{stat.value}</span>
                 <span className="text-xs text-muted">{stat.sub}</span>
               </dd>
             </div>

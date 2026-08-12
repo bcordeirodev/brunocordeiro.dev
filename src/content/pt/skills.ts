@@ -83,8 +83,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Fundamentos de projeto",
         evidence: "production",
-        proof:
-          "POO, SOLID, PSRs, MVC — DI por interface, DTOs (Laravel/NestJS), Strategy, Registry, Observer, Orchestrator",
+        proof: "POO, SOLID, PSRs, MVC — a base teórica por trás da arquitetura em camadas",
         highlight: false,
         tags: ["Link Charts", "G4F"],
       },
@@ -92,7 +91,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Caching e padrões assíncronos",
         evidence: "production",
         proof:
-          "Redis, ISR/cache tags, idempotência (dedup_key), filas, webhooks assinados (hash_equals), auth (JWT, OAuth/Auth0), i18n",
+          "Redis, ISR/cache tags, idempotência (dedup_key), filas, webhooks assinados (hash_equals)",
         highlight: false,
         tags: ["Link Charts", "Basis"],
       },
@@ -172,7 +171,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "TanStack Query v5",
         evidence: "production",
-        proof: "Antes React Query — 36 call sites, query keys centralizadas no Link Charts",
+        proof: "36 call sites, query keys centralizadas no Link Charts (ex-React Query)",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -294,14 +293,14 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Rate limiting",
         evidence: "production",
-        proof: "16 rate limiters nomeados",
+        proof: "16 rate limiters nomeados no Link Charts",
         highlight: false,
         tags: ["Link Charts"],
       },
       {
         name: "Filas e jobs idempotentes",
         evidence: "production",
-        proof: "13 jobs, retry/backoff, dedup_key UNIQUE + insertOrIgnore",
+        proof: "13 jobs no Link Charts, retry/backoff, dedup_key UNIQUE + insertOrIgnore",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -424,7 +423,8 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Docker",
         evidence: "production",
-        proof: "Multi-stage, Alpine + extensões compiladas, 3 stacks compose por ciclo de vida",
+        proof:
+          "Multi-stage, Alpine + extensões compiladas, 3 stacks compose por ciclo de vida no Link Charts",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -453,7 +453,7 @@ export const skillCategories: SkillCategory[] = [
         name: "OpenTelemetry",
         evidence: "production",
         proof:
-          "Tail sampling, Grafana Cloud/Alloy, Faro RUM, Pyroscope, dashboards + alert rules versionados, uptime probe que abre issue",
+          "Tail sampling, Grafana Cloud/Alloy, Faro RUM, Pyroscope, dashboards + alert rules versionados, uptime probe que abre issue — tudo no Link Charts",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -572,7 +572,8 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "PostgreSQL 15",
         evidence: "production",
-        proof: "56 migrations, índices de performance, backfill, UNIQUE para idempotência",
+        proof:
+          "56 migrations no Link Charts, índices de performance, backfill, UNIQUE para idempotência",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -622,7 +623,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Contexto como artefato",
         evidence: "production",
         proof:
-          "CLAUDE.md de 22KB versionado no repo (onboarding para agentes), ADRs e postmortems que alimentam o contexto, llms.txt no frontend",
+          "Arquivo de contexto de 22KB versionado no repo (onboarding para agentes), ADRs e postmortems que alimentam o contexto, llms.txt no frontend",
         highlight: false,
         tags: ["Link Charts"],
       },

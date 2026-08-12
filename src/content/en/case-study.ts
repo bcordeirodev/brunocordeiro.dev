@@ -14,7 +14,7 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "Link Charts (linkcharts.com.br) is a URL shortener with advanced analytics, in production, that I created and maintain 100% solo. Every click is enriched with geographic, device, temporal and traffic-quality data, shown across 5 dashboards: overview, geographic (choropleth/heatmap), temporal, audience and insights.",
         "In production: authenticated and public shortening, high-performance redirect with Open Graph previews for bots (WhatsApp/Telegram), anti-fraud with a per-click quality score, custom subdomains + link-in-bio page, public API with API keys, QR codes, tags, reports, CSV export, UTM builder, link passwords, expiration/scheduling/click limits, link health checks, retention e-mails and monetization via AdSense + Google Ads.",
-        "~1,929 commits across 3 repositories (725 backend, 1,029 frontend, the rest in docs), all mine, from Mar 2025 to Aug 2026 — sustained alongside a full-time job. 50 release tags with independent semver per repository (backend at v2.16.0, frontend at v1.19.0).",
+        "~1,929 commits across 3 repositories (725 backend, 1,029 frontend, the rest in docs), all mine, from Mar 2025 to Aug 2026 — kept up in concentrated bursts, alongside a full-time job. 50 release tags with independent semver per repository (backend at v2.16.0, frontend at v1.19.0).",
       ],
     },
     {
@@ -48,7 +48,7 @@ export const caseStudy: CaseStudy = {
         "▸ ci/tests-postgres: the same suite on real postgres 15  ok",
         "▸ ci/quality (front): tsc + eslint 0 warnings + prettier ok",
         "▸ check-build-args: NEXT_PUBLIC_* × Dockerfile ......... ok",
-        "✔ merge to main — integrating ≠ publishing; deploys are born from tags",
+        "✔ merge to main — integrating ≠ publishing; only a tag triggers a deploy",
       ],
     },
     {
@@ -84,8 +84,8 @@ export const caseStudy: CaseStudy = {
       id: "operations",
       title: "Operations in numbers",
       intro:
-        "The picture Grafana and GitHub Actions actually measure: aggregates from the real run history and monitoring-as-code — no showroom numbers.",
-      asOf: "data as of Aug 2026 · source: run history + versioned config",
+        "The picture Grafana and GitHub Actions actually measure: aggregates from the real run history and monitoring-as-code — no vanity metrics.",
+      asOf: "data as of Aug 2026 · source: run history + versioned config — release run counts include re-runs (52 for 50 tags)",
       okLabel: "all green",
       stats: [
         {
@@ -157,8 +157,8 @@ export const caseStudy: CaseStudy = {
       title: "How it was built: AI with guardrails",
       paragraphs: [
         "I built Link Charts with a spec-driven, AI-first workflow: brainstorm → design doc → plan → execution, orchestrating multiple agents and subagents in phased runs with a report at every step.",
-        "Context as an artifact: a 22KB CLAUDE.md architecture context file in the repository guides the agents; ADRs and postmortems feed that context back over time; the frontend publishes llms.txt for LLM-readable content.",
-        "Automation with a human brake: an in-house command (/ship) automates commit → PR → CI → merge → deploy → health check, with at most 2 self-correction attempts per step — if that doesn't resolve it, it stops with an explicit warning and hands control back to me. The safe-migration rule also stopped being a wiki page and became a test that fails CI.",
+        "Context as an artifact: a 22KB agent-context file (architecture guide) versioned in the repository guides the agents; ADRs and postmortems feed that context back over time; the frontend publishes llms.txt for LLM-readable content.",
+        "Automation with a human in the loop: an in-house command (/ship) automates commit → PR → CI → merge → deploy → health check, with at most 2 self-correction attempts per step — if that doesn't resolve it, it stops with an explicit warning and hands control back to me. The safe-migration rule also stopped being a wiki page and became a test that fails CI.",
         "My thesis: solo dev + AI + strict gates produces company-grade output. The ~1,929 solo commits over 17 months, alongside a full-time job, didn't come at quality's expense: the same 902 tests, PHPStan and zero-warning checks blocked merges the whole time. AI amplifies; the guardrails decide.",
       ],
     },

@@ -14,7 +14,7 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "Link Charts (linkcharts.com.br) é um encurtador de URL com analytics avançado, em produção, que criei e mantenho 100% sozinho. Cada clique é enriquecido com dados geográficos, de dispositivo, temporais e de qualidade de tráfego, exibidos em 5 dashboards: geral, geográfico (mapa coroplético/heatmap), temporal, audiência e insights.",
         "Em produção: encurtamento autenticado e público, redirect de alta performance com preview Open Graph para bots (WhatsApp/Telegram), anti-fraude com quality score por clique, subdomínios personalizados + página link-in-bio, API pública com API keys, QR codes, tags, relatórios, export CSV, UTM builder, senha em link, expiração/agendamento/click limit, health check de links, e-mails de retenção e monetização via AdSense + Google Ads.",
-        "~1.929 commits em 3 repositórios (725 no backend, 1.029 no frontend, o restante em docs), todos meus, de mar/2025 a ago/2026 — mantenho essa atividade contínua em paralelo a um emprego em tempo integral. 50 tags de release com semver independente por repositório (backend em v2.16.0, frontend em v1.19.0).",
+        "~1.929 commits em 3 repositórios (725 no backend, 1.029 no frontend, o restante em docs), todos meus, de mar/2025 a ago/2026 — mantenho esse ritmo em ciclos concentrados, em paralelo a um emprego em tempo integral. 50 tags de release com semver independente por repositório (backend em v2.16.0, frontend em v1.19.0).",
       ],
     },
     {
@@ -85,7 +85,7 @@ export const caseStudy: CaseStudy = {
       title: "Operação em números",
       intro:
         "O retrato que o Grafana e o GitHub Actions medem de verdade: agregados do histórico real de execuções e do monitoramento como código — nenhum número de vitrine.",
-      asOf: "dados de ago/2026 · fonte: histórico de execuções + config versionada",
+      asOf: "dados de ago/2026 · fonte: histórico de execuções + config versionada — execuções de release incluem re-runs (52 para 50 tags)",
       okLabel: "tudo verde",
       stats: [
         {
@@ -157,7 +157,7 @@ export const caseStudy: CaseStudy = {
       title: "Como foi construído: IA com guardrails",
       paragraphs: [
         "Construí o Link Charts com um fluxo de trabalho IA-first guiado por spec: brainstorm → design doc → plano → execução, orquestrando múltiplos agentes e subagentes em execução por fases com relatório de cada etapa.",
-        "Contexto como artefato: um CLAUDE.md de 22KB (contexto de arquitetura) versionado no repositório orienta os agentes; ADRs e postmortems realimentam esse contexto ao longo do tempo; o frontend publica llms.txt para conteúdo legível por LLMs.",
+        "Contexto como artefato: um arquivo de contexto de arquitetura de 22KB versionado no repositório orienta os agentes; ADRs e postmortems realimentam esse contexto ao longo do tempo; o frontend publica llms.txt para conteúdo legível por LLMs.",
         "Automação com freio humano: um comando próprio (/ship) automatiza commit → PR → CI → merge → deploy → health check, com no máximo 2 tentativas de autocorreção por etapa — se não resolver, para com um aviso explícito e devolve o controle para mim. A regra de migration segura também deixou de ser wiki e virou teste que reprova o CI.",
         "Minha tese: solo dev + IA + gates rigorosos produz output de nível empresa. Os ~1.929 commits solo em 17 meses, em paralelo a um emprego em tempo integral, não vieram às custas da qualidade: os mesmos 902 testes, PHPStan e zero-warnings bloquearam merges o tempo todo. IA amplifica; os guardrails decidem.",
       ],

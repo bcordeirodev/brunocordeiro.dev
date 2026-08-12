@@ -23,7 +23,16 @@ export function SkillMatrix({
           on top of the content below. Below `sm`, tabs scroll horizontally
           instead of wrapping (native `-webkit-overflow-scrolling`, hidden
           scrollbar); at `sm` and up they wrap cleanly onto extra rows. */}
-      <TabsList className="h-auto! w-full flex-nowrap justify-start gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] sm:w-fit sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+      <TabsList
+        className={cn(
+          "h-auto! w-full flex-nowrap justify-start gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] sm:w-fit sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden",
+          // Mobile-only fade on the trailing edge: with 9 categories only
+          // ~3-4 fit in a 320-375px viewport, and a hidden scrollbar gave
+          // no hint the row continues. The mask fades to transparent
+          // instead of an opaque overlay, so it still shows bg-surface.
+          "[mask-image:linear-gradient(to_right,black,black_calc(100%-2.5rem),transparent)] sm:[mask-image:none]",
+        )}
+      >
         {categories.map((category) => (
           <TabsTrigger
             key={category.id}

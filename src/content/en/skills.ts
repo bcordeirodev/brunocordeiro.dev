@@ -76,15 +76,14 @@ export const skillCategories: SkillCategory[] = [
         name: "ORMs — 6 across 3 runtimes",
         evidence: "production",
         proof:
-          "Eloquent, TypeORM, Prisma, Propel, Lucid (Adonis), DenoDB — the category as a concept, not a memorized library",
+          "Eloquent, TypeORM, Prisma, Propel, Lucid (Adonis), DenoDB — the pattern, not one library learned by rote",
         highlight: false,
         tags: ["Link Charts", "G4F", "Basis", "Ordem Social"],
       },
       {
         name: "Design fundamentals",
         evidence: "production",
-        proof:
-          "OOP, SOLID, PSRs, MVC — DI by interface, DTOs (Laravel/NestJS), Strategy, Registry, Observer, Orchestrator",
+        proof: "OOP, SOLID, PSRs, MVC — the theoretical foundation behind the layered architecture",
         highlight: false,
         tags: ["Link Charts", "G4F"],
       },
@@ -92,7 +91,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Caching and async patterns",
         evidence: "production",
         proof:
-          "Redis, ISR/cache tags, idempotency (dedup_key), queues, signed webhooks (hash_equals), auth (JWT, OAuth/Auth0), i18n",
+          "Redis, ISR/cache tags, idempotency (dedup_key), queues, signed webhooks (hash_equals)",
         highlight: false,
         tags: ["Link Charts", "Basis"],
       },
@@ -100,7 +99,7 @@ export const skillCategories: SkillCategory[] = [
         name: "OWASP Top 10",
         evidence: "production",
         proof:
-          "JWT httpOnly, hash_equals, 16 rate limiters, anti-spoofing (Cloudflare), PII redaction, anti-fraud scoring, LGPD",
+          "JWT httpOnly, hash_equals, 16 rate limiters, anti-spoofing (Cloudflare), PII redaction, anti-fraud scoring, LGPD (Brazil's GDPR)",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -173,7 +172,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "TanStack Query v5",
         evidence: "production",
-        proof: "Formerly React Query — 36 call sites, centralized query keys at Link Charts",
+        proof: "36 call sites, centralized query keys at Link Charts (formerly React Query)",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -294,14 +293,14 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Rate limiting",
         evidence: "production",
-        proof: "16 named rate limiters",
+        proof: "16 named rate limiters at Link Charts",
         highlight: false,
         tags: ["Link Charts"],
       },
       {
         name: "Idempotent queues and jobs",
         evidence: "production",
-        proof: "13 jobs, retry/backoff, dedup_key UNIQUE + insertOrIgnore",
+        proof: "13 jobs at Link Charts, retry/backoff, dedup_key UNIQUE + insertOrIgnore",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -335,7 +334,7 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Link Charts"],
       },
       {
-        name: "LGPD compliance",
+        name: "LGPD (Brazilian GDPR) compliance",
         evidence: "production",
         proof: "IP anonymization, account deletion, signed unsubscribe",
         highlight: false,
@@ -424,7 +423,8 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Docker",
         evidence: "production",
-        proof: "Multi-stage, Alpine with compiled extensions, 3 compose stacks by lifecycle",
+        proof:
+          "Multi-stage, Alpine with compiled extensions, 3 compose stacks by lifecycle at Link Charts",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -453,7 +453,7 @@ export const skillCategories: SkillCategory[] = [
         name: "OpenTelemetry",
         evidence: "production",
         proof:
-          "Tail sampling, Grafana Cloud/Alloy, Faro RUM, Pyroscope, dashboards + alert rules as code, uptime probe that opens an issue",
+          "Tail sampling, Grafana Cloud/Alloy, Faro RUM, Pyroscope, dashboards + alert rules as code, uptime probe that opens an issue — all at Link Charts",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -461,7 +461,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Postmortems",
         evidence: "production",
         proof:
-          "918 502 responses → blue/green; --build-arg bug → CI guard; spoofable IP → Cloudflare real-ip",
+          "918 HTTP 502s → blue/green; --build-arg bug → CI guard; spoofable IP → Cloudflare real-ip",
         highlight: false,
         tags: ["Link Charts"],
       },
@@ -572,7 +572,8 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "PostgreSQL 15",
         evidence: "production",
-        proof: "56 migrations, performance indexes, backfill, UNIQUE for idempotency",
+        proof:
+          "56 migrations at Link Charts, performance indexes, backfill, UNIQUE for idempotency",
         highlight: true,
         tags: ["Link Charts"],
       },
@@ -622,7 +623,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Context as an artifact",
         evidence: "production",
         proof:
-          "A 22KB CLAUDE.md versioned in the repo (agent onboarding), ADRs and postmortems that feed that context, llms.txt on the frontend",
+          "A 22KB agent-context file versioned in the repo (agent onboarding), ADRs and postmortems that feed that context, llms.txt on the frontend",
         highlight: false,
         tags: ["Link Charts"],
       },

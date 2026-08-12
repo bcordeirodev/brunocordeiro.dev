@@ -1,4 +1,4 @@
-import type { Certification, Profile } from "@/domain";
+import type { Certification, Education, Profile } from "@/domain";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -30,9 +30,11 @@ function parseAddress(location: string): {
 export function PersonJsonLd({
   profile,
   certifications = [],
+  education = [],
 }: {
   profile: Profile;
   certifications?: Certification[];
+  education?: Education[];
 }) {
   const hasCredential = certifications.map((certification) => ({
     "@type": "EducationalOccupationalCredential",
@@ -42,6 +44,12 @@ export function PersonJsonLd({
     ...(certification.credentialUrl ? { url: certification.credentialUrl } : {}),
   }));
 
+  // Derived from `education[0]` (the primary/most recent entry) so this
+  // always mirrors the content source instead of drifting from it.
+  const alumniOf = education[0]
+    ? { "@type": "EducationalOrganization", name: education[0].institution }
+    : undefined;
+
   const data = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -50,11 +58,11 @@ export function PersonJsonLd({
     email: `mailto:${profile.email}`,
     url: SITE_URL,
     sameAs: [profile.github, profile.linkedin, "https://www.scrum.org/user/1506558"],
-    alumniOf: "Universidade Paulista",
     address: {
       "@type": "PostalAddress",
       ...parseAddress(profile.location),
     },
+    ...(alumniOf ? { alumniOf } : {}),
     ...(hasCredential.length > 0 ? { hasCredential } : {}),
   };
   return (

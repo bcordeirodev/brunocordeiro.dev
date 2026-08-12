@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 export function PipelineDiagram({ lines, title }: { lines: string[]; title: string }) {
   const reduced = useReducedMotion();
   return (
-    <div className="overflow-hidden rounded-lg border border-border bg-[#0a0e14] p-4 font-mono text-sm">
+    <div className="overflow-hidden rounded-lg border border-border bg-surface-deep p-4 font-mono text-sm">
       <div className="mb-2 text-xs text-muted">{title}</div>
       {lines.map((line, i) => (
         <motion.div

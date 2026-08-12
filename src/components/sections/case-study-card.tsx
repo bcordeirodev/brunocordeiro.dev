@@ -32,9 +32,9 @@ export async function CaseStudyCard({
   );
 
   return (
-    // fundo mais profundo que o bg-card padrão para os chips (bg-secondary)
-    // terem contraste dentro da caixa
-    <Card className="rounded-lg bg-[#0a0e14]">
+    // fundo mais profundo que o bg-card padrão para os chips terem contraste
+    // dentro da caixa
+    <Card className="rounded-lg bg-surface-deep">
       <CardContent className="flex flex-col gap-3">
         <p className="font-mono text-xs text-muted">{t("eyebrow")}</p>
         {/* nome do produto, não slogan — a tagline factual logo abaixo explica */}
@@ -57,15 +57,14 @@ export async function CaseStudyCard({
                   {group.label}
                 </dt>
                 <dd>
-                  {/* mesmos chips da trajetória (Badge secondary) para consistência */}
                   <ul className="flex flex-wrap gap-1.5">
                     {group.items.map((item) => (
                       <li key={item}>
-                        {/* sobre o fundo #0a0e14 o bg-surface do secondary some;
-                            borda + preenchimento mais claros fazem o chip existir */}
-                        <Badge variant="secondary" className="border-border bg-border/50">
-                          {item}
-                        </Badge>
+                        {/* mesmo chip "tech" (borda + mono) usado na
+                            trajetória e em /link-charts: outline em vez de
+                            preenchimento, então funciona sobre qualquer
+                            fundo escuro sem precisar de override local */}
+                        <Badge variant="tech">{item}</Badge>
                       </li>
                     ))}
                   </ul>

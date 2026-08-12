@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import type { Profile } from "@/domain";
 import { Reveal } from "@/components/motion/reveal";
 import { CopyEmailButton } from "@/components/sections/copy-email-button";
+import { SocialLinks } from "@/components/sections/social-links";
 
 const STACK_LINE = [
   "TypeScript",
@@ -25,13 +26,17 @@ export function Hero({ profile }: { profile: Profile }) {
     .join(" · ");
 
   return (
-    <section className="mx-auto max-w-4xl px-6 pt-24">
+    // No mx-auto/px-6/max-w here: <main> in page.tsx already centers and
+    // pads the page at max-w-5xl. Adding a second, narrower centered
+    // container doubled the horizontal padding on mobile and shifted the
+    // hero's left edge out of alignment with every section below it.
+    <section className="pt-24">
       {/* Not wrapped in Reveal: this heading is the LCP element, and gating
           it behind opacity:0 -> whileInView delays paint until motion
           hydrates, which tanks LCP. It's above the fold on every load, so a
           scroll-triggered fade-in adds no visible value here anyway. */}
       <div>
-        <h1 className="text-5xl font-bold tracking-tight">{profile.name}</h1>
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{profile.name}</h1>
         <p className="mt-2 font-mono text-sm text-muted">
           {profile.headline} · {profile.location}
         </p>
@@ -50,22 +55,7 @@ export function Hero({ profile }: { profile: Profile }) {
 
       <Reveal delay={0.3}>
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-sm text-accent underline-offset-4 hover:underline"
-          >
-            GitHub
-          </a>
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-sm text-accent underline-offset-4 hover:underline"
-          >
-            LinkedIn
-          </a>
+          <SocialLinks github={profile.github} linkedin={profile.linkedin} />
           <CopyEmailButton
             email={profile.email}
             copyLabel={t("copyEmail")}

@@ -1,13 +1,13 @@
 {
   "nav": {
-    "trajectory": "trajetória",
-    "stack": "stack",
-    "caseStudy": "link charts",
-    "contact": "contato"
+    "trajectory": "Trajetória",
+    "stack": "Stack",
+    "caseStudy": "Link Charts",
+    "contact": "Contato"
   },
   "common": {
-    "copyEmail": "copiar e-mail",
-    "copied": "copiado!",
+    "copyEmail": "Copiar e-mail",
+    "copied": "Copiado!",
     "viewSource": "veja o código desta página",
     "asOf": "dados de {date}",
     "current": "atual",
@@ -18,14 +18,14 @@
     "stars": "{count, plural, =0 {0 estrelas} one {# estrela} other {# estrelas}}"
   },
   "caseStudyCard": {
-    "eyebrow": "estudo de caso",
+    "eyebrow": "Estudo de caso",
     "activity": "commits por mês (mar/2025 – ago/2026)",
-    "cta": "ver o case completo"
+    "cta": "Ver o case completo"
   },
   "caseStudyPage": {
-    "visitProduct": "visitar linkcharts.com.br",
-    "latestRelease": "release em produção",
-    "backToContact": "voltar ao contato"
+    "visitProduct": "Visitar linkcharts.com.br",
+    "latestRelease": "Release em produção",
+    "backToContact": "Voltar ao contato"
   },
   "evidence": {
     "production": "em produção",
@@ -44,12 +44,12 @@
     "sessions": "sessões",
     "activeDays": "dias ativos",
     "streak": "maior sequência de dias",
-    "outputTokens": "tokens gerados no último mês",
+    "outputTokens": "tokens gerados no mês corrente",
     "edits": "edições",
     "testRuns": "execuções de teste",
     "searches": "buscas",
     "commands": "comandos",
-    "disclaimer": "números agregados do meu workflow com agentes de IA, desde {since} — sem vendor, sem projeto específico"
+    "disclaimer": "agregados de todo o meu workflow com agentes de IA desde {since} — independem de ferramenta e de projeto"
   },
   "footer": {
     "builtWith": "feito com next 16 — repo público"
