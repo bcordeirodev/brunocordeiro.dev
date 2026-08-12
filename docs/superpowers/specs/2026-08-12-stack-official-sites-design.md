@@ -11,10 +11,14 @@ não têm como acessar o site oficial de cada stack a partir do módulo.
 
 ## Decisões (aprovadas pelo usuário)
 
-- Cada tecnologia com site oficial ganha um **ícone discreto ↗** ao lado do
-  nome da skill, abrindo o site oficial em nova aba.
+- **O título da skill é o link** para o site oficial, em nova aba, com
+  underline pontilhado discreto (revisão do usuário sobre a 1ª versão,
+  que usava ícones ↗ ao lado do nome e "não ficou legal").
 - Entradas compostas ("TypeScript · JavaScript", "react-hook-form + Zod")
-  ganham **um link por tecnologia** — schema aceita lista de links.
+  ganham **um link por tecnologia**: cada segmento do título vira sua
+  própria âncora; a ordem de `links` no conteúdo segue a ordem dos
+  segmentos. Títulos não segmentáveis com vários links ("Data viz")
+  apontam inteiros para o primeiro site.
 - Escopo restrito à feature: sem redesign visual do módulo.
 - Pesquisa das URLs organizada por tab (uma frente de pesquisa por
   categoria: Frontend, Backend & Dados, DevOps & Infra, Qualidade & Testes,
@@ -39,12 +43,12 @@ não têm como acessar o site oficial de cada stack a partir do módulo.
 
 - `src/domain/skill.ts`: novo `skillLinkSchema` (`{ label, url }`, url
   validada como URL https) e campo opcional `links` em `skillSchema`.
-- `src/components/sections/skill-matrix.tsx`: após o nome da skill, um
-  `<a target="_blank" rel="noopener noreferrer">` por link com ícone ↗
-  (SVG inline `aria-hidden`, ~12px, `text-muted` com hover para accent),
-  `title` e `aria-label` no formato `"{label} — {site oficial}"`.
-  O rótulo localizado chega por prop `officialSiteLabel` (o componente é
-  client e recebe strings do server, como o restante da página).
+- `src/components/sections/skill-matrix.tsx`: o título (ou cada segmento
+  dele) vira `<a target="_blank" rel="noopener noreferrer">` com underline
+  pontilhado, hover para accent, `title` e `aria-label` no formato
+  `"{label} — {site oficial}"`. O rótulo localizado chega por prop
+  `officialSiteLabel` (o componente é client e recebe strings do server,
+  como o restante da página).
 - `src/app/[locale]/page.tsx`: passa `officialSiteLabel` vindo de
   `common.officialSite`.
 - `messages/pt.json` / `messages/en.json`: nova chave `common.officialSite`

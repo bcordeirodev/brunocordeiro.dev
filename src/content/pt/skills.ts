@@ -520,8 +520,8 @@ export const skillCategories: SkillCategory[] = [
           "Formato MADR; decisões de arquitetura documentadas em docs/adr/, com diagramas versionados",
         tags: ["Link Charts"],
         links: [
-          { label: "Mermaid", url: "https://mermaid.js.org" },
           { label: "ADR", url: "https://adr.github.io" },
+          { label: "Mermaid", url: "https://mermaid.js.org" },
         ],
       },
       {

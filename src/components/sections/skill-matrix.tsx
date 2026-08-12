@@ -1,9 +1,61 @@
 "use client";
 
-import { Fragment } from "react";
-import type { SkillCategory } from "@/domain";
+import { Fragment, type ReactNode } from "react";
+import type { Skill, SkillCategory, SkillLink } from "@/domain";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+
+/* Separadores de entradas compostas ("TypeScript · JavaScript",
+   "MUI 6 + Emotion"). O split preserva o separador nos índices ímpares,
+   então o título renderiza idêntico ao texto original. */
+const NAME_SEPARATOR = /( · | \+ )/;
+
+function SkillNameLink({
+  text,
+  link,
+  officialSiteLabel,
+}: {
+  text: string;
+  link: SkillLink;
+  officialSiteLabel: string;
+}) {
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={`${link.label} — ${officialSiteLabel}`}
+      aria-label={`${link.label} — ${officialSiteLabel}`}
+      className="rounded-sm underline decoration-muted/60 decoration-dotted underline-offset-4 transition-colors outline-none hover:text-accent hover:decoration-accent focus-visible:ring-[3px] focus-visible:ring-ring/50"
+    >
+      {text}
+    </a>
+  );
+}
+
+/* O título da skill é o link para o site oficial. Em títulos compostos com
+   um link por tecnologia, cada segmento vira sua própria âncora (ordem dos
+   `links` segue a ordem dos segmentos no conteúdo); quando o título não é
+   segmentável ("Data viz" com 3 libs), o título inteiro aponta para o
+   primeiro site e os demais ficam só no conteúdo. */
+function renderSkillName(skill: Skill, officialSiteLabel: string): ReactNode {
+  const links = skill.links;
+  const [firstLink] = links ?? [];
+  if (!links || !firstLink) return skill.name;
+
+  const parts = skill.name.split(NAME_SEPARATOR);
+  const segmentCount = Math.ceil(parts.length / 2);
+  if (segmentCount < links.length) {
+    return <SkillNameLink text={skill.name} link={firstLink} officialSiteLabel={officialSiteLabel} />;
+  }
+
+  let linkIndex = 0;
+  return parts.map((part, index) => {
+    const link = index % 2 === 0 ? links[linkIndex++] : undefined;
+    if (!link) return <Fragment key={index}>{part}</Fragment>;
+    return <SkillNameLink key={index} text={part} link={link} officialSiteLabel={officialSiteLabel} />;
+  });
+}
 
 export function SkillMatrix({
   categories,
@@ -64,39 +116,8 @@ export function SkillMatrix({
                 className="flex flex-col gap-0.5 border-b border-border/60 py-2.5"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
-                  <span className="inline-flex items-baseline gap-1.5 font-mono text-sm">
-                    {skill.name}
-                    {/* Um ↗ por tecnologia (entradas compostas têm até 3);
-                        o svg não tem texto, então getByText/textContent do
-                        span continuam resolvendo só o nome. O aria-label
-                        "React — site oficial" distingue os ícones entre si
-                        para leitores de tela; o title dá o mesmo contexto
-                        no hover. */}
-                    {skill.links?.map((link) => (
-                      <a
-                        key={link.url}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={`${link.label} — ${officialSiteLabel}`}
-                        aria-label={`${link.label} — ${officialSiteLabel}`}
-                        className="-m-1 rounded-sm p-1 text-muted transition-colors outline-none hover:text-accent focus-visible:ring-[3px] focus-visible:ring-ring/50"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="size-3"
-                        >
-                          <path d="M7 17 17 7" />
-                          <path d="M7 7h10v10" />
-                        </svg>
-                      </a>
-                    ))}
+                  <span className="font-mono text-sm">
+                    {renderSkillName(skill, officialSiteLabel)}
                   </span>
                   {/* Separador " · " é aria-hidden: leitores de tela não
                       anunciam o middle dot e emendariam "Link Charts G4F"
