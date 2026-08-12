@@ -19,15 +19,15 @@ Página pública onde visitantes (recrutadores) montam e baixam um CV em PDF do 
 
 Granularidade: **seções + itens**.
 
-| Seção               | Liga/desliga seção | Itens individuais            |
-| ------------------- | ------------------ | ---------------------------- |
-| Perfil resumido     | sim                | —                            |
-| Métricas            | sim                | —                            |
-| Experiências        | sim                | por experiência (company)    |
-| Skills              | sim                | por categoria e por skill    |
-| Certificações       | sim                | por certificação             |
-| Educação            | sim                | por item                     |
-| Case study (link)   | sim                | —                            |
+| Seção             | Liga/desliga seção | Itens individuais                                                             |
+| ----------------- | ------------------ | ----------------------------------------------------------------------------- |
+| Perfil resumido   | sim                | —                                                                             |
+| Métricas          | sim                | —                                                                             |
+| Experiências      | sim                | por experiência (company)                                                     |
+| Skills            | sim                | por skill (seleção plana; sem toggle por categoria — desvio da implementação) |
+| Certificações     | sim                | por certificação                                                              |
+| Educação          | sim                | por item                                                                      |
+| Case study (link) | sim                | —                                                                             |
 
 Regras:
 
@@ -53,7 +53,7 @@ buildCvData(content, selection)  ← função pura, src/lib/cv/
 
 ### Módulos
 
-- `src/lib/cv/selection.ts` — tipo `CvSelection` (flags de seção + sets/records de itens por chave estável: `company` p/ experiência, `categoryId:skillName` p/ skill, `name` p/ certificação, `degree` p/ educação) e `defaultSelection(content)`.
+- `src/lib/cv/selection.ts` — tipo `CvSelection` (flags de seção + records de itens por chave composta estável, blindada contra homônimos: `company:start` p/ experiência, `categoryId:skillName` p/ skill, `name:issued` p/ certificação, `degree:institution` p/ educação) e `defaultSelection(content)`.
 - `src/lib/cv/build-cv-data.ts` — `buildCvData(content, selection): CvData`. Filtra e devolve estrutura pronta para render (seções vazias já removidas). Sem dependência de React.
 - `src/components/cv/cv-builder.tsx` — client component raiz: estado da seleção, painel + preview + botão de download.
 - `src/components/cv/selection-panel.tsx` — checkboxes por seção/item, "marcar/desmarcar todas".
@@ -68,7 +68,7 @@ Desktop: duas colunas — painel de seleção à esquerda, preview à direita, b
 ## Template do PDF
 
 - A4, fluindo para segunda página quando necessário; tipografia sóbria; texto selecionável (ATS-friendly); links clicáveis (email, GitHub, LinkedIn, credenciais, case study).
-- Cabeçalho: nome, role, headline, linha de contatos, localização, idiomas.
+- Cabeçalho: nome, role, headline, linha de contatos, localização, idiomas. **Desvio:** `headline` foi omitido do cabeçalho na implementação por ser redundante com `role`.
 - Seções na ordem do site: perfil (subheadline), métricas, experiências (role, company, período, stacks, projetos), skills por categoria (nome + proof), certificações (nome, issuer, datas, link), educação, case study (parágrafo curto + link para `/{locale}/link-charts`).
 - Datas formatadas no locale ativo (reusar helpers existentes se houver).
 - Nome do arquivo: `bruno-cordeiro-cv-{locale}.pdf`.
