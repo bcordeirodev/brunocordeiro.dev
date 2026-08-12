@@ -15,7 +15,9 @@
     "validUntil": "válido até",
     "viewCredential": "ver credencial",
     "updatedOn": "atualizado em {date}",
-    "stars": "{count, plural, =0 {0 estrelas} one {# estrela} other {# estrelas}}"
+    "stars": "{count, plural, =0 {0 estrelas} one {# estrela} other {# estrelas}}",
+    "seeAllProjects": "ver todos os {count} projetos",
+    "close": "fechar"
   },
   "caseStudyCard": {
     "eyebrow": "Estudo de caso",
@@ -30,7 +32,8 @@
   },
   "sections": {
     "certifications": "formação & certificações",
-    "githubProjects": "projetos pessoais no github"
+    "githubProjects": "projetos pessoais no github",
+    "allProjects": "todos os projetos"
   },
   "aiStats": {
     "title": "IA em números",

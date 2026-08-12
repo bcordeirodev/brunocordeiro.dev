@@ -15,7 +15,9 @@
     "validUntil": "valid until",
     "viewCredential": "view credential",
     "updatedOn": "updated on {date}",
-    "stars": "{count, plural, one {# star} other {# stars}}"
+    "stars": "{count, plural, one {# star} other {# stars}}",
+    "seeAllProjects": "see all {count} projects",
+    "close": "close"
   },
   "caseStudyCard": {
     "eyebrow": "Case study",
@@ -30,7 +32,8 @@
   },
   "sections": {
     "certifications": "education & certifications",
-    "githubProjects": "personal projects on github"
+    "githubProjects": "personal projects on github",
+    "allProjects": "all projects"
   },
   "aiStats": {
     "title": "AI in numbers",

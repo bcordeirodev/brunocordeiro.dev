@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import type { GithubShowcase } from "@/domain";
 import type { Locale } from "@/content";
 import { Card, CardContent } from "@/components/ui/card";
+import { RepoCatalogDialog } from "@/components/sections/repo-catalog-dialog";
 import { formatYearMonth } from "@/lib/dates";
 
 export async function RepoGrid({ showcase }: { showcase: GithubShowcase }) {
@@ -46,6 +47,25 @@ export async function RepoGrid({ showcase }: { showcase: GithubShowcase }) {
           </a>
         ))}
       </div>
+      {showcase.allRepos.length > 0 ? (
+        <div>
+          <RepoCatalogDialog
+            items={showcase.allRepos.map((repo) => ({
+              name: repo.name,
+              description: repo.description,
+              url: repo.url,
+              language: repo.language,
+              stars: repo.stars,
+              updatedLabel: t("updatedOn", {
+                date: formatYearMonth(repo.pushedAt.slice(0, 7), locale),
+              }),
+            }))}
+            triggerLabel={t("seeAllProjects", { count: showcase.allRepos.length })}
+            titleLabel={tSections("allProjects")}
+            closeLabel={t("close")}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
