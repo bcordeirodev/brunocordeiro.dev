@@ -30,3 +30,37 @@ it("renderiza capítulo stats", () => {
   );
   expect(screen.getByText("902")).toBeInTheDocument();
 });
+
+it("renderiza capítulo grafana com o board (snapshot por default)", () => {
+  render(
+    <CaseChapter
+      chapter={{
+        kind: "grafana",
+        id: "operations",
+        title: "Operação em números",
+        intro: "intro",
+        board: {
+          title: "linkcharts · produção",
+          timeRange: "Últimos 30 dias",
+          attribution: "dados via Grafana Cloud · Prometheus",
+          snapshotLabel: "snapshot",
+          updatedLabel: "atualizado",
+          footer: "rodapé",
+        },
+        panels: {
+          uptime: { title: "uptime · 30d", sub: "probe", source: "via GitHub Actions" },
+          p95: { title: "latência p95 · redirect", sub: "rota" },
+          errors: { title: "erros 5xx", sub: "pct" },
+          reqRate: { title: "requisições/min", sub: "média" },
+          activity: { title: "commits por mês", sub: "git" },
+        },
+      }}
+    />,
+  );
+  expect(screen.getByRole("heading", { name: "Operação em números" })).toBeInTheDocument();
+  expect(screen.getByText("linkcharts · produção")).toBeInTheDocument();
+  // sem stats injetados, tudo vem do snapshot; uptime sempre mostra o
+  // próprio source (nunca vem do Prometheus) → 3 badges "snapshot"
+  // (p95, erros 5xx, req/min).
+  expect(screen.getAllByText("snapshot")).toHaveLength(3);
+});
