@@ -10,23 +10,33 @@ export const skillCategories: SkillCategory[] = [
         proof:
           "App Router, Server Components, ISR + cache tags, Turbopack; desde as versões 13/14 com React 17/18",
         tags: ["Link Charts", "G4F"],
+        links: [{ label: "Next.js", url: "https://nextjs.org" }],
       },
       {
         name: "React 19",
         proof: "Base de todo o frontend, com Server Components",
         tags: ["Link Charts"],
+        links: [{ label: "React", url: "https://react.dev" }],
       },
       {
         name: "TypeScript · JavaScript",
         proof:
           "Strict mode + noUncheckedIndexedAccess em ~570 arquivos; ES6+ desde 2016, TS de ponta a ponta desde 2020",
         tags: ["Link Charts"],
+        links: [
+          { label: "TypeScript", url: "https://www.typescriptlang.org" },
+          { label: "JavaScript", url: "https://developer.mozilla.org/docs/Web/JavaScript" },
+        ],
       },
       {
         name: "HTML · CSS",
         proof:
           "Markup semântico e CSS moderno (SASS/SCSS, LESS, Tailwind, CSS-in-JS), também em sites de clientes",
         tags: ["Link Charts"],
+        links: [
+          { label: "HTML", url: "https://developer.mozilla.org/docs/Web/HTML" },
+          { label: "CSS", url: "https://developer.mozilla.org/docs/Web/CSS" },
+        ],
       },
       {
         name: "Modos de renderização",
@@ -43,28 +53,46 @@ export const skillCategories: SkillCategory[] = [
         name: "MUI 6 + Emotion",
         proof: "SSR, temas claro/escuro, design system próprio",
         tags: ["Link Charts"],
+        links: [
+          { label: "MUI", url: "https://mui.com" },
+          { label: "Emotion", url: "https://emotion.sh" },
+        ],
       },
       {
         name: "TanStack Query · SWR",
         proof:
           "36 call sites e query keys centralizadas na v5 (ex-React Query); SWR em sistema consular de grande porte",
         tags: ["Link Charts", "G4F"],
+        links: [
+          { label: "TanStack Query", url: "https://tanstack.com/query" },
+          { label: "SWR", url: "https://vercel.com/oss/swr" },
+        ],
       },
       {
         name: "react-hook-form + Zod",
         proof: "Validação de formulários em camadas no frontend",
         tags: ["Link Charts"],
+        links: [
+          { label: "React Hook Form", url: "https://react-hook-form.com" },
+          { label: "Zod", url: "https://zod.dev" },
+        ],
       },
       {
         name: "Data viz",
         proof:
           "30 componentes de gráfico ApexCharts, mapas coroplético/heatmap com Leaflet, tabelas com material-react-table",
         tags: ["Link Charts"],
+        links: [
+          { label: "ApexCharts", url: "https://apexcharts.com" },
+          { label: "Leaflet", url: "https://leafletjs.com" },
+          { label: "material-react-table", url: "https://www.material-react-table.com" },
+        ],
       },
       {
         name: "i18n",
         proof: "Biblioteca i18next — 13 namespaces em produção; produto corporativo multi-idioma",
         tags: ["Link Charts", "G4F"],
+        links: [{ label: "i18next", url: "https://www.i18next.com" }],
       },
       {
         name: "SEO técnico",
@@ -85,32 +113,52 @@ export const skillCategories: SkillCategory[] = [
         name: "Redux · Context API",
         proof: "Gerenciamento de estado em projetos corporativos",
         tags: ["G4F", "Basis"],
+        links: [{ label: "Redux", url: "https://redux.js.org" }],
       },
       {
         name: "Styled Components · SASS/SCSS",
         proof: "CSS-in-JS e SASS em interfaces de sistemas corporativos",
         tags: ["G4F", "Basis"],
+        links: [
+          { label: "styled-components", url: "https://styled-components.com" },
+          { label: "Sass", url: "https://sass-lang.com" },
+        ],
       },
       {
         name: "Design System gov.br",
         proof: "GOVBR-DS e jsx-a11y em produto público federal multi-idioma",
         tags: ["G4F"],
+        links: [{ label: "gov.br DS", url: "https://www.gov.br/ds/" }],
       },
       {
         name: "Vue.js · Bootstrap · LESS",
         proof:
           "Componentes reativos Vue.js com Bootstrap/LESS em telas de gestão sobre Laravel — SPAs legadas por ~3 anos",
         tags: ["Ordem Social"],
+        links: [
+          { label: "Vue.js", url: "https://vuejs.org" },
+          { label: "Bootstrap", url: "https://getbootstrap.com" },
+          { label: "Less", url: "https://lesscss.org" },
+        ],
+      },
+      {
+        name: "jQuery",
+        proof:
+          "Manipulação de DOM e plugins (datepicker, carousel, gráficos) — interfaces em produção sobre sistemas PHP por ~5 anos",
+        tags: ["Ordem Social", "Transoft", "Plug Digital"],
+        links: [{ label: "jQuery", url: "https://jquery.com" }],
       },
       {
         name: "Tailwind CSS",
         proof: "CSS utility-first com tokens e tema próprio — landing pages responsivas publicadas",
         tags: ["projetos pessoais", "este site"],
+        links: [{ label: "Tailwind CSS", url: "https://tailwindcss.com" }],
       },
       {
         name: "Framer Motion",
         proof: "Animações declarativas de entrada e scroll numa landing page autoral publicada",
         tags: ["projetos pessoais"],
+        links: [{ label: "Motion", url: "https://motion.dev" }],
       },
     ],
   },
@@ -122,18 +170,21 @@ export const skillCategories: SkillCategory[] = [
         name: "Laravel 12",
         proof: "PHP 8.2, em produção desde 2025",
         tags: ["Link Charts"],
+        links: [{ label: "Laravel", url: "https://laravel.com" }],
       },
       {
         name: "PHP 5.6 → 8.2",
         proof:
           "10 anos acompanhando a evolução da linguagem — Propel, Swagger e PSRs desde 2016; do Laravel 8 em sistemas internos ao Laravel 12 em produção",
         tags: ["Link Charts", "Basis", "Ordem Social", "Plug Digital"],
+        links: [{ label: "PHP", url: "https://www.php.net" }],
       },
       {
         name: "NestJS",
         proof:
           "Microsserviços no setor público com SSO gov.br (OIDC) e Prisma 6; TypeORM e Passport/JWT em projeto autoral",
         tags: ["G4F", "projetos pessoais"],
+        links: [{ label: "NestJS", url: "https://nestjs.com" }],
       },
       {
         name: "Arquitetura em camadas",
@@ -146,6 +197,7 @@ export const skillCategories: SkillCategory[] = [
         proof:
           "Rotas /api/v1 documentadas com Scramble; Swagger em sistema corporativo — semântica HTTP correta e versionamento consistente",
         tags: ["Link Charts", "Basis"],
+        links: [{ label: "OpenAPI", url: "https://www.openapis.org" }],
       },
       {
         name: "ORMs — 6 em 3 runtimes",
@@ -164,6 +216,7 @@ export const skillCategories: SkillCategory[] = [
         proof:
           "JWT httpOnly, hash_equals, 16 rate limiters, anti-spoofing (Cloudflare), anti-fraude; CSP por request, HSTS, DOMPurify e hCaptcha em sistema público de grande porte",
         tags: ["Link Charts", "G4F"],
+        links: [{ label: "OWASP", url: "https://owasp.org" }],
       },
       {
         name: "Caching e padrões assíncronos",
@@ -206,6 +259,7 @@ export const skillCategories: SkillCategory[] = [
         proof:
           "@nestjs/websockets + socket.io em sistema consular de grande porte no setor público",
         tags: ["G4F"],
+        links: [{ label: "Socket.IO", url: "https://socket.io" }],
       },
       {
         name: "Microsserviços",
@@ -216,11 +270,16 @@ export const skillCategories: SkillCategory[] = [
         name: "Express · AdonisJS",
         proof: "APIs REST com Express e AdonisJS (Lucid ORM) em serviços corporativos",
         tags: ["G4F"],
+        links: [
+          { label: "Express", url: "https://expressjs.com" },
+          { label: "AdonisJS", url: "https://adonisjs.com" },
+        ],
       },
       {
         name: "Deno",
         proof: "Runtime Deno com OAK para rotas e DenoDB como ORM em serviço corporativo",
         tags: ["G4F"],
+        links: [{ label: "Deno", url: "https://deno.com" }],
       },
       {
         name: "Fundamentos de projeto",
@@ -231,11 +290,13 @@ export const skillCategories: SkillCategory[] = [
         name: "PostgreSQL 15",
         proof: "56 migrations, índices de performance, backfill, UNIQUE para idempotência",
         tags: ["Link Charts"],
+        links: [{ label: "PostgreSQL", url: "https://www.postgresql.org" }],
       },
       {
         name: "Redis 7",
         proof: "Cache, filas, sliding-window para viral rank",
         tags: ["Link Charts"],
+        links: [{ label: "Redis", url: "https://redis.io" }],
       },
       {
         name: "SQL multi-dialeto",
@@ -246,11 +307,13 @@ export const skillCategories: SkillCategory[] = [
         name: "Oracle",
         proof: "PL/SQL e modelagem em bancos corporativos de sistemas internos de grande porte",
         tags: ["Basis", "Transoft"],
+        links: [{ label: "Oracle Database", url: "https://www.oracle.com/database/" }],
       },
       {
         name: "MySQL",
         proof: "Modelagem relacional e queries em sistemas de gestão partidária e jurídica",
         tags: ["Ordem Social"],
+        links: [{ label: "MySQL", url: "https://www.mysql.com" }],
       },
     ],
   },
@@ -268,17 +331,20 @@ export const skillCategories: SkillCategory[] = [
         name: "Docker",
         proof: "Multi-stage, Alpine + extensões compiladas, 3 stacks compose por ciclo de vida",
         tags: ["Link Charts"],
+        links: [{ label: "Docker", url: "https://www.docker.com" }],
       },
       {
         name: "GitHub Actions",
         proof: "CI ≠ Release, deploy por tag, rollback via workflow_dispatch, concurrency groups",
         tags: ["Link Charts"],
+        links: [{ label: "GitHub Actions", url: "https://github.com/features/actions" }],
       },
       {
         name: "OpenTelemetry",
         proof:
           "Tail sampling, Grafana Cloud/Alloy, Faro RUM, Pyroscope, dashboards + alert rules versionados, uptime probe que abre issue",
         tags: ["Link Charts"],
+        links: [{ label: "OpenTelemetry", url: "https://opentelemetry.io" }],
       },
       {
         name: "Registry GHCR",
@@ -294,6 +360,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Supervisor",
         proof: "Process manager dos workers de fila",
         tags: ["Link Charts"],
+        links: [{ label: "Supervisor", url: "https://supervisord.org" }],
       },
       {
         name: "Migrations expand/contract",
@@ -310,31 +377,48 @@ export const skillCategories: SkillCategory[] = [
         name: "Bash",
         proof: "Scripts de deploy blue/green (176 linhas) e operação",
         tags: ["Link Charts"],
+        links: [{ label: "GNU Bash", url: "https://www.gnu.org/software/bash/" }],
       },
       {
         name: "Kubernetes",
         proof: "Orquestração de contêineres em sistema consular de grande porte no setor público",
         tags: ["G4F"],
+        links: [{ label: "Kubernetes", url: "https://kubernetes.io" }],
       },
       {
         name: "Jenkins · Bamboo · GitLab CI",
         proof: "Esteiras corporativas de build e deploy",
         tags: ["G4F", "Basis"],
+        links: [
+          { label: "Jenkins", url: "https://www.jenkins.io" },
+          { label: "Bamboo", url: "https://www.atlassian.com/software/bamboo" },
+          { label: "GitLab CI", url: "https://about.gitlab.com/solutions/continuous-integration/" },
+        ],
       },
       {
         name: "Rancher · Harbor",
         proof: "Orquestração de contêineres e registry privado em ambiente corporativo",
         tags: ["Basis"],
+        links: [
+          { label: "Rancher", url: "https://www.rancher.com" },
+          { label: "Harbor", url: "https://goharbor.io" },
+        ],
       },
       {
         name: "Apache · Nginx · Ubuntu",
         proof: "Operação de servidores web Linux, de VPS próprio a infra corporativa",
         tags: ["Link Charts", "Ordem Social"],
+        links: [
+          { label: "Apache HTTP Server", url: "https://httpd.apache.org" },
+          { label: "nginx", url: "https://nginx.org" },
+          { label: "Ubuntu", url: "https://ubuntu.com" },
+        ],
       },
       {
         name: "Azure DevOps",
         proof: "Boards e pipelines de CI/CD da Microsoft em projeto frontend",
         tags: ["VegaIT"],
+        links: [{ label: "Azure DevOps", url: "https://azure.microsoft.com/products/devops" }],
       },
     ],
   },
@@ -346,6 +430,7 @@ export const skillCategories: SkillCategory[] = [
         name: "PHPUnit",
         proof: "PHPUnit 11 — ~902 testes: unit, feature, snapshot, characterization",
         tags: ["Link Charts"],
+        links: [{ label: "PHPUnit", url: "https://phpunit.de" }],
       },
       {
         name: "Matriz de banco no CI",
@@ -356,11 +441,13 @@ export const skillCategories: SkillCategory[] = [
         name: "PHPStan nível 5",
         proof: "Larastan sobre Laravel, com baseline versionado",
         tags: ["Link Charts"],
+        links: [{ label: "PHPStan", url: "https://phpstan.org" }],
       },
       {
         name: "Playwright",
         proof: "E2E multi-viewport: 320/375/desktop, 6 projects, storage state autenticado",
         tags: ["Link Charts"],
+        links: [{ label: "Playwright", url: "https://playwright.dev" }],
       },
       {
         name: "Testes de segurança",
@@ -371,16 +458,26 @@ export const skillCategories: SkillCategory[] = [
         name: "Lint como gate",
         proof: "ESLint --max-warnings=0, Prettier e Laravel Pint bloqueando o CI",
         tags: ["Link Charts", "este site"],
+        links: [
+          { label: "ESLint", url: "https://eslint.org" },
+          { label: "Prettier", url: "https://prettier.io" },
+        ],
       },
       {
         name: "SonarQube",
         proof: "Gate de qualidade estática nas esteiras corporativas",
         tags: ["G4F", "Basis"],
+        links: [{ label: "SonarQube", url: "https://www.sonarsource.com/products/sonarqube/" }],
       },
       {
         name: "Jest · Testing Library · MSW",
         proof: "Testes unitários e mock de API, do corporativo ao projeto autoral",
         tags: ["G4F", "Basis", "projetos pessoais"],
+        links: [
+          { label: "Jest", url: "https://jestjs.io" },
+          { label: "Testing Library", url: "https://testing-library.com" },
+          { label: "MSW", url: "https://mswjs.io" },
+        ],
       },
     ],
   },
@@ -405,18 +502,27 @@ export const skillCategories: SkillCategory[] = [
         proof:
           "MCP servers configurados (browser/Playwright, PostgreSQL, Redis, GitHub, Vercel), git worktrees para execução isolada de agentes",
         tags: ["Link Charts"],
+        links: [{ label: "Model Context Protocol", url: "https://modelcontextprotocol.io" }],
       },
       {
         name: "Workflow git",
         proof:
           "Husky, commitlint/commitizen, hooks versionados no repo e Conventional Commits em todos os projetos",
         tags: ["Link Charts", "projetos pessoais"],
+        links: [
+          { label: "Git", url: "https://git-scm.com" },
+          { label: "Conventional Commits", url: "https://www.conventionalcommits.org" },
+        ],
       },
       {
         name: "ADRs + Mermaid",
         proof:
           "Formato MADR; decisões de arquitetura documentadas em docs/adr/, com diagramas versionados",
         tags: ["Link Charts"],
+        links: [
+          { label: "Mermaid", url: "https://mermaid.js.org" },
+          { label: "ADR", url: "https://adr.github.io" },
+        ],
       },
       {
         name: "Monetização web",
@@ -427,11 +533,19 @@ export const skillCategories: SkillCategory[] = [
         name: "E-mail transacional/lifecycle",
         proof: "Brevo/SendGrid — digest semanal, milestone, winback, onboarding",
         tags: ["Link Charts"],
+        links: [
+          { label: "Brevo", url: "https://www.brevo.com" },
+          { label: "SendGrid", url: "https://www.twilio.com/en-us/sendgrid" },
+        ],
       },
       {
         name: "SCRUM, Lean Kanban, Jira",
         proof: "Cerimônias Scrum, quadros Kanban e backlog no Jira em times corporativos",
         tags: ["G4F", "Basis"],
+        links: [
+          { label: "Scrum Guide", url: "https://scrumguides.org" },
+          { label: "Jira", url: "https://www.atlassian.com/software/jira" },
+        ],
       },
       {
         name: "Levantamento de requisitos e documentação",

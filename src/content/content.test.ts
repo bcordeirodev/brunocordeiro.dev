@@ -12,6 +12,12 @@ describe("conteúdo", () => {
     expect(en.skillCategories.map((c) => c.skills.length)).toEqual(
       pt.skillCategories.map((c) => c.skills.length),
     );
+    // Links de site oficial são idênticos nos dois locales (label + url),
+    // por categoria/índice — o conteúdo é duplicado por locale e sem este
+    // guard as listas driftariam silenciosamente.
+    expect(en.skillCategories.map((c) => c.skills.map((s) => s.links ?? null))).toEqual(
+      pt.skillCategories.map((c) => c.skills.map((s) => s.links ?? null)),
+    );
     expect(en.experiences.map((e) => e.company)).toEqual(pt.experiences.map((e) => e.company));
     expect(en.experiences.map((e) => e.stacks.length)).toEqual(
       pt.experiences.map((e) => e.stacks.length),
@@ -53,6 +59,9 @@ describe("conteúdo", () => {
   });
   it("não contém vazamentos de nome real de projeto/infra nem notas de auditoria interna", () => {
     const raw = JSON.stringify(getContent("pt")) + JSON.stringify(getContent("en"));
-    expect(raw).not.toMatch(/itamaraty|e-?consular|e-?folhas|harbor\.|\.local|sem evid[êe]ncia/i);
+    // \bharbor\. segue bloqueando hostnames de registry interno (harbor.corp…)
+    // sem acusar o site oficial do projeto, goharbor.io ("go"+"harbor" é uma
+    // palavra só, sem boundary antes de "harbor").
+    expect(raw).not.toMatch(/itamaraty|e-?consular|e-?folhas|\bharbor\.|\.local|sem evid[êe]ncia/i);
   });
 });

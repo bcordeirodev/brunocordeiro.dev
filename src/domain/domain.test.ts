@@ -13,6 +13,19 @@ describe("domain schemas", () => {
     expect(skillSchema.safeParse({ name: "X", proof: "?", tags: [] }).success).toBe(false);
     expect(skillSchema.safeParse({ name: "X", proof: "?" }).success).toBe(false);
   });
+  it("aceita links https de site oficial e rejeita http/lista vazia", () => {
+    const base = { name: "React 19", proof: "base do frontend", tags: ["Link Charts"] };
+    expect(
+      skillSchema.safeParse({ ...base, links: [{ label: "React", url: "https://react.dev" }] })
+        .success,
+    ).toBe(true);
+    expect(skillSchema.safeParse(base).success).toBe(true);
+    expect(
+      skillSchema.safeParse({ ...base, links: [{ label: "React", url: "http://react.dev" }] })
+        .success,
+    ).toBe(false);
+    expect(skillSchema.safeParse({ ...base, links: [] }).success).toBe(false);
+  });
   it("valida datas YYYY-MM e end null como atual", () => {
     expect(
       experienceSchema.safeParse({

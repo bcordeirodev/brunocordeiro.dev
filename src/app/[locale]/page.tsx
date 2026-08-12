@@ -22,6 +22,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   const showcase = await getGithubShowcase();
 
   const tNav = await getTranslations({ locale, namespace: "nav" });
+  const tCommon = await getTranslations({ locale, namespace: "common" });
 
   const tAiStats = await getTranslations({ locale, namespace: "aiStats" });
   const aiStatsLabels = {
@@ -47,7 +48,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
               {tNav("stack")}
             </h2>
-            <SkillMatrix categories={content.skillCategories} />
+            <SkillMatrix
+              categories={content.skillCategories}
+              officialSiteLabel={tCommon("officialSite")}
+            />
           </section>
         </Reveal>
         <Reveal>

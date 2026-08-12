@@ -5,7 +5,16 @@ import type { SkillCategory } from "@/domain";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
-export function SkillMatrix({ categories }: { categories: SkillCategory[] }) {
+export function SkillMatrix({
+  categories,
+  officialSiteLabel,
+}: {
+  categories: SkillCategory[];
+  /* rótulo localizado do aria-label/title dos links ("site oficial" /
+     "official website") — o componente é client e recebe strings prontas
+     do server, como o resto da página. */
+  officialSiteLabel: string;
+}) {
   return (
     <Tabs defaultValue={categories[0]?.id}>
       {/* Below `sm`, tabs scroll horizontally (native
@@ -55,7 +64,40 @@ export function SkillMatrix({ categories }: { categories: SkillCategory[] }) {
                 className="flex flex-col gap-0.5 border-b border-border/60 py-2.5"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
-                  <span className="font-mono text-sm">{skill.name}</span>
+                  <span className="inline-flex items-baseline gap-1.5 font-mono text-sm">
+                    {skill.name}
+                    {/* Um ↗ por tecnologia (entradas compostas têm até 3);
+                        o svg não tem texto, então getByText/textContent do
+                        span continuam resolvendo só o nome. O aria-label
+                        "React — site oficial" distingue os ícones entre si
+                        para leitores de tela; o title dá o mesmo contexto
+                        no hover. */}
+                    {skill.links?.map((link) => (
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={`${link.label} — ${officialSiteLabel}`}
+                        aria-label={`${link.label} — ${officialSiteLabel}`}
+                        className="-m-1 rounded-sm p-1 text-muted transition-colors outline-none hover:text-accent focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="size-3"
+                        >
+                          <path d="M7 17 17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </a>
+                    ))}
+                  </span>
                   {/* Separador " · " é aria-hidden: leitores de tela não
                       anunciam o middle dot e emendariam "Link Charts G4F"
                       como um nome só; a vírgula sr-only dá a pausa/limite
