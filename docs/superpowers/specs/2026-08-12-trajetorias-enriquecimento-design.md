@@ -71,6 +71,18 @@ Card hoje vazio. Fonte: Bruno (2026-08-12) — sistema de gestão hospitalar com
 
 **Stacks — adicionar**: `Harbor` (citado no CV na fase Basis; hoje só Rancher está no site). PT e EN.
 
+## Localizações (LinkedIn ao vivo, verificado em 2026-08-12)
+
+O LinkedIn traz localização em todas as posições; o site só exibe em G4F e Ebserh. Adicionar `location`:
+
+| Empresa | LinkedIn | Site (PT / EN) |
+|---|---|---|
+| VegaIT | Brazil | Brasil / Brazil |
+| Basis | Brasília, DF | Brasília-DF |
+| PROS | Brasília, DF | Brasília-DF |
+| Transoft | Brasília e Região | Brasília-DF (normalizado ao formato já usado no site) |
+| Plug Digital | Brasília e Região | Brasília-DF (normalizado) |
+
 ### Partido Republicano da Ordem Social
 
 Apenas padronização de cargo (tabela acima). Projetos e stacks inalterados.
@@ -94,6 +106,8 @@ Apenas padronização de cargo. Datas/vínculo mantidos (decisão do Bruno: sobr
 
 ## Pendências
 
-1. **LinkedIn ao vivo**: Bruno pediu conferência do perfil atualizado; a coleta de 2026-08-11 (`11-linkedin.md`) já está incorporada, mas o perfil estava sendo editado durante ela. Aguardando login no navegador Playwright para re-checar; deltas viram ajuste desta spec.
-2. **Nome público "SIM – Manutenção"**: confirmar com o Bruno se pode aparecer nominalmente; fallback: "Sistema de gestão de manutenção hoteleira".
-3. **Versões Ebserh**: inferidas por época; Bruno pode corrigir (ex.: banco, versão exata do Laravel/PHP).
+Todas resolvidas em 2026-08-12:
+
+1. ~~LinkedIn ao vivo~~ — perfil re-checado logado via Playwright: as 7 posições batem com `11-linkedin.md` (datas, cargos, vínculos); único delta são as localizações por posição, incorporadas na seção "Localizações".
+2. ~~Nome público "SIM – Manutenção"~~ — aprovado pelo Bruno ("pode deixar").
+3. ~~Versões Ebserh~~ — aprovadas como inferidas.
