@@ -12,9 +12,9 @@ export const caseStudy: CaseStudy = {
       id: "product",
       title: "The product",
       paragraphs: [
-        "Link Charts (linkcharts.com.br) is a URL shortener with advanced analytics, in production, that I created and maintain 100% solo. Every click is enriched with geographic, device, temporal and traffic-quality data, shown across 5 dashboards: overview, geographic (choropleth/heatmap), temporal, audience and insights.",
-        "In production: authenticated and public shortening, high-performance redirect with Open Graph previews for bots (WhatsApp/Telegram), anti-fraud with a per-click quality score, custom subdomains + link-in-bio page, public API with API keys, QR codes, tags, reports, CSV export, UTM builder, link passwords, expiration/scheduling/click limits, link health checks, retention e-mails and monetization via AdSense + Google Ads.",
-        "~1,929 commits across 3 repositories (725 backend, 1,029 frontend, the rest in docs), all mine, from Mar 2025 to Aug 2026 — kept up in concentrated bursts, alongside a full-time job. 50 release tags with independent semver per repository (backend at v2.16.0, frontend at v1.19.0).",
+        "Link Charts is a URL shortener with analytics that I have run alone in production since 2025. Every click is enriched with geography, device, time and traffic-quality data, feeding five analytics dashboards.",
+        "Beyond shortening, the product has redirects with Open Graph previews for WhatsApp and Telegram bots, an anti-fraud quality score per click, custom subdomains with a link-in-bio page, a public API, QR codes, reports with CSV export, and link passwords, expiration and scheduling. Monetization comes from AdSense and Google Ads.",
+        "That adds up to about 1,929 commits of mine across 3 repositories between March 2025 and August 2026, alongside a full-time job, with 50 releases under independent semver per repository (backend at v2.16.0, frontend at v1.19.0).",
       ],
     },
     {
@@ -22,9 +22,9 @@ export const caseStudy: CaseStudy = {
       id: "architecture",
       title: "Architecture",
       paragraphs: [
-        "Backend: Laravel 12 / PHP 8.2, PostgreSQL 15, Redis 7. Controller → Service → Repository layers with interface-based dependency injection, DTOs and ADRs. The critical /r/{slug} route serves HTML with Open Graph for bots and a 302 redirect for humans; tracking is 100% asynchronous via an idempotent job — no distributed lock: a dedup_key column with a UNIQUE index + insertOrIgnore guarantees a retry never duplicates a click. 10-min link cache; click enrichment in 3 phases (headers → server-side intelligence with viral rank/holidays → anti-fraud quality score).",
-        "Frontend: Next.js 15 (App Router) / React 19 / strict TypeScript, MUI 6 with an in-house design system, TanStack Query 5, ISR with cache tags and on-demand revalidation, en/pt-BR i18n, Auth0, CSP/HSTS in middleware, full SEO (JSON-LD, sitemap, llms.txt), 30 ApexCharts chart components and Leaflet maps.",
-        "Integration: proxy via rewrites (zero CORS), JWT in an httpOnly cookie (never localStorage), X-Request-Id propagated from the browser all the way to the queue worker for end-to-end log correlation. An in-house SQL dialect layer (SqlDateExpr) centralizes driver-dependent fragments so the test suite runs identically on SQLite and PostgreSQL.",
+        "The backend is Laravel 12 with PostgreSQL 15 and Redis 7, layered into Controller, Service and Repository with dependency injection. The critical /r/{slug} route answers HTML with Open Graph for bots and a 302 for humans; tracking runs afterwards in an idempotent async job, where a dedup_key column with a unique index guarantees a retry never duplicates a click.",
+        "The frontend is Next.js 15 with React 19 and strict TypeScript, TanStack Query, ISR with cache tags, two-language i18n, Auth0 and CSP/HSTS in middleware. Charts use ApexCharts; maps use Leaflet.",
+        "Integration goes through rewrite proxying, with no CORS, JWT in an httpOnly cookie and X-Request-Id propagated from the browser to the queue worker to correlate logs end to end.",
       ],
       diagram: [
         "Next.js 15 · React 19 · TypeScript",
@@ -74,9 +74,9 @@ export const caseStudy: CaseStudy = {
       id: "observability",
       title: "Observability",
       paragraphs: [
-        "OpenTelemetry with tail sampling (100% of errors + 100% of slow requests + 10% of the rest) exports traces, metrics and logs through Grafana Alloy — configured as code — to Grafana Cloud. Every trace carries service_version with the deploy SHA: a regression points straight at the release that introduced it.",
-        "8 per-domain log channels (redirect, tracking, jobs, auth, http, audit...) with automatic PII redaction and a request_id propagated from the browser to the queue worker. Faro RUM on the frontend mirrors the same build SHA; continuous profiling with Pyroscope/Excimer surfaces hot paths in PHP. 4 dashboards and 9 alert rules versioned as JSON in the repository — nothing hand-configured in the UI.",
-        "An external uptime probe runs every 5 minutes outside my own infrastructure and automatically opens a deduplicated incident issue when the service goes down — the safety net for the total outage that internal alerts, by definition, would never see.",
+        "OpenTelemetry exports traces, metrics and logs to Grafana Cloud through Grafana Alloy, with tail sampling that keeps 100% of errors and slow requests. Every trace carries the deploy SHA, so a regression points straight at the release that introduced it.",
+        "Logs are split into 8 per-domain channels with automatic PII redaction. Faro RUM covers the frontend and Pyroscope continuously profiles the PHP. The 4 dashboards and 9 alert rules live as JSON in the repository; nothing is configured by hand in the UI.",
+        "Outside the infrastructure, a probe runs every 5 minutes and opens an incident issue on its own if the service goes down — the safety net for the outage internal alerts would never see.",
       ],
     },
     {
@@ -84,7 +84,7 @@ export const caseStudy: CaseStudy = {
       id: "operations",
       title: "Operations in numbers — straight from Grafana",
       intro:
-        "These panels consume the Prometheus API of my Grafana Cloud workspace — the same monitoring, instrumented with OpenTelemetry and Grafana Alloy, that runs Link Charts in production. When the API is unreachable, each panel degrades to a versioned snapshot and says so right on the panel. Uptime comes from the external GitHub Actions probe. No vanity metrics: this is the operation's real telemetry.",
+        "The panels below consume the Prometheus API of my Grafana Cloud workspace, the same one monitoring Link Charts in production. When the API is unreachable, a panel degrades to a versioned snapshot and says so in its badge. Uptime comes from the external GitHub Actions probe.",
       board: {
         title: "Grafana · linkcharts · production",
         timeRange: "Last 30 days",
@@ -147,10 +147,10 @@ export const caseStudy: CaseStudy = {
       id: "postmortems",
       title: "Postmortems",
       paragraphs: [
-        "Jul 13, 2026: 918 HTTP 502 responses during a deploy under the old model (merge published, build ran on the server itself) — including a real visitor coming from Facebook. That was the trigger to rewrite releases as tag-driven blue/green: warm up the new color, health-check it in a loop, graceful nginx cutover, drain the old color, abort automatically on failure.",
-        "A missing build-arg in the Dockerfile compiled the Google Ads conversion labels as empty strings — campaigns ran for weeks spending real money without registering a single conversion, invisible in dev because local builds read .env normally. The answer became a gate: check-build-args.sh compares every NEXT_PUBLIC_* referenced in code against the Dockerfile's ARGs and fails CI if any is missing.",
-        "The client IP was spoofable in logs and rate limiters; I fixed it with Cloudflare's real-ip and an automated test (ClientIpSpoofingTest) that keeps the flaw from slipping back in unnoticed.",
-        "The best evidence that blue/green works came from a deploy that failed: frontend v1.0.0 broke mid-pipeline (an rsync bug) while an external probe hit the site every 2s — 156 out of 156 samples answered 200. A broken release takes nothing down; it simply never happens.",
+        "In July 2026, a deploy under the old model, built on the server itself, returned 918 HTTP 502 responses — one of them to a real visitor. That was the trigger to rewrite releases as tag-driven blue/green, with warm-up, health checks in a loop and automatic abort on failure.",
+        "A missing build-arg in the Dockerfile compiled the Google Ads conversion labels as empty strings, and campaigns ran for weeks without registering a conversion. The fix became a CI gate: a script compares the NEXT_PUBLIC_* used in code against the Dockerfile's ARGs and blocks the build if any is missing.",
+        "The client IP was spoofable in logs and rate limiters. I fixed it with Cloudflare's real-ip and left an automated test so the flaw can't slip back in unnoticed.",
+        "The best evidence for blue/green came from a deploy that broke mid-pipeline while an external meter hit the site every 2 seconds: 156 out of 156 samples answered 200. A broken release doesn't take the site down; it just never happens.",
       ],
     },
     {
@@ -158,10 +158,9 @@ export const caseStudy: CaseStudy = {
       id: "ai-guardrails",
       title: "How it was built: AI with guardrails",
       paragraphs: [
-        "I built Link Charts with a spec-driven, AI-first workflow: brainstorm → design doc → plan → execution, orchestrating multiple agents and subagents in phased runs with a report at every step.",
-        "Context as an artifact: a 22KB agent-context file (architecture guide) versioned in the repository guides the agents; ADRs and postmortems feed that context back over time; the frontend publishes llms.txt for LLM-readable content.",
-        "Automation with a human in the loop: an in-house command (/ship) automates commit → PR → CI → merge → deploy → health check, with at most 2 self-correction attempts per step — if that doesn't resolve it, it stops with an explicit warning and hands control back to me. The safe-migration rule also stopped being a wiki page and became a test that fails CI.",
-        "My thesis: solo dev + AI + strict gates produces company-grade output. The ~1,929 solo commits over 17 months, alongside a full-time job, didn't come at quality's expense: the same 902 tests, PHPStan and zero-warning checks blocked merges the whole time. AI amplifies; the guardrails decide.",
+        "I built Link Charts in a spec-driven flow — brainstorm, design doc, plan, execution — using AI agents to write most of the code. A versioned architecture context file guides the agents, and ADRs and postmortems feed that context back over time.",
+        "The automation has brakes: the /ship command goes from commit to deploy with at most two self-correction attempts per step; if that fails, it stops and hands control back to me. Important rules become CI tests instead of wiki pages.",
+        "The result is about 1,929 solo commits in 17 months without trading away quality: the same 902 tests, PHPStan and zero warnings gated every merge.",
       ],
     },
     {

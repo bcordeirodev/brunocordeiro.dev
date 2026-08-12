@@ -12,9 +12,9 @@ export const caseStudy: CaseStudy = {
       id: "product",
       title: "O produto",
       paragraphs: [
-        "Link Charts (linkcharts.com.br) é um encurtador de URL com analytics avançado, em produção, que criei e mantenho 100% sozinho. Cada clique é enriquecido com dados geográficos, de dispositivo, temporais e de qualidade de tráfego, exibidos em 5 dashboards: geral, geográfico (mapa coroplético/heatmap), temporal, audiência e insights.",
-        "Em produção: encurtamento autenticado e público, redirect de alta performance com preview Open Graph para bots (WhatsApp/Telegram), anti-fraude com quality score por clique, subdomínios personalizados + página link-in-bio, API pública com API keys, QR codes, tags, relatórios, export CSV, UTM builder, senha em link, expiração/agendamento/click limit, health check de links, e-mails de retenção e monetização via AdSense + Google Ads.",
-        "~1.929 commits em 3 repositórios (725 no backend, 1.029 no frontend, o restante em docs), todos meus, de mar/2025 a ago/2026 — mantenho esse ritmo em ciclos concentrados, em paralelo a um emprego em tempo integral. 50 tags de release com semver independente por repositório (backend em v2.16.0, frontend em v1.19.0).",
+        "O Link Charts é um encurtador de URL com analytics que mantenho sozinho em produção desde 2025. Cada clique é enriquecido com dados de geografia, dispositivo, horário e qualidade de tráfego, e alimenta cinco dashboards de análise.",
+        "Além do encurtamento, o produto tem redirect com preview Open Graph para os bots do WhatsApp e do Telegram, quality score anti-fraude por clique, subdomínios personalizados com página link-in-bio, API pública, QR codes, relatórios com export CSV e senha, expiração e agendamento de links. A monetização vem de AdSense e Google Ads.",
+        "São cerca de 1.929 commits meus em 3 repositórios entre março de 2025 e agosto de 2026, em paralelo a um emprego em tempo integral, com 50 releases sob semver independente por repositório (backend em v2.16.0, frontend em v1.19.0).",
       ],
     },
     {
@@ -22,9 +22,9 @@ export const caseStudy: CaseStudy = {
       id: "architecture",
       title: "Arquitetura",
       paragraphs: [
-        "Backend: Laravel 12 / PHP 8.2, PostgreSQL 15, Redis 7. Camadas Controller → Service → Repository com injeção de dependência por interface, DTOs e ADRs. A rota crítica /r/{slug} serve HTML com Open Graph para bots e um redirect 302 para humanos; o tracking é 100% assíncrono via job idempotente — sem lock distribuído: uma coluna dedup_key com índice UNIQUE + insertOrIgnore garante que retry nunca duplica clique. Cache de link de 10 min; enriquecimento em 3 fases (headers → inteligência server-side com viral rank/feriados → quality score anti-fraude).",
-        "Frontend: Next.js 15 (App Router) / React 19 / TypeScript estrito, MUI 6 com design system próprio, TanStack Query 5, ISR com cache tags e revalidação sob demanda, i18n en/pt-BR, Auth0, CSP/HSTS em middleware, SEO completo (JSON-LD, sitemap, llms.txt), 30 componentes de gráfico ApexCharts e mapas Leaflet.",
-        "Integração: proxy por rewrites (zero CORS), JWT em cookie httpOnly (nunca localStorage), X-Request-Id propagado do navegador ao worker de fila para correlação de logs ponta a ponta. Uma camada própria de dialetos SQL (SqlDateExpr) centraliza os fragmentos dependentes de driver para a suíte rodar idêntica em SQLite e PostgreSQL.",
+        "O backend é Laravel 12 com PostgreSQL 15 e Redis 7, em camadas Controller, Service e Repository com injeção de dependência. A rota crítica /r/{slug} responde HTML com Open Graph para bots e um 302 para humanos; o tracking roda depois, num job assíncrono idempotente em que uma coluna dedup_key com índice único garante que retry não duplica clique.",
+        "O frontend é Next.js 15 com React 19 e TypeScript estrito, TanStack Query, ISR com cache tags, i18n em dois idiomas, Auth0 e CSP/HSTS em middleware. Os gráficos usam ApexCharts e os mapas, Leaflet.",
+        "A integração passa por proxy de rewrites, sem CORS, com JWT em cookie httpOnly e X-Request-Id propagado do navegador até o worker de fila para correlacionar logs de ponta a ponta.",
       ],
       diagram: [
         "Next.js 15 · React 19 · TypeScript",
@@ -74,9 +74,9 @@ export const caseStudy: CaseStudy = {
       id: "observability",
       title: "Observabilidade",
       paragraphs: [
-        "OpenTelemetry com tail sampling (100% dos erros + 100% das requisições lentas + 10% do restante) exporta traces, métricas e logs via Grafana Alloy — configurado como código — para o Grafana Cloud. Cada trace carrega service_version com o SHA do deploy: uma regressão aponta direto para a release que a introduziu.",
-        "8 canais de log por domínio (redirect, tracking, jobs, auth, http, audit...) com redação automática de PII e request_id propagado do navegador ao worker de fila. Faro RUM no frontend espelha o mesmo SHA de build; profiling contínuo com Pyroscope/Excimer identifica hot paths no PHP. 4 dashboards e 9 alert rules versionados como JSON no repositório — nada configurado à mão na UI.",
-        "Um uptime probe externo roda a cada 5 minutos fora da minha infra e abre sozinho uma issue de incidente deduplicada quando o serviço cai — a rede de segurança para o outage total que os alertas internos, por definição, não veriam.",
+        "O OpenTelemetry exporta traces, métricas e logs para o Grafana Cloud via Grafana Alloy, com tail sampling que guarda 100% dos erros e das requisições lentas. Cada trace carrega o SHA do deploy, então uma regressão aponta direto para a release que a introduziu.",
+        "Os logs saem em 8 canais por domínio, com redação automática de PII. Faro RUM cobre o frontend e o Pyroscope faz profiling contínuo do PHP. Os 4 dashboards e as 9 alert rules vivem como JSON no repositório; nada é configurado à mão na UI.",
+        "Fora da infra, um probe roda a cada 5 minutos e abre sozinho uma issue de incidente se o serviço cair — a rede de segurança para o outage que os alertas internos não veriam.",
       ],
     },
     {
@@ -84,7 +84,7 @@ export const caseStudy: CaseStudy = {
       id: "operations",
       title: "Operação em números — direto do Grafana",
       intro:
-        "Estes painéis consomem a API Prometheus do meu workspace no Grafana Cloud — o mesmo monitoramento, instrumentado com OpenTelemetry e Grafana Alloy, que opera o Link Charts em produção. Quando a API não responde, cada painel degrada para um snapshot versionado e assume isso no próprio painel. O uptime vem do probe externo no GitHub Actions. Nenhum número de vitrine: é a telemetria real da operação.",
+        "Os painéis abaixo consomem a API Prometheus do meu workspace no Grafana Cloud, o mesmo que monitora o Link Charts em produção. Quando a API não responde, o painel degrada para um snapshot versionado e indica isso no badge. O uptime vem do probe externo no GitHub Actions.",
       board: {
         title: "Grafana · linkcharts · produção",
         timeRange: "Últimos 30 dias",
@@ -147,10 +147,10 @@ export const caseStudy: CaseStudy = {
       id: "postmortems",
       title: "Postmortems",
       paragraphs: [
-        "13/07/2026: 918 respostas HTTP 502 durante um deploy do modelo antigo (merge publicava, build no próprio servidor) — incluindo um visitante real vindo do Facebook. Foi o gatilho para reescrever o release como blue/green por tag: warm-up da cor nova, health check em loop, cutover gracioso no nginx, drenagem da cor antiga e abort automático em falha.",
-        "Um build-arg ausente no Dockerfile compilou as conversões do Google Ads como string vazia — campanhas rodaram semanas gastando dinheiro real sem registrar uma conversão, invisível em dev porque o build local lê o .env normalmente. A resposta virou gate: check-build-args.sh compara todo NEXT_PUBLIC_* referenciado no código com os ARG do Dockerfile e bloqueia o CI se faltar algum.",
-        "O IP de cliente era forjável nos logs e nos rate limiters; corrigi com o real-ip do Cloudflare e um teste automatizado (ClientIpSpoofingTest) que garante que a falha não volta despercebida.",
-        "A melhor evidência de que o blue/green funciona veio de um deploy que falhou: o v1.0.0 do frontend quebrou no meio da esteira (bug de rsync) enquanto um medidor externo batia no site a cada 2s — 156 de 156 amostras responderam 200. Um release quebrado não derruba nada; ele simplesmente não acontece.",
+        "Em julho de 2026, um deploy do modelo antigo, com build no próprio servidor, devolveu 918 respostas HTTP 502 — uma delas para um visitante real. Foi o gatilho para reescrever o release como blue/green por tag, com warm-up, health check em loop e abort automático em falha.",
+        "Um build-arg ausente no Dockerfile compilou as conversões do Google Ads como string vazia, e campanhas rodaram semanas sem registrar conversão. A correção virou gate de CI: um script compara os NEXT_PUBLIC_* usados no código com os ARG do Dockerfile e bloqueia o build se faltar algum.",
+        "O IP do cliente era forjável nos logs e nos rate limiters. Corrigi com o real-ip do Cloudflare e deixei um teste automatizado para a falha não voltar despercebida.",
+        "A melhor evidência do blue/green veio de um deploy que quebrou no meio da esteira enquanto um medidor externo batia no site a cada 2 segundos: 156 de 156 amostras responderam 200. Release quebrado não derruba o site; ele só não acontece.",
       ],
     },
     {
@@ -158,10 +158,9 @@ export const caseStudy: CaseStudy = {
       id: "ai-guardrails",
       title: "Como foi construído: IA com guardrails",
       paragraphs: [
-        "Construí o Link Charts com um fluxo de trabalho IA-first guiado por spec: brainstorm → design doc → plano → execução, orquestrando múltiplos agentes e subagentes em execução por fases com relatório de cada etapa.",
-        "Contexto como artefato: um arquivo de contexto de arquitetura de 22KB versionado no repositório orienta os agentes; ADRs e postmortems realimentam esse contexto ao longo do tempo; o frontend publica llms.txt para conteúdo legível por LLMs.",
-        "Automação com freio humano: um comando próprio (/ship) automatiza commit → PR → CI → merge → deploy → health check, com no máximo 2 tentativas de autocorreção por etapa — se não resolver, para com um aviso explícito e devolve o controle para mim. A regra de migration segura também deixou de ser wiki e virou teste que reprova o CI.",
-        "Minha tese: solo dev + IA + gates rigorosos produz output de nível empresa. Os ~1.929 commits solo em 17 meses, em paralelo a um emprego em tempo integral, não vieram às custas da qualidade: os mesmos 902 testes, PHPStan e zero-warnings bloquearam merges o tempo todo. IA amplifica; os guardrails decidem.",
+        "Construí o Link Charts num fluxo guiado por spec — brainstorm, design doc, plano, execução — usando agentes de IA para escrever a maior parte do código. Um arquivo de contexto de arquitetura versionado no repositório orienta os agentes, e ADRs e postmortems realimentam esse contexto ao longo do tempo.",
+        "A automação tem freio: o comando /ship leva do commit ao deploy com no máximo duas tentativas de autocorreção por etapa; se não resolver, para e devolve o controle para mim. Regras importantes viram teste de CI em vez de página de wiki.",
+        "O resultado são cerca de 1.929 commits solo em 17 meses sem abrir mão de qualidade: os mesmos 902 testes, PHPStan e zero warnings bloquearam merges o tempo todo.",
       ],
     },
     {
