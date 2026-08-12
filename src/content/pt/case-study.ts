@@ -90,6 +90,7 @@ export const caseStudy: CaseStudy = {
         timeRange: "Últimos 30 dias",
         attribution: "dados via Grafana Cloud · Prometheus",
         snapshotLabel: "snapshot",
+        liveLabel: "live · Prometheus",
         updatedLabel: "atualizado",
         footer:
           "1.035/1.035 amostras de deploy com HTTP 200 · 9 alert rules e 4 dashboards versionados como JSON no repositório — zero config na UI",
@@ -115,6 +116,7 @@ export const caseStudy: CaseStudy = {
         activity: {
           title: "commits por mês",
           sub: "git real dos repositórios do Link Charts, mar/2025–ago/2026",
+          source: "git log",
         },
       },
     },

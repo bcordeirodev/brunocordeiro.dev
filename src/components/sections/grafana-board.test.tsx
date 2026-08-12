@@ -13,6 +13,7 @@ const chapter: Extract<CaseChapter, { kind: "grafana" }> = {
     timeRange: "Últimos 30 dias",
     attribution: "dados via Grafana Cloud · Prometheus",
     snapshotLabel: "snapshot",
+    liveLabel: "live · Prometheus",
     updatedLabel: "atualizado",
     footer: "rodapé do board",
   },
@@ -21,7 +22,7 @@ const chapter: Extract<CaseChapter, { kind: "grafana" }> = {
     p95: { title: "p95 · redirect", sub: "rota crítica" },
     errors: { title: "erros 5xx", sub: "percentual" },
     reqRate: { title: "requisições/min", sub: "média 24h" },
-    activity: { title: "commits por mês", sub: "git real" },
+    activity: { title: "commits por mês", sub: "git real", source: "git log" },
   },
 };
 
@@ -45,6 +46,8 @@ it("renderiza chrome do board, painéis e valores formatados", () => {
   // uptime nunca é live (fonte é o GitHub Actions), e mesmo assim o painel
   // não ganha o badge "snapshot" — a origem dele é o badge próprio acima.
   expect(screen.queryByText("snapshot")).not.toBeInTheDocument();
+  expect(screen.getAllByText("live · Prometheus")).toHaveLength(3);
+  expect(screen.getByText("git log")).toBeInTheDocument();
   expect(screen.getByText("180 ms")).toBeInTheDocument();
   expect(screen.getByText("0,4%")).toBeInTheDocument();
   expect(document.querySelector('svg[fill="#f46800"]')).toBeInTheDocument();
@@ -73,4 +76,5 @@ it("marca painéis vindos de snapshot", () => {
   );
   // só p95 e erros ganham "snapshot" — uptime tem badge de fonte própria
   expect(screen.getAllByText("snapshot")).toHaveLength(2);
+  expect(screen.getAllByText("live · Prometheus")).toHaveLength(1);
 });

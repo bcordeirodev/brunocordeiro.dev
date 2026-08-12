@@ -44,6 +44,7 @@ export const caseChapterSchema = z.discriminatedUnion("kind", [
       timeRange: z.string().min(1),
       attribution: z.string().min(1),
       snapshotLabel: z.string().min(1),
+      liveLabel: z.string().min(1),
       updatedLabel: z.string().min(1),
       footer: z.string().min(1),
     }),
@@ -56,7 +57,11 @@ export const caseChapterSchema = z.discriminatedUnion("kind", [
       p95: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
       errors: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
       reqRate: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
-      activity: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
+      activity: z.object({
+        title: z.string().min(1),
+        sub: z.string().min(1),
+        source: z.string().min(1),
+      }),
     }),
   }),
 ]);

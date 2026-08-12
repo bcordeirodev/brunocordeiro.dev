@@ -44,6 +44,7 @@ it("renderiza capítulo grafana com o board (snapshot por default)", () => {
           timeRange: "Últimos 30 dias",
           attribution: "dados via Grafana Cloud · Prometheus",
           snapshotLabel: "snapshot",
+          liveLabel: "live · Prometheus",
           updatedLabel: "atualizado",
           footer: "rodapé",
         },
@@ -52,7 +53,7 @@ it("renderiza capítulo grafana com o board (snapshot por default)", () => {
           p95: { title: "p95 · redirect", sub: "rota" },
           errors: { title: "erros 5xx", sub: "pct" },
           reqRate: { title: "requisições/min", sub: "média" },
-          activity: { title: "commits por mês", sub: "git" },
+          activity: { title: "commits por mês", sub: "git", source: "git" },
         },
       }}
     />,

@@ -37,11 +37,15 @@ function GrafanaLogo({ className }: { className?: string }) {
   );
 }
 
-function PanelBadge({ label }: { label: string }) {
+function PanelBadge({ label, tone = "dim" }: { label: string; tone?: "live" | "dim" }) {
   return (
     <span
       className="rounded border px-1 py-px font-mono text-[10px] leading-none whitespace-nowrap"
-      style={{ color: G.dim, borderColor: G.border }}
+      style={
+        tone === "live"
+          ? { color: G.green, borderColor: G.green }
+          : { color: G.dim, borderColor: G.border }
+      }
     >
       {label}
     </span>
@@ -149,7 +153,11 @@ export function GrafanaBoard({
 }) {
   const { board, panels } = chapter;
   const badge = (key: keyof GrafanaStats["live"]) =>
-    stats.live[key] ? undefined : <PanelBadge label={board.snapshotLabel} />;
+    stats.live[key] ? (
+      <PanelBadge label={board.liveLabel} tone="live" />
+    ) : (
+      <PanelBadge label={board.snapshotLabel} />
+    );
   const updatedAt = new Intl.DateTimeFormat(locale === "pt" ? "pt-BR" : "en-US", {
     dateStyle: "short",
     timeStyle: "short",
@@ -220,6 +228,7 @@ export function GrafanaBoard({
         <Panel
           title={panels.activity.title}
           sub={panels.activity.sub}
+          badge={<PanelBadge label={panels.activity.source} />}
           className="sm:col-span-2 lg:col-span-4"
         >
           <GrafanaBars
