@@ -92,9 +92,10 @@ O componente passa a receber o `locale` para `inLanguage`/`url`.
 ### 4. Higiene técnica
 
 - **`src/app/apple-icon.tsx`** — PNG 180×180 gerado por `ImageResponse`,
-  monograma "BC" com a mesma identidade do `icon.svg` (fundo `#09090b`,
-  cantos arredondados, borda `#27272a`). Também serve de favicon PNG para
-  a SERP do Google.
+  monograma "b." com a mesma identidade do `icon.svg` (fundo `#09090b`,
+  verde `#3fdd78`, fonte mono). Full-bleed, sem cantos arredondados — o
+  iOS aplica a própria máscara. Também serve de favicon PNG para a SERP
+  do Google.
 - **hreflang `pt`** — `languageAlternates` em `src/lib/site.ts` passa a
   emitir `pt` e `pt-BR` apontando para a mesma URL (+ `en`, `x-default`).
 - **`sitemap.lastModified`** — derivado de `profile.asOfYm` (ex.:
