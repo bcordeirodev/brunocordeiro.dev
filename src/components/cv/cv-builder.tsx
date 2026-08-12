@@ -63,7 +63,7 @@ export function CvBuilder({
             {status === "generating" ? labels.generating : labels.download}
           </Button>
           {status === "error" ? (
-            <p role="alert" className="text-sm text-red-500">
+            <p role="alert" className="text-sm text-destructive">
               {labels.downloadError}
             </p>
           ) : null}

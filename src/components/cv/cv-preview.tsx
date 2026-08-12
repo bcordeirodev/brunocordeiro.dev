@@ -1,6 +1,7 @@
 import type { Locale } from "@/content";
 import type { CvData } from "@/lib/cv/build-cv-data";
 import type { CvLabels } from "@/lib/cv/labels";
+import { certificationKey, educationKey } from "@/lib/cv/selection";
 import { formatPeriod, formatYearMonth } from "@/lib/dates";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -86,13 +87,25 @@ export function CvPreview({
       {data.certifications ? (
         <Section title={labels.sections.certifications}>
           {data.certifications.map((c) => (
-            <p key={c.name} className="text-xs">
-              <span className="font-medium">{c.name}</span>{" "}
-              <span className="text-muted">
-                — {c.issuer} · {formatYearMonth(c.issued, locale)}
-                {c.expires ? ` (${labels.validUntil} ${formatYearMonth(c.expires, locale)})` : ""}
-              </span>
-            </p>
+            <div key={certificationKey(c)} className="flex flex-col gap-1">
+              <p className="text-xs">
+                <span className="font-medium">{c.name}</span>{" "}
+                <span className="text-muted">
+                  — {c.issuer} · {formatYearMonth(c.issued, locale)}
+                  {c.expires ? ` (${labels.validUntil} ${formatYearMonth(c.expires, locale)})` : ""}
+                </span>
+              </p>
+              {c.credentialUrl ? (
+                <a
+                  href={c.credentialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-muted underline-offset-4 hover:underline"
+                >
+                  {c.credentialUrl}
+                </a>
+              ) : null}
+            </div>
           ))}
         </Section>
       ) : null}
@@ -100,7 +113,7 @@ export function CvPreview({
       {data.education ? (
         <Section title={labels.sections.education}>
           {data.education.map((e) => (
-            <p key={e.degree} className="text-xs">
+            <p key={educationKey(e)} className="text-xs">
               <span className="font-medium">{e.degree}</span>{" "}
               <span className="text-muted">
                 — {e.institution} · {e.period}

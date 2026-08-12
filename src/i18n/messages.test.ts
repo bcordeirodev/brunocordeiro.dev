@@ -3,6 +3,23 @@ import { describe, expect, it } from "vitest";
 import en from "../../messages/en.json";
 import pt from "../../messages/pt.json";
 
+function collectKeyPaths(messages: object, prefix = ""): string[] {
+  return Object.entries(messages).flatMap(([key, value]) => {
+    const path = prefix ? `${prefix}.${key}` : key;
+    return value !== null && typeof value === "object"
+      ? collectKeyPaths(value as object, path)
+      : [path];
+  });
+}
+
+describe("paridade de mensagens pt/en", () => {
+  it("pt e en têm as mesmas chaves", () => {
+    const ptKeys = collectKeyPaths(pt).sort();
+    const enKeys = collectKeyPaths(en).sort();
+    expect(ptKeys).toEqual(enKeys);
+  });
+});
+
 describe("common.stars (pluralização ICU)", () => {
   it("en: usa singular para 1 e plural para 0/2+", () => {
     const t = createTranslator({ locale: "en", messages: en });

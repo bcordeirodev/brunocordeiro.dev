@@ -19,15 +19,15 @@ Página pública onde visitantes (recrutadores) montam e baixam um CV em PDF do 
 
 Granularidade: **seções + itens**.
 
-| Seção             | Liga/desliga seção | Itens individuais         |
-| ----------------- | ------------------ | ------------------------- |
-| Perfil resumido   | sim                | —                         |
-| Métricas          | sim                | —                         |
-| Experiências      | sim                | por experiência (company) |
-| Skills            | sim                | por categoria e por skill |
-| Certificações     | sim                | por certificação          |
-| Educação          | sim                | por item                  |
-| Case study (link) | sim                | —                         |
+| Seção             | Liga/desliga seção | Itens individuais                                                             |
+| ----------------- | ------------------ | ----------------------------------------------------------------------------- |
+| Perfil resumido   | sim                | —                                                                             |
+| Métricas          | sim                | —                                                                             |
+| Experiências      | sim                | por experiência (company)                                                     |
+| Skills            | sim                | por skill (seleção plana; sem toggle por categoria — desvio da implementação) |
+| Certificações     | sim                | por certificação                                                              |
+| Educação          | sim                | por item                                                                      |
+| Case study (link) | sim                | —                                                                             |
 
 Regras:
 
@@ -68,7 +68,7 @@ Desktop: duas colunas — painel de seleção à esquerda, preview à direita, b
 ## Template do PDF
 
 - A4, fluindo para segunda página quando necessário; tipografia sóbria; texto selecionável (ATS-friendly); links clicáveis (email, GitHub, LinkedIn, credenciais, case study).
-- Cabeçalho: nome, role, headline, linha de contatos, localização, idiomas.
+- Cabeçalho: nome, role, headline, linha de contatos, localização, idiomas. **Desvio:** `headline` foi omitido do cabeçalho na implementação por ser redundante com `role`.
 - Seções na ordem do site: perfil (subheadline), métricas, experiências (role, company, período, stacks, projetos), skills por categoria (nome + proof), certificações (nome, issuer, datas, link), educação, case study (parágrafo curto + link para `/{locale}/link-charts`).
 - Datas formatadas no locale ativo (reusar helpers existentes se houver).
 - Nome do arquivo: `bruno-cordeiro-cv-{locale}.pdf`.
