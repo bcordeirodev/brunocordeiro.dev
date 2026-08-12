@@ -31,13 +31,13 @@ A seção `#stack` da home tem cinco problemas apontados em revisão visual:
 
 ## Novas categorias
 
-| id (enum) | Título PT | Título EN | Recebe |
-|---|---|---|---|
-| `frontend` | Frontend | Frontend | Frontend atual + HTML·CSS + Modos de renderização |
-| `backend` | Backend & Dados | Backend & Data | Backend + Bancos de dados + restante de Arquitetura & Padrões (camadas, REST+OpenAPI, ORMs, caching, fundamentos, segurança, microsserviços, autenticação/SSO) |
-| `devops` | DevOps & Infra | DevOps & Infra | CI/CD & Servidor + Bash |
-| `quality` | Qualidade & Testes | Quality & Testing | igual ao atual |
-| `ai` | IA & Metodologias | AI & Methods | Engenharia com IA + Ferramentas & Metodologias |
+| id (enum)  | Título PT          | Título EN         | Recebe                                                                                                                                                         |
+| ---------- | ------------------ | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `frontend` | Frontend           | Frontend          | Frontend atual + HTML·CSS + Modos de renderização                                                                                                              |
+| `backend`  | Backend & Dados    | Backend & Data    | Backend + Bancos de dados + restante de Arquitetura & Padrões (camadas, REST+OpenAPI, ORMs, caching, fundamentos, segurança, microsserviços, autenticação/SSO) |
+| `devops`   | DevOps & Infra     | DevOps & Infra    | CI/CD & Servidor + Bash                                                                                                                                        |
+| `quality`  | Qualidade & Testes | Quality & Testing | igual ao atual                                                                                                                                                 |
+| `ai`       | IA & Metodologias  | AI & Methods      | Engenharia com IA + Ferramentas & Metodologias                                                                                                                 |
 
 Os ids `languages`, `architecture`, `databases` e `tools` saem do enum
 `skillCategoryIdSchema`.
@@ -49,7 +49,7 @@ Os ids `languages`, `architecture`, `databases` e `tools` saem do enum
    ES6+ desde 2016).
 2. **PHP 5.6→8.2 (production) + PHP 5.6–8.1 (professional)** → um "PHP"
    no Backend & Dados, prova combinada, tags `Link Charts · Basis ·
-   Ordem Social · Plug Digital`.
+Ordem Social · Plug Digital`.
 3. **TanStack Query v5 + "React Query e SWR"** → uma entrada no Frontend,
    tags `Link Charts · G4F`.
 4. **Autenticação multi-mecanismo + Auth0 full-stack + SSO/OIDC** →
