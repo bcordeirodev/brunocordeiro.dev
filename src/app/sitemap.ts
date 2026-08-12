@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getContent, locales } from "@/content";
 import { absoluteUrl, defaultLocale, languageAlternates, localizedPath } from "@/lib/site";
 
-const ROUTES = ["", "/link-charts"] as const;
+const ROUTES = ["", "/link-charts", "/cv"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Estável entre builds: acompanha o ritual mensal de atualização do
