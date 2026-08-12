@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { cacheLife } from "next/cache";
 import { ImageResponse } from "next/og";
 import { getContent, locales, type Locale } from "@/content";
 
@@ -32,15 +33,44 @@ export function generateImageMetadata({ params }: { params: { locale: Locale } }
 // read raw font bytes — `next/font` isn't usable inside `ImageResponse`.
 const FONTS_DIR = join(process.cwd(), "src/assets/fonts");
 
-export default async function Image({ params }: { params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params;
-  const { profile } = getContent(locale);
+// Under Cache Components, uncached IO (like a raw `readFile`) inside this
+// dynamic App Route (`/[locale]/opengraph-image/[__metadata_id__]`) throws
+// `DYNAMIC_SERVER_USAGE` at request time in production (`next build && next
+// start`) — `next dev` doesn't enforce the prerendering constraint, so this
+// only surfaces after a real build. Font bytes never change within a build,
+// so the fix is the sanctioned Route Handlers (GET) pattern: move the
+// uncached read into a helper marked `"use cache"` (see
+// node_modules/next/dist/docs/01-app/02-guides/migrating-to-cache-components.md,
+// "Route Handlers (GET)").
+//
+// `next/og`'s `fonts[].data` is typed as `ArrayBuffer` (see
+// node_modules/next/dist/compiled/@vercel/og/types.d.ts), not `Buffer`. A
+// live `Buffer` from `readFile` works fine in-process, but a `"use cache"`
+// return value crosses a serialization boundary — the rehydrated value
+// isn't a real `ArrayBuffer`, and satori's `new DataView(...)` rejects it.
+// Slice out each buffer's own byte range (Node pools small allocations, so
+// `.buffer` alone may span unrelated bytes) into a plain `ArrayBuffer`
+// before returning.
+function toArrayBuffer(buffer: Buffer): ArrayBuffer {
+  return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
+}
 
+async function loadOgFonts() {
+  "use cache";
+  cacheLife("max");
   const [geistBold, geistRegular, geistMonoBold] = await Promise.all([
     readFile(join(FONTS_DIR, "Geist-Bold.ttf")),
     readFile(join(FONTS_DIR, "Geist-Regular.ttf")),
     readFile(join(FONTS_DIR, "GeistMono-Bold.ttf")),
   ]);
+  return [toArrayBuffer(geistBold), toArrayBuffer(geistRegular), toArrayBuffer(geistMonoBold)] as const;
+}
+
+export default async function Image({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const { profile } = getContent(locale);
+
+  const [geistBold, geistRegular, geistMonoBold] = await loadOgFonts();
 
   return new ImageResponse(
     <div
