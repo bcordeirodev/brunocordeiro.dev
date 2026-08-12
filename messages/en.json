@@ -49,6 +49,27 @@
     "disclaimer": "aggregate numbers from my entire workflow with AI agents since {since} — tool- and project-agnostic"
   },
   "footer": {
-    "builtWith": "built with next 16 — public repo"
+    "builtWith": "built with next 16 — public repo",
+    "downloadCv": "download CV"
+  },
+  "cv": {
+    "pageTitle": "Résumé",
+    "pageDescription": "Build and download Bruno Cordeiro's résumé as a PDF — pick the sections, roles and skills that matter to you.",
+    "panelTitle": "Build the CV",
+    "selectAll": "select all",
+    "clearAll": "clear all",
+    "download": "Download PDF",
+    "generating": "Generating…",
+    "downloadError": "Could not generate the PDF. Please try again.",
+    "caseStudyCta": "full case study",
+    "sections": {
+      "summary": "Summary",
+      "metrics": "Metrics",
+      "experiences": "Experience",
+      "skills": "Skills",
+      "certifications": "Certifications",
+      "education": "Education",
+      "caseStudy": "Case study"
+    }
   }
 }

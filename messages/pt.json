@@ -49,6 +49,27 @@
     "disclaimer": "agregados de todo o meu workflow com agentes de IA desde {since} — independem de ferramenta e de projeto"
   },
   "footer": {
-    "builtWith": "feito com next 16 — repo público"
+    "builtWith": "feito com next 16 — repo público",
+    "downloadCv": "baixar CV"
+  },
+  "cv": {
+    "pageTitle": "Currículo",
+    "pageDescription": "Monte e baixe o currículo de Bruno Cordeiro em PDF — escolha as seções, experiências e skills que interessam.",
+    "panelTitle": "Monte o CV",
+    "selectAll": "marcar todas",
+    "clearAll": "desmarcar todas",
+    "download": "Baixar PDF",
+    "generating": "Gerando…",
+    "downloadError": "Não foi possível gerar o PDF. Tente novamente.",
+    "caseStudyCta": "case study completo",
+    "sections": {
+      "summary": "Resumo",
+      "metrics": "Métricas",
+      "experiences": "Experiências",
+      "skills": "Skills",
+      "certifications": "Certificações",
+      "education": "Educação",
+      "caseStudy": "Case study"
+    }
   }
 }
