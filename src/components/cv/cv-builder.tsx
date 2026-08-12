@@ -33,9 +33,7 @@ export function CvBuilder({
         import("@react-pdf/renderer"),
         import("./cv-document"),
       ]);
-      const blob = await pdf(
-        <CvDocument data={data} locale={locale} labels={labels} />,
-      ).toBlob();
+      const blob = await pdf(<CvDocument data={data} locale={locale} labels={labels} />).toBlob();
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = url;

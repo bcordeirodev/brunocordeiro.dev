@@ -30,11 +30,7 @@ export type CvData = {
 
 const orNull = <T>(arr: T[]): T[] | null => (arr.length > 0 ? arr : null);
 
-export function buildCvData(
-  content: SiteContent,
-  selection: CvSelection,
-  locale: Locale,
-): CvData {
+export function buildCvData(content: SiteContent, selection: CvSelection, locale: Locale): CvData {
   const { sections } = selection;
   return {
     profile: content.profile,

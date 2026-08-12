@@ -20,7 +20,9 @@ describe("SelectionPanel", () => {
       />,
     );
     const first = content.experiences[0]!;
-    await userEvent.click(screen.getByRole("checkbox", { name: `${first.role} — ${first.company}` }));
+    await userEvent.click(
+      screen.getByRole("checkbox", { name: `${first.role} — ${first.company}` }),
+    );
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0]![0].experiences[experienceKey(first)]).toBe(false);
   });

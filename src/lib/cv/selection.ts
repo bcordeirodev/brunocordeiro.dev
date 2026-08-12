@@ -1,13 +1,7 @@
 import type { Certification, Education, Experience, SiteContent } from "@/domain";
 
 export type CvSectionId =
-  | "summary"
-  | "metrics"
-  | "experiences"
-  | "skills"
-  | "certifications"
-  | "education"
-  | "caseStudy";
+  "summary" | "metrics" | "experiences" | "skills" | "certifications" | "education" | "caseStudy";
 
 export type CvSelection = {
   sections: Record<CvSectionId, boolean>;

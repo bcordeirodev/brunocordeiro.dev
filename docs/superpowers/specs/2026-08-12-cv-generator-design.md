@@ -19,15 +19,15 @@ Página pública onde visitantes (recrutadores) montam e baixam um CV em PDF do 
 
 Granularidade: **seções + itens**.
 
-| Seção               | Liga/desliga seção | Itens individuais            |
-| ------------------- | ------------------ | ---------------------------- |
-| Perfil resumido     | sim                | —                            |
-| Métricas            | sim                | —                            |
-| Experiências        | sim                | por experiência (company)    |
-| Skills              | sim                | por categoria e por skill    |
-| Certificações       | sim                | por certificação             |
-| Educação            | sim                | por item                     |
-| Case study (link)   | sim                | —                            |
+| Seção             | Liga/desliga seção | Itens individuais         |
+| ----------------- | ------------------ | ------------------------- |
+| Perfil resumido   | sim                | —                         |
+| Métricas          | sim                | —                         |
+| Experiências      | sim                | por experiência (company) |
+| Skills            | sim                | por categoria e por skill |
+| Certificações     | sim                | por certificação          |
+| Educação          | sim                | por item                  |
+| Case study (link) | sim                | —                         |
 
 Regras:
 

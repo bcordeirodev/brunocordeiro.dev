@@ -26,10 +26,12 @@
 ### Task 1: Seleção — tipos, chaves e `defaultSelection`
 
 **Files:**
+
 - Create: `src/lib/cv/selection.ts`
 - Test: `src/lib/cv/selection.test.ts`
 
 **Interfaces:**
+
 - Consumes: `SiteContent`, `Experience` de `@/domain`; `getContent` de `@/content` (só no teste).
 - Produces (usado pelas Tasks 2, 4, 6):
   - `type CvSectionId = "summary" | "metrics" | "experiences" | "skills" | "certifications" | "education" | "caseStudy"`
@@ -101,13 +103,7 @@ Expected: FAIL — módulo `./selection` não existe.
 import type { Certification, Education, Experience, SiteContent } from "@/domain";
 
 export type CvSectionId =
-  | "summary"
-  | "metrics"
-  | "experiences"
-  | "skills"
-  | "certifications"
-  | "education"
-  | "caseStudy";
+  "summary" | "metrics" | "experiences" | "skills" | "certifications" | "education" | "caseStudy";
 
 export type CvSelection = {
   sections: Record<CvSectionId, boolean>;
@@ -177,10 +173,12 @@ git commit -m "feat(cv): add selection model with per-item keys and default"
 ### Task 2: `buildCvData` — filtragem pura
 
 **Files:**
+
 - Create: `src/lib/cv/build-cv-data.ts`
 - Test: `src/lib/cv/build-cv-data.test.ts`
 
 **Interfaces:**
+
 - Consumes: `CvSelection`, `experienceKey`, `skillKey`, `certificationKey`, `educationKey` (Task 1); `SiteContent`, `Profile`, `Metric`, `Experience`, `SkillCategory`, `Certification`, `Education` de `@/domain`; `absoluteUrl`, `localizedPath` de `@/lib/site`; `Locale` de `@/content`.
 - Produces (usado pelas Tasks 3, 5, 6):
   - `type CvData = { profile: Profile; summary: string | null; metrics: Metric[] | null; experiences: Experience[] | null; skillCategories: SkillCategory[] | null; certifications: Certification[] | null; education: Education[] | null; caseStudy: { title: string; tagline: string; url: string } | null }`
@@ -310,11 +308,7 @@ export type CvData = {
 
 const orNull = <T>(arr: T[]): T[] | null => (arr.length > 0 ? arr : null);
 
-export function buildCvData(
-  content: SiteContent,
-  selection: CvSelection,
-  locale: Locale,
-): CvData {
+export function buildCvData(content: SiteContent, selection: CvSelection, locale: Locale): CvData {
   const { sections } = selection;
   return {
     profile: content.profile,
@@ -367,11 +361,13 @@ git commit -m "feat(cv): add buildCvData pure filter over site content"
 ### Task 3: Labels compartilhados + `CvPreview` (HTML)
 
 **Files:**
+
 - Create: `src/lib/cv/labels.ts`
 - Create: `src/components/cv/cv-preview.tsx`
 - Test: `src/components/cv/cv-preview.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `CvData` (Task 2); `CvSectionId` (Task 1); `formatPeriod` de `@/lib/dates`; `Locale` de `@/content`.
 - Produces (usado pelas Tasks 4, 5, 6, 7):
   - `type CvLabels = { sections: Record<CvSectionId, string>; panelTitle: string; selectAll: string; clearAll: string; download: string; generating: string; downloadError: string; current: string; validUntil: string; caseStudyCta: string }` (em `src/lib/cv/labels.ts`)
@@ -617,15 +613,18 @@ git commit -m "feat(cv): add html preview and shared label types"
 ### Task 4: `SelectionPanel` — checkboxes de seções e itens
 
 **Files:**
+
 - Create: `src/components/cv/selection-panel.tsx`
 - Test: `src/components/cv/selection-panel.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `CvSelection`, `CvSectionId`, `experienceKey`, `skillKey`, `certificationKey`, `educationKey` (Task 1); `CvLabels` (Task 3); `SiteContent` de `@/domain`.
 - Produces (usado pela Task 6):
   - `SelectionPanel({ content, selection, onChange, labels }: { content: SiteContent; selection: CvSelection; onChange: (next: CvSelection) => void; labels: CvLabels })` — client component controlado; `onChange` recebe a seleção inteira nova.
 
 Comportamento:
+
 - Checkbox de seção liga/desliga a seção (`sections[id]`). Com a seção desligada, os itens ficam `disabled`.
 - Checkbox por item nas seções experiences/skills/certifications/education.
 - Botão por seção com itens: `labels.clearAll` quando todos marcados, `labels.selectAll` caso contrário; alterna todos os itens da seção.
@@ -657,7 +656,9 @@ describe("SelectionPanel", () => {
       />,
     );
     const first = content.experiences[0]!;
-    await userEvent.click(screen.getByRole("checkbox", { name: `${first.role} — ${first.company}` }));
+    await userEvent.click(
+      screen.getByRole("checkbox", { name: `${first.role} — ${first.company}` }),
+    );
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0]![0].experiences[experienceKey(first)]).toBe(false);
   });
@@ -888,10 +889,12 @@ git commit -m "feat(cv): add controlled selection panel"
 ### Task 5: instalar `@react-pdf/renderer` + `CvDocument`
 
 **Files:**
+
 - Modify: `package.json` (via pnpm)
 - Create: `src/components/cv/cv-document.tsx`
 
 **Interfaces:**
+
 - Consumes: `CvData` (Task 2), `CvLabels` (Task 3), `formatPeriod` de `@/lib/dates`, `Locale` de `@/content`.
 - Produces (usado pela Task 6 via `import()` dinâmico):
   - `CvDocument({ data, locale, labels }: { data: CvData; locale: Locale; labels: CvLabels }): JSX.Element` — árvore `@react-pdf/renderer` pronta para `pdf(...).toBlob()`.
@@ -1097,10 +1100,12 @@ git commit -m "feat(cv): add react-pdf document template"
 ### Task 6: `CvBuilder` — estado, preview ao vivo e download
 
 **Files:**
+
 - Create: `src/components/cv/cv-builder.tsx`
 - Test: `src/components/cv/cv-builder.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `defaultSelection`, `CvSelection` (Task 1); `buildCvData` (Task 2); `CvPreview`, `CvLabels` (Task 3); `SelectionPanel` (Task 4); `CvDocument` + `@react-pdf/renderer` via `import()` dinâmico no clique (Task 5); `Button` de `@/components/ui/button`.
 - Produces (usado pela Task 7):
   - `CvBuilder({ content, locale, labels }: { content: SiteContent; locale: Locale; labels: CvLabels })` — client component raiz da página.
@@ -1198,9 +1203,7 @@ export function CvBuilder({
         import("@react-pdf/renderer"),
         import("./cv-document"),
       ]);
-      const blob = await pdf(
-        <CvDocument data={data} locale={locale} labels={labels} />,
-      ).toBlob();
+      const blob = await pdf(<CvDocument data={data} locale={locale} labels={labels} />).toBlob();
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = url;
@@ -1266,11 +1269,13 @@ git commit -m "feat(cv): add builder with live preview and pdf download"
 ### Task 7: mensagens + rota `/{locale}/cv`
 
 **Files:**
+
 - Modify: `messages/pt.json` (adicionar namespace `cv` e `footer.downloadCv`)
 - Modify: `messages/en.json` (idem)
 - Create: `src/app/[locale]/cv/page.tsx`
 
 **Interfaces:**
+
 - Consumes: `CvBuilder` (Task 6), `CvLabels` (Task 3), `getContent`/`Locale` de `@/content`, `buildPageMetadata` de `@/lib/site`, `SiteHeader`/`SiteFooter` de `@/components/layout/*`, `getTranslations`/`setRequestLocale` de `next-intl/server`.
 - Produces: rota `/pt/cv` e `/en/cv`; namespace de mensagens `cv` (usado também no teste de paridade `src/i18n/messages.test.ts`, que deve continuar verde); chave `footer.downloadCv` (usada na Task 8).
 
@@ -1438,11 +1443,13 @@ git commit -m "feat(cv): add /cv route with localized builder page"
 ### Task 8: footer, sitemap e verificação final
 
 **Files:**
+
 - Modify: `src/components/layout/site-footer.tsx`
 - Modify: `src/app/sitemap.ts` (linha do `ROUTES`)
 - Modify: `src/app/sitemap.test.ts`
 
 **Interfaces:**
+
 - Consumes: chave `footer.downloadCv` (Task 7); `TransitionLink` de `@/components/motion/transition-link`; rota `/cv` (Task 7).
 - Produces: link "baixar CV" no footer de todas as páginas; `/pt/cv` e `/en/cv` no sitemap.
 
@@ -1451,19 +1458,19 @@ git commit -m "feat(cv): add /cv route with localized builder page"
 Em `src/app/sitemap.test.ts`, atualizar o segundo teste:
 
 ```ts
-  it("cobre home, link-charts e cv nos dois locales com alternates pt", () => {
-    const entries = sitemap();
-    const urls = entries.map((e) => e.url);
-    expect(urls).toContain("https://brunocordeiro.dev/pt");
-    expect(urls).toContain("https://brunocordeiro.dev/pt/link-charts");
-    expect(urls).toContain("https://brunocordeiro.dev/pt/cv");
-    expect(urls).toContain("https://brunocordeiro.dev/en");
-    expect(urls).toContain("https://brunocordeiro.dev/en/link-charts");
-    expect(urls).toContain("https://brunocordeiro.dev/en/cv");
-    const home = entries.find((e) => e.url === "https://brunocordeiro.dev/pt");
-    expect(home?.alternates?.languages).toHaveProperty("pt");
-    expect(home?.alternates?.languages).toHaveProperty("pt-BR");
-  });
+it("cobre home, link-charts e cv nos dois locales com alternates pt", () => {
+  const entries = sitemap();
+  const urls = entries.map((e) => e.url);
+  expect(urls).toContain("https://brunocordeiro.dev/pt");
+  expect(urls).toContain("https://brunocordeiro.dev/pt/link-charts");
+  expect(urls).toContain("https://brunocordeiro.dev/pt/cv");
+  expect(urls).toContain("https://brunocordeiro.dev/en");
+  expect(urls).toContain("https://brunocordeiro.dev/en/link-charts");
+  expect(urls).toContain("https://brunocordeiro.dev/en/cv");
+  const home = entries.find((e) => e.url === "https://brunocordeiro.dev/pt");
+  expect(home?.alternates?.languages).toHaveProperty("pt");
+  expect(home?.alternates?.languages).toHaveProperty("pt-BR");
+});
 ```
 
 Run: `pnpm test src/app/sitemap.test.ts`
@@ -1489,22 +1496,19 @@ import { TransitionLink } from "@/components/motion/transition-link";
 ```
 
 ```tsx
-        <div className="flex items-center gap-4">
-          <TransitionLink
-            href="/cv"
-            className="underline-offset-4 hover:text-foreground hover:underline"
-          >
-            {t("footer.downloadCv")}
-          </TransitionLink>
-          <a
-            href={REPO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline-offset-4 hover:text-foreground hover:underline"
-          >
-            {t("common.viewSource")}
-          </a>
-        </div>
+<div className="flex items-center gap-4">
+  <TransitionLink href="/cv" className="underline-offset-4 hover:text-foreground hover:underline">
+    {t("footer.downloadCv")}
+  </TransitionLink>
+  <a
+    href={REPO_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline-offset-4 hover:text-foreground hover:underline"
+  >
+    {t("common.viewSource")}
+  </a>
+</div>
 ```
 
 (O `<a>` existente move para dentro do novo `div`; o `<p>{t("footer.builtWith")}</p>` fica como está.)
@@ -1515,6 +1519,7 @@ Run: `pnpm test && pnpm typecheck && pnpm lint && pnpm format:check`
 Expected: tudo verde. Se `format:check` reclamar, rodar `pnpm format` e conferir o diff.
 
 Verificação manual (obrigatória — spec exige download funcionando):
+
 1. `pnpm dev --port 3001` (background).
 2. Abrir `http://localhost:3001/pt/cv`.
 3. Desmarcar uma experiência e a seção Métricas → preview atualiza.
