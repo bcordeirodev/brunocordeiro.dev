@@ -32,6 +32,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
     declared: tEvidence("declared"),
   };
 
+  const tNav = await getTranslations({ locale, namespace: "nav" });
+
   const tAiStats = await getTranslations({ locale, namespace: "aiStats" });
   const aiStatsLabels = {
     title: tAiStats("title"),
@@ -52,7 +54,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <main className="mx-auto flex max-w-5xl flex-col gap-24 px-6">
         <Hero profile={content.profile} />
         <Reveal>
-          <section id="stack" className="scroll-mt-24">
+          <section id="stack" className="flex scroll-mt-24 flex-col gap-8">
+            <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
+              {tNav("stack")}
+            </h2>
             <SkillMatrix categories={content.skillCategories} labels={evidenceLabels} />
           </section>
         </Reveal>
