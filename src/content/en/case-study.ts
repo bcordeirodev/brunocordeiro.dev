@@ -82,11 +82,11 @@ export const caseStudy: CaseStudy = {
     {
       kind: "grafana",
       id: "operations",
-      title: "Operations in numbers",
+      title: "Operations in numbers — straight from Grafana",
       intro:
-        "The picture Grafana actually measures: production metrics queried from the Grafana Cloud API and rendered here — no vanity metrics.",
+        "A Grafana-style dashboard fed by Grafana Cloud itself: the panels below query the Prometheus API of Link Charts' production monitoring (uptime comes from the external GitHub Actions probe) — no vanity metrics.",
       board: {
-        title: "linkcharts · production",
+        title: "Grafana · linkcharts · production",
         timeRange: "Last 30 days",
         attribution: "data via Grafana Cloud · Prometheus",
         snapshotLabel: "snapshot",

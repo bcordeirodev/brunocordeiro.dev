@@ -47,6 +47,7 @@ it("renderiza chrome do board, painéis e valores formatados", () => {
   expect(screen.queryByText("snapshot")).not.toBeInTheDocument();
   expect(screen.getByText("180 ms")).toBeInTheDocument();
   expect(screen.getByText("0,4%")).toBeInTheDocument();
+  expect(document.querySelector('svg[fill="#f46800"]')).toBeInTheDocument();
 });
 
 it("colore o p95 por threshold (vermelho acima de 800 ms)", () => {

@@ -79,7 +79,10 @@ Substitui `DashboardPanel` no capítulo `operations`:
 - **Chrome do board**: barra superior com título do dashboard
   (ex.: "linkcharts · produção"), pill de time range ("Últimos 30 dias"),
   timestamp do fetch e atribuição textual "dados via Grafana Cloud ·
-  Prometheus" (sem logo — evita uso de marca).
+  Prometheus". Decisão revisada a pedido do dono do site: além da atribuição
+  textual, o header também exibe o logo do Grafana (ícone simple-icons,
+  decorativo, `aria-hidden`) ao lado do título do board, para deixar a origem
+  dos dados explícita de cara.
 - **Paleta Grafana dark**: board `#111217`, painel `#181b1f`, borda `#2c3235`,
   thresholds verde `#73bf69` / amarelo `#f2cc0c` / vermelho `#f2495c` —
   aplicada localmente no componente (o site é dark-only, sem conflito de tema).
