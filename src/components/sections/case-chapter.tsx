@@ -1,9 +1,19 @@
-import type { CaseChapter as CaseChapterType } from "@/domain";
+import type { CaseChapter as CaseChapterType, GrafanaStats } from "@/domain";
+import type { Locale } from "@/content";
 import { PipelineDiagramLazy } from "@/components/terminal/pipeline-diagram-lazy";
-import { DashboardPanel } from "@/components/sections/dashboard-panel";
+import { GrafanaBoard } from "@/components/sections/grafana-board";
+import { grafanaSnapshot } from "@/content/grafana-snapshot";
 import { Badge } from "@/components/ui/badge";
 
-export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
+export function CaseChapter({
+  chapter,
+  grafanaStats,
+  locale = "pt",
+}: {
+  chapter: CaseChapterType;
+  grafanaStats?: GrafanaStats;
+  locale?: Locale;
+}) {
   switch (chapter.kind) {
     case "prose":
       return (
@@ -18,8 +28,9 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
             // Region is scrollable, not wrapping: at 320-375px these
             // centered mono lines (up to ~48 chars) would otherwise wrap
             // and turn the diagram's vertical stack into scrambled text.
-            // tabIndex/role matches the same pattern in dashboard-panel.tsx
-            // (axe scrollable-region-focusable on narrow viewports).
+            // tabIndex/role: região com scroll horizontal precisa ser
+            // alcançável por teclado (axe scrollable-region-focusable em
+            // viewports estreitos).
             <div
               className="mt-6 overflow-x-auto rounded-lg border border-border bg-surface-deep p-4 font-mono text-sm"
               tabIndex={0}
@@ -78,13 +89,17 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
           </div>
         </section>
       );
-    case "dashboard":
+    case "grafana":
       return (
         <section id={chapter.id} className="py-10">
           <h2 className="text-2xl font-bold">{chapter.title}</h2>
           <p className="mt-4 text-muted">{chapter.intro}</p>
           <div className="mt-6">
-            <DashboardPanel chapter={chapter} />
+            <GrafanaBoard
+              chapter={chapter}
+              stats={grafanaStats ?? grafanaSnapshot}
+              locale={locale}
+            />
           </div>
         </section>
       );

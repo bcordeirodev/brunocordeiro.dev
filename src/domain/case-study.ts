@@ -35,32 +35,34 @@ export const caseChapterSchema = z.discriminatedUnion("kind", [
       .min(1),
   }),
   z.object({
-    kind: z.literal("dashboard"),
+    kind: z.literal("grafana"),
     id: z.string(),
     title: z.string(),
     intro: z.string(),
-    asOf: z.string().min(1),
-    okLabel: z.string().min(1),
-    stats: z
-      .array(
-        z.object({ label: z.string().min(1), value: z.string().min(1), sub: z.string().min(1) }),
-      )
-      .min(3),
-    columns: z.object({
-      workflow: z.string().min(1),
-      runs: z.string().min(1),
-      failures: z.string().min(1),
-      success: z.string().min(1),
+    board: z.object({
+      title: z.string().min(1),
+      timeRange: z.string().min(1),
+      attribution: z.string().min(1),
+      snapshotLabel: z.string().min(1),
+      liveLabel: z.string().min(1),
+      updatedLabel: z.string().min(1),
+      footer: z.string().min(1),
     }),
-    rows: z
-      .array(
-        z.object({
-          label: z.string().min(1),
-          runs: z.number().int().positive(),
-          failures: z.number().int().nonnegative(),
-        }),
-      )
-      .min(1),
+    panels: z.object({
+      uptime: z.object({
+        title: z.string().min(1),
+        sub: z.string().min(1),
+        source: z.string().min(1),
+      }),
+      p95: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
+      errors: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
+      reqRate: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
+      activity: z.object({
+        title: z.string().min(1),
+        sub: z.string().min(1),
+        source: z.string().min(1),
+      }),
+    }),
   }),
 ]);
 

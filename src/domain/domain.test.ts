@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { experienceSchema, siteContentSchema, skillSchema } from "@/domain";
+import { experienceSchema, siteContentSchema, skillSchema, grafanaStatsSchema } from "@/domain";
 
 describe("domain schemas", () => {
   it("aceita skill com tags e rejeita skill sem tags", () => {
@@ -52,5 +52,25 @@ describe("domain schemas", () => {
   });
   it("rejeita SiteContent sem seções obrigatórias", () => {
     expect(siteContentSchema.safeParse({}).success).toBe(false);
+  });
+});
+
+describe("grafanaStatsSchema", () => {
+  it("aceita stats válidos e rejeita uptime fora de 0–100", () => {
+    const valid = {
+      fetchedAt: "2026-08-01T00:00:00Z",
+      uptime30dPct: 99.0,
+      p95RedirectMs: 180,
+      errorRate5xxPct: 0.4,
+      reqPerMin: 12,
+      live: {
+        uptime30dPct: false,
+        p95RedirectMs: false,
+        errorRate5xxPct: false,
+        reqPerMin: false,
+      },
+    };
+    expect(() => grafanaStatsSchema.parse(valid)).not.toThrow();
+    expect(() => grafanaStatsSchema.parse({ ...valid, uptime30dPct: 101 })).toThrow();
   });
 });

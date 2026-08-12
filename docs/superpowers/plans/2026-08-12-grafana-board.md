@@ -26,11 +26,13 @@
 ### Task 1: Domínio `GrafanaStats`
 
 **Files:**
+
 - Create: `src/domain/grafana.ts`
 - Modify: `src/domain/index.ts` (adicionar `export * from "./grafana";`)
 - Test: `src/domain/domain.test.ts` (adicionar bloco)
 
 **Interfaces:**
+
 - Consumes: nada.
 - Produces: `grafanaStatsSchema` (zod) e `type GrafanaStats = z.infer<typeof grafanaStatsSchema>`, exportados de `@/domain`. Campos: `fetchedAt: string`, `uptime30dPct: number (0–100)`, `p95RedirectMs: number (>=0)`, `errorRate5xxPct: number (0–100)`, `reqPerMin: number (>=0)`, `live: { uptime30dPct: boolean; p95RedirectMs: boolean; errorRate5xxPct: boolean; reqPerMin: boolean }`.
 
@@ -117,9 +119,11 @@ git commit -m "feat(domain): add grafana stats schema"
 ### Task 2: Snapshot versionado
 
 **Files:**
+
 - Create: `src/content/grafana-snapshot.ts`
 
 **Interfaces:**
+
 - Consumes: `GrafanaStats` de `@/domain` (Task 1).
 - Produces: `grafanaSnapshot: GrafanaStats` exportado de `@/content/grafana-snapshot`, com todos os `live` em `false`.
 
@@ -132,8 +136,9 @@ import type { GrafanaStats } from "@/domain";
 
 /**
  * Fallback estático usado quando a API do Grafana Cloud falha ou não há
- * credenciais (dev local). Uptime vem do histórico real do probe externo
- * (820 execuções, 8 falhas). Os demais valores: conferir/regenerar no
+ * credenciais (dev local). Uptime vem do histórico real do workflow
+ * uptime.yml do GitHub Actions (820 execuções, 8 falhas) — não existe no
+ * Prometheus, então nunca é live. Os demais valores: conferir/regenerar no
  * Grafana Explore com as queries de src/services/grafana/core.ts e
  * atualizar aqui junto com fetchedAt.
  */
@@ -169,15 +174,17 @@ git commit -m "feat(content): add grafana metrics snapshot fallback"
 ### Task 3: Serviço core — fetch Prometheus com fallback por painel
 
 **Files:**
+
 - Create: `src/services/grafana/core.ts`
 - Test: `src/services/grafana/core.test.ts`
 
 **Interfaces:**
+
 - Consumes: `grafanaStatsSchema`, `GrafanaStats` de `@/domain` (Task 1).
 - Produces:
   - `type GrafanaPromAuth = { url: string; user: string; token: string }`
-  - `QUERIES: Record<"uptime30dPct" | "p95RedirectMs" | "errorRate5xxPct" | "reqPerMin", string>` (PromQL, exportado para testes e ajuste fácil)
-  - `fetchGrafanaStats(fetchFn: typeof fetch, auth: GrafanaPromAuth, snapshot: GrafanaStats): Promise<GrafanaStats>` — nunca rejeita por query individual; query que falha usa o valor do snapshot e `live[campo] = false`.
+  - `QUERIES: Record<"p95RedirectMs" | "errorRate5xxPct" | "reqPerMin", string>` (PromQL com os nomes REAIS das métricas, copiados dos dashboards versionados do Link Charts em `backend/ops/observability/grafana/dashboards/*.json`; exportado para testes)
+  - `fetchGrafanaStats(fetchFn: typeof fetch, auth: GrafanaPromAuth, snapshot: GrafanaStats): Promise<GrafanaStats>` — nunca rejeita por query individual; query que falha usa o valor do snapshot e `live[campo] = false`. **`uptime30dPct` nunca é consultado**: não existe `probe_success` no Prometheus do Link Charts (o uptime vem do workflow do GitHub Actions) — o valor vem sempre do snapshot, com `live.uptime30dPct` sempre `false`.
 
 - [ ] **Step 1: Escrever os testes que falham**
 
@@ -220,23 +227,23 @@ function queryOf(url: string): string {
 }
 
 describe("fetchGrafanaStats", () => {
-  it("retorna os 4 valores live quando todas as queries respondem", async () => {
+  it("retorna os 3 valores live e mantém uptime do snapshot", async () => {
     const byQuery: Record<string, number> = {
-      [QUERIES.uptime30dPct]: 99.7,
       [QUERIES.p95RedirectMs]: 142,
       [QUERIES.errorRate5xxPct]: 0.2,
       [QUERIES.reqPerMin]: 34.5,
     };
-    const fetchFn = vi.fn().mockImplementation((url: string) =>
-      Promise.resolve(promOk(byQuery[queryOf(url)])),
-    );
+    const fetchFn = vi
+      .fn()
+      .mockImplementation((url: string) => Promise.resolve(promOk(byQuery[queryOf(url)])));
     const result = await fetchGrafanaStats(fetchFn as unknown as typeof fetch, auth, snapshot);
-    expect(result.uptime30dPct).toBe(99.7);
+    expect(fetchFn).toHaveBeenCalledTimes(3);
+    expect(result.uptime30dPct).toBe(snapshot.uptime30dPct);
     expect(result.p95RedirectMs).toBe(142);
     expect(result.errorRate5xxPct).toBe(0.2);
     expect(result.reqPerMin).toBe(34.5);
     expect(result.live).toEqual({
-      uptime30dPct: true,
+      uptime30dPct: false,
       p95RedirectMs: true,
       errorRate5xxPct: true,
       reqPerMin: true,
@@ -261,19 +268,19 @@ describe("fetchGrafanaStats", () => {
     const result = await fetchGrafanaStats(fetchFn as unknown as typeof fetch, auth, snapshot);
     expect(result.p95RedirectMs).toBe(snapshot.p95RedirectMs);
     expect(result.live.p95RedirectMs).toBe(false);
-    expect(result.live.uptime30dPct).toBe(true);
+    expect(result.live.uptime30dPct).toBe(false);
     expect(result.live.errorRate5xxPct).toBe(true);
     expect(result.live.reqPerMin).toBe(true);
   });
 
   it("trata resultado vazio como falha daquele painel", async () => {
     const fetchFn = vi.fn().mockImplementation((url: string) => {
-      if (queryOf(url) === QUERIES.uptime30dPct) return Promise.resolve(promEmpty());
+      if (queryOf(url) === QUERIES.reqPerMin) return Promise.resolve(promEmpty());
       return Promise.resolve(promOk(10));
     });
     const result = await fetchGrafanaStats(fetchFn as unknown as typeof fetch, auth, snapshot);
-    expect(result.uptime30dPct).toBe(snapshot.uptime30dPct);
-    expect(result.live.uptime30dPct).toBe(false);
+    expect(result.reqPerMin).toBe(snapshot.reqPerMin);
+    expect(result.live.reqPerMin).toBe(false);
   });
 
   it("quando todas as queries falham devolve o snapshot inteiro", async () => {
@@ -298,16 +305,17 @@ import { grafanaStatsSchema, type GrafanaStats } from "@/domain";
 
 export type GrafanaPromAuth = { url: string; user: string; token: string };
 
-// PromQL contra o workspace do Link Charts no Grafana Cloud. Os nomes exatos
-// das métricas OTel podem divergir do workspace real — ajustar aqui (e o
-// snapshot em src/content/grafana-snapshot.ts cobre enquanto isso).
+// PromQL contra o workspace do Link Charts no Grafana Cloud, com os nomes
+// reais das métricas — copiados dos dashboards versionados do produto
+// (backend/ops/observability/grafana/dashboards/*.json). Uptime não tem
+// métrica no Prometheus (é o workflow uptime.yml do GitHub Actions, fora
+// da infra), por isso não há query para ele: vem sempre do snapshot.
 export const QUERIES = {
-  uptime30dPct: "100 * avg_over_time(probe_success[30d])",
   p95RedirectMs:
-    '1000 * histogram_quantile(0.95, sum by (le) (rate(http_server_duration_seconds_bucket{http_route="/r/{slug}"}[24h])))',
+    "1000 * histogram_quantile(0.95, sum by (le) (rate(redirect_duration_seconds_bucket[24h])))",
   errorRate5xxPct:
-    '100 * sum(rate(http_server_duration_seconds_count{http_status_code=~"5.."}[24h])) / sum(rate(http_server_duration_seconds_count[24h]))',
-  reqPerMin: "60 * sum(rate(http_server_duration_seconds_count[24h]))",
+    '100 * sum(rate(http_server_request_count_total{http_response_status_class="5xx"}[24h])) / clamp_min(sum(rate(http_server_request_count_total[24h])), 0.001)',
+  reqPerMin: "60 * sum(rate(http_server_request_count_total[24h]))",
 } as const;
 
 export type GrafanaMetricKey = keyof typeof QUERIES;
@@ -347,12 +355,13 @@ export async function fetchGrafanaStats(
     keys.map((key) => queryInstant(fetchFn, auth, QUERIES[key])),
   );
   const values: Record<GrafanaMetricKey, number> = {
-    uptime30dPct: snapshot.uptime30dPct,
     p95RedirectMs: snapshot.p95RedirectMs,
     errorRate5xxPct: snapshot.errorRate5xxPct,
     reqPerMin: snapshot.reqPerMin,
   };
-  const live = { ...snapshot.live };
+  // uptime30dPct fica de fora do loop: não existe no Prometheus (GitHub
+  // Actions é a fonte), então live.uptime30dPct permanece false sempre.
+  const live = { ...snapshot.live, uptime30dPct: false };
   settled.forEach((result, i) => {
     const key = keys[i];
     if (result.status === "fulfilled") {
@@ -365,6 +374,7 @@ export async function fetchGrafanaStats(
   const anyLive = Object.values(live).some(Boolean);
   return grafanaStatsSchema.parse({
     fetchedAt: anyLive ? new Date().toISOString() : snapshot.fetchedAt,
+    uptime30dPct: snapshot.uptime30dPct,
     ...values,
     live,
   });
@@ -388,10 +398,12 @@ git commit -m "feat(grafana): fetch prometheus stats with per-panel fallback"
 ### Task 4: Wrapper cacheado + tag `grafana` no revalidate
 
 **Files:**
+
 - Create: `src/services/grafana/index.ts`
 - Modify: `src/app/api/revalidate/route.ts`
 
 **Interfaces:**
+
 - Consumes: `fetchGrafanaStats`, `GrafanaPromAuth` (Task 3); `grafanaSnapshot` (Task 2).
 - Produces: `getGrafanaStats(): Promise<GrafanaStats>` exportado de `@/services/grafana`. Rota `/api/revalidate` aceita `?tag=github|grafana` (sem `tag` ou valor inválido → revalida as duas).
 
@@ -463,11 +475,13 @@ git commit -m "feat(grafana): add cached stats service and revalidate tag"
 ### Task 5: Kind `grafana` no domínio + migração do conteúdo pt/en
 
 **Files:**
+
 - Modify: `src/domain/case-study.ts` (trocar o objeto do kind `dashboard` pelo kind `grafana` no union)
 - Modify: `src/content/pt/case-study.ts` (capítulo `operations`)
 - Modify: `src/content/en/case-study.ts` (capítulo `operations`)
 
 **Interfaces:**
+
 - Consumes: nada novo.
 - Produces: no union `caseChapterSchema`, o membro `dashboard` é **substituído** por:
 
@@ -486,7 +500,13 @@ z.object({
     footer: z.string().min(1),
   }),
   panels: z.object({
-    uptime: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
+    // `source` do uptime: o valor não vem do Prometheus (é o workflow de
+    // uptime do GitHub Actions) — o painel exibe essa origem num badge.
+    uptime: z.object({
+      title: z.string().min(1),
+      sub: z.string().min(1),
+      source: z.string().min(1),
+    }),
     p95: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
     errors: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
     reqRate: z.object({ title: z.string().min(1), sub: z.string().min(1) }),
@@ -530,6 +550,7 @@ Em `src/content/pt/case-study.ts`, substituir o capítulo `operations` inteiro (
     uptime: {
       title: "uptime · 30d",
       sub: "probe externo a cada 5 min — abre issue de incidente sozinho",
+      source: "via GitHub Actions",
     },
     p95: {
       title: "latência p95 · redirect",
@@ -575,6 +596,7 @@ Em `src/content/en/case-study.ts`, substituir o capítulo `operations` inteiro p
     uptime: {
       title: "uptime · 30d",
       sub: "external probe every 5 min — opens an incident issue on its own",
+      source: "via GitHub Actions",
     },
     p95: {
       title: "p95 latency · redirect",
@@ -613,11 +635,13 @@ git commit -m "feat(content): migrate operations chapter to grafana board kind"
 ### Task 6: Componentes `GrafanaBars` e `GrafanaBoard`
 
 **Files:**
+
 - Create: `src/components/sections/grafana-bars.tsx`
 - Create: `src/components/sections/grafana-board.tsx`
 - Test: `src/components/sections/grafana-board.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `Extract<CaseChapter, { kind: "grafana" }>` (Task 5), `GrafanaStats` (Task 1), `linkchartsActivity` de `@/content/linkcharts-activity`, `type Locale` de `@/content`.
 - Produces: `GrafanaBoard({ chapter, stats, locale }: { chapter: GrafanaChapter; stats: GrafanaStats; locale: Locale })` — server component; `GrafanaBars({ categories, values, label }: { categories: string[]; values: number[]; label: string })` — client component.
 
@@ -645,7 +669,7 @@ const chapter: Extract<CaseChapter, { kind: "grafana" }> = {
     footer: "rodapé do board",
   },
   panels: {
-    uptime: { title: "uptime · 30d", sub: "probe externo" },
+    uptime: { title: "uptime · 30d", sub: "probe externo", source: "via GitHub Actions" },
     p95: { title: "latência p95 · redirect", sub: "rota crítica" },
     errors: { title: "erros 5xx", sub: "percentual" },
     reqRate: { title: "requisições/min", sub: "média 24h" },
@@ -659,7 +683,7 @@ const stats: GrafanaStats = {
   p95RedirectMs: 180,
   errorRate5xxPct: 0.4,
   reqPerMin: 12,
-  live: { uptime30dPct: true, p95RedirectMs: true, errorRate5xxPct: true, reqPerMin: true },
+  live: { uptime30dPct: false, p95RedirectMs: true, errorRate5xxPct: true, reqPerMin: true },
 };
 
 it("renderiza chrome do board, painéis e valores formatados", () => {
@@ -669,14 +693,16 @@ it("renderiza chrome do board, painéis e valores formatados", () => {
   expect(screen.getByText("dados via Grafana Cloud · Prometheus")).toBeInTheDocument();
   expect(screen.getByText("rodapé do board")).toBeInTheDocument();
   expect(screen.getByRole("img", { name: /uptime/ })).toBeInTheDocument();
+  expect(screen.getByText("via GitHub Actions")).toBeInTheDocument();
+  // uptime nunca é live (fonte é o GitHub Actions), e mesmo assim o painel
+  // não ganha o badge "snapshot" — a origem dele é o badge próprio acima.
+  expect(screen.queryByText("snapshot")).not.toBeInTheDocument();
   expect(screen.getByText("180 ms")).toBeInTheDocument();
   expect(screen.getByText("0,4%")).toBeInTheDocument();
 });
 
 it("colore o p95 por threshold (vermelho acima de 800 ms)", () => {
-  render(
-    <GrafanaBoard chapter={chapter} stats={{ ...stats, p95RedirectMs: 950 }} locale="pt" />,
-  );
+  render(<GrafanaBoard chapter={chapter} stats={{ ...stats, p95RedirectMs: 950 }} locale="pt" />);
   expect(screen.getByText("950 ms")).toHaveStyle({ color: "#f2495c" });
 });
 
@@ -686,11 +712,17 @@ it("marca painéis vindos de snapshot", () => {
       chapter={chapter}
       stats={{
         ...stats,
-        live: { uptime30dPct: true, p95RedirectMs: false, errorRate5xxPct: false, reqPerMin: true },
+        live: {
+          uptime30dPct: false,
+          p95RedirectMs: false,
+          errorRate5xxPct: false,
+          reqPerMin: true,
+        },
       }}
       locale="pt"
     />,
   );
+  // só p95 e erros ganham "snapshot" — uptime tem badge de fonte própria
   expect(screen.getAllByText("snapshot")).toHaveLength(2);
 });
 ```
@@ -799,7 +831,7 @@ function fmt(locale: Locale, value: number, digits: number): string {
   }).format(value);
 }
 
-function SnapshotBadge({ label }: { label: string }) {
+function PanelBadge({ label }: { label: string }) {
   return (
     <span
       className="rounded border px-1 py-px font-mono text-[10px] leading-none"
@@ -855,7 +887,17 @@ function StatValue({ text, color }: { text: string; color: string }) {
   );
 }
 
-function UptimeGauge({ pct, label, color, text }: { pct: number; label: string; color: string; text: string }) {
+function UptimeGauge({
+  pct,
+  label,
+  color,
+  text,
+}: {
+  pct: number;
+  label: string;
+  color: string;
+  text: string;
+}) {
   const r = 54;
   const arc = Math.PI * r;
   const filled = (Math.min(Math.max(pct, 0), 100) / 100) * arc;
@@ -901,7 +943,7 @@ export function GrafanaBoard({
 }) {
   const { board, panels } = chapter;
   const badge = (key: keyof GrafanaStats["live"]) =>
-    stats.live[key] ? undefined : <SnapshotBadge label={board.snapshotLabel} />;
+    stats.live[key] ? undefined : <PanelBadge label={board.snapshotLabel} />;
   const updatedAt = new Intl.DateTimeFormat(locale === "pt" ? "pt-BR" : "en-US", {
     dateStyle: "short",
     timeStyle: "short",
@@ -920,7 +962,10 @@ export function GrafanaBoard({
         <span className="font-mono text-xs font-medium" style={{ color: G.text }}>
           {board.title}
         </span>
-        <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]" style={{ color: G.dim }}>
+        <span
+          className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]"
+          style={{ color: G.dim }}
+        >
           <span
             className="rounded border px-1.5 py-0.5 font-mono"
             style={{ borderColor: G.border }}
@@ -935,7 +980,11 @@ export function GrafanaBoard({
       </div>
 
       <div className="grid gap-2 p-2 sm:grid-cols-2 lg:grid-cols-4">
-        <Panel title={panels.uptime.title} sub={panels.uptime.sub} badge={badge("uptime30dPct")}>
+        <Panel
+          title={panels.uptime.title}
+          sub={panels.uptime.sub}
+          badge={<PanelBadge label={panels.uptime.source} />}
+        >
           <UptimeGauge
             pct={stats.uptime30dPct}
             label={`${panels.uptime.title}: ${fmt(locale, stats.uptime30dPct, 1)}%`}
@@ -971,7 +1020,10 @@ export function GrafanaBoard({
         </Panel>
       </div>
 
-      <div className="border-t px-4 py-2 text-[11px]" style={{ borderColor: G.border, color: G.dim }}>
+      <div
+        className="border-t px-4 py-2 text-[11px]"
+        style={{ borderColor: G.border, color: G.dim }}
+      >
         {board.footer}
       </div>
     </div>
@@ -998,12 +1050,14 @@ git commit -m "feat(link-charts): add grafana-style board components"
 ### Task 7: Integração na página + remoção do kind `dashboard`
 
 **Files:**
+
 - Modify: `src/components/sections/case-chapter.tsx` (case `grafana`, remover case `dashboard`, novas props)
 - Modify: `src/app/[locale]/link-charts/page.tsx` (buscar stats, passar props)
 - Delete: `src/components/sections/dashboard-panel.tsx`
 - Modify: `src/components/sections/case-chapter.test.tsx` (cobrir o case `grafana`)
 
 **Interfaces:**
+
 - Consumes: `GrafanaBoard` (Task 6), `getGrafanaStats` (Task 4), `grafanaSnapshot` (Task 2).
 - Produces: `CaseChapter({ chapter, grafanaStats?, locale? })` — `grafanaStats` e `locale` opcionais (default: snapshot e `"pt"`), para os testes existentes continuarem chamando só com `chapter`.
 
@@ -1036,7 +1090,11 @@ export function CaseChapter({
           <h2 className="text-2xl font-bold">{chapter.title}</h2>
           <p className="mt-4 text-muted">{chapter.intro}</p>
           <div className="mt-6">
-            <GrafanaBoard chapter={chapter} stats={grafanaStats ?? grafanaSnapshot} locale={locale} />
+            <GrafanaBoard
+              chapter={chapter}
+              stats={grafanaStats ?? grafanaSnapshot}
+              locale={locale}
+            />
           </div>
         </section>
       );
@@ -1069,11 +1127,13 @@ const [showcase, grafanaStats] = await Promise.all([getGithubShowcase(), getGraf
 E o map de capítulos:
 
 ```tsx
-{caseStudy.chapters.map((chapter) => (
-  <Reveal key={chapter.id}>
-    <CaseChapter chapter={chapter} grafanaStats={grafanaStats} locale={locale} />
-  </Reveal>
-))}
+{
+  caseStudy.chapters.map((chapter) => (
+    <Reveal key={chapter.id}>
+      <CaseChapter chapter={chapter} grafanaStats={grafanaStats} locale={locale} />
+    </Reveal>
+  ));
+}
 ```
 
 - [ ] **Step 4: Cobrir o case `grafana` no teste do `CaseChapter`**
@@ -1098,7 +1158,7 @@ it("renderiza capítulo grafana com o board (snapshot por default)", () => {
           footer: "rodapé",
         },
         panels: {
-          uptime: { title: "uptime · 30d", sub: "probe" },
+          uptime: { title: "uptime · 30d", sub: "probe", source: "via GitHub Actions" },
           p95: { title: "latência p95 · redirect", sub: "rota" },
           errors: { title: "erros 5xx", sub: "pct" },
           reqRate: { title: "requisições/min", sub: "média" },
@@ -1110,7 +1170,7 @@ it("renderiza capítulo grafana com o board (snapshot por default)", () => {
   expect(screen.getByRole("heading", { name: "Operação em números" })).toBeInTheDocument();
   expect(screen.getByText("linkcharts · produção")).toBeInTheDocument();
   // sem stats injetados, tudo vem do snapshot → 4 badges
-  expect(screen.getAllByText("snapshot")).toHaveLength(4);
+  expect(screen.getAllByText("snapshot")).toHaveLength(3);
 });
 ```
 
@@ -1137,7 +1197,7 @@ git commit -m "feat(link-charts): render grafana board and drop dashboard panel"
 
 ## Pós-implementação (fora do código)
 
-- Bruno cria no Grafana Cloud um token read-only de Prometheus e configura `GRAFANA_PROM_URL`, `GRAFANA_PROM_USER`, `GRAFANA_PROM_TOKEN` no ambiente de produção (Vercel).
-- Ajustar os nomes de métrica em `QUERIES` (`src/services/grafana/core.ts`) conforme o workspace real (testar no Grafana Explore).
+- Bruno cria no Grafana Cloud (tenant `brightemu1407.grafana.net`, datasource Mimir `grafanacloud-prom`) um access policy token read-only de métricas e configura `GRAFANA_PROM_URL` (endpoint de query da instância Prometheus, formato `https://prometheus-prod-XX-prod-<região>.grafana.net/api/prom`), `GRAFANA_PROM_USER` (instance ID numérico) e `GRAFANA_PROM_TOKEN` no ambiente de produção (Vercel). Os tokens de escrita existentes vivem só em GitHub secrets do repo do Link Charts (`GCLOUD_OTLP_*`) — o de leitura é novo.
+- As queries em `QUERIES` já usam os nomes reais das métricas (copiados de `backend/ops/observability/grafana/dashboards/*.json` do Link Charts) — validar mesmo assim no Grafana Explore na primeira ativação.
 - Conferir/atualizar os valores do `grafana-snapshot.ts` com números reais exportados do Grafana antes do deploy (p95, erro 5xx, req/min são estimativas iniciais).
 - `curl -X POST "https://brunocordeiro.dev/api/revalidate?tag=grafana&secret=..."` para forçar refresh quando quiser.

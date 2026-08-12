@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getContent, type Locale } from "@/content";
 import { getGithubShowcase } from "@/services/github";
+import { getGrafanaStats } from "@/services/grafana";
 import { formatYearMonth } from "@/lib/dates";
 import { buildPageMetadata } from "@/lib/site";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -31,7 +32,7 @@ export default async function LinkChartsPage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
   const { caseStudy } = getContent(locale);
-  const showcase = await getGithubShowcase();
+  const [showcase, grafanaStats] = await Promise.all([getGithubShowcase(), getGrafanaStats()]);
 
   const t = await getTranslations({ locale, namespace: "caseStudyPage" });
   const tCommon = await getTranslations({ locale, namespace: "common" });
@@ -68,7 +69,7 @@ export default async function LinkChartsPage({ params }: { params: Promise<{ loc
 
         {caseStudy.chapters.map((chapter) => (
           <Reveal key={chapter.id}>
-            <CaseChapter chapter={chapter} />
+            <CaseChapter chapter={chapter} grafanaStats={grafanaStats} locale={locale} />
           </Reveal>
         ))}
 

@@ -80,43 +80,45 @@ export const caseStudy: CaseStudy = {
       ],
     },
     {
-      kind: "dashboard",
+      kind: "grafana",
       id: "operations",
-      title: "Operations in numbers",
+      title: "Operations in numbers — straight from Grafana",
       intro:
-        "The picture Grafana and GitHub Actions actually measure: aggregates from the real run history and monitoring-as-code — no vanity metrics.",
-      asOf: "data as of Aug 2026 · source: run history + versioned config — release run counts include re-runs (52 for 50 tags)",
-      okLabel: "all green",
-      stats: [
-        {
-          label: "uptime probe (every 5 min)",
-          value: "99.0%",
-          sub: "820 runs, 8 failures — opens an incident issue on its own",
+        "These panels consume the Prometheus API of my Grafana Cloud workspace — the same monitoring, instrumented with OpenTelemetry and Grafana Alloy, that runs Link Charts in production. When the API is unreachable, each panel degrades to a versioned snapshot and says so right on the panel. Uptime comes from the external GitHub Actions probe. No vanity metrics: this is the operation's real telemetry.",
+      board: {
+        title: "Grafana · linkcharts · production",
+        timeRange: "Last 30 days",
+        attribution: "data via Grafana Cloud · Prometheus",
+        snapshotLabel: "snapshot",
+        liveLabel: "live · Prometheus",
+        updatedLabel: "updated",
+        footer:
+          "1,035/1,035 deploy samples with HTTP 200 · 9 alert rules and 4 dashboards versioned as JSON in the repository — zero UI config",
+      },
+      panels: {
+        uptime: {
+          title: "uptime 30d",
+          sub: "external probe every 5 min — opens an incident issue on its own",
+          source: "GitHub Actions",
         },
-        {
-          label: "deploy samples",
-          value: "1,035/1,035",
-          sub: "HTTP 200 measured from the outside during blue/green releases",
+        p95: {
+          title: "p95 · redirect",
+          sub: "critical route /r/{slug}, last 24h",
         },
-        {
-          label: "alert rules as code",
-          value: "9",
-          sub: "versioned as JSON in the repository, zero UI config",
+        errors: {
+          title: "5xx errors",
+          sub: "share of requests, last 24h",
         },
-        {
-          label: "Grafana dashboards",
-          value: "4",
-          sub: "overview · app (RED) · infra · observability",
+        reqRate: {
+          title: "requests/min",
+          sub: "average over the last 24h",
         },
-      ],
-      columns: { workflow: "workflow", runs: "runs", failures: "failures", success: "success" },
-      rows: [
-        { label: "ci (backend)", runs: 124, failures: 6 },
-        { label: "ci (frontend)", runs: 63, failures: 1 },
-        { label: "release (backend)", runs: 24, failures: 0 },
-        { label: "release (frontend)", runs: 28, failures: 1 },
-        { label: "uptime", runs: 820, failures: 8 },
-      ],
+        activity: {
+          title: "commits per month",
+          sub: "real git history of the Link Charts repositories, Mar 2025–Aug 2026",
+          source: "git log",
+        },
+      },
     },
     {
       kind: "stats",
