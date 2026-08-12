@@ -3,7 +3,7 @@ import type { Experience } from "@/domain";
 export const experiences: Experience[] = [
   {
     company: "G4F Soluções Corporativas",
-    role: "Full Stack Developer",
+    role: "Desenvolvedor Full Stack",
     employmentType: "freelance",
     start: "2022-03",
     end: null,
@@ -40,6 +40,13 @@ export const experiences: Experience[] = [
       "SonarQube",
       "Jenkins",
       "GitLab CI",
+      "hCaptcha + biometria facial",
+      "DOMPurify",
+      "CSP por request/HSTS",
+      "Geração documental (PDF/xlsx)",
+      "E-mail transacional (MJML)",
+      "Bamboo",
+      "Harbor",
     ],
     projects: [
       {
@@ -47,14 +54,19 @@ export const experiences: Experience[] = [
         description:
           "Atendimento consular ao público em todo o mundo, com suporte multi-idioma, geração documental e verificação de identidade",
       },
+      {
+        name: "Sistema de folha de pagamento consular (setor público federal)",
+        description: "Gestão da folha de pagamento de funcionários dos consulados no exterior",
+      },
     ],
   },
   {
     company: "VegaIT",
-    role: "Frontend Developer",
+    role: "Desenvolvedor Frontend",
     employmentType: "part-time",
     start: "2022-08",
     end: "2024-05",
+    location: "Brasil",
     stacks: [
       "React",
       "Redux",
@@ -63,9 +75,16 @@ export const experiences: Experience[] = [
       "MSW",
       "Styled Components",
       "JWT",
-      "Azure DevOps",
+      "Azure DevOps (Pipelines)",
+      "ESLint/tsc",
     ],
-    projects: [],
+    projects: [
+      {
+        name: "SIM – Manutenção",
+        description:
+          "Gestão de manutenção hoteleira: QR code de equipamentos, cadastros de andares, quartos e objetos, ordens de serviço",
+      },
+    ],
   },
   {
     company: "Ebserh",
@@ -74,8 +93,23 @@ export const experiences: Experience[] = [
     start: "2021-09",
     end: "2022-06",
     location: "Brasília-DF",
-    stacks: [],
-    projects: [],
+    stacks: [
+      "React 17",
+      "TypeScript 4",
+      "Laravel 8",
+      "PHP 7.4/8.0",
+      "PostgreSQL 13",
+      "Jest",
+      "PHPUnit 9",
+      "Pipeline CI/CD",
+    ],
+    projects: [
+      {
+        name: "Sistema de gestão hospitalar",
+        description:
+          "Controle de orçamentos e cadastros de hospitais e setores para a rede de hospitais universitários federais",
+      },
+    ],
   },
   {
     company: "Basis Tecnologia",
@@ -83,6 +117,7 @@ export const experiences: Experience[] = [
     employmentType: "full-time",
     start: "2020-12",
     end: "2022-06",
+    location: "Brasília-DF",
     stacks: [
       "React",
       "TypeScript",
@@ -106,6 +141,7 @@ export const experiences: Experience[] = [
       "Docker",
       "Docker Compose",
       "Rancher",
+      "Harbor",
       "Adobe XD",
     ],
     projects: [
@@ -115,10 +151,11 @@ export const experiences: Experience[] = [
   },
   {
     company: "Partido Republicano da Ordem Social",
-    role: "PHP Developer",
+    role: "Desenvolvedor PHP",
     employmentType: "freelance",
     start: "2017-11",
     end: "2020-12",
+    location: "Brasília-DF",
     stacks: [
       "PHP 5.6/7.4",
       "Laravel",
@@ -145,19 +182,21 @@ export const experiences: Experience[] = [
   },
   {
     company: "Transoft",
-    role: "Programador PHP",
+    role: "Desenvolvedor PHP",
     employmentType: "full-time",
     start: "2017-06",
     end: "2018-05",
+    location: "Brasília-DF",
     stacks: ["PHP 4", "Oracle", "JavaScript", "HTML/CSS", "Bootstrap", "jQuery", "SASS"],
     projects: [{ name: "Transnet", description: "Gestão e logística de transportes" }],
   },
   {
     company: "Plug Digital",
-    role: "Programador PHP Jr",
+    role: "Desenvolvedor PHP Jr",
     employmentType: "full-time",
     start: "2016-01",
     end: "2017-11",
+    location: "Brasília-DF",
     stacks: [
       "PHP",
       "MVC",
@@ -170,6 +209,9 @@ export const experiences: Experience[] = [
       "SVN",
       "Linux",
     ],
-    projects: [{ name: "ExpliQa", description: "Monitoramento de call center" }],
+    projects: [
+      { name: "ExpliQa", description: "Monitoramento de call center" },
+      { name: "SGP / GPES", description: "Gestão partidária e pesquisas estratégicas" },
+    ],
   },
 ];

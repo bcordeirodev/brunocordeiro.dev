@@ -40,12 +40,23 @@ export const experiences: Experience[] = [
       "SonarQube",
       "Jenkins",
       "GitLab CI",
+      "hCaptcha + facial biometrics",
+      "DOMPurify",
+      "Per-request CSP/HSTS",
+      "Document generation (PDF/xlsx)",
+      "Transactional email (MJML)",
+      "Bamboo",
+      "Harbor",
     ],
     projects: [
       {
         name: "Large-scale consular system (federal public sector)",
         description:
           "Worldwide multi-language public consular service, with document generation and identity verification",
+      },
+      {
+        name: "Consular payroll system (federal public sector)",
+        description: "Payroll management for consulate employees abroad",
       },
     ],
   },
@@ -55,6 +66,7 @@ export const experiences: Experience[] = [
     employmentType: "part-time",
     start: "2022-08",
     end: "2024-05",
+    location: "Brazil",
     stacks: [
       "React",
       "Redux",
@@ -63,9 +75,16 @@ export const experiences: Experience[] = [
       "MSW",
       "Styled Components",
       "JWT",
-      "Azure DevOps",
+      "Azure DevOps (Pipelines)",
+      "ESLint/tsc",
     ],
-    projects: [],
+    projects: [
+      {
+        name: "SIM – Maintenance",
+        description:
+          "Hotel maintenance management: equipment QR codes, floor/room/asset registries, service orders",
+      },
+    ],
   },
   {
     company: "Ebserh",
@@ -74,8 +93,23 @@ export const experiences: Experience[] = [
     start: "2021-09",
     end: "2022-06",
     location: "Brasília-DF",
-    stacks: [],
-    projects: [],
+    stacks: [
+      "React 17",
+      "TypeScript 4",
+      "Laravel 8",
+      "PHP 7.4/8.0",
+      "PostgreSQL 13",
+      "Jest",
+      "PHPUnit 9",
+      "CI/CD pipeline",
+    ],
+    projects: [
+      {
+        name: "Hospital management system",
+        description:
+          "Budget control and hospital/department registries for the federal university hospital network",
+      },
+    ],
   },
   {
     company: "Basis Tecnologia",
@@ -83,6 +117,7 @@ export const experiences: Experience[] = [
     employmentType: "full-time",
     start: "2020-12",
     end: "2022-06",
+    location: "Brasília-DF",
     stacks: [
       "React",
       "TypeScript",
@@ -106,6 +141,7 @@ export const experiences: Experience[] = [
       "Docker",
       "Docker Compose",
       "Rancher",
+      "Harbor",
       "Adobe XD",
     ],
     projects: [
@@ -119,6 +155,7 @@ export const experiences: Experience[] = [
     employmentType: "freelance",
     start: "2017-11",
     end: "2020-12",
+    location: "Brasília-DF",
     stacks: [
       "PHP 5.6/7.4",
       "Laravel",
@@ -142,10 +179,11 @@ export const experiences: Experience[] = [
   },
   {
     company: "Transoft",
-    role: "PHP Programmer",
+    role: "PHP Developer",
     employmentType: "full-time",
     start: "2017-06",
     end: "2018-05",
+    location: "Brasília-DF",
     stacks: ["PHP 4", "Oracle", "JavaScript", "HTML/CSS", "Bootstrap", "jQuery", "SASS"],
     projects: [
       { name: "Transnet", description: "Freight transportation and logistics management" },
@@ -153,10 +191,11 @@ export const experiences: Experience[] = [
   },
   {
     company: "Plug Digital",
-    role: "Junior PHP Programmer",
+    role: "Junior PHP Developer",
     employmentType: "full-time",
     start: "2016-01",
     end: "2017-11",
+    location: "Brasília-DF",
     stacks: [
       "PHP",
       "MVC",
@@ -169,6 +208,9 @@ export const experiences: Experience[] = [
       "SVN",
       "Linux",
     ],
-    projects: [{ name: "ExpliQa", description: "Call center monitoring system" }],
+    projects: [
+      { name: "ExpliQa", description: "Call center monitoring system" },
+      { name: "SGP / GPES", description: "Party management and strategic research systems" },
+    ],
   },
 ];
