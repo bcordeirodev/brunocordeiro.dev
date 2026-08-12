@@ -102,8 +102,8 @@ O componente passa a receber o `locale` para `inLanguage`/`url`.
   `2026-08` → `2026-08-01`), estável entre builds; atualiza junto com o
   ritual mensal de conteúdo que já existe.
 - **`src/app/manifest.ts`** — mínimo: `name`, `short_name`, `start_url:
-  "/pt"`, `display: "standalone"`, `background_color`/`theme_color:
-  "#09090b"`, ícones (SVG + apple-icon).
+"/pt"`, `display: "standalone"`, `background_color`/`theme_color:
+"#09090b"`, ícones (SVG + apple-icon).
 
 ### 5. Fora de escopo (decisões registradas)
 
@@ -137,18 +137,18 @@ O componente passa a receber o `locale` para `inLanguage`/`url`.
 
 ## Arquivos afetados
 
-| Arquivo | Mudança |
-| --- | --- |
-| `src/app/[locale]/opengraph-image.tsx` | reescrita do card + `generateImageMetadata` |
-| `src/domain/*` (tipo `Profile`) | + `stackHighlights`, `metaDescription` |
-| `src/content/pt/profile.ts`, `src/content/en/profile.ts` | novos campos |
-| `src/app/[locale]/layout.tsx` | description explícita |
-| `src/components/seo/person-json-ld.tsx` | `@graph` WebSite/ProfilePage/Person |
-| `src/lib/site.ts` | hreflang `pt` |
-| `src/app/sitemap.ts` | `lastModified` estável |
-| `src/app/apple-icon.tsx` | novo |
-| `src/app/manifest.ts` | novo |
-| testes correspondentes | novos/ajustados |
+| Arquivo                                                  | Mudança                                     |
+| -------------------------------------------------------- | ------------------------------------------- |
+| `src/app/[locale]/opengraph-image.tsx`                   | reescrita do card + `generateImageMetadata` |
+| `src/domain/*` (tipo `Profile`)                          | + `stackHighlights`, `metaDescription`      |
+| `src/content/pt/profile.ts`, `src/content/en/profile.ts` | novos campos                                |
+| `src/app/[locale]/layout.tsx`                            | description explícita                       |
+| `src/components/seo/person-json-ld.tsx`                  | `@graph` WebSite/ProfilePage/Person         |
+| `src/lib/site.ts`                                        | hreflang `pt`                               |
+| `src/app/sitemap.ts`                                     | `lastModified` estável                      |
+| `src/app/apple-icon.tsx`                                 | novo                                        |
+| `src/app/manifest.ts`                                    | novo                                        |
+| testes correspondentes                                   | novos/ajustados                             |
 
 Fora do repositório (já executado em 2026-08-12): descrição, homepage e
 topics do repo GitHub `bcordeirodev/brunocordeiro.dev` atualizados.

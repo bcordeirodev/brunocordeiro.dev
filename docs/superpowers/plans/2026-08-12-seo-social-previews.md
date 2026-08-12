@@ -23,12 +23,14 @@
 ### Task 1: Campos de SEO no domínio e no conteúdo (`metaDescription`, `stackHighlights`)
 
 **Files:**
+
 - Modify: `src/domain/profile.ts`
 - Modify: `src/content/pt/profile.ts`
 - Modify: `src/content/en/profile.ts`
 - Test: `src/content/content.test.ts`
 
 **Interfaces:**
+
 - Consumes: `getContent(locale).profile` (já existe).
 - Produces: `Profile.metaDescription: string` (80–170 chars) e `Profile.stackHighlights: string[]` (3–6 itens) — consumidos pelas Tasks 3 e 5.
 
@@ -37,15 +39,15 @@
 Adicionar ao final do `describe("conteúdo", ...)` em `src/content/content.test.ts`:
 
 ```ts
-  it("perfil traz campos de SEO dentro do orçamento de caracteres", () => {
-    for (const locale of locales) {
-      const { profile } = getContent(locale);
-      expect(profile.metaDescription.length).toBeGreaterThanOrEqual(80);
-      expect(profile.metaDescription.length).toBeLessThanOrEqual(170);
-      expect(profile.stackHighlights.length).toBeGreaterThanOrEqual(3);
-      expect(profile.stackHighlights.length).toBeLessThanOrEqual(6);
-    }
-  });
+it("perfil traz campos de SEO dentro do orçamento de caracteres", () => {
+  for (const locale of locales) {
+    const { profile } = getContent(locale);
+    expect(profile.metaDescription.length).toBeGreaterThanOrEqual(80);
+    expect(profile.metaDescription.length).toBeLessThanOrEqual(170);
+    expect(profile.stackHighlights.length).toBeGreaterThanOrEqual(3);
+    expect(profile.stackHighlights.length).toBeLessThanOrEqual(6);
+  }
+});
 ```
 
 - [ ] **Step 2: Rodar e ver falhar**
@@ -96,10 +98,12 @@ git commit -m "feat(content): add seo meta fields to profile"
 ### Task 2: hreflang `pt` genérico + helper `languageTag`
 
 **Files:**
+
 - Modify: `src/lib/site.ts`
 - Test (create): `src/lib/site.test.ts`
 
 **Interfaces:**
+
 - Consumes: nada novo.
 - Produces: `languageAlternates(path)` agora emite chave `"pt"` além de `"pt-BR"`/`"en"`/`"x-default"`; novo `languageTag(locale: Locale): string` (`"pt" → "pt-BR"`, `"en" → "en"`) — consumido pela Task 3.
 
@@ -199,11 +203,13 @@ git commit -m "feat(seo): emit generic pt hreflang alternate"
 ### Task 3: `metaDescription` no layout + JSON-LD `@graph` (WebSite/ProfilePage/Person)
 
 **Files:**
+
 - Modify: `src/components/seo/person-json-ld.tsx`
 - Modify: `src/app/[locale]/layout.tsx`
 - Test: `src/components/seo/person-json-ld.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `Profile.metaDescription` (Task 1); `languageTag(locale)` (Task 2); `absoluteUrl`/`localizedPath`/`SITE_URL` de `@/lib/site`.
 - Produces: `PersonJsonLd` passa a exigir prop `locale: Locale` e emite `@graph`.
 
@@ -371,9 +377,7 @@ export function PersonJsonLd({
 Em `src/app/[locale]/layout.tsx`:
 
 1. Na função `generateMetadata`, trocar
-   `const description = \`${profile.role} · ${profile.location} · ${profile.subheadline}\`;`
-   por
-   `const description = profile.metaDescription;`
+   `const description = \`${profile.role} · ${profile.location} · ${profile.subheadline}\`;`por`const description = profile.metaDescription;`
 2. No JSX, trocar
    `<PersonJsonLd profile={profile} certifications={certifications} education={education} />`
    por
@@ -399,10 +403,12 @@ git commit -m "feat(seo): use meta description and expand json-ld graph"
 ### Task 4: `sitemap.lastModified` estável (derivado de `asOfYm`)
 
 **Files:**
+
 - Modify: `src/app/sitemap.ts`
 - Test (create): `src/app/sitemap.test.ts`
 
 **Interfaces:**
+
 - Consumes: `getContent(defaultLocale).profile.asOfYm` (formato `YYYY-MM`, já validado por Zod); `defaultLocale` de `@/lib/site`.
 - Produces: entradas do sitemap com `lastModified: "YYYY-MM-01"` (string).
 
@@ -482,11 +488,13 @@ git commit -m "fix(seo): stabilize sitemap lastmodified"
 ### Task 5: OG image rica (card com cargo, stack, domínio e localização)
 
 **Files:**
+
 - Create: `src/assets/fonts/GeistMono-Bold.ttf` (cópia de `node_modules/geist/dist/fonts/geist-mono/GeistMono-Bold.ttf`)
 - Modify: `src/assets/fonts/NOTICE.md`
 - Modify: `src/app/[locale]/opengraph-image.tsx`
 
 **Interfaces:**
+
 - Consumes: `profile.stackHighlights` e `profile.role` (Task 1); fontes Geist já vendoradas.
 - Produces: rota `/{locale}/opengraph-image/card` (o `id` de `generateImageMetadata` entra na URL — o Next atualiza `og:image` sozinho); `alt` localizado.
 
@@ -663,10 +671,12 @@ git commit -m "feat(og): redesign social card with role, stack and domain"
 ### Task 6: `apple-icon.tsx` + `manifest.ts`
 
 **Files:**
+
 - Create: `src/app/apple-icon.tsx`
 - Create: `src/app/manifest.ts`
 
 **Interfaces:**
+
 - Consumes: `GeistMono-Bold.ttf` vendorada (Task 5).
 - Produces: rotas `/apple-icon` (PNG 180×180) e `/manifest.webmanifest`, linkadas automaticamente no `<head>` de todas as páginas pelo Next.
 
@@ -685,9 +695,7 @@ export const contentType = "image/png";
 // Full-bleed (sem cantos arredondados nem transparência): o iOS aplica a
 // própria máscara; cantos transparentes virariam quadrados pretos.
 export default async function AppleIcon() {
-  const geistMonoBold = await readFile(
-    join(process.cwd(), "src/assets/fonts/GeistMono-Bold.ttf"),
-  );
+  const geistMonoBold = await readFile(join(process.cwd(), "src/assets/fonts/GeistMono-Bold.ttf"));
   return new ImageResponse(
     <div
       style={{

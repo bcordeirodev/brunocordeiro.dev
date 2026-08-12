@@ -48,7 +48,12 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="font-sans antialiased">
-        <PersonJsonLd profile={profile} certifications={certifications} education={education} locale={locale} />
+        <PersonJsonLd
+          profile={profile}
+          certifications={certifications}
+          education={education}
+          locale={locale}
+        />
         <ViewTransitionsProvider>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </ViewTransitionsProvider>
