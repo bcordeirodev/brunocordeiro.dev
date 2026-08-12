@@ -262,7 +262,7 @@ describe("fetchGrafanaStats", () => {
     const result = await fetchGrafanaStats(fetchFn as unknown as typeof fetch, auth, snapshot);
     expect(result.p95RedirectMs).toBe(snapshot.p95RedirectMs);
     expect(result.live.p95RedirectMs).toBe(false);
-    expect(result.live.uptime30dPct).toBe(true);
+    expect(result.live.uptime30dPct).toBe(false);
     expect(result.live.errorRate5xxPct).toBe(true);
     expect(result.live.reqPerMin).toBe(true);
   });
