@@ -53,7 +53,7 @@ buildCvData(content, selection)  ← função pura, src/lib/cv/
 
 ### Módulos
 
-- `src/lib/cv/selection.ts` — tipo `CvSelection` (flags de seção + sets/records de itens por chave estável: `company` p/ experiência, `categoryId:skillName` p/ skill, `name` p/ certificação, `degree` p/ educação) e `defaultSelection(content)`.
+- `src/lib/cv/selection.ts` — tipo `CvSelection` (flags de seção + records de itens por chave composta estável, blindada contra homônimos: `company:start` p/ experiência, `categoryId:skillName` p/ skill, `name:issued` p/ certificação, `degree:institution` p/ educação) e `defaultSelection(content)`.
 - `src/lib/cv/build-cv-data.ts` — `buildCvData(content, selection): CvData`. Filtra e devolve estrutura pronta para render (seções vazias já removidas). Sem dependência de React.
 - `src/components/cv/cv-builder.tsx` — client component raiz: estado da seleção, painel + preview + botão de download.
 - `src/components/cv/selection-panel.tsx` — checkboxes por seção/item, "marcar/desmarcar todas".

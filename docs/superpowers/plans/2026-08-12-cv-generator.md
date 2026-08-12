@@ -36,6 +36,8 @@
   - `type CvSelection = { sections: Record<CvSectionId, boolean>; experiences: Record<string, boolean>; skills: Record<string, boolean>; certifications: Record<string, boolean>; education: Record<string, boolean> }`
   - `experienceKey(e: Pick<Experience, "company" | "start">): string`
   - `skillKey(categoryId: string, skillName: string): string`
+  - `certificationKey(c: Pick<Certification, "name" | "issued">): string`
+  - `educationKey(e: Pick<Education, "degree" | "institution">): string`
   - `defaultSelection(content: SiteContent): CvSelection`
 
 - [ ] **Step 1: Write the failing test**
@@ -44,7 +46,13 @@
 // src/lib/cv/selection.test.ts
 import { describe, expect, it } from "vitest";
 import { getContent } from "@/content";
-import { defaultSelection, experienceKey, skillKey } from "./selection";
+import {
+  certificationKey,
+  defaultSelection,
+  educationKey,
+  experienceKey,
+  skillKey,
+} from "./selection";
 
 const content = getContent("pt");
 
@@ -58,8 +66,8 @@ describe("defaultSelection", () => {
   it("cobre todos os itens do conteúdo, todos marcados", () => {
     const sel = defaultSelection(content);
     expect(Object.keys(sel.experiences)).toEqual(content.experiences.map(experienceKey));
-    expect(Object.keys(sel.certifications)).toEqual(content.certifications.map((c) => c.name));
-    expect(Object.keys(sel.education)).toEqual(content.education.map((e) => e.degree));
+    expect(Object.keys(sel.certifications)).toEqual(content.certifications.map(certificationKey));
+    expect(Object.keys(sel.education)).toEqual(content.education.map(educationKey));
     expect(Object.keys(sel.skills)).toEqual(
       content.skillCategories.flatMap((cat) => cat.skills.map((s) => skillKey(cat.id, s.name))),
     );
@@ -67,9 +75,15 @@ describe("defaultSelection", () => {
     expect(Object.values(items).every(Boolean)).toBe(true);
   });
 
-  it("gera chaves de experiência únicas mesmo com empresa repetida", () => {
+  it("gera chaves únicas mesmo com nomes repetidos", () => {
     expect(experienceKey({ company: "ACME", start: "2020-01" })).not.toBe(
       experienceKey({ company: "ACME", start: "2022-05" }),
+    );
+    expect(certificationKey({ name: "Scrum Master", issued: "2020-01" })).not.toBe(
+      certificationKey({ name: "Scrum Master", issued: "2023-06" }),
+    );
+    expect(educationKey({ degree: "Bacharelado", institution: "UnB" })).not.toBe(
+      educationKey({ degree: "Bacharelado", institution: "IESB" }),
     );
   });
 });
@@ -84,7 +98,7 @@ Expected: FAIL — módulo `./selection` não existe.
 
 ```ts
 // src/lib/cv/selection.ts
-import type { Experience, SiteContent } from "@/domain";
+import type { Certification, Education, Experience, SiteContent } from "@/domain";
 
 export type CvSectionId =
   | "summary"
@@ -103,14 +117,23 @@ export type CvSelection = {
   education: Record<string, boolean>;
 };
 
-// company sozinho é único hoje, mas o par com start blinda contra duas
-// passagens pela mesma empresa sem quebrar seleções existentes.
+// Nomes sozinhos são únicos hoje, mas o par com um segundo campo blinda
+// contra homônimos futuros (duas passagens pela mesma empresa, a mesma
+// certificação de emissores/anos diferentes etc.).
 export function experienceKey(e: Pick<Experience, "company" | "start">): string {
   return `${e.company}:${e.start}`;
 }
 
 export function skillKey(categoryId: string, skillName: string): string {
   return `${categoryId}:${skillName}`;
+}
+
+export function certificationKey(c: Pick<Certification, "name" | "issued">): string {
+  return `${c.name}:${c.issued}`;
+}
+
+export function educationKey(e: Pick<Education, "degree" | "institution">): string {
+  return `${e.degree}:${e.institution}`;
 }
 
 const allTrue = (keys: string[]): Record<string, boolean> =>
@@ -131,8 +154,8 @@ export function defaultSelection(content: SiteContent): CvSelection {
     skills: allTrue(
       content.skillCategories.flatMap((cat) => cat.skills.map((s) => skillKey(cat.id, s.name))),
     ),
-    certifications: allTrue(content.certifications.map((c) => c.name)),
-    education: allTrue(content.education.map((e) => e.degree)),
+    certifications: allTrue(content.certifications.map(certificationKey)),
+    education: allTrue(content.education.map(educationKey)),
   };
 }
 ```
@@ -158,7 +181,7 @@ git commit -m "feat(cv): add selection model with per-item keys and default"
 - Test: `src/lib/cv/build-cv-data.test.ts`
 
 **Interfaces:**
-- Consumes: `CvSelection`, `experienceKey`, `skillKey` (Task 1); `SiteContent`, `Profile`, `Metric`, `Experience`, `SkillCategory`, `Certification`, `Education` de `@/domain`; `absoluteUrl`, `localizedPath` de `@/lib/site`; `Locale` de `@/content`.
+- Consumes: `CvSelection`, `experienceKey`, `skillKey`, `certificationKey`, `educationKey` (Task 1); `SiteContent`, `Profile`, `Metric`, `Experience`, `SkillCategory`, `Certification`, `Education` de `@/domain`; `absoluteUrl`, `localizedPath` de `@/lib/site`; `Locale` de `@/content`.
 - Produces (usado pelas Tasks 3, 5, 6):
   - `type CvData = { profile: Profile; summary: string | null; metrics: Metric[] | null; experiences: Experience[] | null; skillCategories: SkillCategory[] | null; certifications: Certification[] | null; education: Education[] | null; caseStudy: { title: string; tagline: string; url: string } | null }`
   - `buildCvData(content: SiteContent, selection: CvSelection, locale: Locale): CvData`
@@ -266,7 +289,13 @@ import type {
 } from "@/domain";
 import type { Locale } from "@/content";
 import { absoluteUrl, localizedPath } from "@/lib/site";
-import { experienceKey, skillKey, type CvSelection } from "./selection";
+import {
+  certificationKey,
+  educationKey,
+  experienceKey,
+  skillKey,
+  type CvSelection,
+} from "./selection";
 
 export type CvData = {
   profile: Profile;
@@ -305,10 +334,10 @@ export function buildCvData(
         )
       : null,
     certifications: sections.certifications
-      ? orNull(content.certifications.filter((c) => selection.certifications[c.name]))
+      ? orNull(content.certifications.filter((c) => selection.certifications[certificationKey(c)]))
       : null,
     education: sections.education
-      ? orNull(content.education.filter((e) => selection.education[e.degree]))
+      ? orNull(content.education.filter((e) => selection.education[educationKey(e)]))
       : null,
     caseStudy: sections.caseStudy
       ? {
@@ -592,7 +621,7 @@ git commit -m "feat(cv): add html preview and shared label types"
 - Test: `src/components/cv/selection-panel.test.tsx`
 
 **Interfaces:**
-- Consumes: `CvSelection`, `CvSectionId`, `experienceKey`, `skillKey` (Task 1); `CvLabels` (Task 3); `SiteContent` de `@/domain`.
+- Consumes: `CvSelection`, `CvSectionId`, `experienceKey`, `skillKey`, `certificationKey`, `educationKey` (Task 1); `CvLabels` (Task 3); `SiteContent` de `@/domain`.
 - Produces (usado pela Task 6):
   - `SelectionPanel({ content, selection, onChange, labels }: { content: SiteContent; selection: CvSelection; onChange: (next: CvSelection) => void; labels: CvLabels })` — client component controlado; `onChange` recebe a seleção inteira nova.
 
@@ -678,7 +707,14 @@ Expected: FAIL — módulo `./selection-panel` não existe.
 
 import type { SiteContent } from "@/domain";
 import type { CvLabels } from "@/lib/cv/labels";
-import { experienceKey, skillKey, type CvSectionId, type CvSelection } from "@/lib/cv/selection";
+import {
+  certificationKey,
+  educationKey,
+  experienceKey,
+  skillKey,
+  type CvSectionId,
+  type CvSelection,
+} from "@/lib/cv/selection";
 
 type ItemGroup = keyof Omit<CvSelection, "sections">;
 
@@ -817,12 +853,12 @@ export function SelectionPanel({
       {sectionGroup({
         id: "certifications",
         group: "certifications",
-        items: content.certifications.map((c) => ({ key: c.name, label: c.name })),
+        items: content.certifications.map((c) => ({ key: certificationKey(c), label: c.name })),
       })}
       {sectionGroup({
         id: "education",
         group: "education",
-        items: content.education.map((e) => ({ key: e.degree, label: e.degree })),
+        items: content.education.map((e) => ({ key: educationKey(e), label: e.degree })),
       })}
       <Checkbox
         bold
