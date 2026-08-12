@@ -65,11 +65,10 @@ export function CvPreview({
                 </span>
               </p>
               <p className="text-xs text-muted">{exp.stacks.join(" · ")}</p>
-              {exp.projects.map((p) => (
-                <p key={p.name} className="text-xs text-muted">
-                  <span className="font-medium text-foreground">{p.name}</span> — {p.description}
-                </p>
-              ))}
+              {/* Só os nomes, como no PDF: a descrição de cada projeto vive no site. */}
+              {exp.projects.length > 0 ? (
+                <p className="text-xs font-medium">{exp.projects.map((p) => p.name).join(" · ")}</p>
+              ) : null}
             </div>
           ))}
         </Section>

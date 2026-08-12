@@ -19,15 +19,15 @@ Página pública onde visitantes (recrutadores) montam e baixam um CV em PDF do 
 
 Granularidade: **seções + itens**.
 
-| Seção             | Liga/desliga seção | Itens individuais                                                             |
-| ----------------- | ------------------ | ----------------------------------------------------------------------------- |
-| Perfil resumido   | sim                | —                                                                             |
-| Métricas          | sim                | —                                                                             |
-| Experiências      | sim                | por experiência (company)                                                     |
-| Skills            | sim                | por categoria (acordeão) e por skill                                          |
-| Certificações     | sim                | por certificação                                                              |
-| Educação          | sim                | por item                                                                      |
-| Case study (link) | sim                | —                                                                             |
+| Seção             | Liga/desliga seção | Itens individuais                    |
+| ----------------- | ------------------ | ------------------------------------ |
+| Perfil resumido   | sim                | —                                    |
+| Métricas          | sim                | —                                    |
+| Experiências      | sim                | por experiência (company)            |
+| Skills            | sim                | por categoria (acordeão) e por skill |
+| Certificações     | sim                | por certificação                     |
+| Educação          | sim                | por item                             |
+| Case study (link) | sim                | —                                    |
 
 Regras:
 
@@ -98,3 +98,14 @@ Motivação: com ~90 skills numa lista plana, o painel lateral empurrava o botã
 - **Entrada em destaque no hero** — botão sólido "Baixar CV" (`common.downloadCv`) ao lado de GitHub · LinkedIn · Copiar e-mail, apontando para `/cv`. O link do footer permanece.
 - **Sem mudança de dados** — `CvSelection`, `buildCvData`, `CvPreview` e `CvDocument` ficam intactos; o estado de expansão do acordeão é UI local, fora da seleção.
 - **Rótulos novos** — `cv.customize`, `common.downloadCv`; reaproveita `common.close` para o botão de fechar da modal.
+
+### Densidade do CV: só nomes
+
+Skills e projetos entram no CV **apenas pelo nome** — a prova de cada skill e a descrição de cada projeto vivem no site, e no documento custavam páginas de texto que ninguém lê. As stacks de cada experiência continuam completas (valem para busca por palavra-chave em ATS). Vale para os dois renderizadores: o preview mostra exatamente o que o PDF terá.
+
+### Correções do template do PDF
+
+- `lineHeight` nunca na `Page`: herdada, o react-pdf a resolve como valor absoluto a partir do `fontSize` da página, esmagando o nome de 19pt contra a linha do cargo. Cada estilo declara a sua.
+- Sem `wrap={false}` em blocos altos — era o que empurrava uma categoria inteira para a página seguinte e deixava meia página vazia. `minPresenceAhead` nas seções evita título órfão no pé da página.
+- `src/lib/cv/pdf-text.ts` troca caracteres fora do WinAnsi (`→`, `≠`, `▸`…) por equivalentes ASCII: as fontes padrão do PDF não os têm e "PHP 5.6 → 8.2" saía como "PHP 5.6 ' 8.2". Hifenização desligada (quebrava URLs de credencial no meio).
+- Negrito onde cria hierarquia: cargo/empresa, nomes de projeto, título da categoria de skills, valores das métricas, nome da certificação, curso e título do case study.

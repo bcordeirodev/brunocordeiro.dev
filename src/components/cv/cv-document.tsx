@@ -46,6 +46,13 @@ const styles = StyleSheet.create({
   body: { fontSize: 8.5, color: "#333", lineHeight: 1.4, marginTop: 2 },
   skillGroup: { fontSize: 8.5, color: "#333", lineHeight: 1.4, marginBottom: 3 },
   credential: { fontSize: 7.5, lineHeight: 1.4 },
+  projects: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 8.5,
+    color: "#1a1a1a",
+    lineHeight: 1.4,
+    marginTop: 2,
+  },
   strong: { fontFamily: "Helvetica-Bold", color: "#1a1a1a" },
 });
 
@@ -119,12 +126,13 @@ export function CvDocument({
                   {"  ·  "}
                   {exp.stacks.join(" · ")}
                 </Text>
-                {exp.projects.map((project) => (
-                  <Text key={project.name} style={styles.body}>
-                    <Text style={styles.strong}>{project.name}</Text>
-                    {` — ${project.description}`}
+                {/* Só os nomes dos projetos, como nas skills: a descrição de
+                    cada um vive no site e aqui só engordaria o documento. */}
+                {exp.projects.length > 0 ? (
+                  <Text style={styles.projects}>
+                    {exp.projects.map((project) => project.name).join("  ·  ")}
                   </Text>
-                ))}
+                ) : null}
               </View>
             ))}
           </Section>
