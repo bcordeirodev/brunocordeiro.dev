@@ -84,7 +84,7 @@ export const caseStudy: CaseStudy = {
       id: "operations",
       title: "Operação em números — direto do Grafana",
       intro:
-        "Um dashboard no estilo Grafana alimentado pelo próprio Grafana Cloud: os painéis abaixo consultam a API Prometheus do monitoramento em produção do Link Charts (o uptime vem do probe externo no GitHub Actions) — nenhum número de vitrine.",
+        "Estes painéis consomem a API Prometheus do meu workspace no Grafana Cloud — o mesmo monitoramento, instrumentado com OpenTelemetry e Grafana Alloy, que opera o Link Charts em produção. Quando a API não responde, cada painel degrada para um snapshot versionado e assume isso no próprio painel. O uptime vem do probe externo no GitHub Actions. Nenhum número de vitrine: é a telemetria real da operação.",
       board: {
         title: "Grafana · linkcharts · produção",
         timeRange: "Últimos 30 dias",

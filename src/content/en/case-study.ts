@@ -84,7 +84,7 @@ export const caseStudy: CaseStudy = {
       id: "operations",
       title: "Operations in numbers — straight from Grafana",
       intro:
-        "A Grafana-style dashboard fed by Grafana Cloud itself: the panels below query the Prometheus API of Link Charts' production monitoring (uptime comes from the external GitHub Actions probe) — no vanity metrics.",
+        "These panels consume the Prometheus API of my Grafana Cloud workspace — the same monitoring, instrumented with OpenTelemetry and Grafana Alloy, that runs Link Charts in production. When the API is unreachable, each panel degrades to a versioned snapshot and says so right on the panel. Uptime comes from the external GitHub Actions probe. No vanity metrics: this is the operation's real telemetry.",
       board: {
         title: "Grafana · linkcharts · production",
         timeRange: "Last 30 days",
