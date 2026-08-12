@@ -21,12 +21,12 @@ Evolução futura (fora de escopo): campo `summary` por experiência.
 
 Um nome por tipo de cargo, consistente dentro de cada idioma:
 
-| Tipo | PT | EN |
-|---|---|---|
+| Tipo                            | PT                       | EN                   |
+| ------------------------------- | ------------------------ | -------------------- |
 | Full stack (G4F, Ebserh, Basis) | Desenvolvedor Full Stack | Full Stack Developer |
-| Frontend (VegaIT) | Desenvolvedor Frontend | Frontend Developer |
-| PHP (PROS, Transoft) | Desenvolvedor PHP | PHP Developer |
-| PHP júnior (Plug Digital) | Desenvolvedor PHP Jr | Junior PHP Developer |
+| Frontend (VegaIT)               | Desenvolvedor Frontend   | Frontend Developer   |
+| PHP (PROS, Transoft)            | Desenvolvedor PHP        | PHP Developer        |
+| PHP júnior (Plug Digital)       | Desenvolvedor PHP Jr     | Junior PHP Developer |
 
 Correções resultantes: PT deixa de usar títulos em inglês (G4F, VegaIT, PROS) e "Programador PHP (Jr)" (Transoft, Plug); EN deixa de usar "PHP Programmer"/"Junior PHP Programmer".
 
@@ -75,13 +75,13 @@ Card hoje vazio. Fonte: Bruno (2026-08-12) — sistema de gestão hospitalar com
 
 O LinkedIn traz localização em todas as posições; o site só exibe em G4F e Ebserh. Adicionar `location`:
 
-| Empresa | LinkedIn | Site (PT / EN) |
-|---|---|---|
-| VegaIT | Brazil | Brasil / Brazil |
-| Basis | Brasília, DF | Brasília-DF |
-| PROS | Brasília, DF | Brasília-DF |
-| Transoft | Brasília e Região | Brasília-DF (normalizado ao formato já usado no site) |
-| Plug Digital | Brasília e Região | Brasília-DF (normalizado) |
+| Empresa      | LinkedIn          | Site (PT / EN)                                        |
+| ------------ | ----------------- | ----------------------------------------------------- |
+| VegaIT       | Brazil            | Brasil / Brazil                                       |
+| Basis        | Brasília, DF      | Brasília-DF                                           |
+| PROS         | Brasília, DF      | Brasília-DF                                           |
+| Transoft     | Brasília e Região | Brasília-DF (normalizado ao formato já usado no site) |
+| Plug Digital | Brasília e Região | Brasília-DF (normalizado)                             |
 
 ### Partido Republicano da Ordem Social
 
@@ -97,6 +97,13 @@ Apenas padronização de cargo. Datas/vínculo mantidos (decisão do Bruno: sobr
 
 - PT: **SGP / GPES** — "Gestão partidária e pesquisas estratégicas"
 - EN: **SGP / GPES** — "Party management and strategic research systems"
+
+## Adendo (2026-08-12, feedback do Bruno pós-primeira implementação)
+
+- **Ebserh**: pipeline era **Azure Pipelines** (substitui o genérico "Pipeline CI/CD"); adicionar Docker, **Portainer**, Git, ESLint/Prettier/tsc e **Eloquent (migrations, factories, API Resources)** — tratamento de dados do Laravel para a web.
+- **VegaIT**: era atuação frontend — adicionar **React Query** e Prettier (`ESLint/tsc` → `ESLint/Prettier/tsc`).
+- **Basis**: os sistemas eram do **governo federal** — anotar nas descrições de SECIC e Pátria Voluntária.
+- **Plug Digital**: PHP era **5.6**; jQuery com plugins (datepicker, carousel, gráficos); **framework próprio com CLI**, documentado com padrões de mercado (PSRs/PHPDoc já constavam no card).
 
 ## Validação
 

@@ -23,11 +23,13 @@
 Um único task/commit: os dois arquivos de conteúdo precisam mudar juntos (o teste de paridade quebra se só um mudar).
 
 **Files:**
+
 - Modify: `src/content/content.test.ts` (teste de paridade em ~linha 8; novos `it` após ele)
 - Modify: `src/content/pt/experiences.ts`
 - Modify: `src/content/en/experiences.ts`
 
 **Interfaces:**
+
 - Consumes: `getContent(locale)` e `locales` de `@/content` (já importados em `content.test.ts`).
 - Produces: nada novo — apenas dados; nenhum consumidor muda.
 
@@ -36,43 +38,43 @@ Um único task/commit: os dois arquivos de conteúdo precisam mudar juntos (o te
 Dentro do `it("pt e en têm paridade estrutural", ...)`, após a assertion de `experiences.map((e) => e.company)`, adicionar:
 
 ```ts
-    expect(en.experiences.map((e) => e.stacks.length)).toEqual(
-      pt.experiences.map((e) => e.stacks.length),
-    );
-    expect(en.experiences.map((e) => e.projects.length)).toEqual(
-      pt.experiences.map((e) => e.projects.length),
-    );
+expect(en.experiences.map((e) => e.stacks.length)).toEqual(
+  pt.experiences.map((e) => e.stacks.length),
+);
+expect(en.experiences.map((e) => e.projects.length)).toEqual(
+  pt.experiences.map((e) => e.projects.length),
+);
 ```
 
 Após esse `it`, adicionar dois novos:
 
 ```ts
-  it("toda experiência tem stacks e pelo menos um projeto", () => {
-    for (const locale of locales) {
-      for (const exp of getContent(locale).experiences) {
-        expect(exp.stacks.length, `${locale}: ${exp.company} sem stacks`).toBeGreaterThan(0);
-        expect(exp.projects.length, `${locale}: ${exp.company} sem projetos`).toBeGreaterThan(0);
-      }
+it("toda experiência tem stacks e pelo menos um projeto", () => {
+  for (const locale of locales) {
+    for (const exp of getContent(locale).experiences) {
+      expect(exp.stacks.length, `${locale}: ${exp.company} sem stacks`).toBeGreaterThan(0);
+      expect(exp.projects.length, `${locale}: ${exp.company} sem projetos`).toBeGreaterThan(0);
     }
-  });
-  it("cargos seguem a nomenclatura padronizada por locale", () => {
-    const ptRoles = new Set([
-      "Desenvolvedor Full Stack",
-      "Desenvolvedor Frontend",
-      "Desenvolvedor PHP",
-      "Desenvolvedor PHP Jr",
-    ]);
-    const enRoles = new Set([
-      "Full Stack Developer",
-      "Frontend Developer",
-      "PHP Developer",
-      "Junior PHP Developer",
-    ]);
-    for (const exp of getContent("pt").experiences)
-      expect(ptRoles.has(exp.role), `pt: ${exp.company} → ${exp.role}`).toBe(true);
-    for (const exp of getContent("en").experiences)
-      expect(enRoles.has(exp.role), `en: ${exp.company} → ${exp.role}`).toBe(true);
-  });
+  }
+});
+it("cargos seguem a nomenclatura padronizada por locale", () => {
+  const ptRoles = new Set([
+    "Desenvolvedor Full Stack",
+    "Desenvolvedor Frontend",
+    "Desenvolvedor PHP",
+    "Desenvolvedor PHP Jr",
+  ]);
+  const enRoles = new Set([
+    "Full Stack Developer",
+    "Frontend Developer",
+    "PHP Developer",
+    "Junior PHP Developer",
+  ]);
+  for (const exp of getContent("pt").experiences)
+    expect(ptRoles.has(exp.role), `pt: ${exp.company} → ${exp.role}`).toBe(true);
+  for (const exp of getContent("en").experiences)
+    expect(enRoles.has(exp.role), `en: ${exp.company} → ${exp.role}`).toBe(true);
+});
 ```
 
 - [ ] **Step 2: Rodar e confirmar que os novos guards FALHAM**
@@ -252,7 +254,98 @@ git commit -m "feat(content): enrich trajectory entries and standardize roles"
 
 ---
 
-### Task 2: Verificação visual
+### Task 2: Adendo de dados pt/en (feedback do Bruno pós-Task 1)
+
+Mesmo formato da Task 1: os dois arquivos de conteúdo mudam juntos; os guards existentes de paridade e nomenclatura devem continuar verdes.
+
+**Files:**
+
+- Modify: `src/content/pt/experiences.ts`
+- Modify: `src/content/en/experiences.ts`
+
+**Interfaces:**
+
+- Consumes: guards de `src/content/content.test.ts` adicionados na Task 1 (paridade de contagens pt/en; cargos padronizados; toda experiência com stacks e ≥1 projeto).
+- Produces: nada novo — apenas dados.
+
+- [ ] **Step 1: Editar `src/content/pt/experiences.ts`**
+
+**Ebserh** — substituir o array `stacks` inteiro por:
+
+```ts
+    stacks: [
+      "React 17",
+      "TypeScript 4",
+      "Laravel 8",
+      "PHP 7.4/8.0",
+      "Eloquent (migrations, factories, API Resources)",
+      "PostgreSQL 13",
+      "Docker",
+      "Portainer",
+      "Azure Pipelines",
+      "Git",
+      "ESLint/Prettier/tsc",
+      "Jest",
+      "PHPUnit 9",
+    ],
+```
+
+(Remove o item "Pipeline CI/CD" — o pipeline era Azure Pipelines.)
+
+**VegaIT** — em `stacks`: após `"Context API",` acrescentar `"React Query",`; e `"ESLint/tsc"` → `"ESLint/Prettier/tsc"`.
+
+**Basis** — em `projects`: descrição do SECIC → `"Sistema interno de classificação de informações (governo federal)"`; descrição do Pátria Voluntária → `"Arrecadação e distribuição de doações (programa do governo federal)"`.
+
+**Plug Digital** — em `stacks`: `"PHP"` → `"PHP 5.6"`; após `"Propel ORM",` acrescentar `"Framework próprio (CLI, docs padrão de mercado)",`; `"jQuery"` → `"jQuery + plugins (datepicker, carousel, gráficos)"`.
+
+- [ ] **Step 2: Editar `src/content/en/experiences.ts`**
+
+**Ebserh** — substituir o array `stacks` inteiro por:
+
+```ts
+    stacks: [
+      "React 17",
+      "TypeScript 4",
+      "Laravel 8",
+      "PHP 7.4/8.0",
+      "Eloquent (migrations, factories, API Resources)",
+      "PostgreSQL 13",
+      "Docker",
+      "Portainer",
+      "Azure Pipelines",
+      "Git",
+      "ESLint/Prettier/tsc",
+      "Jest",
+      "PHPUnit 9",
+    ],
+```
+
+**VegaIT** — em `stacks`: após `"Context API",` acrescentar `"React Query",`; e `"ESLint/tsc"` → `"ESLint/Prettier/tsc"`.
+
+**Basis** — em `projects`: descrição do SECIC → `"Internal information classification system (federal government)"`; descrição do Pátria Voluntária → `"Donation collection and distribution platform (federal government program)"`.
+
+**Plug Digital** — em `stacks`: `"PHP"` → `"PHP 5.6"`; após `"Propel ORM",` acrescentar `"In-house framework (CLI, industry-standard docs)",`; `"jQuery"` → `"jQuery + plugins (datepicker, carousel, charts)"`.
+
+- [ ] **Step 3: Rodar a suíte e confirmar que TUDO passa**
+
+Run: `pnpm test`
+Expected: PASS — os guards de paridade continuam verdes (Ebserh 13/13, VegaIT 10/10, Plug 11/11 stacks pt/en; contagens de projetos inalteradas).
+
+- [ ] **Step 4: Typecheck, lint e format**
+
+Run: `pnpm typecheck && pnpm lint && pnpm format:check`
+Expected: sem erros. Se `format:check` reclamar dos arquivos editados, rodar `pnpm format` e re-checar.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add src/content/pt/experiences.ts src/content/en/experiences.ts
+git commit -m "feat(content): expand experience stacks with direct feedback"
+```
+
+---
+
+### Task 3: Verificação visual
 
 **Files:** nenhum (somente verificação).
 
@@ -266,8 +359,9 @@ Expected: pronto em `http://localhost:3000`.
 - [ ] **Step 2: Conferir a seção de trajetórias em pt e en**
 
 Abrir `http://localhost:3000/pt` e `http://localhost:3000/en`, rolar até trajetórias e conferir:
-- Ebserh com 8 stacks e o projeto "Sistema de gestão hospitalar" / "Hospital management system".
-- VegaIT com o projeto SIM e location Brasil/Brazil.
+
+- Ebserh com 13 stacks e o projeto "Sistema de gestão hospitalar" / "Hospital management system".
+- VegaIT com o projeto SIM, React Query nas stacks e location Brasil/Brazil.
 - G4F com 38 stacks e 2 projetos (nenhum nome real de projeto interno).
 - Cargos consistentes por idioma; localizações em todos os cards.
 
