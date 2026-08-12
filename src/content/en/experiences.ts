@@ -52,11 +52,12 @@ export const experiences: Experience[] = [
       {
         name: "Large-scale consular system (federal public sector)",
         description:
-          "Worldwide multi-language public consular service, with document generation and identity verification",
+          "Multi-language public consular service across 90+ posts worldwide, with document generation and identity verification",
       },
       {
-        name: "Consular payroll system (federal public sector)",
-        description: "Payroll management for consulate employees abroad",
+        name: "Next-generation consular system (federal public sector)",
+        description:
+          "Creation of the modernized version that will replace the legacy system used across consular posts",
       },
     ],
   },

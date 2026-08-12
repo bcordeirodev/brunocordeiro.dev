@@ -52,11 +52,12 @@ export const experiences: Experience[] = [
       {
         name: "Sistema consular de grande porte (setor público federal)",
         description:
-          "Atendimento consular ao público em todo o mundo, com suporte multi-idioma, geração documental e verificação de identidade",
+          "Atendimento consular ao público em mais de 90 postos ao redor do mundo, com suporte multi-idioma, geração documental e verificação de identidade",
       },
       {
-        name: "Sistema de folha de pagamento consular (setor público federal)",
-        description: "Gestão da folha de pagamento de funcionários dos consulados no exterior",
+        name: "Nova geração do sistema consular (setor público federal)",
+        description:
+          "Criação da versão modernizada que substituirá o sistema legado em uso nos postos consulares",
       },
     ],
   },
