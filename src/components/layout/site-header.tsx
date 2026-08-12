@@ -19,7 +19,7 @@ export async function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-4">
         <TransitionLink href="/" className="font-mono text-sm font-semibold tracking-tight">
-          bruno.dev
+          brunocordeiro.dev
         </TransitionLink>
 
         <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted">

@@ -8,11 +8,13 @@ const STACK_LINE = [
   "TypeScript",
   "Next.js",
   "React",
-  "Laravel",
   "NestJS",
+  "Laravel",
   "PostgreSQL",
   "Redis",
   "Docker",
+  "Kubernetes",
+  "CI/CD",
 ].join(" · ");
 
 export function Hero({ profile }: { profile: Profile }) {
