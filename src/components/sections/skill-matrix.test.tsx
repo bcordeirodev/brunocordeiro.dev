@@ -25,17 +25,26 @@ const categories = [
 describe("SkillMatrix", () => {
   it("troca de categoria ao clicar na tab", async () => {
     render(<SkillMatrix categories={categories} />);
-    expect(screen.getByText("React 19")).toBeInTheDocument();
+    // getByRole("tabpanel") resolve só o painel ativo: os inativos ficam com
+    // `hidden` (keepMounted) e fora da árvore de acessibilidade. Um getByText
+    // sem escopo passaria mesmo sem o clique — mesmo padrão do e2e.
+    expect(
+      within(screen.getByRole("tabpanel", { name: "Frontend" })).getByText("React 19"),
+    ).toBeInTheDocument();
     await userEvent.click(screen.getByRole("tab", { name: "Backend & Dados" }));
-    expect(await screen.findByText("Laravel 12")).toBeInTheDocument();
+    const panel = await screen.findByRole("tabpanel", { name: "Backend & Dados" });
+    expect(within(panel).getByText("Laravel 12")).toBeInTheDocument();
   });
 
   it("mostra a origem (tags) de toda skill", () => {
     // `within(container)`: o setup do repo não registra o auto-cleanup da
     // Testing Library, então o DOM do teste anterior ainda existe no body.
     const { container } = render(<SkillMatrix categories={categories} />);
-    // keepMounted deixa os dois painéis no DOM, então as duas origens existem
-    expect(within(container).getByText("Link Charts")).toBeInTheDocument();
-    expect(within(container).getByText("Link Charts · G4F")).toBeInTheDocument();
+    // keepMounted deixa os dois painéis no DOM, então as duas origens existem.
+    // toHaveTextContent na linha da skill é robusto ao separador visual.
+    const reactRow = within(container).getByText("React 19").parentElement;
+    expect(reactRow).toHaveTextContent("Link Charts");
+    const laravelRow = within(container).getByText("Laravel 12").parentElement;
+    expect(laravelRow).toHaveTextContent(/Link Charts.*G4F/);
   });
 });
