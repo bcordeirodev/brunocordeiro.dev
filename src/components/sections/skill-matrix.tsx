@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import type { SkillCategory } from "@/domain";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
@@ -55,7 +56,23 @@ export function SkillMatrix({ categories }: { categories: SkillCategory[] }) {
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
                   <span className="font-mono text-sm">{skill.name}</span>
-                  <span className="font-mono text-[11px] text-muted">{skill.tags.join(" · ")}</span>
+                  {/* Separador " · " é aria-hidden: leitores de tela não
+                      anunciam o middle dot e emendariam "Link Charts G4F"
+                      como um nome só; a vírgula sr-only dá a pausa/limite
+                      entre origens sem mudar o visual. */}
+                  <span className="font-mono text-[11px] text-muted">
+                    {skill.tags.map((tag, index) => (
+                      <Fragment key={tag}>
+                        {index > 0 ? (
+                          <>
+                            <span aria-hidden="true"> · </span>
+                            <span className="sr-only">, </span>
+                          </>
+                        ) : null}
+                        {tag}
+                      </Fragment>
+                    ))}
+                  </span>
                 </div>
                 <p className="text-sm text-muted">{skill.proof}</p>
               </li>
