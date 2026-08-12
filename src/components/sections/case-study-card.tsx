@@ -78,7 +78,9 @@ export async function CaseStudyCard({
           <ul className="flex flex-wrap gap-1.5 border-t border-border/60 pt-4">
             {headlineStacks.map((item) => (
               <li key={item}>
-                <Badge variant="tech">{item}</Badge>
+                <Badge variant="tech" className="h-auto max-w-full whitespace-normal">
+                  {item}
+                </Badge>
               </li>
             ))}
           </ul>

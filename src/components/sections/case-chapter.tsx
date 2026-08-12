@@ -67,7 +67,9 @@ export function CaseChapter({ chapter }: { chapter: CaseChapterType }) {
                 <ul className="flex flex-wrap gap-1.5">
                   {group.items.map((item) => (
                     <li key={item}>
-                      <Badge variant="tech">{item}</Badge>
+                      <Badge variant="tech" className="h-auto max-w-full whitespace-normal">
+                        {item}
+                      </Badge>
                     </li>
                   ))}
                 </ul>
