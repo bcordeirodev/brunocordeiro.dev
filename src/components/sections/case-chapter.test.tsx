@@ -48,8 +48,8 @@ it("renderiza capítulo grafana com o board (snapshot por default)", () => {
           footer: "rodapé",
         },
         panels: {
-          uptime: { title: "uptime · 30d", sub: "probe", source: "via GitHub Actions" },
-          p95: { title: "latência p95 · redirect", sub: "rota" },
+          uptime: { title: "uptime 30d", sub: "probe", source: "GitHub Actions" },
+          p95: { title: "p95 · redirect", sub: "rota" },
           errors: { title: "erros 5xx", sub: "pct" },
           reqRate: { title: "requisições/min", sub: "média" },
           activity: { title: "commits por mês", sub: "git" },

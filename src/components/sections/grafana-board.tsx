@@ -40,7 +40,7 @@ function GrafanaLogo({ className }: { className?: string }) {
 function PanelBadge({ label }: { label: string }) {
   return (
     <span
-      className="rounded border px-1 py-px font-mono text-[10px] leading-none"
+      className="rounded border px-1 py-px font-mono text-[10px] leading-none whitespace-nowrap"
       style={{ color: G.dim, borderColor: G.border }}
     >
       {label}

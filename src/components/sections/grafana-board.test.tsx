@@ -17,8 +17,8 @@ const chapter: Extract<CaseChapter, { kind: "grafana" }> = {
     footer: "rodapé do board",
   },
   panels: {
-    uptime: { title: "uptime · 30d", sub: "probe externo", source: "via GitHub Actions" },
-    p95: { title: "latência p95 · redirect", sub: "rota crítica" },
+    uptime: { title: "uptime 30d", sub: "probe externo", source: "GitHub Actions" },
+    p95: { title: "p95 · redirect", sub: "rota crítica" },
     errors: { title: "erros 5xx", sub: "percentual" },
     reqRate: { title: "requisições/min", sub: "média 24h" },
     activity: { title: "commits por mês", sub: "git real" },
@@ -41,7 +41,7 @@ it("renderiza chrome do board, painéis e valores formatados", () => {
   expect(screen.getByText("dados via Grafana Cloud · Prometheus")).toBeInTheDocument();
   expect(screen.getByText("rodapé do board")).toBeInTheDocument();
   expect(screen.getByRole("img", { name: /uptime/ })).toBeInTheDocument();
-  expect(screen.getByText("via GitHub Actions")).toBeInTheDocument();
+  expect(screen.getByText("GitHub Actions")).toBeInTheDocument();
   // uptime nunca é live (fonte é o GitHub Actions), e mesmo assim o painel
   // não ganha o badge "snapshot" — a origem dele é o badge próprio acima.
   expect(screen.queryByText("snapshot")).not.toBeInTheDocument();

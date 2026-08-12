@@ -96,12 +96,12 @@ export const caseStudy: CaseStudy = {
       },
       panels: {
         uptime: {
-          title: "uptime · 30d",
+          title: "uptime 30d",
           sub: "external probe every 5 min — opens an incident issue on its own",
-          source: "via GitHub Actions",
+          source: "GitHub Actions",
         },
         p95: {
-          title: "p95 latency · redirect",
+          title: "p95 · redirect",
           sub: "critical route /r/{slug}, last 24h",
         },
         errors: {
