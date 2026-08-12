@@ -53,6 +53,6 @@ describe("conteúdo", () => {
   });
   it("não contém vazamentos de nome real de projeto/infra nem notas de auditoria interna", () => {
     const raw = JSON.stringify(getContent("pt")) + JSON.stringify(getContent("en"));
-    expect(raw).not.toMatch(/itamaraty|e-?consular|harbor\.|\.local|sem evid[êe]ncia/i);
+    expect(raw).not.toMatch(/itamaraty|e-?consular|e-?folhas|harbor\.|\.local|sem evid[êe]ncia/i);
   });
 });
