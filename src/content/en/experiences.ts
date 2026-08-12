@@ -71,12 +71,13 @@ export const experiences: Experience[] = [
       "React",
       "Redux",
       "Context API",
+      "React Query",
       "TypeScript",
       "MSW",
       "Styled Components",
       "JWT",
       "Azure DevOps (Pipelines)",
-      "ESLint/tsc",
+      "ESLint/Prettier/tsc",
     ],
     projects: [
       {
@@ -98,10 +99,15 @@ export const experiences: Experience[] = [
       "TypeScript 4",
       "Laravel 8",
       "PHP 7.4/8.0",
+      "Eloquent (migrations, factories, API Resources)",
       "PostgreSQL 13",
+      "Docker",
+      "Portainer",
+      "Azure Pipelines",
+      "Git",
+      "ESLint/Prettier/tsc",
       "Jest",
       "PHPUnit 9",
-      "CI/CD pipeline",
     ],
     projects: [
       {
@@ -145,8 +151,14 @@ export const experiences: Experience[] = [
       "Adobe XD",
     ],
     projects: [
-      { name: "SECIC", description: "Internal information classification system" },
-      { name: "Pátria Voluntária", description: "Donation collection and distribution platform" },
+      {
+        name: "SECIC",
+        description: "Internal information classification system (federal government)",
+      },
+      {
+        name: "Pátria Voluntária",
+        description: "Donation collection and distribution platform (federal government program)",
+      },
     ],
   },
   {
@@ -197,13 +209,14 @@ export const experiences: Experience[] = [
     end: "2017-11",
     location: "Brasília-DF",
     stacks: [
-      "PHP",
+      "PHP 5.6",
       "MVC",
       "OOP",
       "Propel ORM",
+      "In-house framework (CLI, industry-standard docs)",
       "PHPDoc/PSRs",
       "Bootstrap",
-      "jQuery",
+      "jQuery + plugins (datepicker, carousel, charts)",
       "SASS",
       "SVN",
       "Linux",
