@@ -69,7 +69,11 @@ export async function Timeline({
               {experience.stacks.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {experience.stacks.map((stack) => (
-                    <Badge key={stack} variant="tech" className="h-auto max-w-full whitespace-normal">
+                    <Badge
+                      key={stack}
+                      variant="tech"
+                      className="h-auto max-w-full whitespace-normal"
+                    >
                       {stack}
                     </Badge>
                   ))}

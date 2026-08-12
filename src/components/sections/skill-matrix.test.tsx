@@ -103,9 +103,7 @@ describe("SkillMatrix", () => {
     const link = within(container).getByRole("link", { name: "ApexCharts — site oficial" });
     expect(link).toHaveTextContent("Data viz");
     expect(link).toHaveAttribute("href", "https://apexcharts.com");
-    expect(
-      within(container).queryByRole("link", { name: "Leaflet — site oficial" }),
-    ).toBeNull();
+    expect(within(container).queryByRole("link", { name: "Leaflet — site oficial" })).toBeNull();
   });
 
   it("não renderiza âncora em skill sem links", () => {

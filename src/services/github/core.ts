@@ -157,5 +157,10 @@ export async function fetchShowcase(
       });
     })
     .catch(() => null);
-  return githubShowcaseSchema.parse({ repos: repoResults, allRepos, latestRelease, source: "live" });
+  return githubShowcaseSchema.parse({
+    repos: repoResults,
+    allRepos,
+    latestRelease,
+    source: "live",
+  });
 }

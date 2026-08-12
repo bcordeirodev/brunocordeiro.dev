@@ -46,14 +46,18 @@ function renderSkillName(skill: Skill, officialSiteLabel: string): ReactNode {
   const parts = skill.name.split(NAME_SEPARATOR);
   const segmentCount = Math.ceil(parts.length / 2);
   if (segmentCount < links.length) {
-    return <SkillNameLink text={skill.name} link={firstLink} officialSiteLabel={officialSiteLabel} />;
+    return (
+      <SkillNameLink text={skill.name} link={firstLink} officialSiteLabel={officialSiteLabel} />
+    );
   }
 
   let linkIndex = 0;
   return parts.map((part, index) => {
     const link = index % 2 === 0 ? links[linkIndex++] : undefined;
     if (!link) return <Fragment key={index}>{part}</Fragment>;
-    return <SkillNameLink key={index} text={part} link={link} officialSiteLabel={officialSiteLabel} />;
+    return (
+      <SkillNameLink key={index} text={part} link={link} officialSiteLabel={officialSiteLabel} />
+    );
   });
 }
 

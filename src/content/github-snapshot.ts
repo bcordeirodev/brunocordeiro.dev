@@ -17,7 +17,8 @@ export const githubSnapshot: GithubShowcase = {
     },
     {
       name: "lawyer-hero-geovanna",
-      description: "Landing page for a law firm, built with Next.js 15, TypeScript and Tailwind CSS.",
+      description:
+        "Landing page for a law firm, built with Next.js 15, TypeScript and Tailwind CSS.",
       url: "https://github.com/bcordeirodev/lawyer-hero-geovanna",
       stars: 0,
       language: "TypeScript",
