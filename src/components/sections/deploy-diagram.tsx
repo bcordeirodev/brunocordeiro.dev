@@ -12,7 +12,7 @@ import type { DeployDiagram as Diagram } from "@/domain";
  *                         merge para tag cruza essa linha de propósito
  *   publicação  110..174  tag → build → ghcr → rsync
  *   cutover     214..420  nginx troca o upstream; green entra, blue drena
- *   decisões    452..560  por que a esteira é assim — a parte que o terminal
+ *   decisões    452..600  por que a esteira é assim — a parte que o terminal
  *                         logo abaixo executa mas nunca explica
  *
  * Colunas (x): gutter 0..80 · conteúdo 100..856 · eixo 478
@@ -104,7 +104,7 @@ export function DeployDiagram({ diagram, title }: { diagram: Diagram; title: str
         aria-label={title}
       >
         <svg
-          viewBox="0 0 900 588"
+          viewBox="0 0 900 628"
           className="h-auto w-full min-w-190 font-mono"
           role="img"
           aria-labelledby="dep-title"
@@ -154,7 +154,7 @@ export function DeployDiagram({ diagram, title }: { diagram: Diagram; title: str
             <text x={80} y={321}>
               {bands.cutover}
             </text>
-            <text x={80} y={506}>
+            <text x={80} y={526}>
               {bands.decisions}
             </text>
           </g>

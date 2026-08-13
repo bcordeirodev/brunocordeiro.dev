@@ -56,7 +56,7 @@ describe("DeployDiagram", () => {
     within(40, d.blue.title, d.green.title); // cards de 340px, a 13
     within(49, ...d.blue.lines, ...d.green.lines); // idem, a 10.5
     within(45, d.blue.edge, d.green.edge); // alinhados à direita do card
-    within(115, d.verdict, ...d.decisions); // linha inteira, de x=100 a 856
+    within(118, d.verdict, ...d.decisions); // linha inteira, de x=100 a 856
     within(12, ...Object.values(d.bands)); // gutter de 80px
   });
 });

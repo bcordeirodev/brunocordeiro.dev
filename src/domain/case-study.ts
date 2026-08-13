@@ -76,7 +76,7 @@ export const deployDiagramSchema = z.object({
   verdict: z.string().min(1),
   // O porquê de cada escolha da esteira — sem isso o desenho mostra o que
   // acontece e esconde a engenharia por trás.
-  decisions: z.array(z.string().min(1)).length(4),
+  decisions: z.array(z.string().min(1)).length(6),
   legend: z.object({ live: z.string().min(1), draining: z.string().min(1) }),
   scrollHint: z.string().min(1),
 });
