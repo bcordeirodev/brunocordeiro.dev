@@ -7,21 +7,49 @@ import { GrafanaBoard } from "@/components/sections/grafana-board";
 import { grafanaSnapshot } from "@/content/grafana-snapshot";
 import { Badge } from "@/components/ui/badge";
 
-// Corpo de leitura do case: um ponto menor que o padrão do site e com a
-// linha limitada — dentro do card a coluna tem ~780px, o que daria quase
-// 90 caracteres por linha se deixasse correr solta.
+// Corpo de leitura: um ponto menor que o padrão do site e com a medida
+// limitada — solto na largura da página daria quase 90 caracteres por linha.
 const PROSE = "max-w-[68ch] text-[15px]/relaxed text-muted";
 
-// Rótulo mono em caixa alta, usado tanto nos grupos da stack quanto nos
-// termos da lista de qualidade — os dois são pares rótulo/valor.
+// Rótulo mono em caixa alta para pares rótulo/valor: grupos da stack e
+// termos da lista de qualidade usam o mesmo.
 const EYEBROW = "font-mono text-xs tracking-[0.15em] text-muted uppercase";
 
 /**
- * Cada capítulo é um card: título dentro, separado do corpo por um filete.
- * Os painéis escuros (diagramas, terminal, Grafana) ficam embutidos nele —
- * o card é a superfície de leitura, o painel é o degrau recuado.
+ * Abertura de capítulo: o slug interrompe um filete que corre até a borda,
+ * e o título vem logo abaixo, sem moldura.
+ *
+ * O slug não é enfeite — é a âncora real da URL daquele trecho, então vale
+ * como link. E o gesto de um rótulo cortando uma linha é o mesmo que já
+ * acontece dentro dos desenhos (a etiqueta do DigitalOcean cortando a
+ * moldura do servidor, os badges do board do Grafana sobre a borda).
+ *
+ * Nada de fundo aqui: `bg-surface-deep` fica reservado para os painéis, que
+ * são a prova do capítulo. Se o texto também morasse numa caixa, os dois
+ * competiriam e o painel deixaria de ser o acontecimento da página.
  */
-function ChapterCard({
+function ChapterOpening({ id, title }: { id: string; title: string }) {
+  return (
+    <>
+      <div className="flex items-center gap-4">
+        <a
+          href={`#${id}`}
+          className="rounded-sm font-mono text-xs text-muted transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        >
+          #{id}
+        </a>
+        <span aria-hidden="true" className="h-px flex-1 bg-border" />
+      </div>
+      <h2 className="mt-4 text-2xl font-bold tracking-tight">{title}</h2>
+    </>
+  );
+}
+
+/**
+ * Espaço maior acima do filete do que abaixo do último bloco: o filete
+ * pertence ao capítulo que abre, não ao que acabou de terminar.
+ */
+function Chapter({
   id,
   title,
   children,
@@ -31,11 +59,9 @@ function ChapterCard({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 py-5">
-      <article className="rounded-xl border border-border/60 bg-surface/50 p-5 sm:p-8">
-        <h2 className="text-xl font-bold tracking-tight sm:text-2xl">{title}</h2>
-        <div className="mt-4 border-t border-border/60 pt-6">{children}</div>
-      </article>
+    <section id={id} className="scroll-mt-24 pt-14 pb-4">
+      <ChapterOpening id={id} title={title} />
+      <div className="mt-6">{children}</div>
     </section>
   );
 }
@@ -52,36 +78,36 @@ export function CaseChapter({
   switch (chapter.kind) {
     case "prose":
       return (
-        <ChapterCard id={chapter.id} title={chapter.title}>
+        <Chapter id={chapter.id} title={chapter.title}>
           {/* O desenho vem antes do texto: é a tese do capítulo, e os
               parágrafos detalham o que ele já mostrou. */}
           {chapter.architecture && (
             <ArchitectureDiagram diagram={chapter.architecture} title={chapter.title} />
           )}
           <div
-            className={`flex flex-col gap-4 ${PROSE} ${chapter.architecture ? "mt-6" : ""}`.trim()}
+            className={`flex flex-col gap-4 ${PROSE} ${chapter.architecture ? "mt-8" : ""}`.trim()}
           >
             {chapter.paragraphs.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
           </div>
-        </ChapterCard>
+        </Chapter>
       );
     case "terminal":
       return (
-        <ChapterCard id={chapter.id} title={chapter.title}>
+        <Chapter id={chapter.id} title={chapter.title}>
           <p className={PROSE}>{chapter.intro}</p>
           {/* Topologia primeiro, execução depois: o desenho diz o que são
               blue e green, o terminal mostra a esteira rodando. */}
           {chapter.deploy && <DeployDiagram diagram={chapter.deploy} title={chapter.title} />}
-          <div className="mt-6">
+          <div className="mt-8">
             <PipelineDiagramLazy lines={chapter.lines} title={chapter.title} />
           </div>
-        </ChapterCard>
+        </Chapter>
       );
     case "tags":
       return (
-        <ChapterCard id={chapter.id} title={chapter.title}>
+        <Chapter id={chapter.id} title={chapter.title}>
           <div className="flex flex-col gap-6">
             {chapter.groups.map((group) => (
               <div key={group.label} className="flex flex-col gap-2.5">
@@ -98,33 +124,38 @@ export function CaseChapter({
               </div>
             ))}
           </div>
-        </ChapterCard>
+        </Chapter>
       );
     case "grafana":
       return (
-        <ChapterCard id={chapter.id} title={chapter.title}>
+        <Chapter id={chapter.id} title={chapter.title}>
           <p className={PROSE}>{chapter.intro}</p>
-          <div className="mt-6">
+          <div className="mt-8">
             <GrafanaBoard
               chapter={chapter}
               stats={grafanaStats ?? grafanaSnapshot}
               locale={locale}
             />
           </div>
-        </ChapterCard>
+        </Chapter>
       );
     case "stats":
       return (
-        <ChapterCard id={chapter.id} title={chapter.title}>
-          <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
+        <Chapter id={chapter.id} title={chapter.title}>
+          {/* Ficha técnica: cada par ganha um filete no topo em vez de uma
+              caixa — mesma linguagem da abertura, sem fundo nenhum. */}
+          <dl className="grid gap-x-10 gap-y-7 sm:grid-cols-2">
             {chapter.items.map((item) => (
-              <div key={item.label} className="flex flex-col gap-1.5">
+              <div
+                key={item.label}
+                className="flex flex-col gap-1.5 border-t border-border/60 pt-3"
+              >
                 <dt className={EYEBROW}>{item.label}</dt>
                 <dd className="text-[15px]/relaxed text-foreground/90">{item.value}</dd>
               </div>
             ))}
           </dl>
-        </ChapterCard>
+        </Chapter>
       );
   }
 }
