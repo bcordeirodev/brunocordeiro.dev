@@ -2,7 +2,7 @@ import type { CaseStudy } from "@/domain";
 
 export const caseStudy: CaseStudy = {
   slug: "link-charts",
-  title: "Link Charts — a URL shortener with analytics, in production",
+  title: "Link Charts — case study",
   tagline:
     "A URL shortener with click analytics that I run solo in production since 2025 — Laravel, Next.js and blue/green deploys by tag",
   productUrl: "https://linkcharts.com.br",
@@ -12,7 +12,7 @@ export const caseStudy: CaseStudy = {
       id: "product",
       title: "System scope",
       paragraphs: [
-        "Link Charts is a URL shortener with analytics that I have run alone in production since 2025. Every click is enriched with geography, device, time and traffic-quality data, feeding five analytics dashboards.",
+        "Every click is enriched with geography, device, time and traffic quality before it is stored, and feeds five analytics dashboards.",
         "Beyond shortening, the product has redirects with Open Graph previews for WhatsApp and Telegram bots, an anti-fraud quality score per click, custom subdomains with a link-in-bio page, a public API, QR codes, reports with CSV export, and link passwords, expiration and scheduling. Monetization comes from AdSense and Google Ads.",
         "That adds up to about 1,929 commits of mine across 3 repositories between March 2025 and August 2026, alongside a full-time job, with 50 releases under independent semver per repository (backend at v2.16.0, frontend at v1.19.0).",
       ],
@@ -145,7 +145,7 @@ export const caseStudy: CaseStudy = {
     {
       kind: "grafana",
       id: "operations",
-      title: "Production metrics (Grafana Cloud)",
+      title: "Production metrics",
       intro:
         "The panels below consume the Prometheus API of my Grafana Cloud workspace, the same one monitoring Link Charts in production. When the API is unreachable, a panel degrades to a versioned snapshot and says so in its badge. Uptime comes from the external GitHub Actions probe.",
       board: {

@@ -2,7 +2,7 @@ import type { CaseStudy } from "@/domain";
 
 export const caseStudy: CaseStudy = {
   slug: "link-charts",
-  title: "Link Charts — encurtador de URL com analytics, em produção",
+  title: "Link Charts — estudo de caso",
   tagline:
     "Encurtador de URL com analytics de clique, que mantenho sozinho em produção desde 2025 — Laravel, Next.js e deploy blue/green por tag",
   productUrl: "https://linkcharts.com.br",
@@ -12,7 +12,7 @@ export const caseStudy: CaseStudy = {
       id: "product",
       title: "Escopo do sistema",
       paragraphs: [
-        "O Link Charts é um encurtador de URL com analytics que mantenho sozinho em produção desde 2025. Cada clique é enriquecido com dados de geografia, dispositivo, horário e qualidade de tráfego, e alimenta cinco dashboards de análise.",
+        "Cada clique é enriquecido com geografia, dispositivo, horário e qualidade de tráfego antes de ser gravado, e alimenta cinco dashboards de análise.",
         "Além do encurtamento, o produto tem redirect com preview Open Graph para os bots do WhatsApp e do Telegram, quality score anti-fraude por clique, subdomínios personalizados com página link-in-bio, API pública, QR codes, relatórios com export CSV e senha, expiração e agendamento de links. A monetização vem de AdSense e Google Ads.",
         "São cerca de 1.929 commits meus em 3 repositórios entre março de 2025 e agosto de 2026, em paralelo a um emprego em tempo integral, com 50 releases sob semver independente por repositório (backend em v2.16.0, frontend em v1.19.0).",
       ],
@@ -145,7 +145,7 @@ export const caseStudy: CaseStudy = {
     {
       kind: "grafana",
       id: "operations",
-      title: "Métricas de produção (Grafana Cloud)",
+      title: "Métricas de produção",
       intro:
         "Os painéis abaixo consomem a API Prometheus do meu workspace no Grafana Cloud, o mesmo que monitora o Link Charts em produção. Quando a API não responde, o painel degrada para um snapshot versionado e indica isso no badge. O uptime vem do probe externo no GitHub Actions.",
       board: {
