@@ -40,7 +40,9 @@ export function SelectionDialog({
         className="m-auto w-[calc(100vw-2rem)] max-w-lg rounded-xl border border-border bg-background p-0 text-foreground shadow-lg backdrop:bg-black/50 backdrop:backdrop-blur-sm"
       >
         <div className="flex items-center justify-between border-b border-border/50 px-6 py-4">
-          <h3 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">{titleLabel}</h3>
+          <h3 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
+            {titleLabel}
+          </h3>
           <button
             type="button"
             aria-label={closeLabel}
