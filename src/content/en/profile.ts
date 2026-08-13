@@ -9,7 +9,7 @@ export const profile: Profile = {
     "Senior full-stack developer in Brasília, Brazil — 10+ years from first commit to zero-downtime deploys, with TypeScript, Node.js, React, CI/CD and Kubernetes.",
   stackHighlights: ["TypeScript", "Node.js", "React", "Next.js", "Docker · K8s"],
   role: "Senior Full-Stack Developer",
-  languages: "Portuguese (native) · English — advanced (C1)",
+  languages: "Portuguese (native) · English — upper intermediate (B2)",
   location: "Brasília-DF, Brazil",
   email: "bcordeiro.dev@gmail.com",
   github: "https://github.com/bcordeirodev",
