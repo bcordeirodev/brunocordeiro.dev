@@ -4,7 +4,7 @@
 
 Portfólio pessoal bilíngue (`pt`/`en`), escrito para outros devs: em vez de listar
 tecnologias, mostra decisões de engenharia — arquitetura, testes, deploys sem
-downtime — com métricas reais extraídas do dia a dia como full-stack engineer.
+downtime — com métricas reais extraídas do dia a dia como Full Stack Engineer.
 
 ## Arquitetura
 

@@ -30,7 +30,7 @@ describe("domain schemas", () => {
     expect(
       experienceSchema.safeParse({
         company: "G4F",
-        role: "Full Stack Developer",
+        role: "Full Stack Engineer",
         employmentType: "freelance",
         start: "2022-03",
         end: null,

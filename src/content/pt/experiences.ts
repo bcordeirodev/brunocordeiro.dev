@@ -3,7 +3,7 @@ import type { Experience } from "@/domain";
 export const experiences: Experience[] = [
   {
     company: "G4F Soluções Corporativas",
-    role: "Desenvolvedor Full Stack",
+    role: "Full Stack Engineer",
     employmentType: "freelance",
     start: "2022-03",
     end: null,
@@ -90,7 +90,7 @@ export const experiences: Experience[] = [
   },
   {
     company: "Ebserh",
-    role: "Desenvolvedor Full Stack",
+    role: "Full Stack Engineer",
     employmentType: "freelance",
     start: "2021-09",
     end: "2022-06",
@@ -120,7 +120,7 @@ export const experiences: Experience[] = [
   },
   {
     company: "Basis Tecnologia",
-    role: "Desenvolvedor Full Stack",
+    role: "Full Stack Engineer",
     employmentType: "full-time",
     start: "2020-12",
     end: "2022-06",

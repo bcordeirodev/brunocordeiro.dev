@@ -2,13 +2,13 @@ import type { Profile } from "@/domain";
 
 export const profile: Profile = {
   name: "Bruno Cordeiro",
-  headline: "Desenvolvedor full-stack",
+  headline: "Full Stack Engineer",
   subheadline:
     "Há mais de 10 anos levo sistemas do primeiro commit à produção — hoje principalmente com TypeScript e Node, cuidando também do CI/CD e da infraestrutura (Docker, Kubernetes) que os mantém no ar.",
   metaDescription:
-    "Desenvolvedor full-stack sênior em Brasília — há 10+ anos do primeiro commit ao deploy sem downtime, com TypeScript, Node.js, React, CI/CD e Kubernetes.",
+    "Full Stack Engineer sênior em Brasília — há 10+ anos do primeiro commit ao deploy sem downtime, com TypeScript, Node.js, React, CI/CD e Kubernetes.",
   stackHighlights: ["TypeScript", "Node.js", "React", "Next.js", "Docker · K8s"],
-  role: "Desenvolvedor Full-Stack Sênior",
+  role: "Full Stack Engineer Sênior",
   languages: "Português (nativo) · Inglês intermediário-avançado (B2)",
   location: "Brasília-DF, Brasil",
   email: "bcordeiro.dev@gmail.com",
