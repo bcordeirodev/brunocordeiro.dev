@@ -26,6 +26,22 @@ export function absoluteUrl(path = ""): string {
   return `${SITE_URL}${path}`;
 }
 
+// Dimensões e id declarados em `src/app/[locale]/opengraph-image.tsx`.
+const OG_IMAGE = { id: "card", width: 1200, height: 630 } as const;
+
+/**
+ * URL absoluta da OG image do locale.
+ *
+ * Rotas que declaram `openGraph` explicitamente NÃO herdam a imagem da
+ * convenção de arquivo do segmento `[locale]` ancestral — o objeto `openGraph`
+ * do filho substitui o do pai por inteiro. Sem apontar a imagem aqui,
+ * `/[locale]/link-charts` e `/[locale]/cv` saíam sem `og:image` e todo
+ * compartilhamento delas renderizava como texto puro.
+ */
+export function ogImageUrl(locale: Locale): string {
+  return absoluteUrl(`${localizedPath(locale)}/opengraph-image/${OG_IMAGE.id}`);
+}
+
 /** hreflang → absolute URL map for a route, incl. `x-default`. */
 export function languageAlternates(path = ""): Record<string, string> {
   return {
@@ -66,7 +82,21 @@ export function buildPageMetadata({
       siteName: "Bruno Cordeiro",
       locale: OG_LOCALE[locale],
       type: "website",
+      images: [
+        {
+          url: ogImageUrl(locale),
+          width: OG_IMAGE.width,
+          height: OG_IMAGE.height,
+          type: "image/png",
+          alt: title,
+        },
+      ],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl(locale)],
+    },
   };
 }
