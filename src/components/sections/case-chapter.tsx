@@ -16,38 +16,13 @@ const PROSE = "max-w-[68ch] text-[15px]/relaxed text-muted";
 const EYEBROW = "font-mono text-xs tracking-[0.15em] text-muted uppercase";
 
 /**
- * Abertura de capítulo: o slug interrompe um filete que corre até a borda,
- * e o título vem logo abaixo, sem moldura.
+ * Cada capítulo é um card com o título dentro, separado do corpo por um
+ * filete.
  *
- * O slug não é enfeite — é a âncora real da URL daquele trecho, então vale
- * como link. E o gesto de um rótulo cortando uma linha é o mesmo que já
- * acontece dentro dos desenhos (a etiqueta do DigitalOcean cortando a
- * moldura do servidor, os badges do board do Grafana sobre a borda).
- *
- * Nada de fundo aqui: `bg-surface-deep` fica reservado para os painéis, que
- * são a prova do capítulo. Se o texto também morasse numa caixa, os dois
- * competiriam e o painel deixaria de ser o acontecimento da página.
- */
-function ChapterOpening({ id, title }: { id: string; title: string }) {
-  return (
-    <>
-      <div className="flex items-center gap-4">
-        <a
-          href={`#${id}`}
-          className="rounded-sm font-mono text-xs text-muted transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-        >
-          #{id}
-        </a>
-        <span aria-hidden="true" className="h-px flex-1 bg-border" />
-      </div>
-      <h2 className="mt-4 text-2xl font-bold tracking-tight">{title}</h2>
-    </>
-  );
-}
-
-/**
- * Espaço maior acima do filete do que abaixo do último bloco: o filete
- * pertence ao capítulo que abre, não ao que acabou de terminar.
+ * O contorno é só borda: nenhum preenchimento atrás de texto corrido. O
+ * `bg-surface-deep` continua significando uma coisa só — painel — então os
+ * diagramas, o terminal e o board do Grafana seguem sendo as únicas
+ * superfícies da página, e o card emoldura sem competir com eles.
  */
 function Chapter({
   id,
@@ -59,9 +34,11 @@ function Chapter({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 pt-14 pb-4">
-      <ChapterOpening id={id} title={title} />
-      <div className="mt-6">{children}</div>
+    <section id={id} className="scroll-mt-24 py-5">
+      <article className="rounded-xl border border-border/60 p-5 sm:p-8">
+        <h2 className="text-xl font-bold tracking-tight sm:text-2xl">{title}</h2>
+        <div className="mt-4 border-t border-border/60 pt-6">{children}</div>
+      </article>
     </section>
   );
 }
@@ -101,7 +78,7 @@ export function CaseChapter({
               blue e green, o terminal mostra a esteira rodando. */}
           {chapter.deploy && <DeployDiagram diagram={chapter.deploy} title={chapter.title} />}
           <div className="mt-8">
-            <PipelineDiagramLazy lines={chapter.lines} title={chapter.title} />
+            <PipelineDiagramLazy lines={chapter.lines} />
           </div>
         </Chapter>
       );

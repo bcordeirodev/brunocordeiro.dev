@@ -2,15 +2,15 @@ import type { CaseStudy } from "@/domain";
 
 export const caseStudy: CaseStudy = {
   slug: "link-charts",
-  title: "Link Charts — engenharia de ponta a ponta em produção",
+  title: "Link Charts — encurtador de URL com analytics, em produção",
   tagline:
-    "Um encurtador de URL com analytics avançado que criei e mantenho sozinho, em produção desde 2025",
+    "Encurtador de URL com analytics de clique, que mantenho sozinho em produção desde 2025 — Laravel, Next.js e deploy blue/green por tag",
   productUrl: "https://linkcharts.com.br",
   chapters: [
     {
       kind: "prose",
       id: "product",
-      title: "O produto",
+      title: "Escopo do sistema",
       paragraphs: [
         "O Link Charts é um encurtador de URL com analytics que mantenho sozinho em produção desde 2025. Cada clique é enriquecido com dados de geografia, dispositivo, horário e qualidade de tráfego, e alimenta cinco dashboards de análise.",
         "Além do encurtamento, o produto tem redirect com preview Open Graph para os bots do WhatsApp e do Telegram, quality score anti-fraude por clique, subdomínios personalizados com página link-in-bio, API pública, QR codes, relatórios com export CSV e senha, expiração e agendamento de links. A monetização vem de AdSense e Google Ads.",
@@ -72,9 +72,9 @@ export const caseStudy: CaseStudy = {
     {
       kind: "terminal",
       id: "workflow",
-      title: "Do commit ao merge — o gate de qualidade",
+      title: "Verificações de CI antes do merge",
       intro:
-        "Nenhum merge publica nada. Antes de integrar, cada push passa por este funil: hook local + CI com a suíte rodando duas vezes, em dois bancos.",
+        "Antes de integrar, cada push passa por um hook local e pelo CI, com a suíte rodando duas vezes em dois bancos diferentes. Merge não publica nada: deploy só nasce de tag.",
       lines: [
         "$ git checkout -b feat/quality-score",
         '$ git commit -m "feat(analytics): quality score por clique"',
@@ -89,9 +89,9 @@ export const caseStudy: CaseStudy = {
     {
       kind: "terminal",
       id: "pipeline",
-      title: "Deploy blue/green — 0s de downtime",
+      title: "Deploy blue/green por tag",
       intro:
-        "Publicar é um ato explícito: push de tag. A imagem builda no runner do GitHub (2m03s — nunca no servidor) e a troca de cor acontece sem derrubar uma request; downtime medido caiu de ~5min para 0s.",
+        "Publicar depende de um push de tag. A imagem builda no runner do GitHub em 2m03s, nunca no servidor, e a troca de cor acontece sem derrubar requisição: o downtime medido caiu de ~5min para 0s.",
       lines: [
         "$ git tag v2.16.0 && git push --tags",
         "▸ build: docker multi-stage → ghcr (cache gha) ......... ok",
@@ -139,13 +139,13 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "O OpenTelemetry exporta traces, métricas e logs para o Grafana Cloud via Grafana Alloy, com tail sampling que guarda 100% dos erros e das requisições lentas. Cada trace carrega o SHA do deploy, então uma regressão aponta direto para a release que a introduziu.",
         "Os logs saem em 8 canais por domínio, com redação automática de PII. Faro RUM cobre o frontend e o Pyroscope faz profiling contínuo do PHP. Os 4 dashboards e as 9 alert rules vivem como JSON no repositório; nada é configurado à mão na UI.",
-        "Fora da infra, um probe roda a cada 5 minutos e abre sozinho uma issue de incidente se o serviço cair — a rede de segurança para o outage que os alertas internos não veriam.",
+        "Fora da infra, um probe roda a cada 5 minutos e abre sozinho uma issue de incidente se o serviço cair — é o que cobre a queda total, em que os alertas internos não teriam de onde reportar.",
       ],
     },
     {
       kind: "grafana",
       id: "operations",
-      title: "Operação em números — direto do Grafana",
+      title: "Métricas de produção (Grafana Cloud)",
       intro:
         "Os painéis abaixo consomem a API Prometheus do meu workspace no Grafana Cloud, o mesmo que monitora o Link Charts em produção. Quando a API não responde, o painel degrada para um snapshot versionado e indica isso no badge. O uptime vem do probe externo no GitHub Actions.",
       board: {
@@ -186,7 +186,7 @@ export const caseStudy: CaseStudy = {
     {
       kind: "stats",
       id: "quality",
-      title: "Qualidade",
+      title: "Testes e análise estática",
       items: [
         { label: "Testes PHPUnit", value: "902 métodos em 133 arquivos (36 unit, 97 feature)" },
         {
@@ -213,23 +213,23 @@ export const caseStudy: CaseStudy = {
         "Em julho de 2026, um deploy do modelo antigo, com build no próprio servidor, devolveu 918 respostas HTTP 502 — uma delas para um visitante real. Foi o gatilho para reescrever o release como blue/green por tag, com warm-up, health check em loop e abort automático em falha.",
         "Um build-arg ausente no Dockerfile compilou as conversões do Google Ads como string vazia, e campanhas rodaram semanas sem registrar conversão. A correção virou gate de CI: um script compara os NEXT_PUBLIC_* usados no código com os ARG do Dockerfile e bloqueia o build se faltar algum.",
         "O IP do cliente era forjável nos logs e nos rate limiters. Corrigi com o real-ip do Cloudflare e deixei um teste automatizado para a falha não voltar despercebida.",
-        "A melhor evidência do blue/green veio de um deploy que quebrou no meio da esteira enquanto um medidor externo batia no site a cada 2 segundos: 156 de 156 amostras responderam 200. Release quebrado não derruba o site; ele só não acontece.",
+        "Um deploy quebrou no meio da esteira enquanto um medidor externo batia no site a cada 2 segundos: 156 de 156 amostras responderam 200 — o release falho aborta antes do cutover, então a versão no ar não é tocada.",
       ],
     },
     {
       kind: "prose",
       id: "ai-guardrails",
-      title: "Como foi construído: IA com guardrails",
+      title: "Desenvolvimento com agentes de IA",
       paragraphs: [
         "Construí o Link Charts num fluxo guiado por spec — brainstorm, design doc, plano, execução — usando agentes de IA para escrever a maior parte do código. Um arquivo de contexto de arquitetura versionado no repositório orienta os agentes, e ADRs e postmortems realimentam esse contexto ao longo do tempo.",
-        "A automação tem freio: o comando /ship leva do commit ao deploy com no máximo duas tentativas de autocorreção por etapa; se não resolver, para e devolve o controle para mim. Regras importantes viram teste de CI em vez de página de wiki.",
-        "O resultado são cerca de 1.929 commits solo em 17 meses sem abrir mão de qualidade: os mesmos 902 testes, PHPStan e zero warnings bloquearam merges o tempo todo.",
+        "O comando /ship leva do commit ao deploy com no máximo duas tentativas de autocorreção por etapa; se não resolver, ele para e devolve o controle para mim. Regra que precisa valer vira teste de CI, não página de wiki.",
+        "São cerca de 1.929 commits solo em 17 meses sob as mesmas travas: os 902 testes, o PHPStan e o limite de zero warnings bloquearam merges o tempo todo.",
       ],
     },
     {
       kind: "tags",
       id: "stack",
-      title: "Stack completa",
+      title: "Stack",
       groups: [
         {
           label: "Frontend",

@@ -2,15 +2,15 @@ import type { CaseStudy } from "@/domain";
 
 export const caseStudy: CaseStudy = {
   slug: "link-charts",
-  title: "Link Charts — end-to-end engineering in production",
+  title: "Link Charts — a URL shortener with analytics, in production",
   tagline:
-    "A URL shortener with advanced analytics that I built and maintain solo, in production since 2025",
+    "A URL shortener with click analytics that I run solo in production since 2025 — Laravel, Next.js and blue/green deploys by tag",
   productUrl: "https://linkcharts.com.br",
   chapters: [
     {
       kind: "prose",
       id: "product",
-      title: "The product",
+      title: "System scope",
       paragraphs: [
         "Link Charts is a URL shortener with analytics that I have run alone in production since 2025. Every click is enriched with geography, device, time and traffic-quality data, feeding five analytics dashboards.",
         "Beyond shortening, the product has redirects with Open Graph previews for WhatsApp and Telegram bots, an anti-fraud quality score per click, custom subdomains with a link-in-bio page, a public API, QR codes, reports with CSV export, and link passwords, expiration and scheduling. Monetization comes from AdSense and Google Ads.",
@@ -72,9 +72,9 @@ export const caseStudy: CaseStudy = {
     {
       kind: "terminal",
       id: "workflow",
-      title: "From commit to merge — the quality gate",
+      title: "CI checks before merge",
       intro:
-        "No merge publishes anything. Before integrating, every push goes through this funnel: local hook + CI running the whole suite twice, on two databases.",
+        "Before integrating, every push goes through a local hook and CI, with the suite running twice on two different databases. A merge publishes nothing: only a tag produces a deploy.",
       lines: [
         "$ git checkout -b feat/quality-score",
         '$ git commit -m "feat(analytics): per-click quality score"',
@@ -89,9 +89,9 @@ export const caseStudy: CaseStudy = {
     {
       kind: "terminal",
       id: "pipeline",
-      title: "Blue/green deploy — 0s of downtime",
+      title: "Blue/green deploy by tag",
       intro:
-        "Publishing is an explicit act: pushing a tag. The image builds on the GitHub runner (2m03s — never on the server) and the color swap happens without dropping a request; measured downtime went from ~5min to 0s.",
+        "Publishing takes a tag push. The image builds on the GitHub runner in 2m03s, never on the server, and the colour swap happens without dropping a request: measured downtime went from ~5min to 0s.",
       lines: [
         "$ git tag v2.16.0 && git push --tags",
         "▸ build: docker multi-stage → ghcr (gha cache) ......... ok",
@@ -139,13 +139,13 @@ export const caseStudy: CaseStudy = {
       paragraphs: [
         "OpenTelemetry exports traces, metrics and logs to Grafana Cloud through Grafana Alloy, with tail sampling that keeps 100% of errors and slow requests. Every trace carries the deploy SHA, so a regression points straight at the release that introduced it.",
         "Logs are split into 8 per-domain channels with automatic PII redaction. Faro RUM covers the frontend and Pyroscope continuously profiles the PHP. The 4 dashboards and 9 alert rules live as JSON in the repository; nothing is configured by hand in the UI.",
-        "Outside the infrastructure, a probe runs every 5 minutes and opens an incident issue on its own if the service goes down — the safety net for the outage internal alerts would never see.",
+        "Outside the infrastructure, a probe runs every 5 minutes and opens an incident issue on its own if the service goes down — it covers the total outage, where internal alerts would have nothing left to report from.",
       ],
     },
     {
       kind: "grafana",
       id: "operations",
-      title: "Operations in numbers — straight from Grafana",
+      title: "Production metrics (Grafana Cloud)",
       intro:
         "The panels below consume the Prometheus API of my Grafana Cloud workspace, the same one monitoring Link Charts in production. When the API is unreachable, a panel degrades to a versioned snapshot and says so in its badge. Uptime comes from the external GitHub Actions probe.",
       board: {
@@ -186,7 +186,7 @@ export const caseStudy: CaseStudy = {
     {
       kind: "stats",
       id: "quality",
-      title: "Quality",
+      title: "Tests and static analysis",
       items: [
         { label: "PHPUnit tests", value: "902 methods across 133 files (36 unit, 97 feature)" },
         {
@@ -213,23 +213,23 @@ export const caseStudy: CaseStudy = {
         "In July 2026, a deploy under the old model, built on the server itself, returned 918 HTTP 502 responses — one of them to a real visitor. That was the trigger to rewrite releases as tag-driven blue/green, with warm-up, health checks in a loop and automatic abort on failure.",
         "A missing build-arg in the Dockerfile compiled the Google Ads conversion labels as empty strings, and campaigns ran for weeks without registering a conversion. The fix became a CI gate: a script compares the NEXT_PUBLIC_* used in code against the Dockerfile's ARGs and blocks the build if any is missing.",
         "The client IP was spoofable in logs and rate limiters. I fixed it with Cloudflare's real-ip and left an automated test so the flaw can't slip back in unnoticed.",
-        "The best evidence for blue/green came from a deploy that broke mid-pipeline while an external meter hit the site every 2 seconds: 156 out of 156 samples answered 200. A broken release doesn't take the site down; it just never happens.",
+        "A deploy broke mid-pipeline while an external meter hit the site every 2 seconds: 156 out of 156 samples answered 200 — a failing release aborts before the cutover, so the running version is never touched.",
       ],
     },
     {
       kind: "prose",
       id: "ai-guardrails",
-      title: "How it was built: AI with guardrails",
+      title: "Development with AI agents",
       paragraphs: [
         "I built Link Charts in a spec-driven flow — brainstorm, design doc, plan, execution — using AI agents to write most of the code. A versioned architecture context file guides the agents, and ADRs and postmortems feed that context back over time.",
-        "The automation has brakes: the /ship command goes from commit to deploy with at most two self-correction attempts per step; if that fails, it stops and hands control back to me. Important rules become CI tests instead of wiki pages.",
-        "The result is about 1,929 solo commits in 17 months without trading away quality: the same 902 tests, PHPStan and zero warnings gated every merge.",
+        "The /ship command goes from commit to deploy with at most two self-correction attempts per step; if that fails, it stops and hands control back to me. A rule that has to hold becomes a CI test, not a wiki page.",
+        "That is about 1,929 solo commits in 17 months under the same gates: the 902 tests, PHPStan and the zero-warning limit blocked merges the whole way.",
       ],
     },
     {
       kind: "tags",
       id: "stack",
-      title: "Full stack",
+      title: "Stack",
       groups: [
         {
           label: "Frontend",
