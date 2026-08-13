@@ -26,13 +26,48 @@ export const caseStudy: CaseStudy = {
         "O frontend é Next.js 15 com React 19 e TypeScript estrito, TanStack Query, ISR com cache tags, i18n em dois idiomas, Auth0 e CSP/HSTS em middleware. Os gráficos usam ApexCharts e os mapas, Leaflet.",
         "A integração passa por proxy de rewrites, sem CORS, com JWT em cookie httpOnly e X-Request-Id propagado do navegador até o worker de fila para correlacionar logs de ponta a ponta.",
       ],
-      diagram: [
-        "Next.js 15 · React 19 · TypeScript",
-        "⇅  proxy por rewrites · JWT httpOnly · X-Request-Id",
-        "Laravel 12 · PHP 8.2",
-        "⇅  jobs assíncronos · cache · fila Redis",
-        "PostgreSQL 15 · Redis 7",
-      ],
+      architecture: {
+        caption: "O caminho de uma request, do navegador até o worker de fila.",
+        bands: { clients: "clientes", edge: "borda", app: "aplicação", data: "dados" },
+        clients: {
+          browser: { title: "Navegador", sub: "dashboards · link-in-bio" },
+          bots: { title: "Bots", sub: "WhatsApp · Telegram" },
+        },
+        edge: {
+          cdn: { title: "Cloudflare", sub: "TLS · CDN · real-ip do cliente" },
+          proxy: { title: "nginx", sub: "upstream blue/green · cutover sem downtime" },
+        },
+        web: {
+          title: "Next.js 15 · React 19",
+          lines: [
+            "App Router · TypeScript estrito",
+            "ISR com cache tags · TanStack Query",
+            "Auth0 · CSP/HSTS no middleware",
+            "ApexCharts · Leaflet",
+          ],
+        },
+        api: {
+          title: "Laravel 12 · PHP 8.2",
+          lines: ["Controller → Service → Repository", "injeção de dependência · API keys"],
+        },
+        host: "DigitalOcean · um droplet",
+        link: { top: "proxy por rewrites", bottom: "JWT httpOnly · sem CORS" },
+        hotPath: {
+          route: "/r/{slug}",
+          sub: "responde antes de rastrear",
+          human: "302 · humano",
+          bot: "HTML + OG · bot",
+        },
+        data: {
+          db: { title: "PostgreSQL 15", sub: "links · cliques · agregações" },
+          cache: { title: "Redis 7", sub: "cache · fila de jobs" },
+          worker: { title: "Worker de cliques", sub: "dedup_key com índice único" },
+          writeback: "grava o clique — retry não duplica",
+        },
+        trace: "X-Request-Id — propagado do navegador até o worker de fila",
+        legend: { sync: "síncrono", async: "assíncrono, depois da resposta" },
+        scrollHint: "arraste na horizontal para ver o diagrama inteiro",
+      },
     },
     {
       kind: "terminal",
@@ -68,6 +103,34 @@ export const caseStudy: CaseStudy = {
         "▸ health público: 200 medido do lado de fora (5×) ...... ok",
         "✔ v2.16.0 em produção — downtime: 0s · rollback = mesma esteira, tag antiga",
       ],
+      deploy: {
+        caption: "A esteira de release e a troca de cor atrás do nginx.",
+        bands: { pipeline: "esteira", cutover: "cutover", check: "verificação" },
+        steps: [
+          { title: "tag", sub: "git push --tags" },
+          { title: "build", sub: "runner GitHub · 2m03s" },
+          { title: "ghcr", sub: "imagem + cache gha" },
+          { title: "rsync", sub: "só artefatos, não o código" },
+        ],
+        proxy: { title: "nginx", sub: "cutover graceful do upstream" },
+        blue: {
+          title: "blue · versão anterior",
+          lines: ["deixa de receber requisições novas", "termina as que já estavam em voo"],
+          edge: "drain 30s → stop",
+        },
+        green: {
+          title: "green · versão nova",
+          lines: [
+            "warm-up: migrate retrocompatível + caches",
+            "/health em loop, até 30× a cada 2s",
+          ],
+          edge: "falhou? aborta e blue segue no ar",
+        },
+        verdict: "1.035/1.035 amostras com HTTP 200 durante o cutover — downtime medido: 0s",
+        rollback: "rollback é a mesma esteira, com a tag anterior — nada de caminho de emergência",
+        legend: { live: "no ar", draining: "drenando" },
+        scrollHint: "arraste na horizontal para ver o diagrama inteiro",
+      },
     },
     {
       kind: "prose",

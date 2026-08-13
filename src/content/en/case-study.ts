@@ -26,13 +26,48 @@ export const caseStudy: CaseStudy = {
         "The frontend is Next.js 15 with React 19 and strict TypeScript, TanStack Query, ISR with cache tags, two-language i18n, Auth0 and CSP/HSTS in middleware. Charts use ApexCharts; maps use Leaflet.",
         "Integration goes through rewrite proxying, with no CORS, JWT in an httpOnly cookie and X-Request-Id propagated from the browser to the queue worker to correlate logs end to end.",
       ],
-      diagram: [
-        "Next.js 15 · React 19 · TypeScript",
-        "⇅  proxy via rewrites · JWT httpOnly · X-Request-Id",
-        "Laravel 12 · PHP 8.2",
-        "⇅  async jobs · cache · Redis queue",
-        "PostgreSQL 15 · Redis 7",
-      ],
+      architecture: {
+        caption: "The path of one request, from the browser to the queue worker.",
+        bands: { clients: "clients", edge: "edge", app: "application", data: "data" },
+        clients: {
+          browser: { title: "Browser", sub: "dashboards · link-in-bio" },
+          bots: { title: "Bots", sub: "WhatsApp · Telegram" },
+        },
+        edge: {
+          cdn: { title: "Cloudflare", sub: "TLS · CDN · client real-ip" },
+          proxy: { title: "nginx", sub: "blue/green upstream · zero-downtime cutover" },
+        },
+        web: {
+          title: "Next.js 15 · React 19",
+          lines: [
+            "App Router · strict TypeScript",
+            "ISR with cache tags · TanStack Query",
+            "Auth0 · CSP/HSTS in middleware",
+            "ApexCharts · Leaflet",
+          ],
+        },
+        api: {
+          title: "Laravel 12 · PHP 8.2",
+          lines: ["Controller → Service → Repository", "dependency injection · API keys"],
+        },
+        host: "DigitalOcean · one droplet",
+        link: { top: "proxy via rewrites", bottom: "JWT httpOnly · no CORS" },
+        hotPath: {
+          route: "/r/{slug}",
+          sub: "responds before it tracks",
+          human: "302 · human",
+          bot: "HTML + OG · bot",
+        },
+        data: {
+          db: { title: "PostgreSQL 15", sub: "links · clicks · rollups" },
+          cache: { title: "Redis 7", sub: "cache · job queue" },
+          worker: { title: "Click worker", sub: "dedup_key with a unique index" },
+          writeback: "writes the click — a retry never duplicates",
+        },
+        trace: "X-Request-Id — propagated from the browser to the queue worker",
+        legend: { sync: "synchronous", async: "asynchronous, after the response" },
+        scrollHint: "drag sideways to see the whole diagram",
+      },
     },
     {
       kind: "terminal",
@@ -68,6 +103,34 @@ export const caseStudy: CaseStudy = {
         "▸ public health: 200 measured from the outside (5×) .... ok",
         "✔ v2.16.0 in production — downtime: 0s · rollback = same pipeline, older tag",
       ],
+      deploy: {
+        caption: "The release pipeline and the colour swap behind nginx.",
+        bands: { pipeline: "pipeline", cutover: "cutover", check: "verification" },
+        steps: [
+          { title: "tag", sub: "git push --tags" },
+          { title: "build", sub: "GitHub runner · 2m03s" },
+          { title: "ghcr", sub: "image + gha cache" },
+          { title: "rsync", sub: "artefacts only, never code" },
+        ],
+        proxy: { title: "nginx", sub: "graceful upstream cutover" },
+        blue: {
+          title: "blue · previous version",
+          lines: ["stops taking new requests", "finishes the ones still in flight"],
+          edge: "drain 30s → stop",
+        },
+        green: {
+          title: "green · new version",
+          lines: [
+            "warm-up: backward-compatible migrate + caches",
+            "/health in a loop, up to 30× every 2s",
+          ],
+          edge: "fails? it aborts and blue stays up",
+        },
+        verdict: "1,035/1,035 samples returned HTTP 200 during the cutover — measured downtime: 0s",
+        rollback: "rollback is the same pipeline with the older tag — no emergency path",
+        legend: { live: "live", draining: "draining" },
+        scrollHint: "drag sideways to see the whole diagram",
+      },
     },
     {
       kind: "prose",
