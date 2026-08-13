@@ -35,7 +35,7 @@ export async function Timeline({
 
   return (
     <div className="flex flex-col gap-8">
-      <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
+      <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
         {tNav("trajectory")}
       </h2>
       <ol className="flex flex-col gap-14">

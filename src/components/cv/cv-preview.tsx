@@ -24,7 +24,7 @@ function Chips({ items }: { items: string[] }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="flex flex-col gap-2">
-      <h3 className="border-b border-border/50 pb-1 font-mono text-xs tracking-[0.2em] text-muted uppercase">
+      <h3 className="border-b border-border/50 pb-1 font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
         {title}
       </h3>
       {children}

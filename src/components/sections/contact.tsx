@@ -11,7 +11,7 @@ export async function Contact({ profile }: { profile: Profile }) {
       {/* Same mono-eyebrow recipe as the other home-page section headings
           (AiStats, RepoGrid, Certifications) instead of a one-off text-3xl
           treatment, for a consistent h2 hierarchy across the page. */}
-      <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
+      <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
         {t("nav.contact")}
       </h2>
       <p className="font-mono text-lg text-accent">{profile.email}</p>

@@ -41,7 +41,7 @@ export async function AiStats({ stats, labels }: { stats: AiStatsData; labels: A
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">{labels.title}</h2>
+      <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">{labels.title}</h2>
 
       <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {metrics.map((metric) => (

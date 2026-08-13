@@ -18,7 +18,7 @@ export async function Certifications({
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
+      <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
         {tSections("certifications")}
       </h2>
       {education.length > 0 ? (

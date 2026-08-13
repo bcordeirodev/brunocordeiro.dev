@@ -13,7 +13,7 @@ export async function RepoGrid({ showcase }: { showcase: GithubShowcase }) {
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
+      <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
         {tSections("githubProjects")}
       </h2>
       <div className="grid gap-4 sm:grid-cols-2">
