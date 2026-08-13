@@ -51,10 +51,16 @@ export type ArchitectureDiagram = z.infer<typeof architectureDiagramSchema>;
 export const deployDiagramSchema = z.object({
   caption: z.string().min(1),
   bands: z.object({
-    pipeline: z.string().min(1),
+    integration: z.string().min(1),
+    publication: z.string().min(1),
     cutover: z.string().min(1),
-    check: z.string().min(1),
+    decisions: z.string().min(1),
   }),
+  // Faixa de contexto: o que acontece antes de existir uma tag. Fica curta
+  // de propósito — o capítulo anterior é que detalha o CI.
+  integration: z.array(z.string().min(1)).length(5),
+  // Rótulo da fronteira entre integrar e publicar.
+  gate: z.string().min(1),
   steps: z.array(architectureNodeSchema).length(4),
   proxy: architectureNodeSchema,
   blue: z.object({
@@ -68,7 +74,9 @@ export const deployDiagramSchema = z.object({
     edge: z.string().min(1),
   }),
   verdict: z.string().min(1),
-  rollback: z.string().min(1),
+  // O porquê de cada escolha da esteira — sem isso o desenho mostra o que
+  // acontece e esconde a engenharia por trás.
+  decisions: z.array(z.string().min(1)).length(4),
   legend: z.object({ live: z.string().min(1), draining: z.string().min(1) }),
   scrollHint: z.string().min(1),
 });

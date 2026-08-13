@@ -47,6 +47,8 @@ describe("DeployDiagram", () => {
     const within = (limit: number, ...values: string[]) => {
       for (const value of values) expect(value.length).toBeLessThanOrEqual(limit);
     };
+    within(18, ...d.integration); // chips de contexto, 133px a 11
+    within(50, d.gate); // tarja de 318px que interrompe o filete da fronteira
     within(18, ...d.steps.map((s) => s.title)); // chips de 169px, a 12.5
     within(27, ...d.steps.map((s) => s.sub)); // idem, a 10
     within(24, d.proxy.title);
@@ -54,7 +56,7 @@ describe("DeployDiagram", () => {
     within(40, d.blue.title, d.green.title); // cards de 340px, a 13
     within(49, ...d.blue.lines, ...d.green.lines); // idem, a 10.5
     within(45, d.blue.edge, d.green.edge); // alinhados à direita do card
-    within(100, d.verdict, d.rollback); // linha inteira de 756px
-    within(12, d.bands.pipeline, d.bands.cutover, d.bands.check); // gutter de 84px
+    within(115, d.verdict, ...d.decisions); // linha inteira, de x=100 a 856
+    within(12, ...Object.values(d.bands)); // gutter de 80px
   });
 });
