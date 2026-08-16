@@ -119,6 +119,26 @@ export const caseChapterSchema = z.discriminatedUnion("kind", [
       .min(1),
   }),
   z.object({
+    kind: z.literal("github"),
+    id: z.string(),
+    title: z.string(),
+    intro: z.string(),
+    labels: z.object({
+      commits: z.string().min(1),
+      tags: z.string().min(1),
+      latestTag: z.string().min(1),
+      lastPush: z.string().min(1),
+      languages: z.string().min(1),
+      viewRepo: z.string().min(1),
+      liveLabel: z.string().min(1),
+      snapshotLabel: z.string().min(1),
+    }),
+    repos: z.object({
+      frontend: z.object({ sub: z.string().min(1) }),
+      backend: z.object({ sub: z.string().min(1) }),
+    }),
+  }),
+  z.object({
     kind: z.literal("grafana"),
     id: z.string(),
     title: z.string(),

@@ -1,10 +1,12 @@
-import type { CaseChapter as CaseChapterType, GrafanaStats } from "@/domain";
+import type { CaseChapter as CaseChapterType, GrafanaStats, LinkchartsStats } from "@/domain";
 import type { Locale } from "@/content";
 import { PipelineDiagramLazy } from "@/components/terminal/pipeline-diagram-lazy";
 import { ArchitectureDiagram } from "@/components/sections/architecture-diagram";
 import { DeployDiagram } from "@/components/sections/deploy-diagram";
+import { GithubStatsBoard } from "@/components/sections/github-stats-board";
 import { GrafanaBoard } from "@/components/sections/grafana-board";
 import { grafanaSnapshot } from "@/content/grafana-snapshot";
+import { linkchartsStatsSnapshot } from "@/content/linkcharts-stats-snapshot";
 import { Badge } from "@/components/ui/badge";
 
 // Corpo de leitura: um ponto menor que o padrão do site e com a medida
@@ -34,10 +36,10 @@ function Chapter({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 py-5">
-      <article className="rounded-xl border border-border/60 p-5 sm:p-8">
+    <section id={id} className="scroll-mt-24 py-6">
+      <article className="rounded-2xl border border-border/60 p-6 sm:p-10">
         <h2 className="text-xl font-bold tracking-tight sm:text-2xl">{title}</h2>
-        <div className="mt-4 border-t border-border/60 pt-6">{children}</div>
+        <div className="mt-5 border-t border-border/40 pt-7">{children}</div>
       </article>
     </section>
   );
@@ -46,10 +48,12 @@ function Chapter({
 export function CaseChapter({
   chapter,
   grafanaStats,
+  linkchartsStats,
   locale = "pt",
 }: {
   chapter: CaseChapterType;
   grafanaStats?: GrafanaStats;
+  linkchartsStats?: LinkchartsStats;
   locale?: Locale;
 }) {
   switch (chapter.kind) {
@@ -103,6 +107,19 @@ export function CaseChapter({
           </div>
         </Chapter>
       );
+    case "github":
+      return (
+        <Chapter id={chapter.id} title={chapter.title}>
+          <p className={PROSE}>{chapter.intro}</p>
+          <div className="mt-8">
+            <GithubStatsBoard
+              chapter={chapter}
+              stats={linkchartsStats ?? linkchartsStatsSnapshot}
+              locale={locale}
+            />
+          </div>
+        </Chapter>
+      );
     case "grafana":
       return (
         <Chapter id={chapter.id} title={chapter.title}>
@@ -125,7 +142,7 @@ export function CaseChapter({
             {chapter.items.map((item) => (
               <div
                 key={item.label}
-                className="flex flex-col gap-1.5 border-t border-border/60 pt-3"
+                className="flex flex-col gap-1.5 border-t border-border/40 pt-3"
               >
                 <dt className={EYEBROW}>{item.label}</dt>
                 <dd className="text-[15px]/relaxed text-foreground/90">{item.value}</dd>

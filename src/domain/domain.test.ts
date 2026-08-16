@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { experienceSchema, siteContentSchema, skillSchema, grafanaStatsSchema } from "@/domain";
+import {
+  experienceSchema,
+  siteContentSchema,
+  skillSchema,
+  grafanaStatsSchema,
+  linkchartsStatsSchema,
+} from "@/domain";
 
 describe("domain schemas", () => {
   it("aceita skill com tags e rejeita skill sem tags", () => {
@@ -72,5 +78,34 @@ describe("grafanaStatsSchema", () => {
     };
     expect(() => grafanaStatsSchema.parse(valid)).not.toThrow();
     expect(() => grafanaStatsSchema.parse({ ...valid, uptime30dPct: 101 })).toThrow();
+  });
+});
+
+describe("linkchartsStatsSchema", () => {
+  const repo = {
+    name: "linkchart-frontend",
+    url: "https://github.com/bcordeirodev/linkchart-frontend",
+    commits: 1030,
+    tags: 27,
+    latestTag: "v1.19.0",
+    pushedAt: "2026-08-14T19:42:16Z",
+    languages: [
+      { name: "TypeScript", bytes: 2653943 },
+      { name: "CSS", bytes: 47241 },
+    ],
+  };
+  it("aceita stats dos dois repos e rejeita commits zerados ou linguagens vazias", () => {
+    const valid = {
+      frontend: repo,
+      backend: { ...repo, name: "linkchart-backend" },
+      source: "live",
+    };
+    expect(() => linkchartsStatsSchema.parse(valid)).not.toThrow();
+    expect(() =>
+      linkchartsStatsSchema.parse({ ...valid, frontend: { ...repo, commits: 0 } }),
+    ).toThrow();
+    expect(() =>
+      linkchartsStatsSchema.parse({ ...valid, backend: { ...repo, languages: [] } }),
+    ).toThrow();
   });
 });

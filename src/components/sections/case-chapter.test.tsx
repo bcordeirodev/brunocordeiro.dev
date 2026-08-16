@@ -65,3 +65,36 @@ it("renderiza capítulo grafana com o board (snapshot por default)", () => {
   // (p95, erros 5xx, req/min).
   expect(screen.getAllByText("snapshot")).toHaveLength(3);
 });
+
+it("renderiza capítulo github com o board dos repos (snapshot por default)", () => {
+  render(
+    <CaseChapter
+      chapter={{
+        kind: "github",
+        id: "github",
+        title: "Os repositórios em números",
+        intro: "intro dos repos",
+        labels: {
+          commits: "commits",
+          tags: "tags de release",
+          latestTag: "última tag",
+          lastPush: "último push",
+          languages: "linguagens",
+          viewRepo: "ver no GitHub",
+          liveLabel: "live",
+          snapshotLabel: "snapshot",
+        },
+        repos: {
+          frontend: { sub: "Next.js 15 · React 19 · TypeScript" },
+          backend: { sub: "Laravel 12 · PHP 8.2" },
+        },
+      }}
+    />,
+  );
+  expect(screen.getByRole("heading", { name: "Os repositórios em números" })).toBeInTheDocument();
+  expect(screen.getByText("intro dos repos")).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: /linkchart-frontend/ })).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: /linkchart-backend/ })).toBeInTheDocument();
+  // sem stats injetados, os números vêm do snapshot versionado
+  expect(screen.getAllByText("snapshot")).toHaveLength(2);
+});

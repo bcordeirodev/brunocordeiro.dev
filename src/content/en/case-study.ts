@@ -70,6 +70,28 @@ export const caseStudy: CaseStudy = {
       },
     },
     {
+      kind: "stats",
+      id: "quality",
+      title: "Tests and static analysis",
+      items: [
+        { label: "PHPUnit tests", value: "902 methods across 133 files (36 unit, 97 feature)" },
+        {
+          label: "CI database matrix",
+          value: "the suite runs 2× per push: SQLite and real PostgreSQL 15",
+        },
+        {
+          label: "Migrations",
+          value: "56, zero destructive — MigrationSafetyTest rejects dropColumn in up()",
+        },
+        { label: "Static analysis", value: "PHPStan/Larastan level 5 with baseline" },
+        { label: "E2E", value: "Playwright, 6 projects (320/375/desktop × public/authenticated)" },
+        {
+          label: "Abuse & resilience",
+          value: "16 named rate limiters + IP spoofing and queue retry tests",
+        },
+      ],
+    },
+    {
       kind: "terminal",
       id: "workflow",
       title: "CI checks before merge",
@@ -198,28 +220,6 @@ export const caseStudy: CaseStudy = {
       },
     },
     {
-      kind: "stats",
-      id: "quality",
-      title: "Tests and static analysis",
-      items: [
-        { label: "PHPUnit tests", value: "902 methods across 133 files (36 unit, 97 feature)" },
-        {
-          label: "CI database matrix",
-          value: "the suite runs 2× per push: SQLite and real PostgreSQL 15",
-        },
-        {
-          label: "Migrations",
-          value: "56, zero destructive — MigrationSafetyTest rejects dropColumn in up()",
-        },
-        { label: "Static analysis", value: "PHPStan/Larastan level 5 with baseline" },
-        { label: "E2E", value: "Playwright, 6 projects (320/375/desktop × public/authenticated)" },
-        {
-          label: "Abuse & resilience",
-          value: "16 named rate limiters + IP spoofing and queue retry tests",
-        },
-      ],
-    },
-    {
       kind: "prose",
       id: "postmortems",
       title: "Postmortems",
@@ -239,6 +239,27 @@ export const caseStudy: CaseStudy = {
         "The /ship command goes from commit to deploy with at most two self-correction attempts per step; if that fails, it stops and hands control back to me. A rule that has to hold becomes a CI test, not a wiki page.",
         "That is about 1,929 solo commits in 17 months under the same gates: the 902 tests, PHPStan and the zero-warning limit blocked merges the whole way.",
       ],
+    },
+    {
+      kind: "github",
+      id: "github",
+      title: "The repositories in numbers",
+      intro:
+        "Both product repositories are public. The numbers below come straight from the GitHub API — commits and tags counted via the pagination header, languages by byte share of the code.",
+      labels: {
+        commits: "commits",
+        tags: "git tags",
+        latestTag: "latest tag",
+        lastPush: "last push",
+        languages: "languages",
+        viewRepo: "view on GitHub",
+        liveLabel: "live",
+        snapshotLabel: "snapshot",
+      },
+      repos: {
+        frontend: { sub: "Next.js 15 · React 19 · TypeScript" },
+        backend: { sub: "Laravel 12 · PHP 8.2" },
+      },
     },
     {
       kind: "tags",

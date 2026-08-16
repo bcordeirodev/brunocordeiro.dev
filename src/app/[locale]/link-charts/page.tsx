@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getContent, type Locale } from "@/content";
-import { getGithubShowcase } from "@/services/github";
+import { getGithubShowcase, getLinkchartsStats } from "@/services/github";
 import { getGrafanaStats } from "@/services/grafana";
 import { formatYearMonth } from "@/lib/dates";
 import { buildPageMetadata } from "@/lib/site";
@@ -32,7 +32,11 @@ export default async function LinkChartsPage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
   const { caseStudy } = getContent(locale);
-  const [showcase, grafanaStats] = await Promise.all([getGithubShowcase(), getGrafanaStats()]);
+  const [showcase, grafanaStats, linkchartsStats] = await Promise.all([
+    getGithubShowcase(),
+    getGrafanaStats(),
+    getLinkchartsStats(),
+  ]);
 
   const t = await getTranslations({ locale, namespace: "caseStudyPage" });
   const tCommon = await getTranslations({ locale, namespace: "common" });
@@ -41,7 +45,7 @@ export default async function LinkChartsPage({ params }: { params: Promise<{ loc
     <>
       <SiteHeader />
       <main className="mx-auto max-w-4xl px-6">
-        <section className="py-24">
+        <section className="pt-24 pb-14">
           <Reveal>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{caseStudy.title}</h1>
             <p className="mt-4 max-w-2xl text-lg text-muted">{caseStudy.tagline}</p>
@@ -69,11 +73,16 @@ export default async function LinkChartsPage({ params }: { params: Promise<{ loc
 
         {caseStudy.chapters.map((chapter) => (
           <Reveal key={chapter.id}>
-            <CaseChapter chapter={chapter} grafanaStats={grafanaStats} locale={locale} />
+            <CaseChapter
+              chapter={chapter}
+              grafanaStats={grafanaStats}
+              linkchartsStats={linkchartsStats}
+              locale={locale}
+            />
           </Reveal>
         ))}
 
-        <section className="flex flex-col items-start gap-4 py-24">
+        <section className="flex flex-col items-start gap-4 pt-10 pb-24">
           <Reveal>
             <TransitionLink
               href="/#contato"

@@ -70,6 +70,28 @@ export const caseStudy: CaseStudy = {
       },
     },
     {
+      kind: "stats",
+      id: "quality",
+      title: "Testes e análise estática",
+      items: [
+        { label: "Testes PHPUnit", value: "902 métodos em 133 arquivos (36 unit, 97 feature)" },
+        {
+          label: "Matriz de banco no CI",
+          value: "a suíte roda 2× por push: SQLite e PostgreSQL 15 real",
+        },
+        {
+          label: "Migrations",
+          value: "56, zero destrutivas — MigrationSafetyTest reprova dropColumn no up()",
+        },
+        { label: "Análise estática", value: "PHPStan/Larastan nível 5 com baseline" },
+        { label: "E2E", value: "Playwright, 6 projects (320/375/desktop × público/autenticado)" },
+        {
+          label: "Abuso e resiliência",
+          value: "16 rate limiters nomeados + testes de IP spoofing e retry de fila",
+        },
+      ],
+    },
+    {
       kind: "terminal",
       id: "workflow",
       title: "Verificações de CI antes do merge",
@@ -198,28 +220,6 @@ export const caseStudy: CaseStudy = {
       },
     },
     {
-      kind: "stats",
-      id: "quality",
-      title: "Testes e análise estática",
-      items: [
-        { label: "Testes PHPUnit", value: "902 métodos em 133 arquivos (36 unit, 97 feature)" },
-        {
-          label: "Matriz de banco no CI",
-          value: "a suíte roda 2× por push: SQLite e PostgreSQL 15 real",
-        },
-        {
-          label: "Migrations",
-          value: "56, zero destrutivas — MigrationSafetyTest reprova dropColumn no up()",
-        },
-        { label: "Análise estática", value: "PHPStan/Larastan nível 5 com baseline" },
-        { label: "E2E", value: "Playwright, 6 projects (320/375/desktop × público/autenticado)" },
-        {
-          label: "Abuso e resiliência",
-          value: "16 rate limiters nomeados + testes de IP spoofing e retry de fila",
-        },
-      ],
-    },
-    {
       kind: "prose",
       id: "postmortems",
       title: "Postmortems",
@@ -239,6 +239,27 @@ export const caseStudy: CaseStudy = {
         "O comando /ship leva do commit ao deploy com no máximo duas tentativas de autocorreção por etapa; se não resolver, ele para e devolve o controle para mim. Regra que precisa valer vira teste de CI, não página de wiki.",
         "São cerca de 1.929 commits solo em 17 meses sob as mesmas travas: os 902 testes, o PHPStan e o limite de zero warnings bloquearam merges o tempo todo.",
       ],
+    },
+    {
+      kind: "github",
+      id: "github",
+      title: "Os repositórios em números",
+      intro:
+        "Os dois repositórios do produto são públicos. Os números abaixo vêm direto da API do GitHub — commits e tags contados pelo header de paginação, linguagens pela proporção de bytes no código.",
+      labels: {
+        commits: "commits",
+        tags: "tags no git",
+        latestTag: "última tag",
+        lastPush: "último push",
+        languages: "linguagens",
+        viewRepo: "ver no GitHub",
+        liveLabel: "live",
+        snapshotLabel: "snapshot",
+      },
+      repos: {
+        frontend: { sub: "Next.js 15 · React 19 · TypeScript" },
+        backend: { sub: "Laravel 12 · PHP 8.2" },
+      },
     },
     {
       kind: "tags",
