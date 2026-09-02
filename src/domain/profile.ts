@@ -15,7 +15,7 @@ export const profileSchema = z.object({
   metaDescription: z.string().min(80).max(170), // description SERP/OG — alvo ~150 chars, com keywords da stack
   stackHighlights: z.array(z.string().min(1).max(18)).min(3).max(6), // chips da OG image (≤18 chars cabem no card)
   role: z.string().min(1), // ex.: "Full Stack Engineer Sênior" — cargo/senioridade indexável
-  languages: z.string().min(1), // ex.: "Português (nativo) · Inglês intermediário-avançado (B2)"
+  languages: z.string().min(1), // ex.: "Português — nativo · Inglês — B1, quase B2"
   location: z.string().min(1), // "Brasília-DF, Brasil" — NUNCA endereço completo
   email: z.string().email(),
   github: z.string().url(),
