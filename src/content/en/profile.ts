@@ -3,8 +3,11 @@ import type { Profile } from "@/domain";
 export const profile: Profile = {
   name: "Bruno Cordeiro",
   headline: "Full Stack Engineer",
+  // Autodescrição em primeira pessoa escrita pelo Bruno, sem o rótulo "Senior"
+  // (o cargo indexável não o usa) e sem a frase sobre o nível de inglês — esse
+  // dado é objetivo e vive em `languages`, no bloco de contato e no CV.
   pitch:
-    "I build and operate production systems from the first commit to deployment — backend architecture, reliable APIs and zero-downtime delivery, mostly with TypeScript and Node.js.",
+    "I'm a Full Stack Engineer with over 10 years of experience building software systems across the full stack, from front-end and back-end development to CI/CD pipelines and cloud infrastructure using Docker and Kubernetes. I currently work primarily with TypeScript and Node.js, with a strong focus on building scalable and maintainable applications.",
   availability: "Open to remote international roles · UTC−3",
   metaDescription:
     "Full Stack Engineer in Brazil — 10+ years building and operating production systems with TypeScript, Node.js, React, CI/CD and Kubernetes. Open to remote roles.",

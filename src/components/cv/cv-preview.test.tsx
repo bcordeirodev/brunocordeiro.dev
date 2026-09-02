@@ -22,6 +22,9 @@ describe("CvPreview", () => {
   it("usa o headline como cargo, sem marcador de senioridade", () => {
     const data = buildCvData(content, defaultSelection(content), "pt");
     render(<CvPreview data={data} locale="pt" labels={testLabels} />);
+    // `role` e `headline` são a mesma string hoje, então não dá para afirmar
+    // que o cargo está ausente; o que precisa valer é: nenhum marcador de
+    // senioridade em lugar nenhum do preview, resumo incluído.
     expect(screen.getByText(content.profile.headline)).toBeInTheDocument();
     expect(screen.queryByText(/s[eê]nior/i)).not.toBeInTheDocument();
   });
