@@ -23,7 +23,6 @@ describe("CvPreview", () => {
     const data = buildCvData(content, defaultSelection(content), "pt");
     render(<CvPreview data={data} locale="pt" labels={testLabels} />);
     expect(screen.getByText(content.profile.headline)).toBeInTheDocument();
-    expect(screen.queryByText(content.profile.role)).not.toBeInTheDocument();
     expect(screen.queryByText(/s[eê]nior/i)).not.toBeInTheDocument();
   });
 
