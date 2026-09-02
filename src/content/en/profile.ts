@@ -5,8 +5,7 @@ export const profile: Profile = {
   headline: "Full Stack Engineer",
   pitch:
     "I build and operate production systems from the first commit to deployment — backend architecture, reliable APIs and zero-downtime delivery, mostly with TypeScript and Node.js.",
-  availability:
-    "10+ years of experience · Brasília, Brazil (UTC−3) · Open to remote international roles",
+  availability: "Open to remote international roles · UTC−3",
   metaDescription:
     "Full Stack Engineer in Brazil — 10+ years building and operating production systems with TypeScript, Node.js, React, CI/CD and Kubernetes. Open to remote roles.",
   stackHighlights: ["TypeScript", "Node.js", "React", "Next.js", "Docker · K8s"],

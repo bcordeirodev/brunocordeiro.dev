@@ -16,7 +16,8 @@ export async function RepoGrid({ showcase }: { showcase: GithubShowcase }) {
       <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
         {tSections("githubProjects")}
       </h2>
-      <div className="grid gap-4 sm:grid-cols-2">
+      {/* Set em destaque tem 3 repos (ver FEATURED_COUNT): 3 colunas evita órfão numa linha só. */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {showcase.repos.map((repo) => (
           <a
             key={repo.name}

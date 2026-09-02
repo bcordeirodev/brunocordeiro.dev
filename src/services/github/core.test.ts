@@ -1,8 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
-import { fetchLinkchartsStats, fetchShowcase, SHOWCASE_REPOS } from "./core";
+import { fetchLinkchartsStats, fetchShowcase, FEATURED_COUNT, SHOWCASE_REPOS } from "./core";
+import { githubSnapshot } from "@/content/github-snapshot";
 
-it("a allowlist de destaque tem exatamente 3 repos", () => {
+it("a allowlist de destaque e o snapshot versionado têm exatamente FEATURED_COUNT repos", () => {
   expect(SHOWCASE_REPOS).toEqual(["medFlow", "lawyer-hero-envato", "print-shop-manager"]);
+  expect(SHOWCASE_REPOS).toHaveLength(FEATURED_COUNT);
+  expect(githubSnapshot.repos).toHaveLength(FEATURED_COUNT);
 });
 
 const repoPayload = (name: string) => ({

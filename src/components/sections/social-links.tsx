@@ -1,6 +1,6 @@
-// Shared by Hero and Contact — same GitHub/LinkedIn links, same styling.
-// Kept as one component so a future tweak (icon, tracking, hover style)
-// only has to happen once instead of being replicated by hand in both places.
+// Hoje só o Contact usa este componente. O hero renderiza seu próprio link do
+// LinkedIn porque a linha de ações mistura estilos de botão e de link — não
+// dá pra compartilhar o mesmo par GitHub/LinkedIn sem quebrar esse layout.
 export function SocialLinks({ github, linkedin }: { github: string; linkedin: string }) {
   return (
     <>
