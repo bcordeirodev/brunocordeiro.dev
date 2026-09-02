@@ -46,7 +46,8 @@ export function CvPreview({
     <article className="flex flex-col gap-6 rounded-lg border border-border/50 bg-background p-6 text-sm">
       <header className="flex flex-col gap-1">
         <h2 className="text-2xl font-bold tracking-tight">{profile.name}</h2>
-        <p className="text-muted">{profile.role}</p>
+        {/* Espelha o PDF: headline sem marcador de senioridade. */}
+        <p className="text-muted">{profile.headline}</p>
         <p className="text-xs text-muted">
           <span>{profile.email}</span> · {profile.location} · {profile.languages}
         </p>

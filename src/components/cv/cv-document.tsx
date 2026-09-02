@@ -110,7 +110,9 @@ export function CvDocument({
     <Document title={`${profile.name} — CV`} author={profile.name}>
       <Page size="A4" style={styles.page}>
         <Text style={styles.name}>{profile.name}</Text>
-        <Text style={styles.role}>{profile.role}</Text>
+        {/* `headline` em vez de `role`: o CV sai sem marcador de senioridade
+            ("Full Stack Engineer"), que segue só no título e no OG do site. */}
+        <Text style={styles.role}>{profile.headline}</Text>
         <Text style={styles.contact}>
           <Link style={styles.link} src={`mailto:${profile.email}`}>
             {profile.email}

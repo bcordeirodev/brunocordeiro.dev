@@ -19,6 +19,14 @@ describe("CvPreview", () => {
     expect(screen.getByText(content.experiences[0]!.company, { exact: false })).toBeInTheDocument();
   });
 
+  it("usa o headline como cargo, sem marcador de senioridade", () => {
+    const data = buildCvData(content, defaultSelection(content), "pt");
+    render(<CvPreview data={data} locale="pt" labels={testLabels} />);
+    expect(screen.getByText(content.profile.headline)).toBeInTheDocument();
+    expect(screen.queryByText(content.profile.role)).not.toBeInTheDocument();
+    expect(screen.queryByText(/s[eê]nior/i)).not.toBeInTheDocument();
+  });
+
   it("omite seção nula mas mantém contatos", () => {
     const sel = defaultSelection(content);
     sel.sections.experiences = false;
