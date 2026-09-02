@@ -20,9 +20,6 @@ describe("sitemap", () => {
     expect(home?.alternates?.languages).toHaveProperty("pt");
     expect(home?.alternates?.languages).toHaveProperty("pt-BR");
     expect(home?.alternates?.languages).toHaveProperty("en");
-    expect(home?.alternates?.languages).toHaveProperty(
-      "x-default",
-      "https://brunocordeiro.dev/en",
-    );
+    expect(home?.alternates?.languages).toHaveProperty("x-default", "https://brunocordeiro.dev/en");
   });
 });
