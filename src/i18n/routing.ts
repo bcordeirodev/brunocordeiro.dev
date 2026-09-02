@@ -2,9 +2,10 @@ import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
   locales: ["pt", "en"],
-  defaultLocale: "pt",
+  defaultLocale: "en",
   localePrefix: "always",
-  // pt is the canonical entry locale regardless of the visitor's browser
-  // language; users switch to /en explicitly via the locale switcher.
+  // en é o locale de entrada (público-alvo internacional), sem detecção
+  // pelo idioma do navegador; o visitante troca para /pt pelo switcher.
+  // Prefixo sempre presente: todas as URLs /pt/... seguem válidas.
   localeDetection: false,
 });

@@ -3,7 +3,7 @@ import { locales, type Locale } from "@/content";
 
 export const SITE_URL = "https://brunocordeiro.dev";
 
-export const defaultLocale: Locale = "pt";
+export const defaultLocale: Locale = "en";
 
 const OG_LOCALE: Record<Locale, string> = { pt: "pt_BR", en: "en_US" };
 

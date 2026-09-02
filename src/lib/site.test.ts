@@ -2,12 +2,12 @@ import { describe, expect, it } from "vitest";
 import { buildPageMetadata, languageAlternates, languageTag, ogImageUrl, SITE_URL } from "./site";
 
 describe("languageAlternates", () => {
-  it("emite pt, pt-BR, en e x-default", () => {
+  it("emite pt, pt-BR, en e x-default (en é o locale padrão)", () => {
     const alt = languageAlternates("");
     expect(alt["pt"]).toBe(`${SITE_URL}/pt`);
     expect(alt["pt-BR"]).toBe(`${SITE_URL}/pt`);
     expect(alt["en"]).toBe(`${SITE_URL}/en`);
-    expect(alt["x-default"]).toBe(`${SITE_URL}/pt`);
+    expect(alt["x-default"]).toBe(`${SITE_URL}/en`);
   });
   it("propaga o path para todas as línguas", () => {
     const alt = languageAlternates("/link-charts");

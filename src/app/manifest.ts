@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Bruno Cordeiro — Full Stack Engineer Sênior",
+    name: "Bruno Cordeiro — Full Stack Engineer",
     short_name: "Bruno Cordeiro",
-    start_url: "/pt",
+    start_url: "/en",
     display: "standalone",
     background_color: "#09090b",
     theme_color: "#09090b",
