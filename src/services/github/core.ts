@@ -9,16 +9,11 @@ import {
   type LinkchartsStats,
 } from "@/domain";
 
-// Curated fallback shown when the profile has no pinned repos (or no token
-// for the GraphQL pinned query — e.g. local dev). Pins take precedence.
-export const SHOWCASE_REPOS = [
-  "medFlow",
-  "lawyer-hero-envato",
-  "rent-landingpage",
-  "print-shop-manager",
-  "flutter-iesb-app",
-  "internal-management-system",
-] as const;
+// 3 repos em destaque no grid da home. Pins do perfil têm precedência (até
+// FEATURED_COUNT); esta allowlist é o fallback sem pins ou sem token
+// (ex.: dev local). O catálogo completo continua no diálogo "ver todos".
+export const FEATURED_COUNT = 3;
+export const SHOWCASE_REPOS = ["medFlow", "lawyer-hero-envato", "print-shop-manager"] as const;
 const OWNER = "bcordeirodev";
 const RELEASE_REPO = "linkchart-backend";
 // Profile-config repo (README do perfil), sem valor de portfólio no catálogo.
@@ -162,7 +157,7 @@ export async function fetchShowcase(
 ): Promise<GithubShowcase> {
   // GitHub's GraphQL API (the only way to read profile pins) always requires
   // auth, so without a token we go straight to the curated REST allowlist.
-  const pinned = token ? await fetchPinnedRepos(fetchFn, token) : [];
+  const pinned = token ? (await fetchPinnedRepos(fetchFn, token)).slice(0, FEATURED_COUNT) : [];
   const [repoResults, allRepos] = await Promise.all([
     pinned.length > 0 ? Promise.resolve(pinned) : fetchAllowlistRepos(fetchFn, token),
     fetchAllRepos(fetchFn, token),

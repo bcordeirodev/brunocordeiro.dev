@@ -7,6 +7,15 @@ import type { GithubShowcase } from "@/domain";
 export const githubSnapshot: GithubShowcase = {
   repos: [
     {
+      name: "medFlow",
+      description:
+        "Medical practice management platform: patients, prescriptions and clinical documents.",
+      url: "https://github.com/bcordeirodev/medFlow",
+      stars: 0,
+      language: "TypeScript",
+      pushedAt: "2025-08-15T13:50:53Z",
+    },
+    {
       name: "lawyer-hero-envato",
       description:
         "Professional landing page template for lawyers, built with Next.js 15, TypeScript and Tailwind CSS.",
@@ -16,30 +25,13 @@ export const githubSnapshot: GithubShowcase = {
       pushedAt: "2025-08-10T14:18:37Z",
     },
     {
-      name: "lawyer-hero-geovanna",
+      name: "print-shop-manager",
       description:
-        "Landing page for a law firm, built with Next.js 15, TypeScript and Tailwind CSS.",
-      url: "https://github.com/bcordeirodev/lawyer-hero-geovanna",
-      stars: 0,
-      language: "TypeScript",
-      pushedAt: "2025-11-23T20:09:16Z",
-    },
-    {
-      name: "rent-landingpage",
-      description:
-        "SEO-optimized landing page for a chair rental service, built with Next.js 14 and Tailwind CSS.",
-      url: "https://github.com/bcordeirodev/rent-landingpage",
-      stars: 0,
-      language: "TypeScript",
-      pushedAt: "2025-12-18T18:49:58Z",
-    },
-    {
-      name: "acerbrag",
-      description: "Loyalty and rewards program platform built with PHP (Optimuz framework).",
-      url: "https://github.com/bcordeirodev/acerbrag",
+        "Print shop management system for material control and printing workflows. Laravel + Blade.",
+      url: "https://github.com/bcordeirodev/print-shop-manager",
       stars: 0,
       language: "PHP",
-      pushedAt: "2026-08-12T16:12:18Z",
+      pushedAt: "2026-08-12T15:41:29Z",
     },
   ],
   // Sem catálogo no fallback: o botão "ver todos" só aparece com dados vivos.

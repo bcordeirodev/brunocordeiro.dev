@@ -1,6 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
 import { fetchLinkchartsStats, fetchShowcase, SHOWCASE_REPOS } from "./core";
 
+it("a allowlist de destaque tem exatamente 3 repos", () => {
+  expect(SHOWCASE_REPOS).toEqual(["medFlow", "lawyer-hero-envato", "print-shop-manager"]);
+});
+
 const repoPayload = (name: string) => ({
   name,
   description: "d",
@@ -68,7 +72,7 @@ describe("fetchShowcase", () => {
     await expect(fetchShowcase(fetchFn as unknown as typeof fetch, undefined)).rejects.toThrow();
   });
 
-  it("usa os pinned repos do perfil quando há token e pins", async () => {
+  it("usa até 3 pinned repos do perfil quando há token e pins", async () => {
     const pinnedNode = (name: string) => ({
       name,
       description: "pinned",
@@ -84,7 +88,14 @@ describe("fetchShowcase", () => {
             JSON.stringify({
               data: {
                 user: {
-                  pinnedItems: { nodes: [pinnedNode("medFlow"), pinnedNode("print-shop-manager")] },
+                  pinnedItems: {
+                    nodes: [
+                      pinnedNode("medFlow"),
+                      pinnedNode("print-shop-manager"),
+                      pinnedNode("lawyer-hero-envato"),
+                      pinnedNode("rent-landingpage"),
+                    ],
+                  },
                 },
               },
             }),
@@ -95,7 +106,12 @@ describe("fetchShowcase", () => {
       throw new Error(`unexpected REST call: ${url}`);
     });
     const result = await fetchShowcase(fetchFn as unknown as typeof fetch, "tok");
-    expect(result.repos.map((r) => r.name)).toEqual(["medFlow", "print-shop-manager"]);
+    // 3 em destaque: o restante fica no diálogo "ver todos", não no grid.
+    expect(result.repos.map((r) => r.name)).toEqual([
+      "medFlow",
+      "print-shop-manager",
+      "lawyer-hero-envato",
+    ]);
     expect(result.repos[0]?.language).toBe("PHP");
     expect(result.repos[0]?.stars).toBe(3);
   });
