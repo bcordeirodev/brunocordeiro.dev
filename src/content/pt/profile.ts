@@ -4,7 +4,7 @@ export const profile: Profile = {
   name: "Bruno Cordeiro",
   headline: "Full Stack Engineer",
   subheadline:
-    "Desenvolvo sistemas há mais de 10 anos, do front-end ao back-end, passando pelos pipelines de CI/CD e pela infraestrutura em Docker e Kubernetes. Hoje trabalho principalmente com TypeScript e Node. Meu inglês é B1, quase B2.",
+    "Sou Desenvolvedor Full Stack Sênior com mais de 10 anos de experiência construindo sistemas de software em toda a stack, do front-end e back-end aos pipelines de CI/CD e à infraestrutura em nuvem com Docker e Kubernetes. Atualmente trabalho principalmente com TypeScript e Node.js, com foco em construir aplicações escaláveis e fáceis de manter. Meu inglês está no nível B1 e estou trabalhando ativamente para chegar ao B2.",
   metaDescription:
     "Full Stack Engineer sênior em Brasília — há 10+ anos do primeiro commit ao deploy sem downtime, com TypeScript, Node.js, React, CI/CD e Kubernetes.",
   stackHighlights: ["TypeScript", "Node.js", "React", "Next.js", "Docker · K8s"],

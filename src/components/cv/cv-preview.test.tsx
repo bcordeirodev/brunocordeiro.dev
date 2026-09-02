@@ -22,9 +22,9 @@ describe("CvPreview", () => {
   it("usa o headline como cargo, sem marcador de senioridade", () => {
     const data = buildCvData(content, defaultSelection(content), "pt");
     render(<CvPreview data={data} locale="pt" labels={testLabels} />);
+    // Só a linha do cargo: o resumo pode citar senioridade se o texto quiser.
     expect(screen.getByText(content.profile.headline)).toBeInTheDocument();
     expect(screen.queryByText(content.profile.role)).not.toBeInTheDocument();
-    expect(screen.queryByText(/s[eê]nior/i)).not.toBeInTheDocument();
   });
 
   it("omite seção nula mas mantém contatos", () => {
