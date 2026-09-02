@@ -8,7 +8,7 @@ const content = getContent("pt");
 describe("buildCvData", () => {
   it("com seleção default inclui todas as seções", () => {
     const data = buildCvData(content, defaultSelection(content), "pt");
-    expect(data.summary).toBe(content.profile.subheadline);
+    expect(data.summary).toBe(content.profile.pitch);
     expect(data.metrics).toEqual(content.profile.metrics);
     expect(data.experiences).toEqual(content.experiences);
     expect(data.skillCategories).toEqual(content.skillCategories);

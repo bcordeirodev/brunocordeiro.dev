@@ -73,4 +73,16 @@ describe("conteúdo", () => {
       expect(profile.stackHighlights.length).toBeLessThanOrEqual(6);
     }
   });
+  it("perfil posiciona sem marcador de senioridade e com disponibilidade", () => {
+    for (const locale of locales) {
+      const { profile } = getContent(locale);
+      expect(profile.role).toBe("Full Stack Engineer");
+      expect(profile.metaDescription).not.toMatch(/s[eê]nior/i);
+      expect(profile.pitch.length).toBeGreaterThan(40);
+      expect(profile.availability).toMatch(/remot/i);
+      expect(profile.languages).toMatch(/B1/);
+      // nível publicado é B1 (quase B2), nunca "— B2" como nível principal
+      expect(profile.languages).not.toMatch(/—\s*B2\b/);
+    }
+  });
 });

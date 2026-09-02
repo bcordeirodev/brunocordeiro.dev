@@ -34,7 +34,7 @@ export function buildCvData(content: SiteContent, selection: CvSelection, locale
   const { sections } = selection;
   return {
     profile: content.profile,
-    summary: sections.summary ? content.profile.subheadline : null,
+    summary: sections.summary ? content.profile.pitch : null,
     metrics: sections.metrics ? content.profile.metrics : null,
     experiences: sections.experiences
       ? orNull(content.experiences.filter((e) => selection.experiences[experienceKey(e)]))

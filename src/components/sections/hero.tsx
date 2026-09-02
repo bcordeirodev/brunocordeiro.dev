@@ -44,7 +44,7 @@ export function Hero({ profile }: { profile: Profile }) {
         <p className="mt-2 font-mono text-sm text-muted">
           {profile.headline} · {profile.location}
         </p>
-        <p className="mt-4 max-w-2xl text-lg text-muted">{profile.subheadline}</p>
+        <p className="mt-4 max-w-2xl text-lg text-muted">{profile.pitch}</p>
       </div>
 
       <Reveal delay={0.1}>
