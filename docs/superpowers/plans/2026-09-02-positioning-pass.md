@@ -28,6 +28,7 @@
 ### Task 1: English becomes the default locale
 
 **Files:**
+
 - Modify: `src/i18n/routing.ts`
 - Modify: `src/lib/site.ts:6`
 - Modify: `src/app/page.tsx`
@@ -36,6 +37,7 @@
 - Test: `src/lib/site.test.ts`, `src/app/sitemap.test.ts`, `e2e/home.spec.ts`, `e2e/case-study.spec.ts`, `e2e/a11y.spec.ts`
 
 **Interfaces:**
+
 - Produces: `defaultLocale` in `src/lib/site.ts` is `"en"`; root `/` redirects to `/en`.
 
 - [ ] **Step 1: Update the unit tests to expect `en` as x-default and home entry**
@@ -43,13 +45,13 @@
 In `src/lib/site.test.ts`, change the first test:
 
 ```ts
-  it("emite pt, pt-BR, en e x-default (en é o locale padrão)", () => {
-    const alt = languageAlternates("");
-    expect(alt["pt"]).toBe(`${SITE_URL}/pt`);
-    expect(alt["pt-BR"]).toBe(`${SITE_URL}/pt`);
-    expect(alt["en"]).toBe(`${SITE_URL}/en`);
-    expect(alt["x-default"]).toBe(`${SITE_URL}/en`);
-  });
+it("emite pt, pt-BR, en e x-default (en é o locale padrão)", () => {
+  const alt = languageAlternates("");
+  expect(alt["pt"]).toBe(`${SITE_URL}/pt`);
+  expect(alt["pt-BR"]).toBe(`${SITE_URL}/pt`);
+  expect(alt["en"]).toBe(`${SITE_URL}/en`);
+  expect(alt["x-default"]).toBe(`${SITE_URL}/en`);
+});
 ```
 
 In `src/app/sitemap.test.ts`, replace the whole file:
@@ -77,10 +79,7 @@ describe("sitemap", () => {
     expect(home?.alternates?.languages).toHaveProperty("pt");
     expect(home?.alternates?.languages).toHaveProperty("pt-BR");
     expect(home?.alternates?.languages).toHaveProperty("en");
-    expect(home?.alternates?.languages).toHaveProperty(
-      "x-default",
-      "https://brunocordeiro.dev/en",
-    );
+    expect(home?.alternates?.languages).toHaveProperty("x-default", "https://brunocordeiro.dev/en");
   });
 });
 ```
@@ -225,6 +224,7 @@ git commit -m "feat(i18n): make english the default landing locale"
 ### Task 2: Profile identity — role without Senior, pitch, availability, languages
 
 **Files:**
+
 - Modify: `src/domain/profile.ts`
 - Modify: `src/content/en/profile.ts`, `src/content/pt/profile.ts`
 - Modify: `src/lib/cv/build-cv-data.ts:37`
@@ -232,6 +232,7 @@ git commit -m "feat(i18n): make english the default landing locale"
 - Test: `src/content/content.test.ts`, `src/lib/cv/build-cv-data.test.ts`
 
 **Interfaces:**
+
 - Produces: `Profile.pitch: string`, `Profile.availability: string`; `Profile.subheadline` no longer exists. `profile.role === "Full Stack Engineer"` in both locales.
 
 - [ ] **Step 1: Add a content guard test for the new identity rules**
@@ -239,18 +240,18 @@ git commit -m "feat(i18n): make english the default landing locale"
 Append inside the `describe("conteúdo", …)` block of `src/content/content.test.ts`:
 
 ```ts
-  it("perfil posiciona sem marcador de senioridade e com disponibilidade", () => {
-    for (const locale of locales) {
-      const { profile } = getContent(locale);
-      expect(profile.role).toBe("Full Stack Engineer");
-      expect(profile.metaDescription).not.toMatch(/s[eê]nior/i);
-      expect(profile.pitch.length).toBeGreaterThan(40);
-      expect(profile.availability).toMatch(/remot/i);
-      expect(profile.languages).toMatch(/B1/);
-      // nível publicado é B1 (quase B2), nunca "— B2" como nível principal
-      expect(profile.languages).not.toMatch(/—\s*B2\b/);
-    }
-  });
+it("perfil posiciona sem marcador de senioridade e com disponibilidade", () => {
+  for (const locale of locales) {
+    const { profile } = getContent(locale);
+    expect(profile.role).toBe("Full Stack Engineer");
+    expect(profile.metaDescription).not.toMatch(/s[eê]nior/i);
+    expect(profile.pitch.length).toBeGreaterThan(40);
+    expect(profile.availability).toMatch(/remot/i);
+    expect(profile.languages).toMatch(/B1/);
+    // nível publicado é B1 (quase B2), nunca "— B2" como nível principal
+    expect(profile.languages).not.toMatch(/—\s*B2\b/);
+  }
+});
 ```
 
 (`locales` and `getContent` are already imported at the top of that file.)
@@ -260,7 +261,7 @@ Append inside the `describe("conteúdo", …)` block of `src/content/content.tes
 `src/lib/cv/build-cv-data.test.ts` line 11:
 
 ```ts
-    expect(data.summary).toBe(content.profile.pitch);
+expect(data.summary).toBe(content.profile.pitch);
 ```
 
 - [ ] **Step 3: Run the two test files and confirm they fail**
@@ -304,7 +305,8 @@ export const profile: Profile = {
   headline: "Full Stack Engineer",
   pitch:
     "I build and operate production systems from the first commit to deployment — backend architecture, reliable APIs and zero-downtime delivery, mostly with TypeScript and Node.js.",
-  availability: "10+ years of experience · Brasília, Brazil (UTC−3) · Open to remote international roles",
+  availability:
+    "10+ years of experience · Brasília, Brazil (UTC−3) · Open to remote international roles",
   metaDescription:
     "Full Stack Engineer in Brazil — 10+ years building and operating production systems with TypeScript, Node.js, React, CI/CD and Kubernetes. Open to remote roles.",
   stackHighlights: ["TypeScript", "Node.js", "React", "Next.js", "Docker · K8s"],
@@ -335,7 +337,8 @@ export const profile: Profile = {
   headline: "Full Stack Engineer",
   pitch:
     "Construo e opero sistemas em produção do primeiro commit ao deploy — arquitetura de backend, APIs confiáveis e entregas sem downtime, principalmente com TypeScript e Node.js.",
-  availability: "10+ anos de experiência · Brasília, Brasil (UTC−3) · Aberto a vagas remotas internacionais",
+  availability:
+    "10+ anos de experiência · Brasília, Brasil (UTC−3) · Aberto a vagas remotas internacionais",
   metaDescription:
     "Full Stack Engineer em Brasília — 10+ anos construindo e operando sistemas em produção com TypeScript, Node.js, React, CI/CD e Kubernetes. Aberto a vagas remotas.",
   stackHighlights: ["TypeScript", "Node.js", "React", "Next.js", "Docker · K8s"],
@@ -369,7 +372,7 @@ Both `metaDescription` strings are 160–166 characters — inside the 80–170 
 `src/components/sections/hero.tsx` line 43 (temporary, replaced wholesale in Task 3):
 
 ```tsx
-        <p className="mt-4 max-w-2xl text-lg text-muted">{profile.pitch}</p>
+<p className="mt-4 max-w-2xl text-lg text-muted">{profile.pitch}</p>
 ```
 
 - [ ] **Step 7: Run typecheck and the full unit suite**
@@ -389,11 +392,13 @@ git commit -m "feat(content): position profile for remote international roles"
 ### Task 3: Hero rewrite with availability line and GitHub CTA
 
 **Files:**
+
 - Modify: `src/components/sections/hero.tsx` (full rewrite)
 - Modify: `messages/en.json`, `messages/pt.json` (add `common.viewCode`)
 - Create: `src/components/sections/hero.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `Profile.pitch`, `Profile.availability`, `Profile.stackHighlights`, `Profile.role` from Task 2.
 - Produces: message key `common.viewCode`.
 
@@ -594,6 +599,7 @@ git commit -m "feat(hero): lead with pitch, availability and a github cta"
 ### Task 4: Section order, English anchors and nav
 
 **Files:**
+
 - Modify: `src/app/[locale]/page.tsx`
 - Modify: `src/components/layout/site-header.tsx`
 - Modify: `src/app/[locale]/link-charts/page.tsx:88`
@@ -602,6 +608,7 @@ git commit -m "feat(hero): lead with pitch, availability and a github cta"
 - Test: `e2e/home.spec.ts` (add nav + hero assertions)
 
 **Interfaces:**
+
 - Produces: anchor ids `projects`, `experience`, `stack`, `ai`, `contact` on the home page; message key `nav.projects`.
 
 - [ ] **Step 1: Add an e2e test for the new order and nav**
@@ -633,8 +640,12 @@ test("home en: hero vende primeiro, projetos antes da stack, nav em inglês", as
   );
 
   // Ordem no DOM: projetos (#projects) vem antes da stack (#stack).
-  const projectsTop = await page.locator("#projects").evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
-  const stackTop = await page.locator("#stack").evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
+  const projectsTop = await page
+    .locator("#projects")
+    .evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
+  const stackTop = await page
+    .locator("#stack")
+    .evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
   expect(projectsTop).toBeLessThan(stackTop);
 });
 ```
@@ -684,56 +695,48 @@ and in `"sections"`:
 `src/app/[locale]/page.tsx` — replace the JSX inside `<main>` (keep all imports and the translation setup above it unchanged):
 
 ```tsx
-      <main className="mx-auto flex max-w-5xl flex-col gap-24 px-6">
-        <Hero profile={content.profile} />
-        {/* Prova antes de inventário: o case em produção e o código público
+<main className="mx-auto flex max-w-5xl flex-col gap-24 px-6">
+  <Hero profile={content.profile} />
+  {/* Prova antes de inventário: o case em produção e o código público
             vêm antes da lista de skills. */}
-        <Reveal>
-          <CaseStudyCard release={showcase.latestRelease} locale={locale} />
-        </Reveal>
-        <Reveal>
-          <section id="projects" className="scroll-mt-24">
-            <RepoGrid showcase={showcase} />
-          </section>
-        </Reveal>
-        <Reveal>
-          <section id="experience" className="scroll-mt-24">
-            <Timeline
-              experiences={content.experiences}
-              locale={locale}
-              nowYm={content.profile.asOfYm}
-            />
-          </section>
-        </Reveal>
-        <Reveal>
-          <section id="stack" className="flex scroll-mt-24 flex-col gap-8">
-            <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
-              {tNav("stack")}
-            </h2>
-            <SkillMatrix
-              categories={content.skillCategories}
-              officialSiteLabel={tCommon("officialSite")}
-            />
-          </section>
-        </Reveal>
-        <Reveal>
-          <Certifications
-            items={content.certifications}
-            education={content.education}
-            locale={locale}
-          />
-        </Reveal>
-        <Reveal>
-          <section id="ai" className="scroll-mt-24">
-            <AiStats stats={aiStats} labels={aiStatsLabels} />
-          </section>
-        </Reveal>
-        <Reveal>
-          <section id="contact" className="scroll-mt-24">
-            <Contact profile={content.profile} />
-          </section>
-        </Reveal>
-      </main>
+  <Reveal>
+    <CaseStudyCard release={showcase.latestRelease} locale={locale} />
+  </Reveal>
+  <Reveal>
+    <section id="projects" className="scroll-mt-24">
+      <RepoGrid showcase={showcase} />
+    </section>
+  </Reveal>
+  <Reveal>
+    <section id="experience" className="scroll-mt-24">
+      <Timeline experiences={content.experiences} locale={locale} nowYm={content.profile.asOfYm} />
+    </section>
+  </Reveal>
+  <Reveal>
+    <section id="stack" className="flex scroll-mt-24 flex-col gap-8">
+      <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
+        {tNav("stack")}
+      </h2>
+      <SkillMatrix
+        categories={content.skillCategories}
+        officialSiteLabel={tCommon("officialSite")}
+      />
+    </section>
+  </Reveal>
+  <Reveal>
+    <Certifications items={content.certifications} education={content.education} locale={locale} />
+  </Reveal>
+  <Reveal>
+    <section id="ai" className="scroll-mt-24">
+      <AiStats stats={aiStats} labels={aiStatsLabels} />
+    </section>
+  </Reveal>
+  <Reveal>
+    <section id="contact" className="scroll-mt-24">
+      <Contact profile={content.profile} />
+    </section>
+  </Reveal>
+</main>
 ```
 
 - [ ] **Step 4: Update the header nav**
@@ -741,13 +744,13 @@ and in `"sections"`:
 `src/components/layout/site-header.tsx` — replace the `anchors` array:
 
 ```ts
-  const anchors = [
-    { href: "/#projects", label: t("projects") },
-    { href: "/link-charts", label: t("caseStudy"), isRoute: true as const },
-    { href: "/#experience", label: t("trajectory") },
-    { href: "/#stack", label: t("stack") },
-    { href: "/#contact", label: t("contact") },
-  ];
+const anchors = [
+  { href: "/#projects", label: t("projects") },
+  { href: "/link-charts", label: t("caseStudy"), isRoute: true as const },
+  { href: "/#experience", label: t("trajectory") },
+  { href: "/#stack", label: t("stack") },
+  { href: "/#contact", label: t("contact") },
+];
 ```
 
 - [ ] **Step 5: Update the two remaining references to the old anchors**
@@ -755,16 +758,16 @@ and in `"sections"`:
 `src/app/[locale]/link-charts/page.tsx` line 88:
 
 ```tsx
-              href="/#contact"
+href = "/#contact";
 ```
 
 `src/components/sections/timeline.tsx` lines 32–34, comment only:
 
 ```ts
-  // Reuses the nav's own "trajectory" label instead of a new message key:
-  // same mono-eyebrow recipe as AiStats/RepoGrid/Certifications, so the
-  // #experience anchor (linked from the header nav) lands on a titled
-  // section instead of jumping straight to the first company heading.
+// Reuses the nav's own "trajectory" label instead of a new message key:
+// same mono-eyebrow recipe as AiStats/RepoGrid/Certifications, so the
+// #experience anchor (linked from the header nav) lands on a titled
+// section instead of jumping straight to the first company heading.
 ```
 
 - [ ] **Step 6: Verify no old anchor id survives, then typecheck/lint/unit**
@@ -784,11 +787,13 @@ git commit -m "feat(home): put proof before inventory and use english anchors"
 ### Task 5: Featured projects grid shows three repos
 
 **Files:**
+
 - Modify: `src/services/github/core.ts:14-21`, `:165-168`
 - Modify: `src/content/github-snapshot.ts`
 - Test: `src/services/github/core.test.ts`
 
 **Interfaces:**
+
 - Produces: `SHOWCASE_REPOS = ["medFlow", "lawyer-hero-envato", "print-shop-manager"]`; `fetchShowcase().repos.length <= 3` even with more pins.
 
 - [ ] **Step 1: Extend the pinned-repos test to prove the slice**
@@ -796,49 +801,49 @@ git commit -m "feat(home): put proof before inventory and use english anchors"
 In `src/services/github/core.test.ts`, replace the test `"usa os pinned repos do perfil quando há token e pins"` with:
 
 ```ts
-  it("usa até 3 pinned repos do perfil quando há token e pins", async () => {
-    const pinnedNode = (name: string) => ({
-      name,
-      description: "pinned",
-      url: `https://github.com/bcordeirodev/${name}`,
-      stargazerCount: 3,
-      primaryLanguage: { name: "PHP" },
-      pushedAt: "2026-08-12T00:00:00Z",
-    });
-    const fetchFn = vi.fn().mockImplementation((url: string) => {
-      if (url.endsWith("/graphql"))
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              data: {
-                user: {
-                  pinnedItems: {
-                    nodes: [
-                      pinnedNode("medFlow"),
-                      pinnedNode("print-shop-manager"),
-                      pinnedNode("lawyer-hero-envato"),
-                      pinnedNode("rent-landingpage"),
-                    ],
-                  },
+it("usa até 3 pinned repos do perfil quando há token e pins", async () => {
+  const pinnedNode = (name: string) => ({
+    name,
+    description: "pinned",
+    url: `https://github.com/bcordeirodev/${name}`,
+    stargazerCount: 3,
+    primaryLanguage: { name: "PHP" },
+    pushedAt: "2026-08-12T00:00:00Z",
+  });
+  const fetchFn = vi.fn().mockImplementation((url: string) => {
+    if (url.endsWith("/graphql"))
+      return Promise.resolve(
+        new Response(
+          JSON.stringify({
+            data: {
+              user: {
+                pinnedItems: {
+                  nodes: [
+                    pinnedNode("medFlow"),
+                    pinnedNode("print-shop-manager"),
+                    pinnedNode("lawyer-hero-envato"),
+                    pinnedNode("rent-landingpage"),
+                  ],
                 },
               },
-            }),
-          ),
-        );
-      if (url.includes("/users/bcordeirodev/repos"))
-        return Promise.resolve(new Response(JSON.stringify([])));
-      throw new Error(`unexpected REST call: ${url}`);
-    });
-    const result = await fetchShowcase(fetchFn as unknown as typeof fetch, "tok");
-    // 3 em destaque: o restante fica no diálogo "ver todos", não no grid.
-    expect(result.repos.map((r) => r.name)).toEqual([
-      "medFlow",
-      "print-shop-manager",
-      "lawyer-hero-envato",
-    ]);
-    expect(result.repos[0]?.language).toBe("PHP");
-    expect(result.repos[0]?.stars).toBe(3);
+            },
+          }),
+        ),
+      );
+    if (url.includes("/users/bcordeirodev/repos"))
+      return Promise.resolve(new Response(JSON.stringify([])));
+    throw new Error(`unexpected REST call: ${url}`);
   });
+  const result = await fetchShowcase(fetchFn as unknown as typeof fetch, "tok");
+  // 3 em destaque: o restante fica no diálogo "ver todos", não no grid.
+  expect(result.repos.map((r) => r.name)).toEqual([
+    "medFlow",
+    "print-shop-manager",
+    "lawyer-hero-envato",
+  ]);
+  expect(result.repos[0]?.language).toBe("PHP");
+  expect(result.repos[0]?.stars).toBe(3);
+});
 ```
 
 Also add, right after the existing `SHOWCASE_REPOS` import usage, a small guard test at the top level of the file:
@@ -869,7 +874,7 @@ export const SHOWCASE_REPOS = ["medFlow", "lawyer-hero-envato", "print-shop-mana
 In `fetchShowcase`, replace the `pinned` line and the `repoResults` expression:
 
 ```ts
-  const pinned = token ? (await fetchPinnedRepos(fetchFn, token)).slice(0, FEATURED_COUNT) : [];
+const pinned = token ? (await fetchPinnedRepos(fetchFn, token)).slice(0, FEATURED_COUNT) : [];
 ```
 
 (the `Promise.all` block below it stays as is.)
