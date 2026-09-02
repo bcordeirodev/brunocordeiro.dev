@@ -9,10 +9,11 @@ export async function SiteHeader() {
   const t = await getTranslations("nav");
 
   const anchors = [
-    { href: "/#stack", label: t("stack") },
+    { href: "/#projects", label: t("projects") },
     { href: "/link-charts", label: t("caseStudy"), isRoute: true as const },
-    { href: "/#trajetoria", label: t("trajectory") },
-    { href: "/#contato", label: t("contact") },
+    { href: "/#experience", label: t("trajectory") },
+    { href: "/#stack", label: t("stack") },
+    { href: "/#contact", label: t("contact") },
   ];
 
   return (

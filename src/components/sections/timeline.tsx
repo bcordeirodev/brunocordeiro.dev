@@ -29,7 +29,7 @@ export async function Timeline({
   const t = await getTranslations({ locale, namespace: "common" });
   // Reuses the nav's own "trajectory" label instead of a new message key:
   // same mono-eyebrow recipe as AiStats/RepoGrid/Certifications, so the
-  // #trajetoria anchor (linked from the header nav) lands on a titled
+  // #experience anchor (linked from the header nav) lands on a titled
   // section instead of jumping straight to the first company heading.
   const tNav = await getTranslations({ locale, namespace: "nav" });
 

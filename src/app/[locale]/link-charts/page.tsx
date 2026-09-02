@@ -85,7 +85,7 @@ export default async function LinkChartsPage({ params }: { params: Promise<{ loc
         <section className="flex flex-col items-start gap-4 pt-10 pb-24">
           <Reveal>
             <TransitionLink
-              href="/#contato"
+              href="/#contact"
               className="font-mono text-sm text-accent underline-offset-4 hover:underline"
             >
               ← {t("backToContact")}

@@ -43,6 +43,25 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <SiteHeader />
       <main className="mx-auto flex max-w-5xl flex-col gap-24 px-6">
         <Hero profile={content.profile} />
+        {/* Prova antes de inventário: o case em produção e o código público
+            vêm antes da lista de skills. */}
+        <Reveal>
+          <CaseStudyCard release={showcase.latestRelease} locale={locale} />
+        </Reveal>
+        <Reveal>
+          <section id="projects" className="scroll-mt-24">
+            <RepoGrid showcase={showcase} />
+          </section>
+        </Reveal>
+        <Reveal>
+          <section id="experience" className="scroll-mt-24">
+            <Timeline
+              experiences={content.experiences}
+              locale={locale}
+              nowYm={content.profile.asOfYm}
+            />
+          </section>
+        </Reveal>
         <Reveal>
           <section id="stack" className="flex scroll-mt-24 flex-col gap-8">
             <h2 className="font-mono text-sm font-bold tracking-[0.2em] text-muted uppercase">
@@ -55,18 +74,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           </section>
         </Reveal>
         <Reveal>
-          <CaseStudyCard release={showcase.latestRelease} locale={locale} />
-        </Reveal>
-        <Reveal>
-          <section id="trajetoria" className="scroll-mt-24">
-            <Timeline
-              experiences={content.experiences}
-              locale={locale}
-              nowYm={content.profile.asOfYm}
-            />
-          </section>
-        </Reveal>
-        <Reveal>
           <Certifications
             items={content.certifications}
             education={content.education}
@@ -74,15 +81,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           />
         </Reveal>
         <Reveal>
-          <section id="ia" className="scroll-mt-24">
+          <section id="ai" className="scroll-mt-24">
             <AiStats stats={aiStats} labels={aiStatsLabels} />
           </section>
         </Reveal>
         <Reveal>
-          <RepoGrid showcase={showcase} />
-        </Reveal>
-        <Reveal>
-          <section id="contato" className="scroll-mt-24">
+          <section id="contact" className="scroll-mt-24">
             <Contact profile={content.profile} />
           </section>
         </Reveal>

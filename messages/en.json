@@ -1,5 +1,6 @@
 {
   "nav": {
+    "projects": "Projects",
     "trajectory": "Experience",
     "stack": "Stack",
     "caseStudy": "Link Charts",
@@ -35,7 +36,7 @@
   },
   "sections": {
     "certifications": "education & certifications",
-    "githubProjects": "personal projects on github",
+    "githubProjects": "featured projects",
     "allProjects": "all projects"
   },
   "aiStats": {
