@@ -43,12 +43,12 @@ are later slices with their own specs.
 
 ### 1. Default locale → `en`
 
-| File                      | Change                                                                                                                                                     |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/i18n/routing.ts`     | `defaultLocale: "en"`. Keep `localePrefix: "always"` and `localeDetection: false`, so `/pt/...` URLs keep working unchanged and `/` redirects to `/en`.    |
-| `src/lib/site.ts`         | `defaultLocale = "en"` → `x-default` hreflang points to `/en...`. `sitemap.ts` reads `lastModified` from the default locale content; no change needed there. |
-| `src/app/page.tsx`        | `redirect("/en")`.                                                                                                                                         |
-| `src/app/manifest.ts`     | `start_url: "/en"`, `name: "Bruno Cordeiro — Full Stack Engineer"`.                                                                                       |
+| File                  | Change                                                                                                                                                       |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/i18n/routing.ts` | `defaultLocale: "en"`. Keep `localePrefix: "always"` and `localeDetection: false`, so `/pt/...` URLs keep working unchanged and `/` redirects to `/en`.      |
+| `src/lib/site.ts`     | `defaultLocale = "en"` → `x-default` hreflang points to `/en...`. `sitemap.ts` reads `lastModified` from the default locale content; no change needed there. |
+| `src/app/page.tsx`    | `redirect("/en")`.                                                                                                                                           |
+| `src/app/manifest.ts` | `start_url: "/en"`, `name: "Bruno Cordeiro — Full Stack Engineer"`.                                                                                          |
 
 Tests to update: `src/lib/site.test.ts` (x-default), `src/app/sitemap.test.ts`
 (entries still contain both locales; assertions that name `/pt` as the "home"
@@ -60,10 +60,10 @@ entry move to `/en`), `e2e/home.spec.ts` (root redirect → `/en`; page entry
 
 `src/content/{pt,en}/profile.ts`:
 
-| Field             | en                                                                                                                                        | pt                                                                                                                                              |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `role`            | Full Stack Engineer                                                                                                                       | Full Stack Engineer                                                                                                                             |
-| `headline`        | Full Stack Engineer (unchanged)                                                                                                           | Full Stack Engineer (unchanged)                                                                                                                 |
+| Field             | en                                                                                                                                                               | pt                                                                                                                                                                 |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `role`            | Full Stack Engineer                                                                                                                                              | Full Stack Engineer                                                                                                                                                |
+| `headline`        | Full Stack Engineer (unchanged)                                                                                                                                  | Full Stack Engineer (unchanged)                                                                                                                                    |
 | `metaDescription` | Full Stack Engineer in Brazil — 10+ years building and operating production systems with TypeScript, Node.js, React, CI/CD and Kubernetes. Open to remote roles. | Full Stack Engineer em Brasília — 10+ anos construindo e operando sistemas em produção com TypeScript, Node.js, React, CI/CD e Kubernetes. Aberto a vagas remotas. |
 
 Both descriptions must stay within the 80–170 character budget enforced by
@@ -95,10 +95,10 @@ sentence, not two). Consumers to update: `hero.tsx`, `lib/cv/build-cv-data.ts`
 
 Content:
 
-| Field          | en                                                                                                                                                                 | pt                                                                                                                                                                       |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Field          | en                                                                                                                                                                               | pt                                                                                                                                                                             |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `pitch`        | I build and operate production systems from the first commit to deployment — backend architecture, reliable APIs and zero-downtime delivery, mostly with TypeScript and Node.js. | Construo e opero sistemas em produção do primeiro commit ao deploy — arquitetura de backend, APIs confiáveis e entregas sem downtime, principalmente com TypeScript e Node.js. |
-| `availability` | 10+ years of experience · Brasília, Brazil (UTC−3) · Open to remote international roles                                                                            | 10+ anos de experiência · Brasília, Brasil (UTC−3) · Aberto a vagas remotas internacionais                                                                               |
+| `availability` | 10+ years of experience · Brasília, Brazil (UTC−3) · Open to remote international roles                                                                                          | 10+ anos de experiência · Brasília, Brasil (UTC−3) · Aberto a vagas remotas internacionais                                                                                     |
 
 Hero layout (`src/components/sections/hero.tsx`), top to bottom:
 
@@ -161,7 +161,7 @@ Featured projects grid (`src/services/github/core.ts`):
 - Pinned repos are sliced to the first **3** (the GraphQL query can stay at
   `first: 6`; slice after fetch so the dialog logic is unaffected).
 - `SHOWCASE_REPOS` fallback becomes `["medFlow", "lawyer-hero-envato",
-  "print-shop-manager"]`.
+"print-shop-manager"]`.
 - `allRepos` and the "see all N projects" dialog are untouched.
 - `src/content/github-snapshot.ts` `repos` trimmed to the same three (keep
   `allRepos` as is).
