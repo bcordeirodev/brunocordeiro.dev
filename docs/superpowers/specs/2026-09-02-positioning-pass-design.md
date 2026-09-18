@@ -185,3 +185,30 @@ Featured projects grid (`src/services/github/core.ts`):
 - The AI section's numbers and layout.
 - Visual redesign of any component beyond the hero's button row.
 - The uncommitted CV headline swap described in §2.
+
+## Iteração — foco Laravel/Angular na home (2026-09-18)
+
+Bruno concorre a uma vaga Laravel + Angular e pediu para a home seguir os
+mesmos critérios aplicados ao CV no mesmo dia.
+
+- **Métricas fora da apresentação**: a linha de fatos do hero (testes no CI,
+  downtime, releases) e os mesmos fatos no card do case saem. Os anos de
+  experiência já estão no pitch; os números continuam na página do case.
+- **Link Charts demovido**: card compacto (nome, tagline, release em produção,
+  link), sem sparkline, métricas ou badges, posicionado depois da stack.
+  `ActivitySparkline` foi removido (o Grafana board tem o próprio gráfico).
+- **Ordem da home**: hero, trajetória, projetos, stack, case (compacto),
+  formação, IA, contato. A nav segue a mesma ordem. O e2e "projetos antes da
+  stack" continua valendo.
+- **Ênfase em Laravel/Angular**: `stackHighlights` abre com "Laravel · PHP" e
+  "Angular" (alimenta hero, OG image e o destaque na trajetória); `pitch` e
+  `metaDescription` reescritos para abrir com PHP/Laravel e Angular; Angular
+  vai para o topo da categoria Frontend; G4F e Ebserh listam Angular e Laravel
+  primeiro nas stacks.
+- **Hero**: a stack vira chips (`Badge tech`) em vez de linha mono.
+- **Trajetória**: mesma anatomia do CV — período e duração à direita, projetos
+  como bullets com descrição, stack numa linha corrida com os termos de
+  `stackHighlights` em evidência (`matchesFocus`), sem muro de badges.
+- **Domínio menos preciso**: as quatro proofs de skills que diziam "sistema
+  consular" passam a "sistema de atendimento ao público" / "public service
+  system", como nas entradas da experiência.

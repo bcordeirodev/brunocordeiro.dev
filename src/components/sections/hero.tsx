@@ -3,21 +3,11 @@ import type { Profile } from "@/domain";
 import { Reveal } from "@/components/motion/reveal";
 import { TransitionLink } from "@/components/motion/transition-link";
 import { CopyEmailButton } from "@/components/sections/copy-email-button";
+import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 
 export function Hero({ profile }: { profile: Profile }) {
   const t = useTranslations("common");
-
-  // Uma linha mono de fatos vinda direto de profile.metrics (rótulo como
-  // escrito, sem copy inventada) em vez de um grid animado — lê como linha
-  // de caderno, não como dashboard de vendas.
-  const factsLine = profile.metrics
-    .map((metric) => `${metric.prefix ?? ""}${metric.value}${metric.suffix ?? ""} ${metric.label}`)
-    .join(" · ");
-
-  // Mesma fonte da OG image (stackHighlights): hero e preview social dizem a
-  // mesma stack, sem uma lista paralela hardcoded aqui.
-  const stackLine = profile.stackHighlights.join(" · ");
 
   return (
     // Sem mx-auto/px-6/max-w aqui: o <main> em page.tsx já centraliza e
@@ -34,11 +24,24 @@ export function Hero({ profile }: { profile: Profile }) {
         <p className="mt-2 font-mono text-sm text-muted">
           {profile.role} · {profile.location}
         </p>
-        <p className="mt-1 font-mono text-sm text-muted">{stackLine}</p>
+        {/* Mesma fonte da OG image (stackHighlights): hero e preview social
+            dizem a mesma stack, na mesma ordem — e a ordem é a ênfase. Chips
+            em vez de uma linha mono: o olho acha "Laravel" e "Angular" antes
+            de ler o parágrafo. */}
+        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={t("coreStack")}>
+          {profile.stackHighlights.map((item) => (
+            <li key={item}>
+              <Badge variant="tech">{item}</Badge>
+            </li>
+          ))}
+        </ul>
         <p className="mt-5 max-w-2xl text-lg text-muted">{profile.pitch}</p>
         <p className="mt-4 font-mono text-sm text-muted">{profile.availability}</p>
       </div>
 
+      {/* Sem a linha de métricas (testes no CI, downtime, releases): são prova
+          de engenharia do case, não fatos de apresentação — o mesmo critério
+          que tirou os números do CV. */}
       <Reveal delay={0.1}>
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <TransitionLink href="/cv" className={buttonVariants()}>
@@ -66,12 +69,6 @@ export function Hero({ profile }: { profile: Profile }) {
             copiedLabel={t("copied")}
           />
         </div>
-      </Reveal>
-
-      <Reveal delay={0.2}>
-        <p className="mt-10 font-mono text-sm text-muted">
-          {factsLine} — {t("asOf", { date: profile.metricsAsOf })}
-        </p>
       </Reveal>
     </section>
   );

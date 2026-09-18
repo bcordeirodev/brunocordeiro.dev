@@ -7,11 +7,14 @@ export const profile: Profile = {
   // (o cargo indexável não o usa) e sem a frase sobre o nível de inglês — esse
   // dado é objetivo e vive em `languages`, no bloco de contato e no CV.
   pitch:
-    "Sou Full Stack Engineer com mais de 10 anos de experiência construindo sistemas de software em toda a stack, do front-end e back-end aos pipelines de CI/CD e à infraestrutura em nuvem com Docker e Kubernetes. Atualmente trabalho principalmente com TypeScript e Node.js, com foco em construir aplicações escaláveis e fáceis de manter.",
+    "Sou Full Stack Engineer com mais de 10 anos de experiência construindo sistemas web com PHP e Laravel no back-end e Angular, React e TypeScript no front-end, do código da aplicação aos pipelines de CI/CD e à infraestrutura com Docker e Kubernetes. Hoje desenvolvo uma plataforma de grande porte do setor público, usada em mais de 90 unidades, com Angular e NestJS, e mantenho aplicações Laravel em produção desde 2017.",
   availability: "Aberto a vagas remotas internacionais · UTC−3",
   metaDescription:
-    "Full Stack Engineer em Brasília — 10+ anos construindo e operando sistemas em produção com TypeScript, Node.js, React, CI/CD e Kubernetes. Aberto a vagas remotas.",
-  stackHighlights: ["TypeScript", "Node.js", "React", "Next.js", "Docker · K8s"],
+    "Full Stack Engineer em Brasília — 10+ anos construindo sistemas em produção com PHP/Laravel, Angular, TypeScript, CI/CD e Kubernetes. Aberto a vagas remotas.",
+  // Ordem = ênfase: Laravel/PHP e Angular abrem porque são a stack que as
+  // vagas-alvo pedem; a linha alimenta o hero, a OG image e o destaque das
+  // stacks na trajetória.
+  stackHighlights: ["Laravel · PHP", "Angular", "TypeScript", "React · Next.js", "Docker · K8s"],
   role: "Full Stack Engineer",
   languages: "Português — nativo · Inglês — B1, quase B2",
   location: "Brasília-DF, Brasil",

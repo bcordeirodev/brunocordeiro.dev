@@ -43,23 +43,22 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <SiteHeader />
       <main className="mx-auto flex max-w-5xl flex-col gap-24 px-6">
         <Hero profile={content.profile} />
-        {/* Prova antes de inventário: o case em produção e o código público
-            vêm antes da lista de skills. */}
-        <Reveal>
-          <CaseStudyCard release={showcase.latestRelease} locale={locale} />
-        </Reveal>
-        <Reveal>
-          <section id="projects" className="scroll-mt-24">
-            <RepoGrid showcase={showcase} />
-          </section>
-        </Reveal>
+        {/* A prova para as vagas-alvo (Laravel/Angular) está na trajetória,
+            então ela abre a página; o case Link Charts fica compacto depois
+            da stack — continua a um clique, sem dominar a home. */}
         <Reveal>
           <section id="experience" className="scroll-mt-24">
             <Timeline
               experiences={content.experiences}
               locale={locale}
               nowYm={content.profile.asOfYm}
+              highlights={content.profile.stackHighlights.flatMap((item) => item.split(" · "))}
             />
+          </section>
+        </Reveal>
+        <Reveal>
+          <section id="projects" className="scroll-mt-24">
+            <RepoGrid showcase={showcase} />
           </section>
         </Reveal>
         <Reveal>
@@ -72,6 +71,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               officialSiteLabel={tCommon("officialSite")}
             />
           </section>
+        </Reveal>
+        <Reveal>
+          <CaseStudyCard release={showcase.latestRelease} locale={locale} />
         </Reveal>
         <Reveal>
           <Certifications

@@ -6,19 +6,6 @@ export const skillCategories: SkillCategory[] = [
     title: "Frontend",
     skills: [
       {
-        name: "Next.js 15",
-        proof:
-          "App Router, Server Components, ISR + cache tags, Turbopack; since versions 13/14 with React 17/18",
-        tags: ["Link Charts", "G4F"],
-        links: [{ label: "Next.js", url: "https://nextjs.org" }],
-      },
-      {
-        name: "React 19",
-        proof: "Foundation of the entire frontend, with Server Components",
-        tags: ["Link Charts"],
-        links: [{ label: "React", url: "https://react.dev" }],
-      },
-      {
         name: "Angular 22",
         proof:
           "Standalone components, signals and typed reactive forms with RxJS — on Angular since version 12, in 2021",
@@ -45,6 +32,19 @@ export const skillCategories: SkillCategory[] = [
           { label: "ApexCharts", url: "https://apexcharts.com" },
           { label: "Quill", url: "https://quilljs.com" },
         ],
+      },
+      {
+        name: "Next.js 15",
+        proof:
+          "App Router, Server Components, ISR + cache tags, Turbopack; since versions 13/14 with React 17/18",
+        tags: ["Link Charts", "G4F"],
+        links: [{ label: "Next.js", url: "https://nextjs.org" }],
+      },
+      {
+        name: "React 19",
+        proof: "Foundation of the entire frontend, with Server Components",
+        tags: ["Link Charts"],
+        links: [{ label: "React", url: "https://react.dev" }],
       },
       {
         name: "TypeScript · JavaScript",
@@ -89,7 +89,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "TanStack Query · SWR",
         proof:
-          "36 call sites and centralized query keys on v5 (formerly React Query); SWR on a large-scale consular system",
+          "36 call sites and centralized query keys on v5 (formerly React Query); SWR on a large-scale public service system",
         tags: ["Link Charts", "G4F"],
         links: [
           { label: "TanStack Query", url: "https://tanstack.com/query" },
@@ -285,13 +285,13 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "WebSockets",
-        proof: "@nestjs/websockets + socket.io in a large-scale public-sector consular system",
+        proof: "@nestjs/websockets + socket.io in a large-scale public-sector service platform",
         tags: ["G4F"],
         links: [{ label: "Socket.IO", url: "https://socket.io" }],
       },
       {
         name: "Microservices",
-        proof: "Auth service separated from the core in a large-scale consular system",
+        proof: "Auth service separated from the core in a large-scale public service system",
         tags: ["G4F"],
       },
       {
@@ -409,7 +409,7 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "Kubernetes",
-        proof: "Container orchestration on a large-scale public-sector consular system",
+        proof: "Container orchestration on a large-scale public-sector service platform",
         tags: ["G4F"],
         links: [{ label: "Kubernetes", url: "https://kubernetes.io" }],
       },

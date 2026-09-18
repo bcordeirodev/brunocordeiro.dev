@@ -8,11 +8,12 @@ export async function SiteHeader() {
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("nav");
 
+  // Mesma ordem das seções na home.
   const anchors = [
-    { href: "/#projects", label: t("projects") },
-    { href: "/link-charts", label: t("caseStudy"), isRoute: true as const },
     { href: "/#experience", label: t("trajectory") },
+    { href: "/#projects", label: t("projects") },
     { href: "/#stack", label: t("stack") },
+    { href: "/link-charts", label: t("caseStudy"), isRoute: true as const },
     { href: "/#contact", label: t("contact") },
   ];
 

@@ -42,9 +42,16 @@ describe("Hero", () => {
     expect(screen.getByText(new RegExp(`^${profile.role} · `))).toBeInTheDocument();
   });
 
-  it("deriva a linha de stack de stackHighlights, sem lista paralela", () => {
+  it("deriva os chips de stack de stackHighlights, na ordem do conteúdo", () => {
     renderHero();
-    expect(screen.getByText(profile.stackHighlights.join(" · "))).toBeInTheDocument();
+    const list = screen.getByRole("list", { name: /core stack/i });
+    const chips = Array.from(list.querySelectorAll("li")).map((li) => li.textContent);
+    expect(chips).toEqual(profile.stackHighlights);
+  });
+
+  it("não mostra a linha de métricas (testes, downtime, releases)", () => {
+    renderHero();
+    expect(screen.queryByText(/tests gating ci|deploy downtime|releases since/i)).toBeNull();
   });
 
   it("tem um botão para o GitHub com o rótulo de código e alvo externo", () => {
