@@ -224,11 +224,13 @@ export function CvPreview({
           <p className="text-xs text-muted">
             <span className="font-medium text-foreground">{data.caseStudy.title}</span> —{" "}
             {data.caseStudy.tagline} ·{" "}
+            {/* Sublinhado permanente: link dentro de texto corrido precisa se
+                distinguir sem depender só da cor (axe: link-in-text-block). */}
             <a
               href={data.caseStudy.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-accent underline-offset-4 hover:underline"
+              className="text-accent underline underline-offset-4"
             >
               {displayUrl(data.caseStudy.url)}
             </a>
