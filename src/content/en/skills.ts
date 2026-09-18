@@ -19,6 +19,34 @@ export const skillCategories: SkillCategory[] = [
         links: [{ label: "React", url: "https://react.dev" }],
       },
       {
+        name: "Angular 22",
+        proof:
+          "Standalone components, signals and typed reactive forms with RxJS — on Angular since version 12, in 2021",
+        tags: ["G4F", "Ebserh"],
+        links: [{ label: "Angular", url: "https://angular.dev" }],
+      },
+      {
+        name: "Angular Material + Fuse",
+        proof:
+          "Licensed Fuse template — multi-layout theming over Angular Material + CDK and Tailwind, from the Angular 12 generation to the current one",
+        tags: ["G4F", "Ebserh"],
+        links: [
+          { label: "Angular Material", url: "https://material.angular.dev" },
+          { label: "Fuse", url: "https://fusetheme.com/admin-templates/angular/" },
+        ],
+      },
+      {
+        name: "Transloco · ng-apexcharts · Quill",
+        proof:
+          "The libraries the Fuse stack runs on: i18n with Transloco, ApexCharts dashboards and rich-text editing",
+        tags: ["G4F", "Ebserh"],
+        links: [
+          { label: "Transloco", url: "https://jsverse.github.io/transloco/" },
+          { label: "ApexCharts", url: "https://apexcharts.com" },
+          { label: "Quill", url: "https://quilljs.com" },
+        ],
+      },
+      {
         name: "TypeScript · JavaScript",
         proof:
           "strict mode + noUncheckedIndexedAccess across ~570 files; ES6+ since 2016, TS end to end since 2020",
