@@ -82,6 +82,18 @@ function ExperienceEntry({
           ))}
         </ul>
       ) : null}
+      {exp.highlights && exp.highlights.length > 0 ? (
+        <ul className="flex flex-col gap-1">
+          {exp.highlights.map((item) => (
+            <li key={item} className="flex gap-2 text-xs text-muted">
+              <span aria-hidden="true" className="text-accent">
+                •
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {exp.stacks.length > 0 ? (
         <p className="text-xs text-muted">
           <span className="font-medium text-foreground">{labels.stack}: </span>

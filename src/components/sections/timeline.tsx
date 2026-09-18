@@ -94,6 +94,19 @@ export async function Timeline({
                   ))}
                 </ul>
               )}
+              {/* Contribuições: o que eu fiz na passagem, em bullets curtos. */}
+              {experience.highlights && experience.highlights.length > 0 && (
+                <ul className="mt-2 flex flex-col gap-1.5">
+                  {experience.highlights.map((item) => (
+                    <li key={item} className="flex gap-2 text-sm text-muted">
+                      <span aria-hidden="true" className="text-accent">
+                        •
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
               {/* Stack numa linha corrida, como no PDF: o muro de badges
                   fazia cada experiência parecer um inventário; aqui a lista
                   existe para a busca por palavra-chave, com as tecnologias

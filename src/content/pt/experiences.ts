@@ -64,6 +64,15 @@ export const experiences: Experience[] = [
           "Criação da versão modernizada que substituirá o sistema legado em uso em todas as unidades",
       },
     ],
+    highlights: [
+      "Engenheiro fundador do sistema de nova geração: autor do primeiro commit do back-end (NestJS) e do front-end (Next.js), e principal contribuidor dos dois repositórios até hoje.",
+      "Construí o fluxo de requerimento de serviços de ponta a ponta (criação, combo de serviços, validação documental, histórico) e a fila de atendimento com tela de chamada em tempo real via WebSocket, com gateway autenticado por JWT e leitura em voz multilíngue.",
+      "Conduzi auditoria de segurança da aplicação e sua remediação: verificação central de propriedade e de escopo por unidade para autorização em nível de objeto, guards de papéis default-deny, CSP, rate limiting, validação de upload por magic bytes e mascaramento de dados pessoais na auditoria.",
+      "Projetei e construí a migração de dados legado → novo (MongoDB → PostgreSQL): extração paginada somente-leitura, cargas idempotentes e reversíveis com mapa de correlação e rollback, modo simulação, validada de ponta a ponta em sandbox.",
+      "Autor do pipeline de CI/CD (Bitbucket Pipelines, SonarQube, Dependency-Track, imagens Docker no Harbor, deploy em Kubernetes para 4 ambientes) e dos gates locais de qualidade (Husky, lint-staged, SonarQube no pre-push, gate de cobertura).",
+      "Mantenho o sistema legado em produção (Node.js, Express, MongoDB), uma instância por unidade em mais de 90 unidades: serviço de emissão de certificado com PDF, QR code e validação pública, correção de corrida no agendamento e reconexão de cursor com backoff exponencial após incidente em produção.",
+      "Fluxo spec-driven com specs e planos versionados junto ao código, orquestração multiagente com saída validada por esquema e revisão adversarial, e um RAG interno de memória de engenharia (PostgreSQL + pgvector, busca híbrida, grafo de conhecimento) exposto por servidor MCP próprio.",
+    ],
   },
   {
     company: "VegaIT",

@@ -25,6 +25,9 @@ describe("conteúdo", () => {
     expect(en.experiences.map((e) => e.projects.length)).toEqual(
       pt.experiences.map((e) => e.projects.length),
     );
+    expect(en.experiences.map((e) => e.highlights?.length ?? 0)).toEqual(
+      pt.experiences.map((e) => e.highlights?.length ?? 0),
+    );
     expect(en.caseStudy.chapters.map((c) => c.id)).toEqual(pt.caseStudy.chapters.map((c) => c.id));
   });
   it("toda experiência tem stacks e pelo menos um projeto", () => {

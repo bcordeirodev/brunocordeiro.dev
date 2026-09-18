@@ -64,6 +64,15 @@ export const experiences: Experience[] = [
           "Creation of the modernized version that will replace the legacy system used across all units",
       },
     ],
+    highlights: [
+      "Founding engineer of the next-generation system: authored the first commit of both the NestJS back end and the Next.js front end, and remain the main contributor to both codebases.",
+      "Built the end-to-end service request flow (creation, service bundles, document validation, history) and the real-time service queue and calling screen over WebSocket, with a JWT-authenticated gateway and multilingual text-to-speech.",
+      "Led an application security audit and its remediation: central ownership and tenant-scope checks for object-level authorization, default-deny role guards, CSP, rate limiting, upload validation by magic bytes and PII masking in audit logs.",
+      "Designed and built the legacy-to-new data migration (MongoDB → PostgreSQL): read-only paged extraction, idempotent and reversible loads with a correlation map and rollback, dry-run mode, validated end to end in a sandbox.",
+      "Authored the CI/CD pipeline (Bitbucket Pipelines, SonarQube, Dependency-Track, Docker images on Harbor, Kubernetes deploys to 4 environments) and the local quality gates (Husky, lint-staged, SonarQube pre-push, coverage gate).",
+      "Maintain the legacy system in production (Node.js, Express, MongoDB), one instance per unit across 90+ units: a certificate-issuance service with PDF, QR code and public validation, a scheduling race-condition fix, and cursor reconnection with exponential backoff after a production incident.",
+      "Spec-driven workflow with specs and plans versioned next to the code, multi-agent orchestration with schema-validated output and adversarial review, and an internal engineering-memory RAG (PostgreSQL + pgvector, hybrid search, knowledge graph) exposed through a custom MCP server.",
+    ],
   },
   {
     company: "VegaIT",

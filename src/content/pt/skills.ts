@@ -344,6 +344,26 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Ordem Social"],
         links: [{ label: "MySQL", url: "https://www.mysql.com" }],
       },
+      {
+        name: "Prisma 6",
+        proof:
+          "81 modelos sobre PostgreSQL no sistema de atendimento de nova geração; upgrade Prisma 4 → 6, transações e SELECT … FOR UPDATE para consistência no agendamento",
+        tags: ["G4F"],
+        links: [{ label: "Prisma", url: "https://www.prisma.io" }],
+      },
+      {
+        name: "MongoDB",
+        proof:
+          "Driver nativo no sistema legado de atendimento ao público: cursor tailable com reconexão e backoff, leitura paginada por _id, correção de corrida de chave duplicada no agendamento",
+        tags: ["G4F"],
+        links: [{ label: "MongoDB", url: "https://www.mongodb.com" }],
+      },
+      {
+        name: "Migração de dados (ETL)",
+        proof:
+          "Migrador legado → novo (MongoDB → PostgreSQL) como worker NestJS sem HTTP: fases plugáveis, cargas idempotentes com mapa de correlação, simulação e rollback, 110 casos de teste, validado em sandbox",
+        tags: ["G4F"],
+      },
     ],
   },
   {
@@ -450,6 +470,22 @@ export const skillCategories: SkillCategory[] = [
         tags: ["VegaIT"],
         links: [{ label: "Azure DevOps", url: "https://azure.microsoft.com/products/devops" }],
       },
+      {
+        name: "Bitbucket Pipelines",
+        proof:
+          "Autor do pipeline de CI/CD dos dois repositórios: build e testes, SonarQube, Dependency-Track, imagem Docker no Harbor, validação de tags e deploy em Kubernetes para 4 ambientes",
+        tags: ["G4F"],
+        links: [
+          { label: "Bitbucket Pipelines", url: "https://bitbucket.org/product/features/pipelines" },
+        ],
+      },
+      {
+        name: "HashiCorp Vault",
+        proof:
+          "Segredos e configuração por ambiente, consumidos pelo pipeline de CI/CD e pelos deploys em Kubernetes",
+        tags: ["G4F"],
+        links: [{ label: "Vault", url: "https://www.vaultproject.io" }],
+      },
     ],
   },
   {
@@ -509,6 +545,12 @@ export const skillCategories: SkillCategory[] = [
           { label: "MSW", url: "https://mswjs.io" },
         ],
       },
+      {
+        name: "Gates locais de qualidade",
+        proof:
+          "Husky + lint-staged: typecheck e lint sem avisos no pre-commit, gate do SonarQube no pre-push (contêiner próprio, provisionamento de token, API de análise) e gate de cobertura nos dois repositórios",
+        tags: ["G4F"],
+      },
     ],
   },
   {
@@ -520,6 +562,32 @@ export const skillCategories: SkillCategory[] = [
         proof:
           "Dev guiado por spec, orquestração de agentes — ~1.929 commits solo/17 meses, mantendo 902 testes, PHPStan, E2E",
         tags: ["Link Charts"],
+      },
+      {
+        name: "Desenvolvimento spec-driven",
+        proof:
+          "Brainstorm → spec → plano de implementação → execução → revisão independente, com 24 specs e planos versionados junto ao código do sistema de atendimento ao público",
+        tags: ["G4F", "este site"],
+      },
+      {
+        name: "Orquestração multiagente",
+        proof:
+          "Agentes implementador e revisor por tarefa, revisão final da branch e pipelines de análise com dezenas de agentes em paralelo, com saída validada por JSON Schema e verificador adversarial",
+        tags: ["G4F"],
+      },
+      {
+        name: "Desenvolvimento de servidor MCP",
+        proof:
+          "Servidor MCP próprio com 7 ferramentas (5 de leitura, 2 de escrita condicionada a revisão humana) sobre um RAG de memória de engenharia, consumido por agentes de código",
+        tags: ["G4F"],
+        links: [{ label: "Model Context Protocol", url: "https://modelcontextprotocol.io" }],
+      },
+      {
+        name: "RAG · pgvector · grafo de conhecimento",
+        proof:
+          "RAG de memória de engenharia sobre PostgreSQL + pgvector: 9 conectores idempotentes (Git, Jira, Confluence, PRs, pipelines, docs), busca híbrida em 4 vias fundida por Reciprocal Rank Fusion, expansão de 1 salto no grafo, embeddings multilíngues locais em CPU",
+        tags: ["G4F"],
+        links: [{ label: "pgvector", url: "https://github.com/pgvector/pgvector" }],
       },
       {
         name: "Contexto como artefato",

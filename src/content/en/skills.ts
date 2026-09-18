@@ -343,6 +343,26 @@ export const skillCategories: SkillCategory[] = [
         tags: ["Ordem Social"],
         links: [{ label: "MySQL", url: "https://www.mysql.com" }],
       },
+      {
+        name: "Prisma 6",
+        proof:
+          "81 models over PostgreSQL on the next-generation public service system; Prisma 4 → 6 upgrade, transactions and SELECT … FOR UPDATE for scheduling consistency",
+        tags: ["G4F"],
+        links: [{ label: "Prisma", url: "https://www.prisma.io" }],
+      },
+      {
+        name: "MongoDB",
+        proof:
+          "Native driver on the legacy public service system: tailable cursors with reconnection and backoff, paged reads by _id, duplicate-key race fix in scheduling",
+        tags: ["G4F"],
+        links: [{ label: "MongoDB", url: "https://www.mongodb.com" }],
+      },
+      {
+        name: "Data migration (ETL)",
+        proof:
+          "Legacy-to-new migrator (MongoDB → PostgreSQL) as a headless NestJS worker: pluggable phases, idempotent loads with a correlation map, dry-run and rollback, 110 test cases, validated in a sandbox",
+        tags: ["G4F"],
+      },
     ],
   },
   {
@@ -448,6 +468,22 @@ export const skillCategories: SkillCategory[] = [
         tags: ["VegaIT"],
         links: [{ label: "Azure DevOps", url: "https://azure.microsoft.com/products/devops" }],
       },
+      {
+        name: "Bitbucket Pipelines",
+        proof:
+          "Authored the CI/CD pipeline of both repositories: build and tests, SonarQube, Dependency-Track, Docker image on Harbor, tag validation and Kubernetes deploy to 4 environments",
+        tags: ["G4F"],
+        links: [
+          { label: "Bitbucket Pipelines", url: "https://bitbucket.org/product/features/pipelines" },
+        ],
+      },
+      {
+        name: "HashiCorp Vault",
+        proof:
+          "Secrets and configuration per environment, consumed by the CI/CD pipeline and the Kubernetes deploys",
+        tags: ["G4F"],
+        links: [{ label: "Vault", url: "https://www.vaultproject.io" }],
+      },
     ],
   },
   {
@@ -507,6 +543,12 @@ export const skillCategories: SkillCategory[] = [
           { label: "MSW", url: "https://mswjs.io" },
         ],
       },
+      {
+        name: "Local quality gates",
+        proof:
+          "Husky + lint-staged: typecheck and zero-warning lint on pre-commit, SonarQube gate on pre-push (own container, token provisioning, analysis API) and a coverage gate in both repositories",
+        tags: ["G4F"],
+      },
     ],
   },
   {
@@ -518,6 +560,32 @@ export const skillCategories: SkillCategory[] = [
         proof:
           "Spec-driven dev, multi-agent orchestration — ~1,929 solo commits/17 months, keeping 902 tests, PHPStan, E2E gates",
         tags: ["Link Charts"],
+      },
+      {
+        name: "Spec-driven development",
+        proof:
+          "Brainstorm → spec → implementation plan → execution → independent review, with 24 specs and plans versioned next to the code of the public service system",
+        tags: ["G4F", "this site"],
+      },
+      {
+        name: "Multi-agent orchestration",
+        proof:
+          "Implementer and reviewer agents per task, final branch review, and analysis pipelines with dozens of parallel agents whose output is validated by JSON Schema and an adversarial verifier",
+        tags: ["G4F"],
+      },
+      {
+        name: "MCP server development",
+        proof:
+          "Custom MCP server with 7 tools (5 read, 2 write behind human review) over an engineering-memory RAG, consumed by coding agents",
+        tags: ["G4F"],
+        links: [{ label: "Model Context Protocol", url: "https://modelcontextprotocol.io" }],
+      },
+      {
+        name: "RAG · pgvector · knowledge graph",
+        proof:
+          "Engineering-memory RAG over PostgreSQL + pgvector: 9 idempotent connectors (Git, Jira, Confluence, PRs, pipelines, docs), 4-way hybrid search fused by Reciprocal Rank Fusion, 1-hop graph expansion, local multilingual embeddings on CPU",
+        tags: ["G4F"],
+        links: [{ label: "pgvector", url: "https://github.com/pgvector/pgvector" }],
       },
       {
         name: "Context as an artifact",

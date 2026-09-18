@@ -172,3 +172,29 @@ o que procurava sem ler tudo.
 - O case study perdeu o callout e a opção de posição: é sempre uma seção
   simples ("Link Charts — tagline · link") depois de certificações e educação.
   `caseStudyPlacement` foi removido de `CvSelection`, dos rótulos e do painel.
+
+## Iteração — contribuições na experiência (2026-09-18, branch `feat/g4f-contributions`)
+
+Fonte: levantamento feito na máquina de trabalho do Bruno (git, sessões,
+docs), resumido em `~/Documents/curriculo-adicoes-2026-09-18.md`. Só entrou o
+que tem força `[git]` ou `[sessões]`; nada marcado `[notas]`, nada nominal
+(cliente, sistemas, hosts), nada de métrica interna como destaque.
+
+- **`Experience.highlights`** (opcional): bullets do que o Bruno fez na
+  passagem — separado de `projects` (o que o sistema é). Renderizados na
+  trajetória do site, no preview e no PDF, depois dos projetos.
+- **Skills no PDF viram linha corrida por categoria** ("Frontend: a · b · c"),
+  não chips: com sete bullets a mais na G4F o documento passou de duas
+  páginas e a linha ocupa ~40% do espaço dos chips. Os termos em foco saem em
+  negrito verde. O preview **mantém os chips** — divergência deliberada: na
+  tela o grid é mais legível e ajuda a decidir o que incluir.
+- **Linha de certificações + educação com `wrap={false}`**: uma linha flex não
+  pagina; cortada no pé da página, o react-pdf esmagava as duas colunas uma
+  sobre a outra em vez de quebrar. Inteira na página seguinte é o esperado.
+- **Escala de espaçamento um passo mais justa** (paddings da página, margens
+  de seção/entrada/bullets) para o pior caso — pt, com foco e case compacto —
+  continuar em duas páginas (guard em `cv-document.test.tsx`).
+- **Skills novas** (pt/en, tags G4F): Prisma 6, MongoDB, Migração de dados
+  (ETL), Bitbucket Pipelines, HashiCorp Vault, Gates locais de qualidade,
+  Desenvolvimento spec-driven, Orquestração multiagente, Desenvolvimento de
+  servidor MCP, RAG · pgvector · grafo de conhecimento.

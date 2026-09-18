@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     fontFamily: CV_FONT_FAMILY,
     fontSize: 9,
     color: ink,
-    paddingTop: 36,
-    paddingBottom: 46,
+    paddingTop: 32,
+    paddingBottom: 40,
     paddingHorizontal: 42,
   },
 
@@ -46,27 +46,27 @@ const styles = StyleSheet.create({
   contact: { width: 190, alignItems: "flex-end" },
   contactLine: { fontSize: 8, color: body, lineHeight: 1.55, textAlign: "right" },
   link: { color: accent, textDecoration: "none" },
-  headerRule: { flexDirection: "row", alignItems: "center", marginTop: 12 },
+  headerRule: { flexDirection: "row", alignItems: "center", marginTop: 10 },
   headerRuleAccent: { width: 40, height: 2, backgroundColor: accent },
   headerRuleLine: { flex: 1, height: 0.6, backgroundColor: rule },
 
-  summary: { fontSize: 9.2, color: body, lineHeight: 1.45, marginTop: 10 },
+  summary: { fontSize: 9.2, color: body, lineHeight: 1.45, marginTop: 8 },
 
   focusRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginTop: 8 },
   focusLabel: { fontSize: 8, fontWeight: 600, color: body, marginRight: 5, marginBottom: 2.5 },
 
-  section: { marginTop: 12 },
+  section: { marginTop: 10 },
   sectionTitle: {
     fontSize: 10,
     fontWeight: 600,
     lineHeight: 1.2,
     borderBottomWidth: 0.6,
     borderBottomColor: rule,
-    paddingBottom: 4,
-    marginBottom: 7,
+    paddingBottom: 3,
+    marginBottom: 6,
   },
 
-  entry: { marginBottom: 8 },
+  entry: { marginBottom: 6 },
   entryHead: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" },
   entryMain: { flex: 1, paddingRight: 12 },
   entryTitle: { fontSize: 9.8, fontWeight: 600, lineHeight: 1.3 },
@@ -75,20 +75,21 @@ const styles = StyleSheet.create({
   entryAside: { width: 130, alignItems: "flex-end" },
   entryPeriod: { fontSize: 8, color: body, lineHeight: 1.3, textAlign: "right" },
   entryDuration: { fontSize: 7.5, color: faint, lineHeight: 1.4, textAlign: "right", marginTop: 1 },
-  bullets: { marginTop: 4 },
-  bullet: { flexDirection: "row", marginBottom: 1.5 },
+  bullets: { marginTop: 3 },
+  bullet: { flexDirection: "row", marginBottom: 1 },
   bulletDot: { width: 9, fontSize: 8.5, color: accent, lineHeight: 1.4 },
   bulletText: { flex: 1, fontSize: 8.5, color: body, lineHeight: 1.4 },
-  stack: { fontSize: 7.5, color: muted, lineHeight: 1.45, marginTop: 3 },
+  stack: { fontSize: 7.5, color: muted, lineHeight: 1.4, marginTop: 2 },
   stackLabel: { fontWeight: 600, color: body },
   stackHit: { fontWeight: 600, color: ink },
 
-  skillRow: { flexDirection: "row", marginBottom: 4 },
-  skillTitle: { width: 92, fontSize: 8.5, fontWeight: 600, lineHeight: 1.3, paddingTop: 2 },
-  // `width` definida é obrigatória no container dos chips: sem ela o yoga
-  // mede a linha como se nunca quebrasse e empurra a seção para a página
-  // seguinte. `flex: 1` numa linha resolve para uma largura concreta.
-  chips: { flex: 1, flexDirection: "row", flexWrap: "wrap" },
+  skillRow: { flexDirection: "row", marginBottom: 3 },
+  skillTitle: { width: 92, fontSize: 8.5, fontWeight: 600, lineHeight: 1.3 },
+  // Skills como linha corrida por categoria (não chips): com as contribuições
+  // da experiência o documento passou de duas páginas; a linha cabe em ~40%
+  // do espaço e continua legível — os termos em foco saem em negrito.
+  skillLine: { flex: 1, fontSize: 7.8, color: body, lineHeight: 1.4 },
+  skillHit: { fontWeight: 600, color: accent },
   chip: {
     fontSize: 7.3,
     lineHeight: 1.25,
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
   columns: { flexDirection: "row" },
   columnWide: { flex: 3, paddingRight: 16 },
   columnNarrow: { flex: 2 },
-  item: { marginBottom: 5 },
+  item: { marginBottom: 4 },
   compactCase: { fontSize: 8.5, color: body, lineHeight: 1.4 },
   itemTitle: { fontSize: 8.8, fontWeight: 600, lineHeight: 1.35 },
   itemMeta: { fontSize: 8, color: muted, lineHeight: 1.4, marginTop: 1 },
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 42,
     right: 42,
-    bottom: 20,
+    bottom: 16,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -190,6 +191,16 @@ function ExperienceEntry({
                 <Text style={styles.strong}>{project.name}</Text>
                 {` — ${project.description}`}
               </Text>
+            </View>
+          ))}
+        </View>
+      ) : null}
+      {exp.highlights && exp.highlights.length > 0 ? (
+        <View style={styles.bullets}>
+          {exp.highlights.map((item) => (
+            <View key={item} style={styles.bullet}>
+              <Text style={styles.bulletDot}>•</Text>
+              <Text style={styles.bulletText}>{item}</Text>
             </View>
           ))}
         </View>
@@ -302,27 +313,29 @@ export function CvDocument({
             {data.skillCategories.map((category) => (
               <View key={category.id} style={styles.skillRow} wrap={false}>
                 <Text style={styles.skillTitle}>{category.title}</Text>
-                <View style={styles.chips}>
-                  {sortByFocus(category.skills, (skill) => skill.name, data.focus).map((skill) => (
-                    <Text
-                      key={skill.name}
-                      style={
-                        matchesFocus(skill.name, data.focus)
-                          ? [styles.chip, styles.chipHit]
-                          : styles.chip
-                      }
-                    >
-                      {skill.name}
-                    </Text>
-                  ))}
-                </View>
+                <Text style={styles.skillLine}>
+                  {sortByFocus(category.skills, (skill) => skill.name, data.focus).map(
+                    (skill, index) => (
+                      <Text key={skill.name}>
+                        {index > 0 ? " · " : ""}
+                        <Text
+                          style={matchesFocus(skill.name, data.focus) ? styles.skillHit : undefined}
+                        >
+                          {skill.name}
+                        </Text>
+                      </Text>
+                    ),
+                  )}
+                </Text>
               </View>
             ))}
           </Section>
         ) : null}
 
+        {/* wrap={false}: uma linha flex não pagina; se cortada no pé da página
+            o react-pdf esmaga as colunas uma sobre a outra em vez de quebrar. */}
         {data.certifications || data.education ? (
-          <View style={styles.columns}>
+          <View style={styles.columns} wrap={false}>
             {data.certifications ? (
               <View style={data.education ? styles.columnWide : { flex: 1 }}>
                 <Section title={labels.sections.certifications}>
