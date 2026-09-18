@@ -57,7 +57,7 @@ describe("SelectionPanel", () => {
     expect(Object.values(next.experiences).every((v) => v === false)).toBe(true);
   });
 
-  it("os ajustes de vaga escrevem foco, resumo e posição do case study", async () => {
+  it("os ajustes de vaga escrevem foco e resumo", async () => {
     const onChange = vi.fn();
     render(
       <SelectionPanel
@@ -71,8 +71,6 @@ describe("SelectionPanel", () => {
     expect(onChange.mock.lastCall![0].focus).toBe("L");
     await userEvent.type(screen.getByRole("textbox", { name: "Resumo personalizado" }), "R");
     expect(onChange.mock.lastCall![0].summaryOverride).toBe("R");
-    await userEvent.click(screen.getByRole("radio", { name: "Menção curta no fim" }));
-    expect(onChange.mock.lastCall![0].caseStudyPlacement).toBe("compact");
   });
 
   it("agrupa as skills por categoria, colapsadas por padrão", () => {

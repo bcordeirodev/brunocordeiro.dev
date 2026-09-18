@@ -14,7 +14,6 @@ import {
   educationKey,
   experienceKey,
   skillKey,
-  type CaseStudyPlacement,
   type CvSelection,
 } from "./selection";
 
@@ -25,7 +24,7 @@ export type CvData = {
   skillCategories: SkillCategory[] | null;
   certifications: Certification[] | null;
   education: Education[] | null;
-  caseStudy: { title: string; tagline: string; url: string; placement: CaseStudyPlacement } | null;
+  caseStudy: { title: string; tagline: string; url: string } | null;
   // Tecnologias a destacar (já normalizadas); vazio = CV sem foco.
   focus: string[];
   // URL desta página no site, impressa no rodapé do PDF: quem recebe o
@@ -64,7 +63,6 @@ export function buildCvData(content: SiteContent, selection: CvSelection, locale
           title: content.caseStudy.title,
           tagline: content.caseStudy.tagline,
           url: absoluteUrl(localizedPath(locale, "/link-charts")),
-          placement: selection.caseStudyPlacement,
         }
       : null,
     focus: parseFocus(selection.focus),

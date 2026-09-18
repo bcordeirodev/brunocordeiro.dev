@@ -17,21 +17,18 @@ describe("buildCvData", () => {
       title: content.caseStudy.title,
       tagline: content.caseStudy.tagline,
       url: "https://brunocordeiro.dev/pt/link-charts",
-      placement: "featured",
     });
     expect(data.focus).toEqual([]);
     expect(data.sourceUrl).toBe("https://brunocordeiro.dev/pt/cv");
   });
 
-  it("aplica os ajustes de vaga: foco, resumo alternativo e case study compacto", () => {
+  it("aplica os ajustes de vaga: foco e resumo alternativo", () => {
     const sel = defaultSelection(content);
     sel.focus = "Laravel, Angular";
     sel.summaryOverride = "  Resumo para a vaga.  ";
-    sel.caseStudyPlacement = "compact";
     const data = buildCvData(content, sel, "pt");
     expect(data.focus).toEqual(["Laravel", "Angular"]);
     expect(data.summary).toBe("Resumo para a vaga.");
-    expect(data.caseStudy?.placement).toBe("compact");
   });
 
   it("resumo alternativo só de espaços cai no pitch padrão", () => {

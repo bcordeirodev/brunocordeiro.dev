@@ -55,18 +55,6 @@ const styles = StyleSheet.create({
   focusRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginTop: 8 },
   focusLabel: { fontSize: 8, fontWeight: 600, color: body, marginRight: 5, marginBottom: 2.5 },
 
-  callout: {
-    marginTop: 10,
-    borderLeftWidth: 2,
-    borderLeftColor: accent,
-    backgroundColor: "#fafafa",
-    paddingVertical: 7,
-    paddingHorizontal: 10,
-  },
-  calloutTitle: { fontSize: 9.5, fontWeight: 600, lineHeight: 1.3 },
-  calloutText: { fontSize: 8.5, color: body, lineHeight: 1.45, marginTop: 2 },
-  calloutLink: { fontSize: 8, lineHeight: 1.4, marginTop: 3, color: muted },
-
   section: { marginTop: 12 },
   sectionTitle: {
     fontSize: 10,
@@ -171,7 +159,7 @@ function ExperienceEntry({
   nowYm: string;
   focus: string[];
 }) {
-  const meta = [labels.employmentTypes[exp.employmentType], exp.location].filter(Boolean);
+  const meta = [exp.location].filter(Boolean);
   return (
     <View style={styles.entry} wrap={false}>
       <View style={styles.entryHead}>
@@ -292,21 +280,6 @@ export function CvDocument({
           </View>
         ) : null}
 
-        {/* Prova antes de inventário: o case vem logo depois do resumo, como
-            na home, em vez de fechar a segunda página. */}
-        {data.caseStudy?.placement === "featured" ? (
-          <View style={styles.callout} wrap={false}>
-            <Text style={styles.calloutTitle}>{data.caseStudy.title}</Text>
-            <Text style={styles.calloutText}>{data.caseStudy.tagline}</Text>
-            <Text style={styles.calloutLink}>
-              {`${labels.caseStudyCta}: `}
-              <Link style={styles.link} src={data.caseStudy.url}>
-                {displayUrl(data.caseStudy.url)}
-              </Link>
-            </Text>
-          </View>
-        ) : null}
-
         {data.experiences ? (
           <Section title={labels.sections.experiences}>
             {data.experiences.map((exp) => (
@@ -390,9 +363,9 @@ export function CvDocument({
           </View>
         ) : null}
 
-        {/* Menção curta no fim: para vagas em que o case não é o argumento,
-            ele vira uma linha depois de tudo, sem sumir do documento. */}
-        {data.caseStudy?.placement === "compact" ? (
+        {/* O case fecha o documento numa linha: a trajetória é o argumento;
+            o link leva quem quiser ao estudo completo. */}
+        {data.caseStudy ? (
           <Section title={labels.sections.caseStudy}>
             <Text style={styles.compactCase}>
               <Text style={styles.strong}>{data.caseStudy.title}</Text>

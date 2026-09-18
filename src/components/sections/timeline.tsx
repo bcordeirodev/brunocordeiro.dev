@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { Experience } from "@/domain";
 import type { Locale } from "@/content";
-import { Badge } from "@/components/ui/badge";
 import { matchesFocus } from "@/lib/cv/focus";
 import { formatDuration, formatPeriod } from "@/lib/dates";
 
@@ -61,10 +60,9 @@ export async function Timeline({
               {/* Mesma anatomia do CV: quem/onde à esquerda, quando à direita. */}
               <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-1">
                 <div>
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <h3 className="text-lg font-medium">{experience.company}</h3>
-                    <Badge variant="outline">{experience.employmentType}</Badge>
-                  </div>
+                  {/* Sem o selo de vínculo (freelance/meio período): o que importa
+                      é o que foi feito, não o formato do contrato. */}
+                  <h3 className="text-lg font-medium">{experience.company}</h3>
                   <p className="mt-0.5 text-sm text-muted">
                     {experience.role}
                     {experience.location ? ` · ${experience.location}` : ""}

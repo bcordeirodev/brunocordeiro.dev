@@ -32,14 +32,11 @@ describe("CvPreview", () => {
     expect(screen.queryByText(/s[eê]nior/i)).not.toBeInTheDocument();
   });
 
-  it("mostra vínculo, duração e a linha de stack de cada experiência", () => {
+  it("mostra duração, descrição e a linha de stack de cada experiência, sem selo de vínculo", () => {
     const data = buildCvData(content, defaultSelection(content), "pt");
     render(<CvPreview data={data} locale="pt" labels={testLabels} />);
     const first = content.experiences[0]!;
-    expect(
-      screen.getAllByText(testLabels.employmentTypes[first.employmentType], { exact: false })
-        .length,
-    ).toBeGreaterThan(0);
+    expect(screen.queryByText(/freelance|meio período|tempo integral/i)).not.toBeInTheDocument();
     expect(screen.getAllByText(/\d+ anos?( \d+ mes(es)?)?|\d+ mes(es)?/).length).toBeGreaterThan(0);
     // a linha de stack é um <p> com um <span> por tecnologia (para o destaque
     // do foco), então o match é pelo texto completo do parágrafo
@@ -53,22 +50,22 @@ describe("CvPreview", () => {
     expect(screen.getByText(first.projects[0]!.description, { exact: false })).toBeInTheDocument();
   });
 
-  it("coloca o case study antes das experiências e encurta os links", () => {
+  it("fecha com o case study numa seção simples depois de tudo e encurta os links", () => {
     const data = buildCvData(content, defaultSelection(content), "pt");
     render(<CvPreview data={data} locale="pt" labels={testLabels} />);
-    const caseTitle = screen.getByRole("heading", { name: content.caseStudy.title });
-    const experiences = screen.getByRole("heading", { name: "Experiências" });
+    const caseSection = screen.getByRole("heading", { name: "Case study" });
+    const education = screen.getByRole("heading", { name: "Educação" });
     expect(
-      caseTitle.compareDocumentPosition(experiences) & Node.DOCUMENT_POSITION_FOLLOWING,
+      education.compareDocumentPosition(caseSection) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
+    expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
     expect(screen.getByText("github.com/bcordeirodev")).toBeInTheDocument();
     expect(screen.queryByText(/^https:\/\//)).not.toBeInTheDocument();
   });
 
-  it("com foco: linha de stack principal, skills em foco na frente e case study no fim", () => {
+  it("com foco: linha de stack principal e skills em foco na frente", () => {
     const sel = defaultSelection(content);
     sel.focus = "Laravel, Angular";
-    sel.caseStudyPlacement = "compact";
     sel.summaryOverride = "Resumo para a vaga.";
     const data = buildCvData(content, sel, "pt");
     render(<CvPreview data={data} locale="pt" labels={testLabels} />);
@@ -77,13 +74,6 @@ describe("CvPreview", () => {
     const frontend = content.skillCategories.find((c) => c.id === "frontend")!;
     const firstChip = screen.getByText(frontend.title).parentElement!.querySelector("span")!;
     expect(firstChip.textContent).toMatch(/angular/i);
-    // compacto: vira uma seção "Case study" depois de tudo, sem o callout
-    const caseSection = screen.getByRole("heading", { name: "Case study" });
-    const experiences = screen.getByRole("heading", { name: "Experiências" });
-    expect(
-      experiences.compareDocumentPosition(caseSection) & Node.DOCUMENT_POSITION_FOLLOWING,
-    ).toBeTruthy();
-    expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });
 
   it("omite seção nula mas mantém contatos", () => {

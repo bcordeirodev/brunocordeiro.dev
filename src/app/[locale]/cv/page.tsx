@@ -50,11 +50,6 @@ export default async function CvPage({ params }: { params: Promise<{ locale: Loc
     validUntil: tCommon("validUntil"),
     caseStudyCta: t("caseStudyCta"),
     stack: t("stack"),
-    employmentTypes: {
-      "full-time": t("employmentTypes.full-time"),
-      freelance: t("employmentTypes.freelance"),
-      "part-time": t("employmentTypes.part-time"),
-    },
     targeted: t("targeted"),
     focus: t("focus"),
     focusPlaceholder: t("focusPlaceholder"),
@@ -62,10 +57,6 @@ export default async function CvPage({ params }: { params: Promise<{ locale: Loc
     coreStack: t("coreStack"),
     summaryOverride: t("summaryOverride"),
     summaryOverrideHint: t("summaryOverrideHint"),
-    caseStudyPlacement: {
-      featured: t("caseStudyPlacement.featured"),
-      compact: t("caseStudyPlacement.compact"),
-    },
   };
 
   return (

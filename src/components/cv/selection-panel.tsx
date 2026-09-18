@@ -9,7 +9,6 @@ import {
   educationKey,
   experienceKey,
   skillKey,
-  type CaseStudyPlacement,
   type CvItemGroup as ItemGroup,
   type CvSectionId,
   type CvSelection,
@@ -313,34 +312,12 @@ export function SelectionPanel({
             enabled,
           ),
       })}
-      <fieldset className="flex flex-col gap-2" aria-label={labels.sections.caseStudy}>
-        <Checkbox
-          bold
-          label={labels.sections.caseStudy}
-          checked={selection.sections.caseStudy}
-          onToggle={() => toggleSection("caseStudy")}
-        />
-        <div
-          className={`flex flex-col gap-1 pl-6 ${selection.sections.caseStudy ? "" : "opacity-50"}`}
-        >
-          {(["featured", "compact"] as const satisfies readonly CaseStudyPlacement[]).map(
-            (placement) => (
-              <label key={placement} className="flex items-center gap-2 text-sm text-muted">
-                <input
-                  type="radio"
-                  name="caseStudyPlacement"
-                  value={placement}
-                  checked={selection.caseStudyPlacement === placement}
-                  disabled={!selection.sections.caseStudy}
-                  onChange={() => onChange({ ...selection, caseStudyPlacement: placement })}
-                  className="accent-accent"
-                />
-                {labels.caseStudyPlacement[placement]}
-              </label>
-            ),
-          )}
-        </div>
-      </fieldset>
+      <Checkbox
+        bold
+        label={labels.sections.caseStudy}
+        checked={selection.sections.caseStudy}
+        onToggle={() => toggleSection("caseStudy")}
+      />
     </div>
   );
 }

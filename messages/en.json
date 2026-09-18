@@ -66,11 +66,6 @@
     "downloadError": "Could not generate the PDF. Please try again.",
     "caseStudyCta": "full case study",
     "stack": "Stack",
-    "employmentTypes": {
-      "full-time": "full-time",
-      "freelance": "freelance",
-      "part-time": "part-time"
-    },
     "targeted": "Targeted application",
     "focus": "Highlight technologies",
     "focusPlaceholder": "Laravel, Angular, PHP",
@@ -78,10 +73,6 @@
     "coreStack": "Core stack",
     "summaryOverride": "Custom summary",
     "summaryOverrideHint": "Leave empty to use the default summary.",
-    "caseStudyPlacement": {
-      "featured": "Featured at the top",
-      "compact": "Short mention at the end"
-    },
     "sections": {
       "summary": "Summary",
       "experiences": "Experience",

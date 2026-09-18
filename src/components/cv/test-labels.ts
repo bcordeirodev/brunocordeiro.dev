@@ -21,11 +21,6 @@ export const testLabels: CvLabels = {
   validUntil: "válida até",
   caseStudyCta: "case study completo",
   stack: "Stack",
-  employmentTypes: {
-    "full-time": "tempo integral",
-    freelance: "freelance",
-    "part-time": "meio período",
-  },
   targeted: "Vaga específica",
   focus: "Destacar tecnologias",
   focusPlaceholder: "Laravel, Angular, PHP",
@@ -33,5 +28,4 @@ export const testLabels: CvLabels = {
   coreStack: "Stack principal",
   summaryOverride: "Resumo personalizado",
   summaryOverrideHint: "Vazio usa o resumo padrão.",
-  caseStudyPlacement: { featured: "Em destaque no topo", compact: "Menção curta no fim" },
 };

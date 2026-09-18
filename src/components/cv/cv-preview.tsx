@@ -51,7 +51,7 @@ function ExperienceEntry({
   nowYm: string;
   focus: string[];
 }) {
-  const meta = [labels.employmentTypes[exp.employmentType], exp.location].filter(Boolean);
+  const meta = [exp.location].filter(Boolean);
   return (
     <div className="flex flex-col gap-2 border-t border-border/40 py-4 first:border-t-0 first:pt-0 last:pb-0">
       <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
@@ -142,25 +142,6 @@ export function CvPreview({
         </div>
       ) : null}
 
-      {/* Prova antes de inventário: o case vem logo depois do resumo, como no PDF. */}
-      {data.caseStudy?.placement === "featured" ? (
-        <aside className="flex flex-col gap-1 border-l-2 border-accent bg-surface px-4 py-3">
-          <h3 className="font-semibold">{data.caseStudy.title}</h3>
-          <p className="text-xs text-muted">{data.caseStudy.tagline}</p>
-          <p className="text-xs text-muted">
-            {labels.caseStudyCta}:{" "}
-            <a
-              href={data.caseStudy.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent underline-offset-4 hover:underline"
-            >
-              {displayUrl(data.caseStudy.url)}
-            </a>
-          </p>
-        </aside>
-      ) : null}
-
       {data.experiences ? (
         <Section title={labels.sections.experiences}>
           <div className="flex flex-col">
@@ -238,7 +219,7 @@ export function CvPreview({
         </div>
       ) : null}
 
-      {data.caseStudy?.placement === "compact" ? (
+      {data.caseStudy ? (
         <Section title={labels.sections.caseStudy}>
           <p className="text-xs text-muted">
             <span className="font-medium text-foreground">{data.caseStudy.title}</span> —{" "}

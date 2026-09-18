@@ -20,7 +20,6 @@ async function render(locale: Locale, targeted = false) {
   const selection = defaultSelection(content);
   if (targeted) {
     selection.focus = "Laravel, Angular, PHP";
-    selection.caseStudyPlacement = "compact";
   }
   const data = buildCvData(content, selection, locale);
   return renderToBuffer(<CvDocument data={data} locale={locale} labels={testLabels} />);
@@ -34,7 +33,7 @@ describe("CvDocument", () => {
     }
   }, 30_000);
 
-  it("a variante com foco e case study compacto também cabe em duas páginas", async () => {
+  it("a variante com foco também cabe em duas páginas", async () => {
     for (const locale of ["en", "pt"] as const) {
       const pdf = await render(locale, true);
       expect(countPages(pdf), locale).toBeLessThanOrEqual(2);

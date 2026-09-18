@@ -162,3 +162,13 @@ o que procurava sem ler tudo.
 - **Métricas fora do CV**: testes no CI, downtime de deploy e contagem de
   releases são prova de engenharia no hero do site, não destaque de currículo.
   A seção `metrics` e o toggle foram removidos; o resumo já traz os anos.
+
+## Ajuste — sem selo de vínculo, case sempre no fim (2026-09-18)
+
+- O vínculo (freelance / meio período / tempo integral) saiu do PDF, do preview
+  e da trajetória do site: o que importa é o que foi feito, não o formato do
+  contrato. `employmentType` segue no domínio só para a linha "em paralelo
+  com …" da trajetória.
+- O case study perdeu o callout e a opção de posição: é sempre uma seção
+  simples ("Link Charts — tagline · link") depois de certificações e educação.
+  `caseStudyPlacement` foi removido de `CvSelection`, dos rótulos e do painel.
