@@ -57,9 +57,8 @@ function ExperienceEntry({
         </div>
         <div className="text-right font-mono text-xs text-muted">
           <p>{formatPeriod(exp.start, exp.end, locale, labels.current)}</p>
-          <p className="text-[11px] opacity-70">
-            {formatDuration(exp.start, exp.end, locale, nowYm)}
-          </p>
+          {/* Sem opacidade extra: a 70% o cinza cai abaixo de 4.5:1 e o axe reprova. */}
+          <p className="text-[11px]">{formatDuration(exp.start, exp.end, locale, nowYm)}</p>
         </div>
       </div>
       {exp.projects.length > 0 ? (
