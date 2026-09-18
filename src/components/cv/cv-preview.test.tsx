@@ -41,7 +41,14 @@ describe("CvPreview", () => {
         .length,
     ).toBeGreaterThan(0);
     expect(screen.getAllByText(/\d+ anos?( \d+ mes(es)?)?|\d+ mes(es)?/).length).toBeGreaterThan(0);
-    expect(screen.getByText(first.stacks.join(" · "), { exact: false })).toBeInTheDocument();
+    // a linha de stack é um <p> com um <span> por tecnologia (para o destaque
+    // do foco), então o match é pelo texto completo do parágrafo
+    expect(
+      screen.getByText(
+        (_, node) =>
+          node?.tagName === "P" && node.textContent === `Stack: ${first.stacks.join(" · ")}`,
+      ),
+    ).toBeInTheDocument();
     // a descrição de cada sistema entra no preview e no PDF
     expect(screen.getByText(first.projects[0]!.description, { exact: false })).toBeInTheDocument();
   });
@@ -56,6 +63,27 @@ describe("CvPreview", () => {
     ).toBeTruthy();
     expect(screen.getByText("github.com/bcordeirodev")).toBeInTheDocument();
     expect(screen.queryByText(/^https:\/\//)).not.toBeInTheDocument();
+  });
+
+  it("com foco: linha de stack principal, skills em foco na frente e case study no fim", () => {
+    const sel = defaultSelection(content);
+    sel.focus = "Laravel, Angular";
+    sel.caseStudyPlacement = "compact";
+    sel.summaryOverride = "Resumo para a vaga.";
+    const data = buildCvData(content, sel, "pt");
+    render(<CvPreview data={data} locale="pt" labels={testLabels} />);
+    expect(screen.getByText("Stack principal:")).toBeInTheDocument();
+    expect(screen.getByText("Resumo para a vaga.")).toBeInTheDocument();
+    const frontend = content.skillCategories.find((c) => c.id === "frontend")!;
+    const firstChip = screen.getByText(frontend.title).parentElement!.querySelector("span")!;
+    expect(firstChip.textContent).toMatch(/angular/i);
+    // compacto: vira uma seção "Case study" depois de tudo, sem o callout
+    const caseSection = screen.getByRole("heading", { name: "Case study" });
+    const experiences = screen.getByRole("heading", { name: "Experiências" });
+    expect(
+      experiences.compareDocumentPosition(caseSection) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });
 
   it("omite seção nula mas mantém contatos", () => {

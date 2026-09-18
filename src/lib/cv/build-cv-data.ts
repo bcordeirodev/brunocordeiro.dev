@@ -9,11 +9,13 @@ import type {
 } from "@/domain";
 import type { Locale } from "@/content";
 import { absoluteUrl, localizedPath } from "@/lib/site";
+import { parseFocus } from "./focus";
 import {
   certificationKey,
   educationKey,
   experienceKey,
   skillKey,
+  type CaseStudyPlacement,
   type CvSelection,
 } from "./selection";
 
@@ -25,7 +27,9 @@ export type CvData = {
   skillCategories: SkillCategory[] | null;
   certifications: Certification[] | null;
   education: Education[] | null;
-  caseStudy: { title: string; tagline: string; url: string } | null;
+  caseStudy: { title: string; tagline: string; url: string; placement: CaseStudyPlacement } | null;
+  // Tecnologias a destacar (já normalizadas); vazio = CV sem foco.
+  focus: string[];
   // URL desta página no site, impressa no rodapé do PDF: quem recebe o
   // arquivo por e-mail consegue voltar à versão completa e atualizada.
   sourceUrl: string;
@@ -37,7 +41,7 @@ export function buildCvData(content: SiteContent, selection: CvSelection, locale
   const { sections } = selection;
   return {
     profile: content.profile,
-    summary: sections.summary ? content.profile.pitch : null,
+    summary: sections.summary ? selection.summaryOverride.trim() || content.profile.pitch : null,
     metrics: sections.metrics ? content.profile.metrics : null,
     experiences: sections.experiences
       ? orNull(content.experiences.filter((e) => selection.experiences[experienceKey(e)]))
@@ -63,8 +67,10 @@ export function buildCvData(content: SiteContent, selection: CvSelection, locale
           title: content.caseStudy.title,
           tagline: content.caseStudy.tagline,
           url: absoluteUrl(localizedPath(locale, "/link-charts")),
+          placement: selection.caseStudyPlacement,
         }
       : null,
+    focus: parseFocus(selection.focus),
     sourceUrl: absoluteUrl(localizedPath(locale, "/cv")),
   };
 }

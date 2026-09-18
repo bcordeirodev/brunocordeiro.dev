@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import type { SiteContent, SkillCategory } from "@/domain";
 import type { CvLabels } from "@/lib/cv/labels";
@@ -9,11 +9,14 @@ import {
   educationKey,
   experienceKey,
   skillKey,
+  type CaseStudyPlacement,
+  type CvItemGroup as ItemGroup,
   type CvSectionId,
   type CvSelection,
 } from "@/lib/cv/selection";
 
-type ItemGroup = keyof Omit<CvSelection, "sections">;
+const fieldClass =
+  "w-full rounded-md border border-border/60 bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted/70 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none";
 
 function Checkbox({
   label,
@@ -192,6 +195,12 @@ export function SelectionPanel({
     );
   };
 
+  // Hint fora do <label>: dentro dele, o texto vira parte do nome acessível
+  // do campo ("Destacar tecnologiasSkills que batem…"); `aria-describedby`
+  // liga os dois sem misturar.
+  const focusId = useId();
+  const summaryId = useId();
+
   const itemList = (
     group: ItemGroup,
     items: { key: string; label: string }[],
@@ -212,6 +221,41 @@ export function SelectionPanel({
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Ajustes para uma vaga: o que muda entre uma candidatura e outra sem
+          mexer no conteúdo do site. Vazio = CV padrão. */}
+      <fieldset className="flex flex-col gap-3 rounded-lg border border-border/50 p-3">
+        <legend className="px-1 text-sm font-medium">{labels.targeted}</legend>
+        <div className="flex flex-col gap-1 text-sm">
+          <label htmlFor={focusId}>{labels.focus}</label>
+          <input
+            id={focusId}
+            type="text"
+            value={selection.focus}
+            placeholder={labels.focusPlaceholder}
+            aria-describedby={`${focusId}-hint`}
+            onChange={(event) => onChange({ ...selection, focus: event.target.value })}
+            className={fieldClass}
+          />
+          <p id={`${focusId}-hint`} className="text-xs text-muted">
+            {labels.focusHint}
+          </p>
+        </div>
+        <div className="flex flex-col gap-1 text-sm">
+          <label htmlFor={summaryId}>{labels.summaryOverride}</label>
+          <textarea
+            id={summaryId}
+            value={selection.summaryOverride}
+            placeholder={content.profile.pitch}
+            rows={4}
+            aria-describedby={`${summaryId}-hint`}
+            onChange={(event) => onChange({ ...selection, summaryOverride: event.target.value })}
+            className={fieldClass}
+          />
+          <p id={`${summaryId}-hint`} className="text-xs text-muted">
+            {labels.summaryOverrideHint}
+          </p>
+        </div>
+      </fieldset>
       {(["summary", "metrics"] as const).map((id) => (
         <Checkbox
           key={id}
@@ -272,12 +316,34 @@ export function SelectionPanel({
             enabled,
           ),
       })}
-      <Checkbox
-        bold
-        label={labels.sections.caseStudy}
-        checked={selection.sections.caseStudy}
-        onToggle={() => toggleSection("caseStudy")}
-      />
+      <fieldset className="flex flex-col gap-2" aria-label={labels.sections.caseStudy}>
+        <Checkbox
+          bold
+          label={labels.sections.caseStudy}
+          checked={selection.sections.caseStudy}
+          onToggle={() => toggleSection("caseStudy")}
+        />
+        <div
+          className={`flex flex-col gap-1 pl-6 ${selection.sections.caseStudy ? "" : "opacity-50"}`}
+        >
+          {(["featured", "compact"] as const satisfies readonly CaseStudyPlacement[]).map(
+            (placement) => (
+              <label key={placement} className="flex items-center gap-2 text-sm text-muted">
+                <input
+                  type="radio"
+                  name="caseStudyPlacement"
+                  value={placement}
+                  checked={selection.caseStudyPlacement === placement}
+                  disabled={!selection.sections.caseStudy}
+                  onChange={() => onChange({ ...selection, caseStudyPlacement: placement })}
+                  className="accent-accent"
+                />
+                {labels.caseStudyPlacement[placement]}
+              </label>
+            ),
+          )}
+        </div>
+      </fieldset>
     </div>
   );
 }

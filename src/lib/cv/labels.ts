@@ -1,5 +1,5 @@
 import type { Experience } from "@/domain";
-import type { CvSectionId } from "./selection";
+import type { CaseStudyPlacement, CvSectionId } from "./selection";
 
 export type CvLabels = {
   sections: Record<CvSectionId, string>;
@@ -18,4 +18,14 @@ export type CvLabels = {
   stack: string;
   // Vínculo traduzido ("tempo integral", "freelance", "meio período").
   employmentTypes: Record<Experience["employmentType"], string>;
+  // Ajustes para uma vaga específica (painel) e o rótulo da linha de foco
+  // que o PDF/preview imprimem sob o resumo.
+  targeted: string;
+  focus: string;
+  focusPlaceholder: string;
+  focusHint: string;
+  coreStack: string;
+  summaryOverride: string;
+  summaryOverrideHint: string;
+  caseStudyPlacement: Record<CaseStudyPlacement, string>;
 };

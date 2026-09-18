@@ -2,6 +2,7 @@ import type { Locale } from "@/content";
 import type { Experience } from "@/domain";
 import type { CvData } from "@/lib/cv/build-cv-data";
 import { displayUrl } from "@/lib/cv/display-url";
+import { matchesFocus, sortByFocus } from "@/lib/cv/focus";
 import type { CvLabels } from "@/lib/cv/labels";
 import { certificationKey, educationKey } from "@/lib/cv/selection";
 import { formatDuration, formatPeriod, formatYearMonth } from "@/lib/dates";
@@ -9,13 +10,17 @@ import { formatDuration, formatPeriod, formatYearMonth } from "@/lib/dates";
 // O preview espelha o PDF (mesma ordem, mesma hierarquia) para que o que o
 // recrutador vê na tela seja o que sai no arquivo.
 
-function Chips({ items }: { items: string[] }) {
+function Chips({ items, focus = [] }: { items: string[]; focus?: string[] }) {
   return (
     <div className="flex flex-wrap gap-1">
-      {items.map((item) => (
+      {sortByFocus(items, (item) => item, focus).map((item) => (
         <span
           key={item}
-          className="rounded-sm border border-border/60 bg-surface px-1.5 py-0.5 text-[10px] text-muted"
+          className={
+            matchesFocus(item, focus)
+              ? "rounded-sm border border-accent/70 bg-accent/10 px-1.5 py-0.5 text-[10px] font-medium text-foreground"
+              : "rounded-sm border border-border/60 bg-surface px-1.5 py-0.5 text-[10px] text-muted"
+          }
         >
           {item}
         </span>
@@ -38,11 +43,13 @@ function ExperienceEntry({
   locale,
   labels,
   nowYm,
+  focus,
 }: {
   exp: Experience;
   locale: Locale;
   labels: CvLabels;
   nowYm: string;
+  focus: string[];
 }) {
   const meta = [labels.employmentTypes[exp.employmentType], exp.location].filter(Boolean);
   return (
@@ -78,7 +85,14 @@ function ExperienceEntry({
       {exp.stacks.length > 0 ? (
         <p className="text-xs text-muted">
           <span className="font-medium text-foreground">{labels.stack}: </span>
-          {exp.stacks.join(" · ")}
+          {exp.stacks.map((stack, index) => (
+            <span key={stack}>
+              {index > 0 ? " · " : ""}
+              <span className={matchesFocus(stack, focus) ? "font-semibold text-foreground" : ""}>
+                {stack}
+              </span>
+            </span>
+          ))}
         </p>
       ) : null}
     </div>
@@ -121,6 +135,13 @@ export function CvPreview({
 
       {data.summary ? <p className="text-muted">{data.summary}</p> : null}
 
+      {data.focus.length > 0 ? (
+        <div className="flex flex-wrap items-center gap-1.5 text-xs">
+          <span className="font-medium">{labels.coreStack}:</span>
+          <Chips items={data.focus} focus={data.focus} />
+        </div>
+      ) : null}
+
       {data.metrics ? (
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {data.metrics.map((metric) => (
@@ -135,7 +156,7 @@ export function CvPreview({
       ) : null}
 
       {/* Prova antes de inventário: o case vem logo depois do resumo, como no PDF. */}
-      {data.caseStudy ? (
+      {data.caseStudy?.placement === "featured" ? (
         <aside className="flex flex-col gap-1 border-l-2 border-accent bg-surface px-4 py-3">
           <h3 className="font-semibold">{data.caseStudy.title}</h3>
           <p className="text-xs text-muted">{data.caseStudy.tagline}</p>
@@ -163,6 +184,7 @@ export function CvPreview({
                 locale={locale}
                 labels={labels}
                 nowYm={profile.asOfYm}
+                focus={data.focus}
               />
             ))}
           </div>
@@ -176,7 +198,7 @@ export function CvPreview({
             {data.skillCategories.map((cat) => (
               <div key={cat.id} className="grid gap-1 sm:grid-cols-[8rem_1fr] sm:gap-4">
                 <p className="text-xs font-semibold">{cat.title}</p>
-                <Chips items={cat.skills.map((s) => s.name)} />
+                <Chips items={cat.skills.map((s) => s.name)} focus={data.focus} />
               </div>
             ))}
           </div>
@@ -227,6 +249,23 @@ export function CvPreview({
             </div>
           ) : null}
         </div>
+      ) : null}
+
+      {data.caseStudy?.placement === "compact" ? (
+        <Section title={labels.sections.caseStudy}>
+          <p className="text-xs text-muted">
+            <span className="font-medium text-foreground">{data.caseStudy.title}</span> —{" "}
+            {data.caseStudy.tagline} ·{" "}
+            <a
+              href={data.caseStudy.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent underline-offset-4 hover:underline"
+            >
+              {displayUrl(data.caseStudy.url)}
+            </a>
+          </p>
+        </Section>
       ) : null}
 
       <footer className="flex justify-between border-t border-border/40 pt-3 text-[11px] text-muted">

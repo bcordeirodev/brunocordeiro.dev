@@ -56,6 +56,17 @@ export default async function CvPage({ params }: { params: Promise<{ locale: Loc
       freelance: t("employmentTypes.freelance"),
       "part-time": t("employmentTypes.part-time"),
     },
+    targeted: t("targeted"),
+    focus: t("focus"),
+    focusPlaceholder: t("focusPlaceholder"),
+    focusHint: t("focusHint"),
+    coreStack: t("coreStack"),
+    summaryOverride: t("summaryOverride"),
+    summaryOverrideHint: t("summaryOverrideHint"),
+    caseStudyPlacement: {
+      featured: t("caseStudyPlacement.featured"),
+      compact: t("caseStudyPlacement.compact"),
+    },
   };
 
   return (

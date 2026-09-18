@@ -3,13 +3,24 @@ import type { Certification, Education, Experience, SiteContent } from "@/domain
 export type CvSectionId =
   "summary" | "metrics" | "experiences" | "skills" | "certifications" | "education" | "caseStudy";
 
+export type CaseStudyPlacement = "featured" | "compact";
+
 export type CvSelection = {
   sections: Record<CvSectionId, boolean>;
   experiences: Record<string, boolean>;
   skills: Record<string, boolean>;
   certifications: Record<string, boolean>;
   education: Record<string, boolean>;
+  // Ajustes para UMA vaga: tecnologias a destacar (texto livre, separado por
+  // vírgula — ver `parseFocus`), resumo alternativo (vazio = `profile.pitch`)
+  // e se o case study abre o CV em destaque ou fecha numa menção curta.
+  focus: string;
+  summaryOverride: string;
+  caseStudyPlacement: CaseStudyPlacement;
 };
+
+/** Grupos de itens marcáveis um a um (os records de chave → boolean). */
+export type CvItemGroup = "experiences" | "skills" | "certifications" | "education";
 
 // Nomes sozinhos são únicos hoje, mas o par com um segundo campo blinda
 // contra homônimos futuros (duas passagens pela mesma empresa, a mesma
@@ -50,5 +61,8 @@ export function defaultSelection(content: SiteContent): CvSelection {
     ),
     certifications: allTrue(content.certifications.map(certificationKey)),
     education: allTrue(content.education.map(educationKey)),
+    focus: "",
+    summaryOverride: "",
+    caseStudyPlacement: "featured",
   };
 }

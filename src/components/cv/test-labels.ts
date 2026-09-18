@@ -27,4 +27,12 @@ export const testLabels: CvLabels = {
     freelance: "freelance",
     "part-time": "meio período",
   },
+  targeted: "Vaga específica",
+  focus: "Destacar tecnologias",
+  focusPlaceholder: "Laravel, Angular, PHP",
+  focusHint: "Skills que batem vão para a frente e ganham destaque na stack de cada experiência.",
+  coreStack: "Stack principal",
+  summaryOverride: "Resumo personalizado",
+  summaryOverrideHint: "Vazio usa o resumo padrão.",
+  caseStudyPlacement: { featured: "Em destaque no topo", compact: "Menção curta no fim" },
 };

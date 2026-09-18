@@ -4,6 +4,7 @@ import type { Locale } from "@/content";
 import type { Experience } from "@/domain";
 import type { CvData } from "@/lib/cv/build-cv-data";
 import { displayUrl } from "@/lib/cv/display-url";
+import { matchesFocus, sortByFocus } from "@/lib/cv/focus";
 import { CV_FONT_FAMILY, registerCvFonts } from "@/lib/cv/fonts";
 import type { CvLabels } from "@/lib/cv/labels";
 import { pdfSafe } from "@/lib/cv/pdf-text";
@@ -64,6 +65,9 @@ const styles = StyleSheet.create({
   metricValue: { fontSize: 14, fontWeight: 700, lineHeight: 1.1 },
   metricLabel: { fontSize: 7.5, color: muted, lineHeight: 1.3, marginTop: 2 },
 
+  focusRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginTop: 8 },
+  focusLabel: { fontSize: 8, fontWeight: 600, color: body, marginRight: 5, marginBottom: 2.5 },
+
   callout: {
     marginTop: 10,
     borderLeftWidth: 2,
@@ -102,6 +106,7 @@ const styles = StyleSheet.create({
   bulletText: { flex: 1, fontSize: 8.5, color: body, lineHeight: 1.4 },
   stack: { fontSize: 7.5, color: muted, lineHeight: 1.45, marginTop: 3 },
   stackLabel: { fontWeight: 600, color: body },
+  stackHit: { fontWeight: 600, color: ink },
 
   skillRow: { flexDirection: "row", marginBottom: 4 },
   skillTitle: { width: 92, fontSize: 8.5, fontWeight: 600, lineHeight: 1.3, paddingTop: 2 },
@@ -122,11 +127,15 @@ const styles = StyleSheet.create({
     marginRight: 3,
     marginBottom: 2.5,
   },
+  // Chip de uma tecnologia em foco: mesma caixa, borda e texto no verde
+  // escuro — o olho acha "Laravel" e "Angular" sem ler a lista inteira.
+  chipHit: { color: accent, borderColor: accent, fontWeight: 600, backgroundColor: "#f0fdf4" },
 
   columns: { flexDirection: "row" },
   columnWide: { flex: 3, paddingRight: 16 },
   columnNarrow: { flex: 2 },
   item: { marginBottom: 5 },
+  compactCase: { fontSize: 8.5, color: body, lineHeight: 1.4 },
   itemTitle: { fontSize: 8.8, fontWeight: 600, lineHeight: 1.35 },
   itemMeta: { fontSize: 8, color: muted, lineHeight: 1.4, marginTop: 1 },
   itemLink: { fontSize: 7.5, lineHeight: 1.4, marginTop: 1 },
@@ -167,11 +176,13 @@ function ExperienceEntry({
   locale,
   labels,
   nowYm,
+  focus,
 }: {
   exp: Experience;
   locale: Locale;
   labels: CvLabels;
   nowYm: string;
+  focus: string[];
 }) {
   const meta = [labels.employmentTypes[exp.employmentType], exp.location].filter(Boolean);
   return (
@@ -214,7 +225,12 @@ function ExperienceEntry({
       {exp.stacks.length > 0 ? (
         <Text style={styles.stack}>
           <Text style={styles.stackLabel}>{`${labels.stack}: `}</Text>
-          {exp.stacks.join(" · ")}
+          {exp.stacks.map((stack, index) => (
+            <Text key={stack}>
+              {index > 0 ? " · " : ""}
+              <Text style={matchesFocus(stack, focus) ? styles.stackHit : undefined}>{stack}</Text>
+            </Text>
+          ))}
         </Text>
       ) : null}
     </View>
@@ -276,6 +292,19 @@ export function CvDocument({
 
         {data.summary ? <Text style={styles.summary}>{data.summary}</Text> : null}
 
+        {/* Tecnologias da vaga, logo sob o resumo: é a primeira coisa que o
+            recrutador confere contra os requisitos. */}
+        {data.focus.length > 0 ? (
+          <View style={styles.focusRow}>
+            <Text style={styles.focusLabel}>{`${labels.coreStack}:`}</Text>
+            {data.focus.map((term) => (
+              <Text key={term} style={[styles.chip, styles.chipHit]}>
+                {term}
+              </Text>
+            ))}
+          </View>
+        ) : null}
+
         {data.metrics ? (
           <View style={styles.metrics}>
             {data.metrics.map((metric, index, all) => (
@@ -294,7 +323,7 @@ export function CvDocument({
 
         {/* Prova antes de inventário: o case vem logo depois do resumo, como
             na home, em vez de fechar a segunda página. */}
-        {data.caseStudy ? (
+        {data.caseStudy?.placement === "featured" ? (
           <View style={styles.callout} wrap={false}>
             <Text style={styles.calloutTitle}>{data.caseStudy.title}</Text>
             <Text style={styles.calloutText}>{data.caseStudy.tagline}</Text>
@@ -316,6 +345,7 @@ export function CvDocument({
                 locale={locale}
                 labels={labels}
                 nowYm={profile.asOfYm}
+                focus={data.focus}
               />
             ))}
           </Section>
@@ -329,8 +359,15 @@ export function CvDocument({
               <View key={category.id} style={styles.skillRow} wrap={false}>
                 <Text style={styles.skillTitle}>{category.title}</Text>
                 <View style={styles.chips}>
-                  {category.skills.map((skill) => (
-                    <Text key={skill.name} style={styles.chip}>
+                  {sortByFocus(category.skills, (skill) => skill.name, data.focus).map((skill) => (
+                    <Text
+                      key={skill.name}
+                      style={
+                        matchesFocus(skill.name, data.focus)
+                          ? [styles.chip, styles.chipHit]
+                          : styles.chip
+                      }
+                    >
                       {skill.name}
                     </Text>
                   ))}
@@ -380,6 +417,20 @@ export function CvDocument({
               </View>
             ) : null}
           </View>
+        ) : null}
+
+        {/* Menção curta no fim: para vagas em que o case não é o argumento,
+            ele vira uma linha depois de tudo, sem sumir do documento. */}
+        {data.caseStudy?.placement === "compact" ? (
+          <Section title={labels.sections.caseStudy}>
+            <Text style={styles.compactCase}>
+              <Text style={styles.strong}>{data.caseStudy.title}</Text>
+              {` — ${data.caseStudy.tagline} · `}
+              <Link style={styles.link} src={data.caseStudy.url}>
+                {displayUrl(data.caseStudy.url)}
+              </Link>
+            </Text>
+          </Section>
         ) : null}
       </Page>
     </Document>

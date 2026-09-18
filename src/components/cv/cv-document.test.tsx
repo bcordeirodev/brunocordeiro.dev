@@ -15,9 +15,14 @@ const { CvDocument } = await import("./cv-document");
 
 const countPages = (pdf: Buffer) => pdf.toString("latin1").match(/\/Type\s*\/Page(?!s)/g)?.length;
 
-async function render(locale: Locale) {
+async function render(locale: Locale, targeted = false) {
   const content = getContent(locale);
-  const data = buildCvData(content, defaultSelection(content), locale);
+  const selection = defaultSelection(content);
+  if (targeted) {
+    selection.focus = "Laravel, Angular, PHP";
+    selection.caseStudyPlacement = "compact";
+  }
+  const data = buildCvData(content, selection, locale);
   return renderToBuffer(<CvDocument data={data} locale={locale} labels={testLabels} />);
 }
 
@@ -25,6 +30,13 @@ describe("CvDocument", () => {
   it("cabe em duas páginas com tudo selecionado, nos dois locales", async () => {
     for (const locale of ["en", "pt"] as const) {
       const pdf = await render(locale);
+      expect(countPages(pdf), locale).toBeLessThanOrEqual(2);
+    }
+  }, 30_000);
+
+  it("a variante com foco e case study compacto também cabe em duas páginas", async () => {
+    for (const locale of ["en", "pt"] as const) {
+      const pdf = await render(locale, true);
       expect(countPages(pdf), locale).toBeLessThanOrEqual(2);
     }
   }, 30_000);

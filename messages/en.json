@@ -72,6 +72,17 @@
       "freelance": "freelance",
       "part-time": "part-time"
     },
+    "targeted": "Targeted application",
+    "focus": "Highlight technologies",
+    "focusPlaceholder": "Laravel, Angular, PHP",
+    "focusHint": "Matching skills move to the front and stand out in each role's stack.",
+    "coreStack": "Core stack",
+    "summaryOverride": "Custom summary",
+    "summaryOverrideHint": "Leave empty to use the default summary.",
+    "caseStudyPlacement": {
+      "featured": "Featured at the top",
+      "compact": "Short mention at the end"
+    },
     "sections": {
       "summary": "Summary",
       "metrics": "Metrics",
