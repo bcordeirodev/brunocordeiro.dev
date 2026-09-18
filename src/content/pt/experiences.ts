@@ -54,14 +54,14 @@ export const experiences: Experience[] = [
     ],
     projects: [
       {
-        name: "Sistema consular de grande porte (setor público federal)",
+        name: "Sistema de atendimento ao público de grande porte (setor público federal)",
         description:
-          "Atendimento consular ao público em mais de 90 postos ao redor do mundo, com suporte multi-idioma, geração documental e verificação de identidade",
+          "Plataforma multi-idioma de atendimento ao cidadão usada em mais de 90 unidades, com geração documental e verificação de identidade",
       },
       {
-        name: "Nova geração do sistema consular (setor público federal)",
+        name: "Nova geração do sistema de atendimento (setor público federal)",
         description:
-          "Criação da versão modernizada que substituirá o sistema legado em uso nos postos consulares",
+          "Criação da versão modernizada que substituirá o sistema legado em uso em todas as unidades",
       },
     ],
   },
