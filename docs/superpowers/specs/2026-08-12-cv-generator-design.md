@@ -142,3 +142,23 @@ frase corrida e o case study encalhado no fim da segunda página.
   resolve o valor relativo errado e o rodapé some inteiro.
 - **Teste de fumaça do binário** (`cv-document.test.tsx`, ambiente node):
   renderiza en e pt com tudo marcado e trava em ≤ 2 páginas e Geist embutida.
+
+## Iteração — CV para uma vaga (2026-09-18)
+
+Motivação: candidatura a uma vaga Laravel + Angular. O CV padrão abria com o
+case study e listava as tecnologias na ordem do site; o recrutador não achava
+o que procurava sem ler tudo.
+
+- **Bloco "Vaga específica" no painel**, com três ajustes que vivem em
+  `CvSelection` e voltam ao padrão ao recarregar: `focus` (texto livre,
+  tecnologias separadas por vírgula — `parseFocus`), `summaryOverride` (vazio
+  = `profile.pitch`) e `caseStudyPlacement` (`featured` = callout sob o
+  resumo; `compact` = uma linha ao fim do documento).
+- **Efeito do foco** (PDF e preview): linha "Stack principal" com chips no
+  verde sob o resumo; na stack de cada experiência, os itens que batem saem em
+  negrito; em cada categoria de skills, os que batem vão para a frente com o
+  chip destacado (`sortByFocus` / `matchesFocus`, match por substring sem
+  distinguir caixa — "Laravel" pega "Laravel 12" e "Laravel 8.1").
+- **Métricas fora do CV**: testes no CI, downtime de deploy e contagem de
+  releases são prova de engenharia no hero do site, não destaque de currículo.
+  A seção `metrics` e o toggle foram removidos; o resumo já traz os anos.
