@@ -2,7 +2,6 @@ import type {
   Certification,
   Education,
   Experience,
-  Metric,
   Profile,
   SiteContent,
   SkillCategory,
@@ -22,7 +21,6 @@ import {
 export type CvData = {
   profile: Profile;
   summary: string | null;
-  metrics: Metric[] | null;
   experiences: Experience[] | null;
   skillCategories: SkillCategory[] | null;
   certifications: Certification[] | null;
@@ -42,7 +40,6 @@ export function buildCvData(content: SiteContent, selection: CvSelection, locale
   return {
     profile: content.profile,
     summary: sections.summary ? selection.summaryOverride.trim() || content.profile.pitch : null,
-    metrics: sections.metrics ? content.profile.metrics : null,
     experiences: sections.experiences
       ? orNull(content.experiences.filter((e) => selection.experiences[experienceKey(e)]))
       : null,

@@ -52,19 +52,6 @@ const styles = StyleSheet.create({
 
   summary: { fontSize: 9.2, color: body, lineHeight: 1.45, marginTop: 10 },
 
-  metrics: { flexDirection: "row", marginTop: 9 },
-  metric: {
-    flex: 1,
-    borderWidth: 0.6,
-    borderColor: rule,
-    borderRadius: 4,
-    paddingVertical: 6,
-    paddingHorizontal: 9,
-  },
-  metricGap: { marginRight: 6 },
-  metricValue: { fontSize: 14, fontWeight: 700, lineHeight: 1.1 },
-  metricLabel: { fontSize: 7.5, color: muted, lineHeight: 1.3, marginTop: 2 },
-
   focusRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginTop: 8 },
   focusLabel: { fontSize: 8, fontWeight: 600, color: body, marginRight: 5, marginBottom: 2.5 },
 
@@ -301,22 +288,6 @@ export function CvDocument({
               <Text key={term} style={[styles.chip, styles.chipHit]}>
                 {term}
               </Text>
-            ))}
-          </View>
-        ) : null}
-
-        {data.metrics ? (
-          <View style={styles.metrics}>
-            {data.metrics.map((metric, index, all) => (
-              <View
-                key={metric.id}
-                style={index < all.length - 1 ? [styles.metric, styles.metricGap] : styles.metric}
-              >
-                <Text style={styles.metricValue}>
-                  {`${metric.prefix ?? ""}${metric.value}${metric.suffix ?? ""}`}
-                </Text>
-                <Text style={styles.metricLabel}>{metric.label}</Text>
-              </View>
             ))}
           </View>
         ) : null}

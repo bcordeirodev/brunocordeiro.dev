@@ -3,7 +3,6 @@ import type { CvLabels } from "@/lib/cv/labels";
 export const testLabels: CvLabels = {
   sections: {
     summary: "Resumo",
-    metrics: "Métricas",
     experiences: "Experiências",
     skills: "Skills",
     certifications: "Certificações",

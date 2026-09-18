@@ -32,7 +32,6 @@ export default async function CvPage({ params }: { params: Promise<{ locale: Loc
   const labels: CvLabels = {
     sections: {
       summary: t("sections.summary"),
-      metrics: t("sections.metrics"),
       experiences: t("sections.experiences"),
       skills: t("sections.skills"),
       certifications: t("sections.certifications"),

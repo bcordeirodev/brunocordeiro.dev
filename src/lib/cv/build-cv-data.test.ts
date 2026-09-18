@@ -9,7 +9,6 @@ describe("buildCvData", () => {
   it("com seleção default inclui todas as seções", () => {
     const data = buildCvData(content, defaultSelection(content), "pt");
     expect(data.summary).toBe(content.profile.pitch);
-    expect(data.metrics).toEqual(content.profile.metrics);
     expect(data.experiences).toEqual(content.experiences);
     expect(data.skillCategories).toEqual(content.skillCategories);
     expect(data.certifications).toEqual(content.certifications);
@@ -45,7 +44,6 @@ describe("buildCvData", () => {
     const sel = defaultSelection(content);
     sel.sections = {
       summary: false,
-      metrics: false,
       experiences: false,
       skills: false,
       certifications: false,
@@ -55,7 +53,6 @@ describe("buildCvData", () => {
     const data = buildCvData(content, sel, "pt");
     expect(data.profile).toEqual(content.profile);
     expect(data.summary).toBeNull();
-    expect(data.metrics).toBeNull();
     expect(data.experiences).toBeNull();
     expect(data.skillCategories).toBeNull();
     expect(data.certifications).toBeNull();

@@ -256,15 +256,12 @@ export function SelectionPanel({
           </p>
         </div>
       </fieldset>
-      {(["summary", "metrics"] as const).map((id) => (
-        <Checkbox
-          key={id}
-          bold
-          label={labels.sections[id]}
-          checked={selection.sections[id]}
-          onToggle={() => toggleSection(id)}
-        />
-      ))}
+      <Checkbox
+        bold
+        label={labels.sections.summary}
+        checked={selection.sections.summary}
+        onToggle={() => toggleSection("summary")}
+      />
       {section({
         id: "experiences",
         group: "experiences",

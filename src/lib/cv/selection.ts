@@ -1,7 +1,9 @@
 import type { Certification, Education, Experience, SiteContent } from "@/domain";
 
+// Sem "metrics": os números do hero (testes no CI, downtime, releases) são
+// prova de engenharia no site, mas não fazem sentido como destaque num CV.
 export type CvSectionId =
-  "summary" | "metrics" | "experiences" | "skills" | "certifications" | "education" | "caseStudy";
+  "summary" | "experiences" | "skills" | "certifications" | "education" | "caseStudy";
 
 export type CaseStudyPlacement = "featured" | "compact";
 
@@ -48,7 +50,6 @@ export function defaultSelection(content: SiteContent): CvSelection {
   return {
     sections: {
       summary: true,
-      metrics: true,
       experiences: true,
       skills: true,
       certifications: true,

@@ -142,19 +142,6 @@ export function CvPreview({
         </div>
       ) : null}
 
-      {data.metrics ? (
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {data.metrics.map((metric) => (
-            <div key={metric.id} className="rounded-md border border-border/60 px-3 py-2">
-              <p className="text-lg font-bold">
-                {`${metric.prefix ?? ""}${metric.value}${metric.suffix ?? ""}`}
-              </p>
-              <p className="text-[11px] text-muted">{metric.label}</p>
-            </div>
-          ))}
-        </div>
-      ) : null}
-
       {/* Prova antes de inventário: o case vem logo depois do resumo, como no PDF. */}
       {data.caseStudy?.placement === "featured" ? (
         <aside className="flex flex-col gap-1 border-l-2 border-accent bg-surface px-4 py-3">

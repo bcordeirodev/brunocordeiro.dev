@@ -13,7 +13,7 @@ const content = getContent("pt");
 describe("defaultSelection", () => {
   it("marca todas as seções por padrão", () => {
     const sel = defaultSelection(content);
-    expect(Object.values(sel.sections)).toHaveLength(7);
+    expect(Object.values(sel.sections)).toHaveLength(6);
     expect(Object.values(sel.sections).every(Boolean)).toBe(true);
   });
 
