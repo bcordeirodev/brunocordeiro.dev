@@ -66,6 +66,12 @@
     "generating": "Generating…",
     "downloadError": "Could not generate the PDF. Please try again.",
     "caseStudyCta": "full case study",
+    "stack": "Stack",
+    "employmentTypes": {
+      "full-time": "full-time",
+      "freelance": "freelance",
+      "part-time": "part-time"
+    },
     "sections": {
       "summary": "Summary",
       "metrics": "Metrics",

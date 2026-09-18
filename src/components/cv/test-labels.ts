@@ -21,4 +21,10 @@ export const testLabels: CvLabels = {
   current: "atual",
   validUntil: "válida até",
   caseStudyCta: "case study completo",
+  stack: "Stack",
+  employmentTypes: {
+    "full-time": "tempo integral",
+    freelance: "freelance",
+    "part-time": "meio período",
+  },
 };

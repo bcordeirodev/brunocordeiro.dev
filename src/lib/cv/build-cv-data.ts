@@ -26,6 +26,9 @@ export type CvData = {
   certifications: Certification[] | null;
   education: Education[] | null;
   caseStudy: { title: string; tagline: string; url: string } | null;
+  // URL desta página no site, impressa no rodapé do PDF: quem recebe o
+  // arquivo por e-mail consegue voltar à versão completa e atualizada.
+  sourceUrl: string;
 };
 
 const orNull = <T>(arr: T[]): T[] | null => (arr.length > 0 ? arr : null);
@@ -62,5 +65,6 @@ export function buildCvData(content: SiteContent, selection: CvSelection, locale
           url: absoluteUrl(localizedPath(locale, "/link-charts")),
         }
       : null,
+    sourceUrl: absoluteUrl(localizedPath(locale, "/cv")),
   };
 }

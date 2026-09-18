@@ -1,3 +1,4 @@
+import type { Experience } from "@/domain";
 import type { CvSectionId } from "./selection";
 
 export type CvLabels = {
@@ -13,4 +14,8 @@ export type CvLabels = {
   current: string;
   validUntil: string;
   caseStudyCta: string;
+  // Rótulo da linha de tecnologias de cada experiência ("Stack").
+  stack: string;
+  // Vínculo traduzido ("tempo integral", "freelance", "meio período").
+  employmentTypes: Record<Experience["employmentType"], string>;
 };

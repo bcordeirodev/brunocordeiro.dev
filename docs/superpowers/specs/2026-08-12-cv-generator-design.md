@@ -113,3 +113,32 @@ O **preview** mantém a descrição de cada sistema — é a única divergência
 - Negrito onde cria hierarquia: cargo/empresa, nomes de projeto, título da categoria de skills, valores das métricas, nome da certificação, curso e título do case study.
 - Stacks e skills saem como **chips** (caixa arredondada, fundo `#f4f4f5`), ecoando os badges do site — a linha corrida de nomes separados por `·` ficava pobre e ilegível. O container precisa de `width: "100%"`: sem largura definida o yoga mede a linha como se nunca quebrasse.
 - `minPresenceAhead` numa `View` de seção mais alta que a página empurra a seção inteira para a folha seguinte (meia página em branco) e, num `Text` isolado, não tem efeito. Para o título não encalhar sozinho no pé da página, ele e o primeiro item da seção vão dentro de uma `View wrap={false}`.
+
+## Iteração — redesign do template (2026-09-18)
+
+Motivação: o PDF era um muro de chips (só a G4F tinha 38, seis linhas), com
+projetos reduzidos ao nome, cabeçalho em quatro linhas soltas, métricas em
+frase corrida e o case study encalhado no fim da segunda página.
+
+- **Tipografia:** Geist Sans embutida (Regular/Medium/SemiBold/Bold, TTFs do
+  pacote `geist` copiados para `public/fonts/cv`, licença OFL ao lado). O
+  react-pdf **não substitui** uma fonte já registrada — a primeira de cada
+  peso vence —, então `registerCvFonts(base)` roda uma vez; testes e scripts
+  chamam-na com o diretório em disco ANTES de importar `cv-document`.
+- **Cabeçalho em duas colunas:** nome, cargo e disponibilidade à esquerda;
+  e-mail, cidade, GitHub/LinkedIn encurtados (`displayUrl`) e idiomas à
+  direita. Régua com um traço curto no verde escuro `#15803d` (o acento do
+  site, num tom que imprime).
+- **Métricas como quatro blocos** em linha; **case study como callout** logo
+  abaixo do resumo (prova antes de inventário, como na home).
+- **Experiência:** cargo · empresa à esquerda, período + duração à direita;
+  linha com vínculo traduzido (`cv.employmentTypes`) e cidade; projetos como
+  bullets **com descrição**; stack numa linha corrida discreta ("Stack: a · b")
+  em vez de chips — o preview passou a espelhar isso.
+- **Skills** em grade (título da categoria numa coluna fixa, chips ao lado);
+  **certificações e educação lado a lado** quando as duas estão marcadas.
+- **Rodapé fixo** com a URL da página do CV e `n / total`. Sem `lineHeight`
+  no texto do rodapé: num bloco absoluto ancorado no pé da página o react-pdf
+  resolve o valor relativo errado e o rodapé some inteiro.
+- **Teste de fumaça do binário** (`cv-document.test.tsx`, ambiente node):
+  renderiza en e pt com tudo marcado e trava em ≤ 2 páginas e Geist embutida.

@@ -19,6 +19,7 @@ describe("buildCvData", () => {
       tagline: content.caseStudy.tagline,
       url: "https://brunocordeiro.dev/pt/link-charts",
     });
+    expect(data.sourceUrl).toBe("https://brunocordeiro.dev/pt/cv");
   });
 
   it("perfil/contatos sempre presentes, mesmo com tudo desmarcado", () => {

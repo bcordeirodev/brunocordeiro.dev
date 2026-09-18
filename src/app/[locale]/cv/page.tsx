@@ -50,6 +50,12 @@ export default async function CvPage({ params }: { params: Promise<{ locale: Loc
     current: tCommon("current"),
     validUntil: tCommon("validUntil"),
     caseStudyCta: t("caseStudyCta"),
+    stack: t("stack"),
+    employmentTypes: {
+      "full-time": t("employmentTypes.full-time"),
+      freelance: t("employmentTypes.freelance"),
+      "part-time": t("employmentTypes.part-time"),
+    },
   };
 
   return (
