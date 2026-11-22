@@ -1,1 +1,4 @@
 pnpm-lock.yaml
+
+# Impeccable (design tooling) writes its own JSON and Markdown here.
+.impeccable/
