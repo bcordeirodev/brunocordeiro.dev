@@ -26,8 +26,10 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
             href={pathname}
             locale={loc}
             aria-current={locale === loc ? "true" : undefined}
+            // O padding com margem negativa aumenta a área de toque (as
+            // siglas têm ~16px) sem mexer na altura do header.
             className={cn(
-              "uppercase",
+              "-mx-1.5 -my-3 px-1.5 py-3 uppercase",
               locale === loc ? "text-foreground" : "text-muted hover:text-foreground",
             )}
           >

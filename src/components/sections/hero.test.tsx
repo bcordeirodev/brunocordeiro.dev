@@ -54,7 +54,7 @@ describe("Hero", () => {
     expect(screen.queryByText(/tests gating ci|deploy downtime|releases since/i)).toBeNull();
   });
 
-  it("tem um botão para o GitHub com o rótulo de código e alvo externo", () => {
+  it("tem um link para o GitHub com o rótulo de código e alvo externo", () => {
     renderHero();
     const link = screen.getByRole("link", { name: /view my code on github/i });
     expect(link).toHaveAttribute("href", profile.github);
@@ -62,13 +62,28 @@ describe("Hero", () => {
     expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
   });
 
-  it("mantém CV, LinkedIn e copiar e-mail", () => {
+  it("faz do LinkedIn a ação principal: é o primeiro link e o único botão cheio", () => {
+    renderHero();
+    const links = screen.getAllByRole("link");
+    const linkedin = screen.getByRole("link", { name: /contact me on linkedin/i });
+    expect(links[0]).toBe(linkedin);
+    expect(linkedin).toHaveAttribute("href", profile.linkedin);
+    expect(linkedin).toHaveAttribute("target", "_blank");
+    expect(linkedin).toHaveAttribute("rel", expect.stringContaining("noopener"));
+    const filled = links.filter((link) => link.className.split(" ").includes("bg-primary"));
+    expect(filled).toEqual([linkedin]);
+  });
+
+  it("mostra o e-mail escrito, como link mailto, com o botão de copiar ao lado", () => {
+    renderHero();
+    const mail = screen.getByRole("link", { name: new RegExp(profile.email, "i") });
+    expect(mail).toHaveAttribute("href", `mailto:${profile.email}`);
+    expect(mail).toHaveTextContent(profile.email);
+    expect(screen.getByRole("button", { name: /copy email/i })).toBeInTheDocument();
+  });
+
+  it("mantém o CV como link secundário para /cv", () => {
     renderHero();
     expect(screen.getByRole("link", { name: /download cv/i })).toHaveAttribute("href", "/cv");
-    expect(screen.getByRole("link", { name: /linkedin/i })).toHaveAttribute(
-      "href",
-      profile.linkedin,
-    );
-    expect(screen.getByRole("button", { name: /copy email/i })).toBeInTheDocument();
   });
 });

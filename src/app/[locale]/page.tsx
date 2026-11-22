@@ -43,7 +43,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <SiteHeader />
       <main className="mx-auto flex max-w-5xl flex-col gap-24 px-6">
         <Hero profile={content.profile} />
-        {/* A prova para as vagas-alvo (Laravel/Angular) está na trajetória,
+        {/* A prova para as vagas-alvo está na trajetória,
             então ela abre a página; o case Link Charts fica compacto depois
             da stack — continua a um clique, sem dominar a home. */}
         <Reveal>

@@ -33,6 +33,9 @@ test("home en: hero vende primeiro, projetos antes da stack, nav em inglês", as
     /github\.com/,
   );
 
+  // Abaixo de `md` as âncoras ficam atrás do botão de menu do header.
+  const menuButton = page.getByRole("button", { name: /^menu$/i });
+  if (await menuButton.isVisible()) await menuButton.click();
   const nav = page.getByRole("navigation");
   // next-intl localiza o href; aceita "/en#projects" ou "/en/#projects"
   await expect(nav.getByRole("link", { name: /^projects$/i })).toHaveAttribute(

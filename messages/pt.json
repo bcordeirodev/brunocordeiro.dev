@@ -4,7 +4,8 @@
     "trajectory": "Trajetória",
     "stack": "Stack",
     "caseStudy": "Link Charts",
-    "contact": "Contato"
+    "contact": "Contato",
+    "menu": "Menu"
   },
   "common": {
     "copyEmail": "Copiar e-mail",
@@ -12,6 +13,8 @@
     "downloadCv": "Baixar CV",
     "coreStack": "Stack principal",
     "viewCode": "Ver meu código no GitHub",
+    "contactLinkedin": "Fale comigo no LinkedIn",
+    "sendEmailTo": "Enviar e-mail para {email}",
     "viewSource": "veja o código desta página",
     "asOf": "dados de {date}",
     "current": "atual",
