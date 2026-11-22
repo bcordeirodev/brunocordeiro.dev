@@ -183,6 +183,32 @@ export const skillCategories: SkillCategory[] = [
         links: [{ label: "Tailwind CSS", url: "https://tailwindcss.com" }],
       },
       {
+        name: "Next.js 16 · React Compiler",
+        proof:
+          "This site: Next.js 16 with Cache Components, React 19.2 with React Compiler, pt/en i18n with next-intl and strict TypeScript",
+        tags: ["this site"],
+        links: [
+          { label: "Next.js", url: "https://nextjs.org" },
+          { label: "React Compiler", url: "https://react.dev/learn/react-compiler" },
+        ],
+      },
+      {
+        name: "shadcn/ui · Base UI",
+        proof: "Accessible components on headless primitives, styled with Tailwind CSS 4",
+        tags: ["this site"],
+        links: [
+          { label: "shadcn/ui", url: "https://ui.shadcn.com" },
+          { label: "Base UI", url: "https://base-ui.com" },
+        ],
+      },
+      {
+        name: "PDF generation with React",
+        proof:
+          "Résumé PDF built with @react-pdf/renderer from the same typed content as the site, with visitor-selectable sections",
+        tags: ["this site"],
+        links: [{ label: "React-pdf", url: "https://react-pdf.org" }],
+      },
+      {
         name: "Framer Motion",
         proof: "Declarative entrance and scroll animations on a published solo landing page",
         tags: ["side projects"],
@@ -448,6 +474,13 @@ export const skillCategories: SkillCategory[] = [
         tags: ["VegaIT"],
         links: [{ label: "Azure DevOps", url: "https://azure.microsoft.com/products/devops" }],
       },
+      {
+        name: "Vercel",
+        proof:
+          "Deploys this site with on-demand revalidation via an API route and Vercel Analytics",
+        tags: ["this site"],
+        links: [{ label: "Vercel", url: "https://vercel.com" }],
+      },
     ],
   },
   {
@@ -507,6 +540,25 @@ export const skillCategories: SkillCategory[] = [
           { label: "MSW", url: "https://mswjs.io" },
         ],
       },
+      {
+        name: "Vitest",
+        proof: "Unit tests for domain, content and components with Testing Library and jsdom",
+        tags: ["this site"],
+        links: [{ label: "Vitest", url: "https://vitest.dev" }],
+      },
+      {
+        name: "Lighthouse CI",
+        proof:
+          "Mandatory CI gate: accessibility and best practices ≥ 95, calibrated performance floor (median of 5 runs) and SEO via individual audits",
+        tags: ["this site"],
+        links: [{ label: "Lighthouse CI", url: "https://github.com/GoogleChrome/lighthouse-ci" }],
+      },
+      {
+        name: "Automated accessibility",
+        proof: "axe-core scans inside Playwright e2e tests across mobile, tablet and desktop",
+        tags: ["this site"],
+        links: [{ label: "axe-core", url: "https://github.com/dequelabs/axe-core" }],
+      },
     ],
   },
   {
@@ -528,7 +580,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Agent tooling ecosystem",
         proof:
-          "Configured MCP servers (browser/Playwright, PostgreSQL, Redis, GitHub, Vercel), git worktrees for isolated agent execution",
+          "Claude Code (skills, subagents, hooks, CLAUDE.md/AGENTS.md), Cursor and GitHub Copilot; spec-driven development with the superpowers workflow (brainstorm → plan → execute); configured MCP servers (Playwright, PostgreSQL, Redis, GitHub, Vercel, Grafana) and git worktrees for isolated agent execution",
         tags: ["Link Charts"],
         links: [{ label: "Model Context Protocol", url: "https://modelcontextprotocol.io" }],
       },

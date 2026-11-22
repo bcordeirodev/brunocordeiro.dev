@@ -55,6 +55,7 @@ export const experiences: Experience[] = [
       "E-mail transacional (MJML)",
       "Bamboo",
       "Harbor",
+      "Pagamento com cartão de crédito (integração com gateway)",
     ],
     projects: [
       {
@@ -66,6 +67,11 @@ export const experiences: Experience[] = [
         name: "Nova geração do sistema de atendimento (setor público federal)",
         description:
           "Criação da versão modernizada que substituirá o sistema legado em uso em todas as unidades",
+      },
+      {
+        name: "Migração de dados para a nova geração (setor público federal)",
+        description:
+          "Planejamento e execução da migração do sistema legado, unidade a unidade, em virada única e sem convivência entre os sistemas; três fases, com a primeira (estrutura, configurações e usuários) concluída e validada em staging com uma unidade real",
       },
     ],
   },
