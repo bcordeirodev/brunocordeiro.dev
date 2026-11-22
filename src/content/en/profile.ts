@@ -7,14 +7,22 @@ export const profile: Profile = {
   // (o cargo indexável não o usa) e sem a frase sobre o nível de inglês — esse
   // dado é objetivo e vive em `languages`, no bloco de contato e no CV.
   pitch:
-    "I'm a Full Stack Engineer with over 10 years of experience building web systems with PHP and Laravel on the back end and Angular, React and TypeScript on the front end, from application code to CI/CD pipelines and infrastructure with Docker and Kubernetes. I currently build a large-scale public-sector platform used across 90+ service units with Angular and NestJS, and I have kept Laravel applications in production since 2017.",
+    "I'm a Full Stack Engineer with over 10 years of experience building web systems with Laravel and NestJS on the back end and React, Next.js and Angular on the front end, in PHP and TypeScript, from application code to CI/CD pipelines and infrastructure with Docker and Kubernetes. I currently build a large-scale public-sector platform used across 90+ service units with NestJS and Angular, and I have kept Laravel applications in production since 2017.",
   availability: "Open to remote international roles · UTC−3",
   metaDescription:
-    "Full Stack Engineer in Brazil — 10+ years building production systems with PHP/Laravel, Angular, TypeScript, CI/CD and Kubernetes. Open to remote roles.",
-  // Ordem = ênfase: Laravel/PHP e Angular abrem porque são a stack que as
-  // vagas-alvo pedem; a linha alimenta o hero, a OG image e o destaque das
-  // stacks na trajetória.
-  stackHighlights: ["Laravel · PHP", "Angular", "TypeScript", "React · Next.js", "Docker · K8s"],
+    "Full Stack Engineer in Brazil — 10+ years building production systems with PHP/Laravel, Node.js/NestJS, React, Angular, CI/CD and Kubernetes. Open to remote roles.",
+  // Ordem = ênfase (decidida pelo Bruno em 2026-11-22): Laravel, Node.js com
+  // NestJS, React com Next.js e só então Angular, com menos destaque que
+  // antes. A linha alimenta o hero, a OG image e o destaque das stacks na
+  // trajetória.
+  stackHighlights: [
+    "Laravel · PHP",
+    "Node.js · NestJS",
+    "React · Next.js",
+    "Angular",
+    "TypeScript",
+    "Docker · K8s",
+  ],
   role: "Full Stack Engineer",
   languages: "Portuguese — native · English — B1, approaching B2",
   location: "Brasília-DF, Brazil",

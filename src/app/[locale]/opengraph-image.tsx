@@ -116,12 +116,16 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
         >
           {profile.role}
         </div>
-        <div style={{ display: "flex", marginTop: 44, gap: 14 }}>
+        {/* Com seis chips a linha passa da largura útil do card (1024px): sem
+            `flexWrap` o satori encolhe os chips e o texto de um invade o do
+            vizinho. Quebrando, ficam duas linhas inteiras. */}
+        <div style={{ display: "flex", flexWrap: "wrap", marginTop: 44, gap: 14 }}>
           {profile.stackHighlights.map((item) => (
             <div
               key={item}
               style={{
                 display: "flex",
+                flexShrink: 0,
                 padding: "10px 22px",
                 borderRadius: 999,
                 border: "2px solid #27272a",
