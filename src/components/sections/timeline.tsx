@@ -4,19 +4,6 @@ import type { Locale } from "@/content";
 import { matchesFocus } from "@/lib/cv/focus";
 import { formatDuration, formatPeriod } from "@/lib/dates";
 
-function periodsOverlap(a: Experience, b: Experience): boolean {
-  const aEnd = a.end ?? "9999-12";
-  const bEnd = b.end ?? "9999-12";
-  return a.start < bEnd && b.start < aEnd;
-}
-
-function overlappingCompanies(experience: Experience, experiences: Experience[]): string[] {
-  if (experience.employmentType === "full-time") return [];
-  return experiences
-    .filter((other) => other !== experience && periodsOverlap(experience, other))
-    .map((other) => other.company);
-}
-
 export async function Timeline({
   experiences,
   locale,
@@ -46,8 +33,6 @@ export async function Timeline({
       </h2>
       <ol className="flex flex-col gap-12">
         {experiences.map((experience) => {
-          const parallelCompanies = overlappingCompanies(experience, experiences);
-
           return (
             <li
               key={`${experience.company}-${experience.start}`}
@@ -73,11 +58,6 @@ export async function Timeline({
                   <p>{formatDuration(experience.start, experience.end, locale, nowYm)}</p>
                 </div>
               </div>
-              {parallelCompanies.length > 0 && (
-                <p className="mt-1 font-mono text-xs text-muted">
-                  {t("inParallelWith", { companies: parallelCompanies.join(", ") })}
-                </p>
-              )}
               {/* O que foi construído vem antes de com o quê. */}
               {experience.projects.length > 0 && (
                 <ul className="mt-4 flex flex-col gap-1.5">

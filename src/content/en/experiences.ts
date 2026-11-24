@@ -7,13 +7,19 @@ export const experiences: Experience[] = [
     employmentType: "full-time",
     start: "2024-11",
     end: null,
-    location: "Porto Alegre-RS (remote)",
+    location: "Brasília-DF (remote)",
     stacks: [
       "Moodle 4.0–5.1",
       "PHP 7.3–8.2",
       "PHP-FPM",
       "JavaScript (AMD)",
       "MariaDB 10.11",
+      "Docker",
+      "Docker Compose",
+      "Git",
+      "GitHub",
+      "GitHub Actions",
+      "CI/CD pipeline",
       "Apache 2.4",
       "Ubuntu 24.04",
       "OAuth2 / OpenID Connect",
@@ -26,9 +32,6 @@ export const experiences: Experience[] = [
       "ClamAV",
       "Trend Micro Deep Security",
       "AppArmor",
-      "Git",
-      "GitHub Actions",
-      "Docker Compose",
       "Bash",
       "SMTP",
       "LGPD",
@@ -40,6 +43,11 @@ export const experiences: Experience[] = [
         description:
           "State government learning platform (escolaplanejamento.rs.gov.br) with 45k+ users, kept up to date from Moodle 4.0 to 5.1 on PHP 8.2 and MariaDB",
       },
+      {
+        name: "Versioning and deploy pipeline",
+        description:
+          "Code on GitHub with one branch per Moodle version and deploys through the Git pipeline; Docker staging environment validated by GitHub Actions",
+      },
     ],
   },
   {
@@ -47,7 +55,7 @@ export const experiences: Experience[] = [
     role: "Full Stack Engineer",
     employmentType: "freelance",
     start: "2022-03",
-    end: null,
+    end: "2024-10",
     location: "Brasília-DF",
     stacks: [
       "Angular 22",

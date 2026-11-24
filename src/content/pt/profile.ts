@@ -7,7 +7,7 @@ export const profile: Profile = {
   // (o cargo indexável não o usa) e sem a frase sobre o nível de inglês — esse
   // dado é objetivo e vive em `languages`, no bloco de contato e no CV.
   pitch:
-    "Sou Full Stack Engineer com mais de 10 anos de experiência construindo sistemas web com Laravel e NestJS no back-end e React, Next.js e Angular no front-end, em PHP e TypeScript, do código da aplicação aos pipelines de CI/CD e à infraestrutura com Docker e Kubernetes. Hoje desenvolvo uma plataforma de grande porte do setor público, usada em mais de 90 unidades, com NestJS e Angular, e mantenho aplicações Laravel em produção desde 2017.",
+    "Sou Full Stack Engineer com mais de 10 anos de experiência construindo sistemas web com Laravel e NestJS no back-end e React, Next.js e Angular no front-end, em PHP e TypeScript, do código da aplicação aos pipelines de CI/CD e à infraestrutura com Docker e Kubernetes. Desenvolvi uma plataforma de grande porte do setor público, usada em mais de 90 unidades, com NestJS e Angular, e mantenho aplicações Laravel em produção desde 2017.",
   availability: "Aberto a vagas remotas internacionais · UTC−3",
   metaDescription:
     "Full Stack Engineer em Brasília — 10+ anos construindo sistemas em produção com PHP/Laravel, Node.js/NestJS, React, Angular, CI/CD e Kubernetes. Aberto a vagas remotas.",
