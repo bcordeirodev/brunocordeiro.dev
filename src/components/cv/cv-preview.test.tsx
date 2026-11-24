@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { getContent } from "@/content";
 import { buildCvData } from "@/lib/cv/build-cv-data";
@@ -24,11 +24,19 @@ describe("CvPreview", () => {
     render(<CvPreview data={data} locale="pt" labels={testLabels} />);
     // `role` e `headline` são a mesma string hoje, então não dá para afirmar
     // que o cargo está ausente; o que precisa valer é: nenhum marcador de
-    // senioridade em lugar nenhum do preview, resumo incluído.
+    // senioridade no posicionamento — header e resumo. O cargo de uma
+    // experiência é fato do contrato ("Programador Sênior" na SPGG/RS) e fica
+    // de fora: sem experiências, nada no preview pode dizer "sênior".
     // `selector`: o mesmo cargo aparece nas experiências; aqui interessa o header.
     expect(
       screen.getByText(content.profile.headline, { selector: "header p" }),
     ).toBeInTheDocument();
+    cleanup();
+    const selection = defaultSelection(content);
+    selection.sections.experiences = false;
+    render(
+      <CvPreview data={buildCvData(content, selection, "pt")} locale="pt" labels={testLabels} />,
+    );
     expect(screen.queryByText(/s[eê]nior/i)).not.toBeInTheDocument();
   });
 

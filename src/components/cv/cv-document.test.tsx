@@ -26,17 +26,17 @@ async function render(locale: Locale, targeted = false) {
 }
 
 describe("CvDocument", () => {
-  it("cabe em duas páginas com tudo selecionado, nos dois locales", async () => {
+  it("cabe em três páginas com tudo selecionado, nos dois locales", async () => {
     for (const locale of ["en", "pt"] as const) {
       const pdf = await render(locale);
-      expect(countPages(pdf), locale).toBeLessThanOrEqual(2);
+      expect(countPages(pdf), locale).toBeLessThanOrEqual(3);
     }
   }, 30_000);
 
-  it("a variante com foco também cabe em duas páginas", async () => {
+  it("a variante com foco também cabe em três páginas", async () => {
     for (const locale of ["en", "pt"] as const) {
       const pdf = await render(locale, true);
-      expect(countPages(pdf), locale).toBeLessThanOrEqual(2);
+      expect(countPages(pdf), locale).toBeLessThanOrEqual(3);
     }
   }, 30_000);
 

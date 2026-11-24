@@ -38,12 +38,14 @@ describe("conteúdo", () => {
   it("cargos seguem a nomenclatura padronizada por locale", () => {
     const ptRoles = new Set([
       "Full Stack Engineer",
+      "Programador Sênior",
       "Desenvolvedor Frontend",
       "Desenvolvedor PHP",
       "Desenvolvedor PHP Jr",
     ]);
     const enRoles = new Set([
       "Full Stack Engineer",
+      "Senior Programmer",
       "Frontend Developer",
       "PHP Developer",
       "Junior PHP Developer",

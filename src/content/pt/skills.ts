@@ -50,7 +50,7 @@ export const skillCategories: SkillCategory[] = [
         name: "TypeScript · JavaScript",
         proof:
           "Strict mode + noUncheckedIndexedAccess em ~570 arquivos; ES6+ desde 2016, TS de ponta a ponta desde 2020",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [
           { label: "TypeScript", url: "https://www.typescriptlang.org" },
           { label: "JavaScript", url: "https://developer.mozilla.org/docs/Web/JavaScript" },
@@ -230,7 +230,7 @@ export const skillCategories: SkillCategory[] = [
         name: "PHP 5.6 → 8.2",
         proof:
           "10 anos acompanhando a evolução da linguagem — Propel, Swagger e PSRs desde 2016; do Laravel 8 em sistemas internos ao Laravel 12 em produção",
-        tags: ["Link Charts", "Basis", "Ordem Social", "Plug Digital"],
+        tags: ["Link Charts", "Basis", "Ordem Social", "Plug Digital", "SPGG/RS"],
         links: [{ label: "PHP", url: "https://www.php.net" }],
       },
       {
@@ -239,6 +239,13 @@ export const skillCategories: SkillCategory[] = [
           "Microsserviços no setor público com SSO gov.br (OIDC) e Prisma 6; TypeORM e Passport/JWT em projeto autoral",
         tags: ["G4F", "projetos pessoais"],
         links: [{ label: "NestJS", url: "https://nestjs.com" }],
+      },
+      {
+        name: "Moodle",
+        proof:
+          "LMS de governo estadual com 45 mil usuários ativos: três upgrades de produção do 4.0 ao 5.1 e desenvolvimento de plugins na forma de patches versionados em plugins de terceiros",
+        tags: ["SPGG/RS"],
+        links: [{ label: "Moodle", url: "https://moodle.org" }],
       },
       {
         name: "Arquitetura em camadas",
@@ -263,13 +270,26 @@ export const skillCategories: SkillCategory[] = [
         name: "Autenticação & SSO",
         proof:
           "JWT httpOnly, Sanctum e Auth0 de ponta a ponta (front+back); Login Único gov.br (SSO/OIDC federal)",
-        tags: ["Link Charts", "G4F"],
+        tags: ["Link Charts", "G4F", "SPGG/RS"],
+      },
+      {
+        name: "OAuth2 / OpenID Connect",
+        proof:
+          "Login federado com Login Cidadão RS / gov.br e CPF como identificador — mais de 31 mil contas vinculadas, 91% de todos os logins dos últimos 12 meses",
+        tags: ["SPGG/RS"],
+        links: [{ label: "OpenID Connect", url: "https://openid.net" }],
+      },
+      {
+        name: "MFA",
+        proof:
+          "Autenticação multifator (tool_mfa do Moodle) ativada para 100% dos administradores do site",
+        tags: ["SPGG/RS"],
       },
       {
         name: "Segurança aplicada (OWASP)",
         proof:
           "JWT httpOnly, hash_equals, 16 rate limiters, anti-spoofing (Cloudflare), anti-fraude; CSP por request, HSTS, DOMPurify e hCaptcha em sistema público de grande porte",
-        tags: ["Link Charts", "G4F"],
+        tags: ["Link Charts", "G4F", "SPGG/RS"],
         links: [{ label: "OWASP", url: "https://owasp.org" }],
       },
       {
@@ -306,7 +326,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "LGPD aplicada",
         proof: "Anonimização de IPs, exclusão de conta, unsubscribe assinado",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
       },
       {
         name: "WebSockets",
@@ -365,10 +385,14 @@ export const skillCategories: SkillCategory[] = [
         links: [{ label: "Oracle Database", url: "https://www.oracle.com/database/" }],
       },
       {
-        name: "MySQL",
-        proof: "Modelagem relacional e queries em sistemas de gestão partidária e jurídica",
-        tags: ["Ordem Social"],
-        links: [{ label: "MySQL", url: "https://www.mysql.com" }],
+        name: "MySQL · MariaDB",
+        proof:
+          "Modelagem relacional e queries em sistemas de gestão partidária e jurídica; MariaDB 10.11 em plataforma Moodle com 45 mil usuários ativos",
+        tags: ["Ordem Social", "SPGG/RS"],
+        links: [
+          { label: "MySQL", url: "https://www.mysql.com" },
+          { label: "MariaDB", url: "https://mariadb.org" },
+        ],
       },
     ],
   },
@@ -385,13 +409,13 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Docker",
         proof: "Multi-stage, Alpine + extensões compiladas, 3 stacks compose por ciclo de vida",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [{ label: "Docker", url: "https://www.docker.com" }],
       },
       {
         name: "GitHub Actions",
         proof: "CI ≠ Release, deploy por tag, rollback via workflow_dispatch, concurrency groups",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [{ label: "GitHub Actions", url: "https://github.com/features/actions" }],
       },
       {
@@ -431,7 +455,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Bash",
         proof: "Scripts de deploy blue/green (176 linhas) e operação",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [{ label: "GNU Bash", url: "https://www.gnu.org/software/bash/" }],
       },
       {
@@ -463,12 +487,40 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Apache · Nginx · Ubuntu",
         proof: "Operação de servidores web Linux, de VPS próprio a infra corporativa",
-        tags: ["Link Charts", "Ordem Social"],
+        tags: ["Link Charts", "Ordem Social", "SPGG/RS"],
         links: [
           { label: "Apache HTTP Server", url: "https://httpd.apache.org" },
           { label: "nginx", url: "https://nginx.org" },
           { label: "Ubuntu", url: "https://ubuntu.com" },
         ],
+      },
+      {
+        name: "PHP-FPM · AppArmor · logrotate",
+        proof:
+          "Servidor Moodle de produção em Ubuntu 24.04: saída do PHP 7 para o PHP-FPM 8.2, AppArmor, rotação de logs configurada e 40 GB de disco liberados",
+        tags: ["SPGG/RS"],
+        links: [
+          { label: "PHP-FPM", url: "https://www.php.net/manual/en/install.fpm.php" },
+          { label: "AppArmor", url: "https://apparmor.net" },
+        ],
+      },
+      {
+        name: "ClamAV · Trend Micro Deep Security",
+        proof: "Antivírus nos uploads e proteção do servidor em plataforma do setor público",
+        tags: ["SPGG/RS"],
+        links: [{ label: "ClamAV", url: "https://www.clamav.net" }],
+      },
+      {
+        name: "Resposta a incidentes",
+        proof:
+          "Alerta de webshell do MDR refutado e campanha de credential stuffing tratada sem indisponibilidade e sem nenhum arquivo gravado pelo atacante",
+        tags: ["SPGG/RS"],
+      },
+      {
+        name: "Runbooks e playbooks",
+        proof:
+          "Runbooks de upgrade com rollback e Manual de Sustentação com 12 playbooks de incidentes",
+        tags: ["SPGG/RS"],
       },
       {
         name: "Azure DevOps",
@@ -515,6 +567,18 @@ export const skillCategories: SkillCategory[] = [
         name: "Testes de segurança",
         proof: "IP spoofing, rate limit, retry de fila",
         tags: ["Link Charts"],
+      },
+      {
+        name: "Revisão de código de terceiros",
+        proof:
+          "Plugins do Moodle aprovados ou rejeitados após leitura do código, com uma exposição de dados entre cursos corrigida em patch local",
+        tags: ["SPGG/RS"],
+      },
+      {
+        name: "Simulação de mudanças em produção",
+        proof:
+          "Scripts de dry-run e rollback — mudanças simuladas em dados reais antes de chegarem à produção",
+        tags: ["SPGG/RS"],
       },
       {
         name: "Lint como gate",
@@ -582,7 +646,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Ecossistema de tooling de agentes",
         proof:
           "Claude Code (skills, subagentes, hooks, CLAUDE.md/AGENTS.md), Cursor e GitHub Copilot; desenvolvimento guiado por spec com o workflow superpowers (brainstorm → plano → execução); MCP servers configurados (Playwright, PostgreSQL, Redis, GitHub, Vercel, Grafana) e git worktrees para execução isolada de agentes",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [{ label: "Model Context Protocol", url: "https://modelcontextprotocol.io" }],
       },
       {

@@ -50,7 +50,7 @@ export const skillCategories: SkillCategory[] = [
         name: "TypeScript · JavaScript",
         proof:
           "strict mode + noUncheckedIndexedAccess across ~570 files; ES6+ since 2016, TS end to end since 2020",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [
           { label: "TypeScript", url: "https://www.typescriptlang.org" },
           { label: "JavaScript", url: "https://developer.mozilla.org/docs/Web/JavaScript" },
@@ -230,7 +230,7 @@ export const skillCategories: SkillCategory[] = [
         name: "PHP 5.6 → 8.2",
         proof:
           "10 years following the language's evolution — Propel, Swagger and PSRs since 2016; from Laravel 8 on internal systems to Laravel 12 in production",
-        tags: ["Link Charts", "Basis", "Ordem Social", "Plug Digital"],
+        tags: ["Link Charts", "Basis", "Ordem Social", "Plug Digital", "SPGG/RS"],
         links: [{ label: "PHP", url: "https://www.php.net" }],
       },
       {
@@ -239,6 +239,13 @@ export const skillCategories: SkillCategory[] = [
           "Public-sector microservices with gov.br SSO (OIDC) and Prisma 6; TypeORM and Passport/JWT on a solo project",
         tags: ["G4F", "side projects"],
         links: [{ label: "NestJS", url: "https://nestjs.com" }],
+      },
+      {
+        name: "Moodle",
+        proof:
+          "State-government LMS with 45k active users: three production upgrades from 4.0 to 5.1, plus plugin development as versioned patches to third-party plugins",
+        tags: ["SPGG/RS"],
+        links: [{ label: "Moodle", url: "https://moodle.org" }],
       },
       {
         name: "Layered architecture",
@@ -263,13 +270,26 @@ export const skillCategories: SkillCategory[] = [
         name: "Authentication & SSO",
         proof:
           "JWT httpOnly, Sanctum and Auth0 end to end (front+back); gov.br Login Único (federal SSO/OIDC)",
-        tags: ["Link Charts", "G4F"],
+        tags: ["Link Charts", "G4F", "SPGG/RS"],
+      },
+      {
+        name: "OAuth2 / OpenID Connect",
+        proof:
+          "Login Cidadão RS / gov.br federated login with CPF as the identifier — 31k+ linked accounts, 91% of all logins in the last 12 months",
+        tags: ["SPGG/RS"],
+        links: [{ label: "OpenID Connect", url: "https://openid.net" }],
+      },
+      {
+        name: "MFA",
+        proof:
+          "Multi-factor authentication (Moodle tool_mfa) rolled out to 100% of site administrators",
+        tags: ["SPGG/RS"],
       },
       {
         name: "Applied security (OWASP)",
         proof:
           "JWT httpOnly, hash_equals, 16 rate limiters, anti-spoofing (Cloudflare), anti-fraud scoring; per-request CSP, HSTS, DOMPurify and hCaptcha on a large-scale public system",
-        tags: ["Link Charts", "G4F"],
+        tags: ["Link Charts", "G4F", "SPGG/RS"],
         links: [{ label: "OWASP", url: "https://owasp.org" }],
       },
       {
@@ -307,7 +327,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "LGPD (Brazilian GDPR) compliance",
         proof: "IP anonymization, account deletion, signed unsubscribe",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
       },
       {
         name: "WebSockets",
@@ -364,10 +384,14 @@ export const skillCategories: SkillCategory[] = [
         links: [{ label: "Oracle Database", url: "https://www.oracle.com/database/" }],
       },
       {
-        name: "MySQL",
-        proof: "Relational modeling and queries for party-management and legal-case systems",
-        tags: ["Ordem Social"],
-        links: [{ label: "MySQL", url: "https://www.mysql.com" }],
+        name: "MySQL · MariaDB",
+        proof:
+          "Relational modeling and queries for party-management and legal-case systems; MariaDB 10.11 behind a Moodle platform with 45k active users",
+        tags: ["Ordem Social", "SPGG/RS"],
+        links: [
+          { label: "MySQL", url: "https://www.mysql.com" },
+          { label: "MariaDB", url: "https://mariadb.org" },
+        ],
       },
     ],
   },
@@ -384,13 +408,13 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Docker",
         proof: "Multi-stage, Alpine with compiled extensions, 3 compose stacks by lifecycle",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [{ label: "Docker", url: "https://www.docker.com" }],
       },
       {
         name: "GitHub Actions",
         proof: "CI ≠ Release, tag-based deploy, rollback via workflow_dispatch, concurrency groups",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [{ label: "GitHub Actions", url: "https://github.com/features/actions" }],
       },
       {
@@ -430,7 +454,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Bash",
         proof: "Blue/green deploy scripts (176 lines) and operations",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [{ label: "GNU Bash", url: "https://www.gnu.org/software/bash/" }],
       },
       {
@@ -461,12 +485,39 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Apache · Nginx · Ubuntu",
         proof: "Linux web server operations, from my own VPS to corporate infra",
-        tags: ["Link Charts", "Ordem Social"],
+        tags: ["Link Charts", "Ordem Social", "SPGG/RS"],
         links: [
           { label: "Apache HTTP Server", url: "https://httpd.apache.org" },
           { label: "nginx", url: "https://nginx.org" },
           { label: "Ubuntu", url: "https://ubuntu.com" },
         ],
+      },
+      {
+        name: "PHP-FPM · AppArmor · logrotate",
+        proof:
+          "Production Moodle server on Ubuntu 24.04: move from PHP 7 to PHP-FPM 8.2, AppArmor, log rotation set up and 40 GB of disk freed",
+        tags: ["SPGG/RS"],
+        links: [
+          { label: "PHP-FPM", url: "https://www.php.net/manual/en/install.fpm.php" },
+          { label: "AppArmor", url: "https://apparmor.net" },
+        ],
+      },
+      {
+        name: "ClamAV · Trend Micro Deep Security",
+        proof: "Antivirus scanning on uploads and server protection on a public-sector platform",
+        tags: ["SPGG/RS"],
+        links: [{ label: "ClamAV", url: "https://www.clamav.net" }],
+      },
+      {
+        name: "Incident response",
+        proof:
+          "Refuted an MDR webshell alert and handled a credential-stuffing campaign with no downtime and no file written by the attacker",
+        tags: ["SPGG/RS"],
+      },
+      {
+        name: "Runbooks and playbooks",
+        proof: "Upgrade runbooks with rollback and a Sustainment Manual with 12 incident playbooks",
+        tags: ["SPGG/RS"],
       },
       {
         name: "Azure DevOps",
@@ -514,6 +565,18 @@ export const skillCategories: SkillCategory[] = [
         name: "Security tests",
         proof: "IP spoofing, rate limiting, queue retry",
         tags: ["Link Charts"],
+      },
+      {
+        name: "Third-party code review",
+        proof:
+          "Moodle plugins approved or rejected after reading their code, with a cross-course data disclosure fixed in a local patch",
+        tags: ["SPGG/RS"],
+      },
+      {
+        name: "Production change simulation",
+        proof:
+          "Dry-run and rollback scripts — changes simulated on real data before they reach production",
+        tags: ["SPGG/RS"],
       },
       {
         name: "Lint as a gate",
@@ -581,7 +644,7 @@ export const skillCategories: SkillCategory[] = [
         name: "Agent tooling ecosystem",
         proof:
           "Claude Code (skills, subagents, hooks, CLAUDE.md/AGENTS.md), Cursor and GitHub Copilot; spec-driven development with the superpowers workflow (brainstorm → plan → execute); configured MCP servers (Playwright, PostgreSQL, Redis, GitHub, Vercel, Grafana) and git worktrees for isolated agent execution",
-        tags: ["Link Charts"],
+        tags: ["Link Charts", "SPGG/RS"],
         links: [{ label: "Model Context Protocol", url: "https://modelcontextprotocol.io" }],
       },
       {
