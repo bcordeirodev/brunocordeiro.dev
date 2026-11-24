@@ -36,39 +36,9 @@ export const experiences: Experience[] = [
     ],
     projects: [
       {
-        name: "Moodle LMS — Escola de Governo, SPGG/RS (governo do estado do Rio Grande do Sul)",
+        name: "Moodle LMS — Escola de Governo (governo do estado do Rio Grande do Sul)",
         description:
-          "Único desenvolvedor responsável pela plataforma de ensino do governo estadual: 45 mil usuários ativos, mais de 780 cursos e 90 mil matrículas ativas",
-      },
-      {
-        name: "Modernização de versão",
-        description:
-          "Do Moodle 4.0.7 (sem atualização desde 2023) ao 5.1.5 em três upgrades de produção em cinco meses, do PHP 7 ao PHP-FPM 8.2 e ao novo layout de diretório /public, levando 42 plugins de terceiros com zero perda de dados e menos de 3 minutos de indisponibilidade no upgrade do banco",
-      },
-      {
-        name: "Login federado",
-        description:
-          "Login Cidadão RS / gov.br via OAuth2 / OpenID Connect com o CPF como identificador: mais de 31 mil contas vinculadas e 91% de todos os logins dos últimos 12 meses; depois, correção de mudanças na API do provedor (escopos, mapeamento de claims) e de uma falha de state no redirecionamento que impedia o login no Safe Exam Browser",
-      },
-      {
-        name: "Segurança e resposta a incidentes",
-        description:
-          "Alerta de webshell do MDR refutado e campanha de credential stuffing contra contas de alunos tratada sem indisponibilidade e sem nenhum arquivo gravado pelo atacante; MFA para 100% dos administradores do site, deploy de plugins restrito ao pipeline Git e CVEs críticas do PHP corrigidas em produção",
-      },
-      {
-        name: "Novo visual e funcionalidades",
-        description:
-          "Tema Boost Union, editor TinyMCE e Safe Exam Browser para provas supervisionadas; plugins de certificado, formato de curso, acessibilidade e relatórios, aprovados ou rejeitados após revisão de código e simulação em dados reais",
-      },
-      {
-        name: "Manutenção de plugins",
-        description:
-          "Patches locais versionados em PHP e JavaScript (AMD) para plugins de terceiros, incluindo a correção de uma exposição de dados entre cursos, um bug no elemento de data dos certificados e ajustes de compatibilidade com o PHP 8.2",
-      },
-      {
-        name: "Operação e documentação",
-        description:
-          "Git com uma branch por versão do Moodle, runbooks de upgrade com rollback, Manual de Sustentação com 12 playbooks de incidentes e relatórios mensais de sprint; 40 GB de disco liberados e rotação de logs configurada; homologação em Docker com pipeline de validação no GitHub Actions (em andamento)",
+          "Plataforma de ensino do governo estadual (escolaplanejamento.rs.gov.br) com mais de 45 mil usuários, mantida atualizada do Moodle 4.0 ao 5.1 em PHP 8.2 e MariaDB",
       },
     ],
   },

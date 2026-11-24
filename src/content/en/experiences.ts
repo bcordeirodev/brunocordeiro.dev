@@ -36,39 +36,9 @@ export const experiences: Experience[] = [
     ],
     projects: [
       {
-        name: "Moodle LMS — Escola de Governo, SPGG/RS (Rio Grande do Sul state government)",
+        name: "Moodle LMS — Escola de Governo (Rio Grande do Sul state government)",
         description:
-          "Sole developer responsible for the state government's learning platform: 45k active users, 780+ courses and 90k active enrolments",
-      },
-      {
-        name: "Version modernization",
-        description:
-          "Moodle 4.0.7 (untouched since 2023) to 5.1.5 in three production upgrades within five months, from PHP 7 to PHP-FPM 8.2 and the new /public directory layout, carrying 42 third-party plugins with zero data loss and under 3 minutes of database upgrade downtime",
-      },
-      {
-        name: "Federated login",
-        description:
-          "Login Cidadão RS / gov.br through OAuth2 / OpenID Connect with CPF as the identifier: 31k+ linked accounts and 91% of all logins in the last 12 months; later fixed provider API changes (scopes, claim mapping) and a redirect-state issue that blocked login inside Safe Exam Browser",
-      },
-      {
-        name: "Security and incident response",
-        description:
-          "Refuted an MDR webshell alert and handled a credential-stuffing campaign against student accounts with no downtime and no file written by the attacker; MFA for 100% of site administrators, plugin deployment restricted to the Git pipeline and critical PHP CVEs patched in production",
-      },
-      {
-        name: "New look and features",
-        description:
-          "Boost Union theme, TinyMCE editor and Safe Exam Browser for proctored quizzes; certificate, course-format, accessibility and reporting plugins, approved or rejected after code review and simulation on real data",
-      },
-      {
-        name: "Plugin maintenance",
-        description:
-          "Versioned local patches in PHP and JavaScript (AMD) for third-party plugins, including a cross-course data disclosure fix, a certificate date-element bug and PHP 8.2 compatibility fixes",
-      },
-      {
-        name: "Operations and documentation",
-        description:
-          "Git with one branch per Moodle version, upgrade runbooks with rollback, a Sustainment Manual with 12 incident playbooks and monthly sprint reports; 40 GB of disk freed and log rotation set up; Docker-based staging with a GitHub Actions validation pipeline (in progress)",
+          "State government learning platform (escolaplanejamento.rs.gov.br) with 45k+ users, kept up to date from Moodle 4.0 to 5.1 on PHP 8.2 and MariaDB",
       },
     ],
   },

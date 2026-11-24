@@ -243,7 +243,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Moodle",
         proof:
-          "State-government LMS with 45k active users: three production upgrades from 4.0 to 5.1, plus plugin development as versioned patches to third-party plugins",
+          "State-government LMS with 45k+ users, upgraded in production from Moodle 4.0 to 5.1",
         tags: ["SPGG/RS"],
         links: [{ label: "Moodle", url: "https://moodle.org" }],
       },
@@ -274,15 +274,13 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "OAuth2 / OpenID Connect",
-        proof:
-          "Login Cidadão RS / gov.br federated login with CPF as the identifier — 31k+ linked accounts, 91% of all logins in the last 12 months",
+        proof: "Single sign-on between Moodle and Login Cidadão RS / gov.br",
         tags: ["SPGG/RS"],
         links: [{ label: "OpenID Connect", url: "https://openid.net" }],
       },
       {
         name: "MFA",
-        proof:
-          "Multi-factor authentication (Moodle tool_mfa) rolled out to 100% of site administrators",
+        proof: "Multi-factor authentication for Moodle administrators (tool_mfa)",
         tags: ["SPGG/RS"],
       },
       {
@@ -494,8 +492,7 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "PHP-FPM · AppArmor · logrotate",
-        proof:
-          "Production Moodle server on Ubuntu 24.04: move from PHP 7 to PHP-FPM 8.2, AppArmor, log rotation set up and 40 GB of disk freed",
+        proof: "Production Moodle server on Ubuntu 24.04 with PHP-FPM 8.2",
         tags: ["SPGG/RS"],
         links: [
           { label: "PHP-FPM", url: "https://www.php.net/manual/en/install.fpm.php" },
@@ -507,17 +504,6 @@ export const skillCategories: SkillCategory[] = [
         proof: "Antivirus scanning on uploads and server protection on a public-sector platform",
         tags: ["SPGG/RS"],
         links: [{ label: "ClamAV", url: "https://www.clamav.net" }],
-      },
-      {
-        name: "Incident response",
-        proof:
-          "Refuted an MDR webshell alert and handled a credential-stuffing campaign with no downtime and no file written by the attacker",
-        tags: ["SPGG/RS"],
-      },
-      {
-        name: "Runbooks and playbooks",
-        proof: "Upgrade runbooks with rollback and a Sustainment Manual with 12 incident playbooks",
-        tags: ["SPGG/RS"],
       },
       {
         name: "Azure DevOps",
@@ -565,18 +551,6 @@ export const skillCategories: SkillCategory[] = [
         name: "Security tests",
         proof: "IP spoofing, rate limiting, queue retry",
         tags: ["Link Charts"],
-      },
-      {
-        name: "Third-party code review",
-        proof:
-          "Moodle plugins approved or rejected after reading their code, with a cross-course data disclosure fixed in a local patch",
-        tags: ["SPGG/RS"],
-      },
-      {
-        name: "Production change simulation",
-        proof:
-          "Dry-run and rollback scripts — changes simulated on real data before they reach production",
-        tags: ["SPGG/RS"],
       },
       {
         name: "Lint as a gate",

@@ -243,7 +243,7 @@ export const skillCategories: SkillCategory[] = [
       {
         name: "Moodle",
         proof:
-          "LMS de governo estadual com 45 mil usuários ativos: três upgrades de produção do 4.0 ao 5.1 e desenvolvimento de plugins na forma de patches versionados em plugins de terceiros",
+          "LMS de governo estadual com mais de 45 mil usuários, atualizado em produção do Moodle 4.0 ao 5.1",
         tags: ["SPGG/RS"],
         links: [{ label: "Moodle", url: "https://moodle.org" }],
       },
@@ -274,15 +274,13 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "OAuth2 / OpenID Connect",
-        proof:
-          "Login federado com Login Cidadão RS / gov.br e CPF como identificador — mais de 31 mil contas vinculadas, 91% de todos os logins dos últimos 12 meses",
+        proof: "Login único entre o Moodle e o Login Cidadão RS / gov.br",
         tags: ["SPGG/RS"],
         links: [{ label: "OpenID Connect", url: "https://openid.net" }],
       },
       {
         name: "MFA",
-        proof:
-          "Autenticação multifator (tool_mfa do Moodle) ativada para 100% dos administradores do site",
+        proof: "Autenticação multifator para administradores do Moodle (tool_mfa)",
         tags: ["SPGG/RS"],
       },
       {
@@ -496,8 +494,7 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "PHP-FPM · AppArmor · logrotate",
-        proof:
-          "Servidor Moodle de produção em Ubuntu 24.04: saída do PHP 7 para o PHP-FPM 8.2, AppArmor, rotação de logs configurada e 40 GB de disco liberados",
+        proof: "Servidor Moodle de produção em Ubuntu 24.04 com PHP-FPM 8.2",
         tags: ["SPGG/RS"],
         links: [
           { label: "PHP-FPM", url: "https://www.php.net/manual/en/install.fpm.php" },
@@ -509,18 +506,6 @@ export const skillCategories: SkillCategory[] = [
         proof: "Antivírus nos uploads e proteção do servidor em plataforma do setor público",
         tags: ["SPGG/RS"],
         links: [{ label: "ClamAV", url: "https://www.clamav.net" }],
-      },
-      {
-        name: "Resposta a incidentes",
-        proof:
-          "Alerta de webshell do MDR refutado e campanha de credential stuffing tratada sem indisponibilidade e sem nenhum arquivo gravado pelo atacante",
-        tags: ["SPGG/RS"],
-      },
-      {
-        name: "Runbooks e playbooks",
-        proof:
-          "Runbooks de upgrade com rollback e Manual de Sustentação com 12 playbooks de incidentes",
-        tags: ["SPGG/RS"],
       },
       {
         name: "Azure DevOps",
@@ -567,18 +552,6 @@ export const skillCategories: SkillCategory[] = [
         name: "Testes de segurança",
         proof: "IP spoofing, rate limit, retry de fila",
         tags: ["Link Charts"],
-      },
-      {
-        name: "Revisão de código de terceiros",
-        proof:
-          "Plugins do Moodle aprovados ou rejeitados após leitura do código, com uma exposição de dados entre cursos corrigida em patch local",
-        tags: ["SPGG/RS"],
-      },
-      {
-        name: "Simulação de mudanças em produção",
-        proof:
-          "Scripts de dry-run e rollback — mudanças simuladas em dados reais antes de chegarem à produção",
-        tags: ["SPGG/RS"],
       },
       {
         name: "Lint como gate",
